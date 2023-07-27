@@ -1,0 +1,21 @@
+<div class="mt-6- text-gray-500 flex-- dark:bg-black dark:text-white w-full ">
+  <div class="flex flex-col">
+
+    <div class="p-5 w-full">
+      <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+        Anfitrión y administradores
+      </h2>
+
+      <%= link_to "New User", 
+        new_event_event_host_path(@event), 
+        class: "button-large-outline",
+        data: { turbo_frame: 'modal' } 
+      %>
+
+      <ul role="list" id="event-hosts-list" class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <%= render partial: "event_hosts/event_host", collection: @event.event_hosts, as: :event_host %>
+      </ul>
+    </div>
+
+  </div>
+</div>

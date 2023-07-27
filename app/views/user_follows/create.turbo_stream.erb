@@ -1,0 +1,7 @@
+<%= turbo_stream.replace("follows_button") do %>
+  <%= render "user_follows/follow_button", user: @user %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

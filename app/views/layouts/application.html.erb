@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="dark">
+  <head>
+    <title>RauversionRor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body class="dark:bg-gray-900 dark:text-white font-sans antialiased">
+    <%= render "shared/user_menu" %>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+
+    <div id="cart-counter" data-turbo-permanent>
+      <% if Track.last.present? %>
+        <%= render "shared/player", track: Track.last, slideover:nil %>
+      <% end %>
+    </div>
+
+    <div class="flash">
+      <%= render "shared/flash" %>
+    </div>
+
+    <%= turbo_frame_tag "modal" %>
+
+    <% 
+    # live_render(@conn, RauversionWeb.TrackLive.Player,
+    #  id: "global-main-player",
+    #  session: %{},
+    #  sticky: true
+    #
+     %>
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    
+    <script
+      data-turbo="false"
+      src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=dispatchMapsEvent&libraries=places&v=weekly"
+      defer
+    >
+    </script>
+
+    <%= render("shared/footer", assigns) %>
+
+    <% if ENV["GOOGLE_ANALYTICS_ID"] %>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-S5CQZMGV0S">
+      </script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<%= ENV["GA_ID"] %>');
+      </script>
+    <% end %>
+
+  </body>
+</html>

@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components {
+
+  .aaa {
+    @apply bg-white;
+  }
+
+
+
+  textarea {
+    @apply block w-full rounded-md border-0 py-1.5 dark:bg-gray-900 dark:text-gray-100 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6
+  }
+
+  .select, select {
+    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+  }
+
+  label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 sm:mt-px sm:pt-2;
+  }
+
+  input[type=number]{
+    @apply block w-full rounded-md border-0 px-3 pl-3 dark:bg-gray-900 dark:text-gray-100 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+  }
+
+  input[type=date], input[type=datetime-local]{
+    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+  }
+
+  input[type=text], input[type=email], input[type=password]{
+    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+  }
+
+  select {
+    @apply shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-900 dark:text-gray-100;
+  }
+
+  label {
+    @apply block text-gray-700 dark:text-white text-sm font-bold mb-1;
+  }
+
+  input[type="submit"]{
+    @apply cursor-pointer rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+  }
+
+
+  /* .my-react-select-container {
+      oijoijoij
+  } */
+  .my-react-select-container .my-react-select__control {
+    @apply bg-white dark:bg-neutral-700 border-2 border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500;
+  }
+
+  .my-react-select-container .my-react-select__control--is-focused {
+    @apply border-neutral-500 hover:border-neutral-500 dark:border-neutral-400 dark:hover:border-neutral-400 shadow-none;
+  }
+
+  .my-react-select-container .my-react-select__menu {
+    @apply bg-neutral-100 dark:bg-neutral-700 border-2 border-neutral-300 dark:border-neutral-600;
+  }
+
+  .my-react-select-container .my-react-select__option {
+    @apply text-neutral-600 dark:text-neutral-200 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-800;
+  }
+
+  /* .my-react-select-container .my-react-select__option--is-focused {
+    @apply bg-neutral-200 dark:bg-neutral-800;
+  } */
+
+  .my-react-select-container .my-react-select__indicator-separator {
+    @apply bg-neutral-400;
+  }
+
+  .my-react-select-container .my-react-select__input-container,
+  .my-react-select-container .my-react-select__placeholder,
+  .my-react-select-container .my-react-select__single-value {
+    @apply text-neutral-600 dark:text-neutral-200;
+  }
+
+
+  .button {
+    @apply space-x-1 inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-900 shadow-sm text-xs font-medium rounded text-gray-700 bg-white dark:text-gray-300 dark:bg-black  hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-indigo-900;
+  }
+
+
+
+  .button-active {
+    @apply space-x-1 inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-900 shadow-sm text-xs font-medium rounded text-gray-700 bg-white dark:text-brand-300 dark:bg-black  hover:bg-brand-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-brand-900;
+  }
+
+  .button-large-selected {
+    @apply inline-flex items-center px-4 py-2 border border-brand-300 shadow-sm text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-900 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+  }
+
+  .button-large {
+    @apply inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500;
+  }
+
+  .button-large-outline {
+    @apply inline-flex justify-between dark:border-2 dark:border-white rounded-lg py-3 px-5 bg-black text-white block font-medium;
+  }
+
+  .player-button {
+    @apply relative inline-flex items-center px-2 py-2
+          rounded-full text-black
+          bg-white text-sm font-medium
+          smooth-grow
+          focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-700 focus:border-gray-400;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .smooth-color {
+    @apply transition-colors duration-500 ease-in-out;
+  }
+
+  .smooth-grow {
+    @apply transform transition duration-200 ease-in-out hover:scale-110;
+  }
+
+  .group-hover {
+    @apply relative hover:bg-gray-800 p-2 rounded-md smooth-color;
+  }
+
+
+  .tab-active {
+    @apply border-brand-500 text-brand-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium;
+  }
+
+  .tab-default {
+    @apply border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium;
+  }
+
+}

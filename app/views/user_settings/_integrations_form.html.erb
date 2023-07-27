@@ -1,0 +1,56 @@
+    <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+      <h1 class="text-3xl font-extrabold text-blue-gray-900">Integrations</h1>
+
+      <div class="py-6">
+        <h2 class="text-gray-500 dark:text-gray-300 text-sm font-medium">
+          Your integrations
+        </h2>
+        <ul data-turbo="false" role="list" class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          
+          <% @user.oauth_credentials.each do |integration| %>
+            <li class="col-span-1 flex shadow-sm rounded-md">
+              <div class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
+                <%= integration.provider %>
+              </div>
+              <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 rounded-r-md truncate">
+                <div class="flex-1 px-4 py-2 text-sm truncate" data-turbo="true">
+                  <%= link_to "revoke", 
+                    user_integration_path(current_user.username, integration.id), method: :destroy, 
+                    class: "text-red-900 dark:text-red-100 font-medium hover:text-red-600 dark:hover:text-red-400" ,
+                    data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} 
+                  %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="py-6">
+        <h2 class="text-gray-500 dark:text-gray-300 text-sm font-medium">
+          Add integrations
+        </h2>
+        <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+          <% User.omniauth_providers.each do |provider| %>
+            <% unless @user.oauth_credentials.map(&:provider).include?(provider.to_s) %>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex-shrink-0 flex items-center justify-center w-16 bg-gray-600 text-white text-sm font-medium rounded-l-md">
+                  <%= provider.to_s.titleize %>
+                </div>
+                <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 rounded-r-md truncate">
+                  <div class="flex-1 px-4 py-2 text-sm truncate">
+                    <%= form_tag(omniauth_authorize_path(User, provider), method: 'post', "data-turbo": false) do %>
+                      <button type='submit' class="text-brand-900 dark:text-brand-600 font-medium hover:text-brand-600 dark:hover:text-brand-400">
+                        Add
+                      </button>
+                    <% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+          
+        </ul>
+      </div>
+    </div>

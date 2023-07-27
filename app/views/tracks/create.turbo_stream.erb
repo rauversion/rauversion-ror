@@ -1,0 +1,25 @@
+<%= turbo_stream.update "track-form" do %>
+  
+  <% if @track.step == "info" %>
+    <%= form_with model: @track, class: 'direct-upload' do |form| %>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+
+      <%= form.text_field :audio, value: form.object.audio.signed_id %>
+
+      <div id="progress">
+        <div id="bar"></div>
+      </div>
+
+      <%= form.submit %>
+    <% end %>
+  <% end %>
+
+
+  <% if @track.step == "share" %>
+    
+    SHARROOOOON
+  <% end %>
+
+
+<% end %>

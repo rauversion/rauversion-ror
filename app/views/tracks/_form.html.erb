@@ -1,0 +1,292 @@
+<%= form_for @track, html: {class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800" } do |form| %>
+  <div>
+    <div class="sm:hidden">
+      <label for="tabs" class="sr-only">Select a tab</label>
+      <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+      <select id="tabs" name="tabs" class="block w-full focus:ring-brand-500 focus:border-brand-500 border-gray-300 rounded-md">
+        <option>Información básica</option>
+        <option>Metadatos</option>
+        <option selected="">Permisos</option>
+        <option>Compartir</option>
+      </select>
+    </div>
+
+    <%= form.hidden_field :tab %>
+
+    <% tabs = [
+            {title: "Información básica", tab: "basic-info-tab"},
+            {title: "Metadatos",tab: "metadata-tab"},
+            {title: "Precios", tab: "pricing-tab"},
+            {title: "Permisos", tab: "permissions-tab"},
+            {title: "Compartir", tab: "share-tab"}
+          ]
+        %>
+    <%= tabs.find{|o| o[:tab] == @tab}[:title] %>
+
+
+    <div class="hidden sm:block">
+      <nav class="flex space-x-4" aria-label="Tabs" data-controller="tabs">
+        <% tabs.each do |tab| %>
+          <%= link_to tab[:title], edit_track_path(@track, tab: tab[:tab]), 
+            class:"#{@tab == tab[:tab] ? "bg-brand-700 text-brand-100" : "text-brand-700" } tab-link px-3 py-2 font-medium text-sm rounded-md" 
+          %> 
+        <% end %>
+      </nav>
+
+      <% if @tab == "basic-info-tab" %>
+      <div id="basic-info" class="tab-pane block">
+        <div class="pt-8 space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+          <div>
+            <div>
+              <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100"> Editar Pista </h3>
+              <p class="mt-1 max-w-2xl text-sm text-gray-500"> Esta información se mostrará públicamente, así que tenga cuidado con lo que comparta. </p>
+            </div>
+            <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
+              <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                <%= form.label :title %>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                  <div class="max-w-lg flex rounded-md shadow-sm">
+                    <%= form.text_field :title, label: false %>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                <%= form.label :tags %>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                  <div class="max-w-lg flex- rounded-md shadow-sm">
+                    <div phx-update="ignore" id="ignore-tags-">
+                      <div data-controller="select" id="oe">
+                        <div class="select-wrapper">
+                          <%= form.select :tags, Category::Genres.plain , class: "hidden text-gray-800", multiple: true%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                <%= form.label :description %>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                  <div class="max-w-lg flex rounded-md shadow-sm">
+                    <%= form.text_area :description, label: false %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                <label for="cover-photo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 sm:mt-px sm:pt-2"> Foto de portada </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                  <div class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" phx-drop-target="phx-F3TnwGtS25Ej5TPB">
+                    <div class="space-y-1 text-center justify-center">
+                      <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                      <div class="flex text-sm text-gray-600 py-3 justify-center">
+                        <label class="relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500">
+                          <span>Subir portada de una pista</span>
+                           <div data-controller="upload">
+                            <%= form.file_field :cover, direct_upload: true,
+                              data: { upload_target: "input",
+                                      action:        "change->upload#uploadFile" } %>
+                            <div data-upload-target="progress"></div>
+                          </div>
+
+                          <input id="phx-F3TnwGtS25Ej5TPB" type="file" name="cover" accept=".jpg,.jpeg,.png" data-phx-hook="Phoenix.LiveFileUpload" data-phx-update="ignore" data-phx-upload-ref="phx-F3TnwGtS25Ej5TPB" data-phx-active-refs="" data-phx-done-refs="" data-phx-preflighted-refs="" class="hidden">
+                        </label>
+                        <p class="pl-1">o arrastre y suelte</p>
+                      </div>
+                      <div></div>
+                      <p class="text-xs text-gray-500"> PNG, JPG, GIF hasta 10MB </p>
+                      <div class="mt-8 sm:w-full sm:max-w-md xl:mt-0 py-4">
+                        <label for="prompt" class="relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500"> O generar la imagen con IA </label>
+                        <div class="flex items-center justify-center space-x-3 my-4">
+                          <div>
+                            <input class="bg-black w-full rounded-md border-white px-2 py-1 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-700" id="edit-track-form-178_prompt" name="track[prompt]" phx-keyup="set-prompt" phx-target="8" placeholder="Bits on fire" type="text">
+                          </div>
+                          <button type="button" phx-click="generate-prompt" phx-target="8" class="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-brand-500 px-1 py-1 text-base font-medium text-white shadow hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-700 sm:mt-0 sm:ml-3 sm:w-auto sm:flex-shrink-0"> generar imagen </button>
+                        </div>
+                        <p class="mt-3 text-sm text-brand-200"> Utilizamos DALL-E de Open AI para generar imágenes
+                          <!-- space -->
+                          <a href="https://openai.com/dall-e-2/" target="blank" class="font-medium text-white underline"> leer más. </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                <%= form.label :privacy%>
+                <div class="flex-col space-y-3">
+                  <div class="flex space-x-2 items-center">
+                    <%= form.radio_button :private, false, label: "Public" %> 
+                  </div>
+                  <div class="flex space-x-2 items-center">
+                    <%= form.radio_button :private, true, label: "Private" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+    <% if @tab == "metadata-tab" %>
+      <div id="metadata" class="tab-pane">
+        <div class="pt-8">
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100"> Información de metadatos </h3>
+            <p class="mt-1 text-sm text-gray-500"> Cambiar la información del correo electrónico </p>
+          </div>
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.label :genre %>
+                <%= form.select :genre, Category::Genres.categories %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.label :contains_music %>
+                <%= form.select :contains_music, ["Yes", "No"] %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :artist %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :publisher %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :isrc %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :composer %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :release_title %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <div class="mt-1">
+                <%= form.text_field :buy_link %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :album_title %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :record_label %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.label :release_date %>
+                <%= form.date_field :release_date %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <div class="mt-1">
+                <%= form.text_field :barcode %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.text_field :iswc %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <div class="mt-1">
+                <%= form.text_field :p_line %>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div class="mt-1">
+                <%= form.label :contains_explicit_content %>
+                <%= form.select :contains_music, ["Yes", "No"] %>
+              </div>
+            </div>
+          </div>
+          <div class="my-4 py-4 border-t flex space-x-4 items-center">
+            <div class="space-x-2 flex items-center">
+              <input id="edit-track-form-178_metadata_copyright_all_rights" name="track[metadata][copyright]" type="radio" value="all-rights">
+              <label for="edit-track-form-178_metadata_Todos los derechos reservados">Todos los derechos reservados</label>
+            </div>
+            <div class="space-x-2 flex items-center">
+              <input id="edit-track-form-178_metadata_copyright_common" name="track[metadata][copyright]" type="radio" value="common">
+              <label for="edit-track-form-178_metadata_Creative commons">Creative commons</label>
+              <div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @tab == "permissions-tab" %>
+      <div id="permissions" class="tab-pane">
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <% Track.permission_definitions.each do |definition| %>
+            <div class="sm:col-span-2">
+              <%= form.check_box definition[:name], hint: definition[:checked_hint] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @tab == "share-tab" %>
+      <div id="share" class="tab-pane"> compartir controles </div>
+    <% end %>
+
+    <% if @tab == "pricing-tab" %>
+      <div id="pricing" class="tab-pane">
+        <div class="pt-8">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100"> Cambiar la información del correo electrónico </h3>
+          <p class="mt-1 text-sm text-gray-500"> Cambiar la información del correo electrónico </p>
+        </div>
+        <input id="edit-track-form-178_metadata_id" name="track[metadata][id]" type="hidden" value="0ac23c39-f1be-4b95-a32d-2877a0a600fb">
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            <div class="mt-1">
+              <%= form.text_field :price, label: :price %>
+            </div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300"> $0 o más. Aplicamos una comisión de %3 cuando el precio sea superior a $0. La cuota se limitará al monto total del pago </p>
+          </div>
+          <div class="sm:col-span-4">
+            <div class="flex items-center space-x-2 py-2">
+              <div class="flex space-x-1 items-center">
+                <%= form.check_box :name_your_price, label: "Let fans pay more if they want" %>
+              </div>
+              <div class="flex flex-col">
+                <p class="text-xs text-gray-500 dark:text-gray-300"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    </div>
+  </div>
+  <div class="pt-5">
+    <div class="flex justify-center">
+      <a href="#" class="bg-white dark:bg-black py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" navigste="/"> Cancelar </a>
+      <button class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" phx-disable-with="Guardando..." type="submit">Guardar</button>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,49 @@
+<div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+  <% if @user.is_creator? %>
+    <h1 class="text-3xl font-extrabold text-blue-gray-900">
+      <%= gettext("Transbank Commerce Settings") %>
+    </h1>
+
+    <%= form_for @user, url: user_setting_path(@user.username, :transbank), 
+    class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800" do |form| %>
+      <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+        <div class="sm:col-span-6">
+          <h2 class="text-xl font-medium text-blue-gray-900">
+            <%= gettext("Transbank Commerce code") %>
+          </h2>
+          <p class="mt-1 text-sm text-blue-gray-500">
+            <%= gettext("Código transbank de producción de 12 dígitos") %>
+          </p>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.text_field :tbk_commerce_code %>
+        </div>
+
+        <div class="sm:col-span-6 relative flex items-start">
+          <div class="absolute flex h-5 items-center">
+              <%= form.check_box :pst_enabled %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6 relative flex items-start">
+          <div class="absolute flex h-5 items-center">
+            <%= form.check_box :tbk_test_mode, label: gettext("Test mode") %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex justify-end space-x-2">
+        <%= form.submit gettext("Change Transbank information"),
+          class:
+            "bg-white py-2 px-4 border border-gray-300 dark:text-blue-gray-100 dark:bg-gray-900 rounded-md shadow-sm text-sm font-medium text-blue-gray-900 hover:bg-blue-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render "shared/blocked_view", title: gettext("Transbank not allowed"),
+      subtitle: gettext("Transbank accounts are not allowed on your account type"),
+      description: gettext("Please send us an email showing us your work"),
+      cta: gettext("Request an artist account") %>
+  <% end %>
+</div>

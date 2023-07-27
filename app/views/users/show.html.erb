@@ -1,0 +1,247 @@
+<div class="sm:h-64 h-24 bg-black sticky top-0 z-40 sm:relative" data-phx-component="1" id="phx-F3Thph2Pk8w3cjBh-1-0">
+  <div class="flex justify-between bg-cover bg-center" style="background: url('<%= image_url(@user.profile_header_url(:medium)) %>')">
+    <div class="flex">
+      <div class="m-4">
+        <%= image_tag current_user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
+      </div>
+      <div class="text-white sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
+        <p class="sm:text-3xl text-lg font-extrabold bg-black p-1 inline-block"> <%= @user.username %> </p>
+        <p class="sm:text-lg text-xs font-light bg-black p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
+        <p class="sm:text-lg text-xs font-light bg-black p-1 inline-block"> <%= @user.country %> <%= @user.city %> </p>
+      </div>
+    </div>
+    <div class="hidden">bjkkjk</div>
+  </div>
+</div>
+
+
+<div class="relative dark:bg-black" data-phx-component="2" id="phx-F3Thph2Pk8w3cjBh-2-0">
+  <div class="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true"></div>
+  <div class="z-20 sticky top-0">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
+      <div class="hidden md:flex-1 md:flex md:items-center md:justify-between">
+        <nav class="flex space-x-10">
+          <% menu = [
+            {to: "", name: "all"},
+            {to: user_tracks_path(@user.username), name: "tracks"},
+            {to: user_playlists_path(@user.username), name: "playlists"},
+            {to: user_albums_path(@user.username), name: "albums"},
+            {to: user_reposts_path(@user.username), name: "reposts"},
+          ]%>
+
+          <% menu.each do |item| %>
+            <%= link_to item[:name], item[:to], class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
+          <% end %>
+          <!--
+          <a href="#" ,="" class="text-base font-medium border-b border-b-4 text-gray-800 hover:text-gray-900 border-brand-500 dark:text-gray-200 dark:hover:text-gray-100 dark:border-brand-300 " data-cy="profile-menu-#{name}" id="profile-menu-#{name}" to="/michelson">All </a>
+          -->
+        </nav>
+        <div class="flex items-center md:ml-12">
+          <% if @user.id != current_user&.id %>
+            <%= render "user_follows/follow_button", user: @user %>
+          <% else %>
+            <a href="/michelson/insights" data-phx-link="redirect" data-phx-link-state="push" class="text-base font-medium text-gray-500 hover:text-gray-900  dark:text-gray-300 dark:hover:text-gray-100">Tus estadísticas </a>
+            <a href="/users/settings" data-phx-link="redirect" data-phx-link-state="push" class="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-600 hover:bg-gray-700"> Editar perfil </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="flex">
+
+  <div class="flex-grow dark:bg-black dark:text-white">
+
+    <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+      <section class="">
+        <div class="border-r-2--">
+          <div class="px-4 py-5 sm:px-6">
+            <div class="flex justify-between items-center">
+              <h1 class="font-bold text-4xl">all</h1>
+
+
+              <a href="/tracks/new" data-phx-link="redirect" data-phx-link-state="push" class="button-large-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span>Nueva pista</span>
+              </a>
+              
+            </div>
+          </div>
+        </div>
+        <div>
+
+          <div 
+            class="min-w-full"
+            data-controller="infinite-pagination" 
+            data-infinite-pagination-target="entries"
+            data-turbo="true">
+
+            <%= turbo_frame_tag "paginated-list", class: 'flex flex-col-reverse' do %>
+              <%= render partial: @section, collection: @collection, as: @as %>
+            <% end %>
+
+            <div class="invisible h-1" data-infinite-pagination-target="pagination">
+              <%= render partial: 'item_pagination' %>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="hidden w-2/5 xl:block xl:col-span-4 bg-gray-50 dark:bg-black">
+    <div class="sticky top-4 space-y-4 p-4 ">
+      <div class="p-4 border-l-1 border-l-gray-50 dark:border-l-gray-800">
+        <div class="grid grid-cols-3 divide-x dark:divide-gray-700" data-phx-component="4" id="phx-F3Thph2Pk8w3cjBh-4-0">
+          <div class="p-4">
+            <p class="text-base font-medium text-gray-900 dark:text-gray-100"> Siguiendo </p>
+            <span class="text-base font-normal text-gray-500 dark:text-gray-200 text-xl ">
+              <%= link_to @user.followees(User).count, user_followees_path(@user.username) %>
+            </span>
+          </div>
+          <div class="p-4">
+            <p class="text-base font-medium text-gray-900 dark:text-gray-100"> Seguidores </p>
+            <span class="text-base font-normal text-gray-500 dark:text-gray-200 text-xl ">
+              <%= link_to @user.followers(User).count, user_followers_path(@user.username) %>
+            </span>
+          </div>
+          <div class="p-4">
+            <p class="text-base font-medium text-gray-900 dark:text-gray-100">Pistas</p>
+            <span class="text-base font-normal text-gray-500 dark:text-gray-200 text-xl "> 
+              <%= @user.tracks.size %> 
+            </span>
+          </div>
+        </div>
+      </div>
+      <p class="font-normal text-sm"> <%= @user.bio %> </p>
+      <section aria-labelledby="who-to-follow-heading">
+        <section aria-labelledby="who-to-follow-heading" data-phx-component="5" id="phx-F3Thph2Pk8w3cjBh-5-0">
+          <div class="border-t dark:border-gray-800">
+            <div class="p-6">
+              <h2 id="who-to-follow-heading" class="text-base font-medium text-gray-900 dark:text-gray-100"> A quién seguir </h2>
+              <div class="mt-6 flow-root">
+                <ul role="list" class="-my-4 divide-y divide-gray-200 dark:divide-gray-800 dark:divide-gray-800">
+                  <li class="flex items-center py-4 space-x-3">
+                    <div class="flex-shrink-0">
+                      <img class="h-8 w-8 rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNzMiLCJwdXJwb3NlIjpudWxsfQ.fHwGgHDbBjpGzXII1AsWWAdr5iBR2ZB0hDfu8FPB_PU/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCI1MHg1MFwifSIsInB1cnBvc2UiOm51bGx9.viaNmiCT00hFa4f_YDsAfi-RLFungTF-sfQ8W57IMLI/rodi_03.jpg">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <a href="/ro%CC%81di" data-phx-link="redirect" data-phx-link-state="push"> Rodion Nikitin </a>
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        <a href="/ro%CC%81di" data-phx-link="redirect" data-phx-link-state="push"> ródi </a>
+                      </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <a class="inline-flex items-center px-3 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900" href="#" phx-click="follow-account" phx-target="5" phx-value-id="20">
+                        <svg class="-ml-1 mr-0.5 h-5 w-5 text-brand-400" x-description="Heroicon name: solid/plus-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span> Seguir </span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="flex items-center py-4 space-x-3">
+                    <div class="flex-shrink-0">
+                      <img class="h-8 w-8 rounded-full" src="/images/daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn-a70e44c82220aeca57dd78f32d156b61.png?vsn=d">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <a href="/dylanmc6" data-phx-link="redirect" data-phx-link-state="push"> Dylan McConnaughey </a>
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        <a href="/dylanmc6" data-phx-link="redirect" data-phx-link-state="push"> dylanmc6 </a>
+                      </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <a class="inline-flex items-center px-3 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900" href="#" phx-click="follow-account" phx-target="5" phx-value-id="178">
+                        <svg class="-ml-1 mr-0.5 h-5 w-5 text-brand-400" x-description="Heroicon name: solid/plus-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span> Seguir </span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="flex items-center py-4 space-x-3">
+                    <div class="flex-shrink-0">
+                      <img class="h-8 w-8 rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNDkxIiwicHVycG9zZSI6bnVsbH0.xDkppmrnhzTTQFzPTQvUWfrtpt0dSMVl3uaDEdx6hNU/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCI1MHg1MFwifSIsInB1cnBvc2UiOm51bGx9.viaNmiCT00hFa4f_YDsAfi-RLFungTF-sfQ8W57IMLI/WhatsApp Image 2020-10-14 at 20.04.07.jpeg">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <a href="/rojasa" data-phx-link="redirect" data-phx-link-state="push"> rodrigo jara </a>
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        <a href="/rojasa" data-phx-link="redirect" data-phx-link-state="push"> rojasa </a>
+                      </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <a class="inline-flex items-center px-3 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900" href="#" phx-click="follow-account" phx-target="5" phx-value-id="89">
+                        <svg class="-ml-1 mr-0.5 h-5 w-5 text-brand-400" x-description="Heroicon name: solid/plus-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span> Seguir </span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="flex items-center py-4 space-x-3">
+                    <div class="flex-shrink-0">
+                      <img class="h-8 w-8 rounded-full" src="/images/daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn-a70e44c82220aeca57dd78f32d156b61.png?vsn=d">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <a href="/Borjesson" data-phx-link="redirect" data-phx-link-state="push"></a>
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        <a href="/Borjesson" data-phx-link="redirect" data-phx-link-state="push"> Borjesson </a>
+                      </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <a class="inline-flex items-center px-3 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900" href="#" phx-click="follow-account" phx-target="5" phx-value-id="57">
+                        <svg class="-ml-1 mr-0.5 h-5 w-5 text-brand-400" x-description="Heroicon name: solid/plus-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span> Seguir </span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="flex items-center py-4 space-x-3">
+                    <div class="flex-shrink-0">
+                      <img class="h-8 w-8 rounded-full" src="/images/daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn-a70e44c82220aeca57dd78f32d156b61.png?vsn=d">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <a href="/wrongguy" data-phx-link="redirect" data-phx-link-state="push"></a>
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        <a href="/wrongguy" data-phx-link="redirect" data-phx-link-state="push"> wrongguy </a>
+                      </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <a class="inline-flex items-center px-3 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900" href="#" phx-click="follow-account" phx-target="5" phx-value-id="167">
+                        <svg class="-ml-1 mr-0.5 h-5 w-5 text-brand-400" x-description="Heroicon name: solid/plus-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span> Seguir </span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="mt-6 hidden">
+                <a href="#" class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50  dark:text-gray-300 dark:bg-black dark:hover:bg-gray-900"> Ver todo </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </div>
+
+</div>

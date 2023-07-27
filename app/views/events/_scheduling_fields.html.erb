@@ -1,0 +1,26 @@
+
+<div class="nested-fields sm:col-span-6 mt-6 p-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 dark:bg-gray-700 rounded-md border-2 border-white"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.hidden_field :_destroy %>
+
+  <div class="sm:col-span-6">
+    <%= form.text_field(:name) %>
+  </div>
+  <div class="sm:col-span-6">
+    <%= form.datetime_field(:start_date) %>
+  </div>
+  <div class="sm:col-span-6">
+    <%= form.datetime_field(:end_date,  wrapper_class: "sm:col-span-6") %>
+  </div>
+  <div class="sm:col-span-6">
+    <%= form.text_area( :short_description, wrapper_class: "sm:col-span-6") %>
+  </div>
+  <button
+    type="button"
+    class="inline-flex justify-center items-center dark:border-2 dark:border-red-600 rounded-lg py-2 px-2 bg-black text-red-600 block text-sm"
+    data-action="click->nested-form#remove_association"
+  >
+    Delete scheduling
+  </button>
+</div>

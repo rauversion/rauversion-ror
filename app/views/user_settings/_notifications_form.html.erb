@@ -1,0 +1,50 @@
+<%
+  notification_inputs = [
+    {name: :new_follower_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :new_follower_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :repost_of_your_post_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :repost_of_your_post_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :new_post_by_followed_user_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :new_post_by_followed_user_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {
+      name: :like_and_plays_on_your_post_email,
+      type: :checkbox,
+      wrapper_class: "sm:col-span-6"
+    },
+    {name: :like_and_plays_on_your_post_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :comment_on_your_post_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :comment_on_your_post_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :suggested_content_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :suggested_content_app, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :new_message_email, type: :checkbox, wrapper_class: "sm:col-span-6"},
+    {name: :new_message_app, type: :checkbox, wrapper_class: "sm:col-span-6"}
+  ] 
+%>
+
+<div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+  <h1 class="text-3xl font-extrabold text-blue-gray-900">Change Notifications</h1>
+
+  <%= form_for @user, url: user_setting_path(@user.username, :notifications), 
+  class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800" do |form| %>
+    
+    <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+      <div class="sm:col-span-6">
+        <h2 class="text-xl font-medium text-blue-gray-900"><%= gettext("Notifications") %></h2>
+        <p class="mt-1 text-sm text-blue-gray-500"><%= gettext("Notification settings.") %></p>
+      </div>
+
+      <% notification_inputs.each do |input| %>
+        <div class="sm:col-span-6">
+          <%= form.check_box input[:name] %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pt-8 flex justify-end space-x-2">
+      <%= form.submit gettext("Update Notifications"),
+        class:
+          "bg-white py-2 px-4 border border-gray-300 dark:text-blue-gray-100 dark:bg-gray-900 rounded-md shadow-sm text-sm font-medium text-blue-gray-900 hover:bg-blue-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      %>
+    </div>
+  <% end %>
+</div>

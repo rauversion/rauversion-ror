@@ -1,0 +1,12 @@
+<div id="tracks-info" class="tab-pane block">
+  <ul role="list" class="my-5 divide-y divide-gray-200 dark:divide-gray-800 my-4">
+    <div data-controller="nested-form" class="py-6">
+      <%= hidden_field_tag :t, params[:t] %>
+      <ul role="list" class="-my-5 divide-y divide-gray-200 dark:divide-gray-800">
+        <%= form.fields_for :track_playlists do |link| %>
+          <%= render "track_fields", form: link %>
+        <% end %>
+      </ul>
+    </div>
+  </ul>
+</div>

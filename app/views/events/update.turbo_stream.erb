@@ -1,0 +1,11 @@
+<%= turbo_stream.update("event_form") do %>
+  <% if @section %>
+    <%= render "events/#{@section}_form", user: @user %>
+  <% else %>
+    <%= render "events/form", user: @user %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

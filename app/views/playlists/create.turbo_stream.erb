@@ -1,0 +1,15 @@
+<%= turbo_stream.update("playlist-form") do %>
+  <% if @playlist.errors.any? %>
+    <%= render "form" %>
+  <% else %>
+    <h3 class="text-2xl p-4">kk</h3>
+      <div class="p-4 border border-gray-800">
+        <%= link_to "Go to playlist", playlist_path(@playlist) %>
+      </div>
+    </h3>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

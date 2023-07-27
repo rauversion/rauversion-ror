@@ -1,0 +1,7 @@
+<%= turbo_stream.update("repost-frame-item-#{@track.id}") do %>
+  <%= render "repost_button", track: @track, button_class: @button_class %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

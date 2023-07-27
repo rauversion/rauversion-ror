@@ -1,0 +1,26 @@
+<div class="m-4">
+  <div class="my-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+        <%= gettext("Event Recordings") %>
+      </h2>
+
+      <p class="my-3 text-xl text-gray-500 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 sm:mt-4">
+        <%= gettext("Add Event recordings from Twitch, Youtube etc...") %>
+      </p>
+
+      <%= link_to gettext("Add new event recording"), 
+        new_event_event_recording_path(@event), 
+        class: "button-large-outline",
+        data: { turbo_frame: 'modal' } 
+      %>
+
+    </div>
+  </div>
+
+
+  <ul role="list" id="event-recording-list" 
+    class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+    <%= render partial: "event_recordings/event_recording", collection: @event.event_recordings, as: :event_recording %>
+  </ul>
+</div>

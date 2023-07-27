@@ -1,0 +1,18 @@
+class RepostsController < ApplicationController
+
+  def create
+    @track = Track.friendly.find(params[:track_id])
+    if reposts = current_user.reposts.where(track: @track) and reposts.any?
+      reposts.delete_all
+      @button_class = "button"
+    else
+      @button_class = "button-active"
+      @repost = current_user.reposts.create(track: @track)
+      if @repost.errors.blank?
+        flash[:now] = "Reposted ok!"
+      end
+    end
+      
+
+  end
+end

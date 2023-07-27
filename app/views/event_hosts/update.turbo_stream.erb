@@ -1,0 +1,17 @@
+
+<%= turbo_stream.update("event-hosts-item-#{@event_host.id}") do %>
+  <%= render "event_host", event_host: @event_host %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<% if @event_host.errors.any? %>
+  <%= render "shared/modal" do %>
+    <%= render "form", event_host: @event_host %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "modal" do %>
+<% end %>
+<% end %>

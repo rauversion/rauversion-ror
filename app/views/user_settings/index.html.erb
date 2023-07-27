@@ -1,0 +1,75 @@
+<%
+  menu_items = [
+    {
+      to: "settings",
+      namespace: :profile,
+      title: gettext("Account"),
+      sub: gettext("Basic Account Information.")
+    },
+    {
+      to: "settings/email",
+      namespace: :email,
+      title: gettext("Change Email"),
+      sub: gettext("Change Email information.")
+    },
+    {
+      to: "settings/security",
+      namespace: :security,
+      title: gettext("Security"),
+      sub: gettext("Change your credentials")
+    },
+    {
+      to: "settings/notifications",
+      namespace: :notifications,
+      title: gettext("Notifications"),
+      sub: gettext("Change your notification preferences.")
+    },
+    {
+      to: "settings/integrations",
+      namespace: :integrations,
+      title: gettext("Integrations"),
+      sub: gettext("Manage your external integrations.")
+    },
+    {
+      to: "settings/transbank",
+      namespace: :transbank,
+      title: gettext("Transbank settings"),
+      sub: gettext("Manage your transbank commerce (Chile only).")
+    },
+    {
+      to: "settings/invitations",
+      namespace: :invitations,
+      title: gettext("Invitations"),
+      sub: gettext("Invite other artists to your account.")
+    }
+  ]
+%>
+
+<div class="flex-1 flex xl:overflow-hidden">
+  <!-- Secondary sidebar -->
+  <nav aria-label="Sections" class="hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col" data-phx-component="1" id="phx-F3UvZXQBa5XtMUVi-1-0">
+    <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-gray-200 dark:border-gray-800 flex items-center">
+      <p class="text-lg font-medium text-gray-900 dark:text-gray-100">Settings</p>
+    </div>
+    <div class="flex-1 min-h-0 overflow-y-auto">
+      <% menu_items.each do |item| %>
+        <%= link_to "/#{current_user.username}/#{item[:to]}", 
+          class: "#{item[:namespace].to_s == @section ? 'dark:bg-black' : 'dark:bg-gray-900'} dark:text-gray-100 bg-gray-50 bg-opacity-50 flex p-6 border-b border-gray-gray-200 dark:border-gray-800" do %>
+            <%= icon_for(item[:namespace]).html_safe %>
+            <div class="ml-3 text-sm hidden xl:block">
+              <p class="font-medium text-gray-900 dark:text-gray-100"><%= item[:title] %></p>
+              <p class="mt-1 text-gray-500 dark:text-gray-300"><%= item[:sub] %></p>
+            </div>
+        <% end %>
+      <% end %>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="flex-1 xl:overflow-y-auto bg-black">
+    <% #= @section %>
+    
+    <%= turbo_frame_tag "settings_form" do %>
+      <%= render "user_settings/#{@section}_form", user: @user %>
+    <% end %>
+  </div>
+</div>

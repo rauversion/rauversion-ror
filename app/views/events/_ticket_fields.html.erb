@@ -1,0 +1,118 @@
+<div class="nested-fields border-2 rounded-md p-4 my-4 col-span-6"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.hidden_field :_destroy %>
+
+
+  <div class="flex space-x-3">
+    <div class=" flex items-center space-x-3">
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        
+        <div class="sm:col-span-3">
+          <%= form.text_field :title,
+            hint: gettext("Ticket Type. For Example: General Admission, VIP Admission ...")
+          %>
+        </div>
+
+        <div class="sm:col-span-3 flex items-start space-x-4">
+
+          <div class="w-1/2">
+            <%= form.number_field :price,
+              hint: gettext("All prices are in $%{ccy}.")
+              # ccy: f.data.event_settings.ticket_currency
+            %>
+          </div>
+
+          <div class="w-1/2">
+            <%= form.number_field :qty,
+              hint: gettext("Total number of tickets.")
+            %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.datetime_field :selling_start,
+            wrapper_class: "sm:col-span-3",
+            hook: "DatetimeHook"
+          %>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.datetime_field :selling_end,
+            wrapper_class: "sm:col-span-3",
+            hook: "DatetimeHook"
+          %>
+        </div>
+
+        <div class="sm:col-span-6">
+          <%= form.text_area :short_description,
+            wrapper_class: "sm:col-span-6",
+            hint: gettext(
+                "Optional short description will be displayed next to this ticket on the Event page."
+              )
+          %>
+        </div>
+  
+        <%= form.check_box :show_sell_until, 
+          hint: gettext("Show the Sell Until date on the event page.") 
+        %>
+
+        <%= form.check_box :show_after_sold_out, 
+          hint: gettext("Display with a \"Sold out\" message after ticket quantity runs out.")
+        %>
+
+        <div class="sm:col-span-3">
+          <%= form.check_box :hidden, 
+          label: "Hide Ticket?",
+            hint: gettext(
+                "Check to hide this ticket on your Event page and make it available via a direct link only."
+              ) 
+          %>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.number_field :min_tickets_per_order,
+            hint:  gettext(
+                "Leave blank unless there is a Minimum amount of tickets customer has to order."
+              )
+          %>
+         </div>
+
+        <div class="sm:col-span-3">
+          <%= form.number_field(:max_tickets_per_order,
+            hint: gettext(
+                "Leave blank unless there is a Maximum number of tickets customer is limited to."
+              )
+          )
+          %>
+        </div>
+
+        <div class="sm:col-span-6">
+          <%= form.text_area :after_purchase_message,
+            hint: gettext("Additional message to include on the purchased ticket")
+          %>
+        </div>
+
+        <div class="sm:col-span-4">
+          <%= form.select :sales_channel,
+            [
+              [ "All channels",  "all"],
+              [ "Event page only", "event_page"],
+              [ "Box office only", "box_office"]
+            ]
+          %>
+        </div>
+
+        <div class="sm:col-span-6">
+          <button type="button"
+            data-action="click->nested-form#remove_association" 
+            class="mt-2 inline-flex justify-center items-center border-2 border-red-600 rounded-lg py-2 px-2 dark:bg-black text-red-600 block text-sm">
+            <%= gettext("Delete Ticket") %>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

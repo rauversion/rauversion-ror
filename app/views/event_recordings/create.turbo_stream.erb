@@ -1,0 +1,10 @@
+<%= turbo_stream.append("event-recording-list") do %>
+  <%= render "event_recording", event_recording: @event_recording %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<%= turbo_stream.update "modal" do %>
+<% end %>

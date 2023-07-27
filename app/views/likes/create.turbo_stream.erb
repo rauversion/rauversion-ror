@@ -1,0 +1,7 @@
+<%= turbo_stream.update("like-frame-item-#{@track.id}") do %>
+  <%= render "like_button", track: @track, button_class: @button_class %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

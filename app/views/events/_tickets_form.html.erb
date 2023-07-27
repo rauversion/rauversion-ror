@@ -1,0 +1,36 @@
+<div class="p-5">
+
+  <%= form_for @event do |form| %>
+
+    <%= hidden_field_tag :section, @section %>
+
+    <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+      <%= gettext("Create Tickets") %>
+    </h2>
+
+    <div class="sm:col-span-6 flex justify-end">
+      <%= form.submit %>
+    </div>
+
+  <div data-controller="nested-form" class="py-6">
+    <template data-nested-form-target="template">
+      <%= form.fields_for :event_tickets, EventTicket.new, child_index: 'NEW_RECORD' do |ff| %>
+        <%= render 'ticket_fields', form: ff %>
+      <% end %>
+    </template>
+
+    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+      <%= form.fields_for :event_tickets do |ff| %>
+        <%= render 'ticket_fields', form: ff %>
+      <% end %>
+    </div>
+
+    <div class="my-3" data-nested-form-target="links">
+      <%= link_to "Add new ticke", "#", 
+      class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+      data: { action: "click->nested-form#add_association" } %>
+    </div>
+  </div>
+
+  <% end %>
+</div>

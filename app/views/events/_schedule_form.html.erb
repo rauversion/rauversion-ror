@@ -1,0 +1,35 @@
+<div class="p-5">
+
+  <%= form_for @event do |form| %>
+    
+    <%= hidden_field_tag :section, @section %>
+
+    <div data-controller="nested-form" class="py-6">
+      <template data-nested-form-target="template">
+        <%= form.fields_for :event_schedules, EventSchedule.new, child_index: 'NEW_RECORD' do |ff| %>
+          <%= render 'schedule_fields', form: ff %>
+        <% end %>
+      </template>
+
+      <div class="" data-nested-form-target="wrap">
+        <%= form.fields_for :event_schedules do |ff| %>
+          <%= render 'schedule_fields', form: ff %>
+        <% end %>
+      </div>
+
+      <div class="flex space-x-2 items-center">
+        <div class="my-3" data-nested-form-target="links">
+          <%= link_to "Add", "#", 
+          class: "button-large-outline", 
+          data: { 
+            action: "click->nested-form#add_association" 
+          } %>
+        </div>
+
+        <%= form.submit "Save", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

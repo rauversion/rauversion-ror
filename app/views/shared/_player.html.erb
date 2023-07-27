@@ -1,0 +1,114 @@
+<div id="main-player" phx-hook="PlayerInitiator" class="z-50 fixed bottom-0 w-full h-[6rem]-- py-2 bg-black border-t border-gray-800">
+  <div id="main-player-component" 
+    data-controller="player" 
+    data-track-id="<%= track.id %>" 
+    data-player-peaks-value="<%= track.peaks %>"
+    data-player-url-value="<%= track.mp3_audio.url %>" class="flex">
+    <div class="flex text-white items-center justify-center space-x-3">
+      <div></div>
+      <button type="button" data-action="player#rew" data-player-target="rew">
+        <svg viewBox="0 0 15 15" aria-label="fwd" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+          <path d="M14.5 12.5v-10l-7 5 7 5zm-7 0v-10l-7 5 7 5z" stroke="currentColor" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <button type="button" data-action="player#pause" data-player-target="pause" class="hidden -ml-px relative inline-flex items-center px-2 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+        <span class="sr-only">Siguiente</span>
+        <svg viewBox="0 0 15 15" class="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+          <path d="M11.5 3.5h-8v8h8v-8z" stroke="currentColor"></path>
+        </svg>
+      </button>
+      <button type="button" data-action="player#playSong" data-player-target="play" class="relative inline-flex items-center px-2 py-2
+          rounded-full text-black
+          bg-white text-sm font-medium
+          smooth-grow
+          focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-700 focus:border-gray-400">
+        <span class="sr-only">Jugar</span>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: none;" width="20px" height="20px" viewBox="0 0 100 100" data-player-target="loadingicon" preserveAspectRatio="xMidYMid">
+          <circle cx="84" cy="50" r="10" fill="#e15b64">
+            <animate attributeName="r" repeatCount="indefinite" dur="0.29411764705882354s" calcMode="spline" keyTimes="0;1" values="11;0" keySplines="0 0.5 0.5 1" begin="0s"></animate>
+            <animate attributeName="fill" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="discrete" keyTimes="0;0.25;0.5;0.75;1" values="#e15b64;#abbd81;#f8b26a;#f47e60;#e15b64" begin="0s"></animate>
+          </circle>
+          <circle cx="16" cy="50" r="10" fill="#e15b64">
+            <animate attributeName="r" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;11;11;11" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+            <animate attributeName="cx" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+          </circle>
+          <circle cx="50" cy="50" r="10" fill="#f47e60">
+            <animate attributeName="r" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;11;11;11" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.29411764705882354s"></animate>
+            <animate attributeName="cx" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.29411764705882354s"></animate>
+          </circle>
+          <circle cx="84" cy="50" r="10" fill="#f8b26a">
+            <animate attributeName="r" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;11;11;11" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5882352941176471s"></animate>
+            <animate attributeName="cx" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5882352941176471s"></animate>
+          </circle>
+          <circle cx="16" cy="50" r="10" fill="#abbd81">
+            <animate attributeName="r" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;11;11;11" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8823529411764706s"></animate>
+            <animate attributeName="cx" repeatCount="indefinite" dur="1.1764705882352942s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8823529411764706s"></animate>
+          </circle>
+        </svg>
+        <svg data-player-target="playicon" style="display: block;" viewBox="0 0 15 15" class="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+          <path d="M5.5 3v9m4-9v9" stroke="currentColor"></path>
+        </svg>
+        <svg data-player-target="pauseicon" viewBox="0 0 15 15" class="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15" style="display: none;">
+          <path d="M4.5 12.5v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <button type="button" data-action="player#next" data-player-target="next">
+        <svg viewBox="0 0 15 15" aria-label="fwd" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+          <path d="M.5 12.5v-10l7 5-7 5zm7 0v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="player-main-player" 
+      phx-update="ignore" 
+      data-player-target="player" 
+      class="mx-3 flex-grow items-center">
+      <div></div>
+    </div>
+    <div class="mx-3">
+      <div class="py-0 px-2 h-12 leading-4 box-border text-zinc-200 flex">
+        <div class="flex items-center mx-2">
+          <div class="relative">
+            <div id="volume-wrapper" class="hidden w-[17px] h-[115px] absolute top-[-8em] left-[0px] bg-white dark:bg-black border dark:border-0 shadow-md z-50">
+              <input type="range" data-action="input->player#updateVolume" min="0" max="1" step="0.1" data-player-target="range" class="vertical mt-[52px] ml-[-55px]" id="player-range">
+            </div>
+            <button id="toggle-volume" data-action="player#toggleVolume" class="text-white" phx-clickss="toggle-volume">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center h-full leading-4 text-zinc-300">
+          <%= Time.now.to_i %>
+          <%= link_to track_path(track), class: "float-left my-0 mr-2 ml-0 text-blue-500 cursor-pointer hover:text-zinc-100" do %>
+            <div class="block relative w-8 h-8 text-center bg-no-repeat bg-cover" style="height: 30px; width: 30px;">
+              <%= image_tag track.cover_url(:small), class: "block relative w-8 h-8 opacity-100" %>
+            </div>
+          <% end %>
+          <div class="flex-grow w-0-- leading-6">
+            <%= link_to track.user.username, user_path(track.user.username),
+              class: "flex items-center w-full h-4 text-xs cursor-pointer truncate text-neutral-200 focus:text-black hover:text-neutral-300",
+              title: "Emdr.wav" 
+            %> 
+          
+            <div class="flex items-center w-full h-4 text-zinc-800">
+              <%= link_to track_path(track.user.username), class: "text-xs cursor-pointer truncate text-stone-200 focus:text-black hover:text-neutral-200" do %>
+                <span class="sr-only">Current track: <%= track.title %></span>
+                <span aria-hidden="true" class="whitespace-nowrap"><%= track.title %></span>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex ml-2 text-zinc-200 ">
+            <button type="button" class="hidden inline-block relative p-3 m-0 h-5 font-sans font-thin text-left text-brand-600 whitespace-nowrap bg-transparent rounded-sm border-0 border-solid cursor-pointer select-none box-border border-neutral-200 focus:border focus:border-solid focus:border-brand-600 focus:text-brand-600 hover:border hover:border-solid hover:border-brand-600 hover:text-brand-600" aria-describedby="tooltip-1455" tabindex="0" title="Unlike" aria-label="Unlike"> Me gustó </button>
+            <button type="button" class="hidden inline-block relative p-3 m-0 h-5 font-sans font-thin text-left whitespace-nowrap bg-transparent rounded-sm border-0 border-solid cursor-pointer select-none box-border border-neutral-200 focus:border-stone-300 focus:text-zinc-800 hover:border-stone-300 hover:text-zinc-800" tabindex="0" title="Follow" aria-label="Follow"> Seguir </button>
+            <button phx-click="display-slideover">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

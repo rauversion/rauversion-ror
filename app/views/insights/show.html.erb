@@ -1,0 +1,187 @@
+<div class="flex-grow dark:bg-black dark:text-white">
+  <div class="mx-auto w-3/4">
+    <div class="pt-4">
+      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Last 30 days</h3>
+      <dl class="hidden mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Total de escuchas
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">71,897</dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Me gusta
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">58.16%</dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">
+            Repostear
+          </dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">24.57%</dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">Descargas</dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">24.57%</dd>
+        </div>
+
+        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <dt class="text-sm font-medium text-gray-500 truncate">Comentarios</dt>
+          <dd class="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">24.57%</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div>
+      <div id="chart-line-container" 
+      class="shadow-lg rounded-lg overflow-hidden my-4 dark:bg-gray-900" 
+      phx-update="ignore" 
+      data-controller="chart" 
+      data-chart-label-value="Last 12 months" 
+      data-chart-points-value="<%= Track.series_by_month(@user.id).to_json %>">
+        <canvas class="p-10" width="2157" height="1078" id="chartLine" style="display: block; box-sizing: border-box; height: 539px; width: 1078.5px;"></canvas>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="p-4 shadow-lg rounded-lg col-span-2 md:col-span-1 overflow-hidden dark:bg-gray-900">
+        <div class="-px-4 py-5 -sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            Mejores canciones
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Últimos 12 meses
+          </p>
+        </div>
+
+        <div class="flow-root mt-6">
+          <ul role="list" class="-my-5 divide-y divide-gray-200 dark:divide-gray-700">
+            
+            <% Track.top_tracks(@user.id).each do |track|%>
+              <li class="py-4">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <%= image_tag track.cover_url(:small), class: "h-8 w-8 rounded-xs" %>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                      <%= track.title %>
+                    </p>
+
+                    <div class="text-sm text-gray-500 space-x-2 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span>reproduce <%= track.count %></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+
+
+          </ul>
+        </div>
+        <div class="mt-6 hidden">
+          <a href="#" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Ver todo
+          </a>
+        </div>
+      </div>
+
+      <div class="p-4 shadow-lg rounded-lg col-span-2 md:col-span-1 overflow-hidden dark:bg-gray-900">
+        <div class="-px-4 py-5 -sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            Top oyentes
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Últimos 12 meses
+          </p>
+        </div>
+
+        <div class="flow-root mt-6">
+          <ul role="list" class="-my-5 divide-y divide-gray-200 dark:divide-gray-700">
+            <% Track.top_listeners(@user.id).each do |listener| %>
+              <li class="py-4">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <%= image_tag listener.avatar_url(:small), class: "h-8 w-8 rounded-full" %>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                      <%= listener.username %>
+                    </p>
+
+                    <div class="text-sm text-gray-500 space-x-2 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span>reproduce <%= listener.count %></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+
+          </ul>
+        </div>
+        <div class="mt-6 hidden">
+          <a href="#" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Ver todo
+          </a>
+        </div>
+      </div>
+
+      <div id="gep-chart-wrapper" class="p-4 col-span-2 shadow-lg rounded-lg overflow-hidden dark:bg-gray-900">
+        <div class="-px-4 py-5 -sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+            Locaciones recurrentes
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Datos personales y aplicación.
+          </p>
+        </div>
+
+        <div class="flow-root mt-6">
+          <ul role="list" class="-my-5 divide-y divide-gray-200 dark:divide-gray-800">
+            
+            <% Track.top_countries(@user.id).each do |location|%>
+              <li class="py-4">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    
+                      <img class="rounded-sm" 
+                        src="https://flagcdn.com/w40/cl.png" 
+                      alt="">
+                    
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                      <%= location.country %>
+                    </p>
+                    <div class="text-sm text-gray-500 space-x-2 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span>reproduce <%= location.count %></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+
+          </ul>
+        </div>
+        <div class="mt-6 hidden">
+          <a href="#" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Ver todo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

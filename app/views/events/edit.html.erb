@@ -1,0 +1,109 @@
+<%
+  menu_items = [
+      {
+        to: edit_event_path( @event, section: "overview"),
+        namespace: :overview,
+        title: gettext("Event Overview"),
+        sub: gettext("Event Overview.")
+      },
+      {
+        to: edit_event_path( @event),
+        namespace: :edit,
+        title: gettext("Edit event"),
+        sub: gettext("Edit event Information.")
+      },
+      {
+        to: edit_event_path( @event, section: "schedule"),
+        namespace: :schedule,
+        title: gettext("Schedule"),
+        sub: gettext("Edit event Schedulings.")
+      },
+      {
+        to: edit_event_path( @event, section: "hosts"),
+        namespace: :hosts,
+        title: gettext("Hosts & Managers"),
+        sub: gettext("Add hosts, special guests, and event managers.")
+      },
+      {
+        to: edit_event_path( @event, section: "tickets"),
+        namespace: :tickets,
+        title: gettext("Tickets"),
+        sub: gettext("Manage the event tickets.")
+      },
+      {
+        to: edit_event_path( @event, section: "streaming"),
+        namespace: :streaming,
+        title: gettext("Streaming"),
+        sub: gettext("Manage live streaming sources event.")
+      },
+      # %{
+      #  to: "/events/#{event.slug}/edit/widgets",
+      #  namespace: :widgets,
+      #  title: gettext("Widgets"),
+      #  sub: gettext("Change your credentials")
+      # },
+      # %{
+      #  to: "/events/#{event.slug}/edit/tax",
+      #  namespace: :tax,
+      #  title: gettext("Tax"),
+      #  sub: gettext("Change your notification preferences.")
+      # },
+      {
+        to: edit_event_path( @event, section: "attendees"),
+        namespace: :attendees,
+        title: gettext("Attendees"),
+        sub: gettext("View the event's attendees list.")
+      },
+      {
+        to: edit_event_path( @event, section: "recordings"),
+        namespace: :recordings,
+        title: gettext("Recordings"),
+        sub: gettext("Manage event recordings.")
+      }
+      # %{
+      #  to: "/events/#{event.slug}/edit/email_attendees",
+      #  namespace: :email_attendees,
+      #  title: gettext("Email Attendees"),
+      #  sub: gettext("Change your notification preferences.")
+      # },
+      # %{
+      #  to: "/events/#{event.slug}/edit/sponsors",
+      #  namespace: :sponsors,
+      #  title: gettext("Promoters"),
+      #  sub: gettext("Change your notification preferences.")
+      # }
+    ]
+%>
+
+<div class="flex-1 flex xl:overflow-hidden">
+  <!-- Secondary sidebar -->
+  <nav aria-label="Sections" class="hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col" data-phx-component="1" id="phx-F3UvZXQBa5XtMUVi-1-0">
+    <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-gray-200 dark:border-gray-800 flex items-center justify-between">
+      <p class="text-lg font-medium text-gray-900 dark:text-gray-100">Settingskk</p>
+      <%= link_to "visit event page", event_path(@event), class: "button" %>
+    </div>
+    <div class="flex-1 min-h-0 overflow-y-auto">
+      <% menu_items.each do |item| %>
+        <%= link_to "#{item[:to]}", 
+          class: "#{item[:namespace].to_s == @section ? 'dark:bg-black' : 'dark:bg-gray-900'} dark:text-gray-100 bg-gray-50 bg-opacity-50 flex p-6 border-b border-gray-gray-200 dark:border-gray-800" do %>
+            <%= icon_for(item[:namespace]).html_safe %>
+            <div class="ml-3 text-sm hidden xl:block">
+              <p class="font-medium text-gray-900 dark:text-gray-100"><%= item[:title] %></p>
+              <p class="mt-1 text-gray-500 dark:text-gray-300"><%= item[:sub] %></p>
+            </div>
+        <% end %>
+      <% end %>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="flex-1 xl:overflow-y-auto bg-black">
+    <% #= @section %>
+    <%= turbo_frame_tag "event_form" do %>
+      <% if @section %>
+        <%= render "events/#{@section}_form", user: @user %>
+      <% else %>
+        <%= render "events/form", user: @user %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

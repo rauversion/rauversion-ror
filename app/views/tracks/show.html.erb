@@ -1,0 +1,207 @@
+<main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
+  <!-- Breadcrumb -->
+  <nav class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
+    <%= link_to user_path(@track.user.username), data: { cy: "tracks-back" }, class: "inline-flex items-center space-x-3 text-sm font-medium text-gray-900 dark:text-gray-100" do %>
+      <svg
+        class="-ml-2 h-5 w-5 text-gray-400 dark:text-gray-600"
+        x-description="Heroicon name: solid/chevron-left"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        >
+        </path>
+      </svg>
+      <span>Tracks</span>
+    <% end %>
+  </nav>
+
+  <article>
+    <!-- Profile header -->
+    <div>
+      <div class="flex flex-col sm:flex-row mb-6">
+        <div class="flex-grow items-center text-white">
+          <% if true #@track.processed? %>
+            <%= image_tag @track.cover_url(:medium), class: "hidden h-32 w-full object-cover lg:h-48" %>
+
+          <div data-controller="trackplayer"
+            data-trackplayer-url-value="<%= @track.mp3_audio.url %>"
+            data-trackplayer-peaks-value="<%= @track.peaks %>"
+            data-trackplayer-id-value="<%= @track.id %>"
+            data-trackplayer-height-value="250"
+            data-trackplayer-id-value="<%= @track.id %>">
+        
+          
+            <div class="controls flex items-center mb-4">
+              <span class="relative z-0 inline-flex ml-2 pl-6 pt-6">
+                <button
+                  type="button"
+                  data-action="click->trackplayer#play"
+                  data-trackplayer-target="play"
+                  class="player-button"
+                >
+                  <span class="sr-only">Play</span>
+                  <svg
+                    data-trackplayer-target="playicon"
+                    style="display:none"
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M5.5 3v9m4-9v9" stroke="currentColor"></path>
+                  </svg>
+                  <svg
+                    data-trackplayer-target="pauseicon"
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path
+                      d="M4.5 12.5v-10l7 5-7 5z"
+                      stroke="currentColor"
+                      stroke-linejoin="round"
+                    >
+                    </path>
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  data-action="click->audio#pause"
+                  data-trackplayer-target="pause"
+                  class="hidden -ml-px relative inline-flex items-center px-2 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  <span class="sr-only">Next</span>
+
+                  <svg
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M11.5 3.5h-8v8h8v-8z" stroke="currentColor"></path>
+                  </svg>
+                </button>
+              </span>
+
+              <div class="ml-2 pl-6 pt-6">
+                <h4 class="text-lg font-bold">
+                  <%= link_to @track.title, track_path(@track) %>
+                </h4>
+
+                <h5 class="text-sm font-">
+                  <%= link_to @track.user.username, user_path(@track.user.username) %>
+                </h5>
+              </div>
+            </div>
+
+          </div>
+
+          <% else %>
+            
+            <!-- Pending track state message omitted for brevity -->
+            
+          <% end %>
+        </div>
+
+        <div class="w-1/4 hidden sm:block">
+          <div class="group relative aspect-w-1 aspect-h-1 rounded-md-- bg-gray-100 dark:bg-gray-900 overflow-hidden">
+            
+            <%= image_tag @track.cover_url(:medium) , class: "object-center object-cover group-hover:opacity-75" %>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Profile info omitted for brevity -->
+        
+      </div>
+    </div>
+
+    <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          
+          <!-- Tag list component omitted -->
+
+          <% if @track.description.present? %>
+            <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
+              About
+            </dt>
+            <dd class="mt-1 mb-4 max-w-prose text-lg text-gray-900 dark:text-gray-100 space-y-5 prose lg:prose-xl dark:prose-invert">
+              <%= @track.description.html_safe %>
+            </dd>
+          <% end %>
+
+          <% if @track.metadata && @track.metadata[:buy_link] %>
+            <%= link_to 'Buy Link', @track.metadata[:buy_link], target: '_blank', class: 'underline' %>
+          <% end %>
+          
+          <!-- More omitted for brevity -->
+
+     <% if @track.user %>
+        <%= link_to user_path(@track.user), class: "text-lg font-bold text-gray-900 dark:text-gray-100 truncate" do %>
+          <%= @track.user.username %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+      <div class="sm:col-span-2">
+        <% #= render partial: "tag_list", locals: { track: @track } %>
+      
+        <% if @track.description %>
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <%= t("About") %>
+          </dt>
+          <dd class="mt-1 mb-4 max-w-prose text-lg text-gray-900 dark:text-gray-100 space-y-5 prose lg:prose-xl dark:prose-invert">
+            <%= sanitize(@track.description, tags: %w(a)) %>
+          </dd>
+        <% end %>
+
+        <% if @track.metadata && @track.metadata[:buy_link] %>
+          <%= link_to t("Buy Link"), @track.metadata[:buy_link], class: "underline", target: "_blank" %>
+        <% end %>
+      </div>
+
+      <% if @track.created_at %>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <%= t("Created at") %>
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">
+            <%= l(@track.created_at, format: :long) %>
+          </dd>
+        </div>
+      <% end %>
+
+      <% if @track.genre %>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <%= t("Genre") %>
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">
+            <%= @track.genre %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+</article>

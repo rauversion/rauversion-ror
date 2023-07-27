@@ -1,0 +1,64 @@
+
+<div class="nested-fields border mt-6 p-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 dark:bg-black rounded-md"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.hidden_field :_destroy %>
+
+  <div class="sm:col-span-6">
+    <%= form.text_field :name, wrapper_class: "sm:col-span-6" %>
+  </div>
+  
+  <div class="sm:col-span-2">
+    <%= form.datetime_field :start_date,
+      id: "wrap-id",
+      hook: "DatetimeHook"
+    %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <%= form.datetime_field :end_date,
+      id: "wrap-end",
+      hook: "DatetimeHook"
+    %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <%= form.select :schedule_type, [
+        [ "Daily", "daily"],
+        [ "Weekly", "weekly"],
+        [ "Once", "once"]
+      ],
+      name: :schedule_type
+    %>
+  </div>
+
+  <div class="sm:col-span-6">
+    <%= form.text_area :description , wrapper_class: "sm:col-span-6" %>
+  </div>
+
+  <div data-controller="nested-form" class="py-6 sm:col-span-6">
+    <template data-nested-form-target="template">
+      <%= form.fields_for :schedule_schedulings, ScheduleScheduling.new, child_index: 'NEW_RECORD' do |ff| %>
+        <%= render 'scheduling_fields', form: ff %>
+      <% end %>
+    </template>
+
+    <div class="">
+      <%= form.fields_for :schedule_schedulings do |ff| %>
+        <%= render 'scheduling_fields', form: ff %>
+      <% end %>
+    </div>
+
+    <div class="my-3" data-nested-form-target="links">
+      <%= link_to "Add new ticke", "#", 
+      class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+      data: { action: "click->nested-form#add_association" } %>
+    </div>
+
+    <div class="my-3" data-nested-form-target="links">
+      <%= link_to "Remove", "#", 
+      class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+      data: { action: "click->nested-form#remove_association" } %>
+    </div>
+  </div>
+</div>

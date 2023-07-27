@@ -1,0 +1,7 @@
+<%= turbo_stream.update("track-form") do %>
+  <%= render "form", event: @event %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

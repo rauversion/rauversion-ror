@@ -1,0 +1,7 @@
+<%= turbo_stream.update("settings_form") do %>
+  <%= render "user_settings/#{@section}_form", user: @user %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

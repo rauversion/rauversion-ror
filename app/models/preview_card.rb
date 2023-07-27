@@ -1,0 +1,2 @@
+class PreviewCard < ApplicationRecord
+end

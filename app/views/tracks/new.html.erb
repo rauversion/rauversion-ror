@@ -1,0 +1,60 @@
+
+<div id="track-form">
+
+  <% if @track.step == "upload" %>
+    <%= form_with model: @track, class: 'direct-upload' do |form| %>
+
+      <%= form.text_field :step %>
+
+      <div data-controller="upload">
+        <%= form.file_field :audio, direct_upload: true,
+          data: { upload_target: "input",
+                  action:        "change->upload#uploadFile" } %>
+        <div data-upload-target="progress"></div>
+      </div>
+
+      <div id="progress">
+        <div id="bar"></div>
+      </div>
+
+      <%= form.submit %>
+    <% end %>
+  <% end %>
+
+</div>
+
+
+<div class="uploader flex justify-center">
+  <div class="flex-col">
+    <div class="text-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Drag and drop your tracks &amp; albums here</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">Provide FLAC, WAV, ALAC, or AIFF for highest audio quality.</p>
+    </div>
+    <form action="/submit_form" method="post" enctype="multipart/form-data">
+      <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
+        <div class="flex-col">
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md">
+              <div class="space-y-1 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                </svg>
+                <div class="flex flex-col space-y-2 text-sm text-gray-600 py-3">
+                  <div class="flex justify-center">
+                    <label for="fileUpload" class="relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500">
+                      <span>Upload a Audio file</span>
+                      <input type="file" class="hidden" id="fileUpload" name="fileUpload" accept=".mp3,.mp4,.wav,.ogg,.flac,.aiff">
+                    </label>
+                    <p class="pl-1">or drag and drop</p>
+                  </div>
+                </div>
+                <div></div>
+                <p class="text-xs text-gray-500"> Audio, up to 200MB </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

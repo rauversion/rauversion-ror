@@ -1,0 +1,14 @@
+<div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+  <%= form_for @playlist, html: { data: {controller: "input-submitter" }} do |form| %>
+    <nav class="flex space-x-4" aria-label="Tabs">
+      <%= link_to "Basic Info", edit_playlist_path(@playlist, tab: "basic-info-tab"), class: "#{active_tab_link?(tab, "basic-info-tab" )} tab-link px-3 py-2 font-medium text-sm rounded-md" %>  
+      <%= link_to "Tracks", edit_playlist_path(@playlist, tab: "tracks-tab"), class: "#{active_tab_link?(tab, "tracks-tab" )} tab-link px-3 py-2 font-medium text-sm rounded-md" %>          
+      <%= link_to "Pricing", edit_playlist_path(@playlist, tab: "pricing-tab"), class: "#{active_tab_link?(tab, "pricing-tab" )} tab-link px-3 py-2 font-medium text-sm rounded-md" %>        
+      <%= link_to "Metadata", edit_playlist_path(@playlist, tab: "metadata-tab"), class: "#{active_tab_link?(tab, "metadata-tab" )} tab-link px-3 py-2 font-medium text-sm rounded-md" %>
+    </nav>
+    <%= hidden_field_tag :tab, tab %>
+    <%= render tab.underscore, form: form %>
+
+    <%= form.submit %>
+  <% end %>
+</div>

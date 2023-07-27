@@ -1,0 +1,266 @@
+<main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
+  <nav class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
+    <%= link_to user_path(@playlist.user.username),
+    class: "inline-flex items-center space-x-3 text-sm font-medium text-gray-900 dark:text-gray-100" do %>
+      <svg
+        class="-ml-2 h-5 w-5 text-gray-400 dark:text-gray-600"
+        x-description="Heroicon name: solid/chevron-left"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        >
+        </path>
+      </svg>
+      <span><%= t("Tracks") %></span>
+    <% end %>
+  </nav>
+
+
+  <article>
+    <!-- Profile header -->
+    <div>
+ 
+      <div class="flex flex-col sm:flex-row mb-6">
+        
+        <% if @track.present? %>
+          <div 
+            id="audio-player-detail-#{@playlist.id}"
+            data-audio-id="<%= @track.id %>"
+            data-audio-target="player"
+            data-audio-height-value="250"
+            data-audio-playlist="true"
+            data-audio-peaks="<%= @track.peaks.to_json %>"
+            data-audio-url="<%= @track.mp3_audio %>"
+            class="flex-grow"
+          >
+            <div class="controls flex items-center mb-4">
+
+              <span class="relative z-0 inline-flex ml-2 pl-6 pt-6">
+                <button
+                  type="button"
+                  data-action="audio#play"
+                  data-audio-target="play"
+                  class="player-button"
+                >
+                  <span class="sr-only"><%= gettext("Play") %></span>
+                  <svg
+                    data-audio-target="playicon"
+                    style="display:none"
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M5.5 3v9m4-9v9" stroke="currentColor"></path>
+                  </svg>
+                  <svg
+                    data-audio-target="pauseicon"
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path
+                      d="M4.5 12.5v-10l7 5-7 5z"
+                      stroke="currentColor"
+                      stroke-linejoin="round"
+                    >
+                    </path>
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  data-action="audio#pause"
+                  data-audio-target="pause"
+                  class="hidden -ml-px relative inline-flex-- items-center px-2 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-sm font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  <span class="sr-only"><%= gettext("Next") %></span>
+
+                  <svg
+                    viewBox="0 0 15 15"
+                    class="h-6 w-6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M11.5 3.5h-8v8h8v-8z" stroke="currentColor"></path>
+                  </svg>
+                </button>
+              </span>
+
+              <div class="ml-2 pl-6 pt-6">
+                <h4 class="text-lg font-bold flex items-center space-x-2">
+                  <%= link_to @playlist.title, playlist_path(@playlist.slug) %>
+                  
+                  <% if @playlist.album? %>
+                    <span class="text-xs dark:text-gray-400 font-thin">
+                      <%= t("Album") %> <%= l(@playlist.release_date, format: :short) %>
+                    </span>
+                  <% end %>
+                </h4>
+
+                <% if @playlist.user.present? %>
+                  <h5 class="text-sm font-">
+                    <%= link_to @playlist.user.username, user_path(@playlist.user.username) %>
+                  </h5>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      
+        <div class="w-1/4 hidden sm:block">
+          <div class="group relative aspect-w-1 aspect-h-1 rounded-md- bg-gray-100 overflow-hidden">
+            <%= image_tag @playlist.cover_url(:medium),
+              class: "object-center object-cover group-hover:opacity-75"
+            %>
+
+            <div class="hidden flex- flex-col justify-end">
+              <div class="p-4 bg-white dark:bg-black bg-opacity-60 text-sm">
+                <a href="#" class="font-medium text-gray-900">
+                  <span class="absolute inset-0" aria-hidden="true"></span>
+                  <%= t("Upload image") %>
+                </a>
+                <p aria-hidden="true" class="mt-0.5 text-gray-700 dark:text-gray-300 sm:mt-1">
+                  <%= t("Listen now") %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+          <div class="flex">
+
+
+
+          </div>
+          <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+            <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+              <h1 class="text-2xl font-bold text-gray-900  dark:text-gray-100 truncate">
+
+                  <a href="/%40playlist.user.username" data-phx-link="redirect" data-phx-link-state="push">
+                    F600
+                  </a>
+
+              </h1>
+            </div>
+            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+              <a class="inline-flex justify-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-black hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" href="#" phx-click="share-track-modal" phx-value-id="5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 text-gray-400 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                </svg>
+                <span>Compartir</span>
+              </a>
+              <button type="button" phx-click="like-playlist" phx-value-id="5" class="inline-flex justify-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-black hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5 text-gray-400 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                <span>2 Me gusta</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="mt-6 sm:mt-2 2xl:mt-5">
+      <div class="mx-2 flex space-x-2 items-start">
+        <div class="h-32 w-32">
+          <%= image_tag @playlist.user.avatar_url(:small), class: "rounded-full object-center object-cover group-hover:opacity-75" %>
+        </div>
+        <div class="flex-grow">
+          <div class="my-2 border dark:border-gray-800 shadow-xs mx-3 dark:bg-gray-900 rounded-md" data-phx-component="1" id="phx-F3VKxllRnAKzdlMC-1-0">
+            <div class="flex space-x-3">
+              <div class="flex-grow">
+                <div class="flex flex-col">
+                  <div class="space-y-2">
+                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-900">
+                      
+                      <% @playlist.tracks.each do |track| %>
+                        <li>
+                          <button 
+                            phx-click="change-track" 
+                            phx-value-id="149" 
+                            class="p-4 dark:bg-gray-800 dark:hover:bg-black hover:bg-200 w-full text-left">
+                            <div class="flex items-center space-x-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                              </svg>
+                              <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate"></p>
+                                <p> <%= track.title %> </p>
+                                <p></p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300 truncate">
+                                  <%= link_to track.title, track_path(track) %>
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+                        </li>
+                      <% end %>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
+        
+        <div id="xx-5">
+          <div class="text-2xl font-bold">
+            <button class="underline dark:border-white border-black rounded-sm border-4 px-3" target="blank" phx-click="open-modal" phx-target="2"> Comprar álbum digital </button>
+            <span> $0.00 <span class="text-gray-700 dark:text-gray-300"> USD </span>
+            </span>
+            <span class="text-gray-700 dark:text-gray-300"> o más </span>
+          </div>
+        </div>
+
+        <div class="sm:text-xl text-sm container mx-auto my-4 flex flex-col space-y-4" data-phx-component="3" id="phx-F3VKxllRnAKzdlMC-3-0">
+          <h3 class="font-bold font-medium">Supporters</h3>
+          <div class="-space-x-4">
+            <a href="/pueblonuevo" data-phx-link="redirect" data-phx-link-state="push">
+              <img class="relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNTgxIiwicHVycG9zZSI6bnVsbH0.lSA7cpcMmQhKxah4FF8lgkeoOUcKYIRR8IwJs7Dbxhc/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCIyMDB4MjAwXCJ9IiwicHVycG9zZSI6bnVsbH0.6eK0-2F79Tbc3XOJhTLe4owI_7qgf-ay0_FT3Jn-tg0/Foto-Mika-Martini-destacada[1].jpg">
+              <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> pueblonuevo </h3>
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+          <span>
+            <span class="font-bold">Fecha de lanzamiento del álbum:</span> 15 de marzo de 2023 </span>
+        </div>
+        <div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center" data-phx-component="4" id="phx-F3VKxllRnAKzdlMC-4-0"> Todos los derechos reservados </div>
+      </div>
+      
+
+      <div class="sm:text-xl text-sm container mx-auto px-4 my-4 prose-lg">
+        <!--<.tag_list_for playlist={@playlist} />-->
+        <%= sanitize(@playlist.description, auto_link: true) %>
+      </div>
+
+    </div>
+
+  </article>
+</main>

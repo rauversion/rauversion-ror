@@ -1,0 +1,12 @@
+<%= form_for [@event, @event_recording] do |f| %>
+  <div class="space-y-2">
+    <%= t(
+      "Add a host to highlight them on the event page or to get help managing the event."
+    ) %>
+    <%= f.text_field :title, placeholder: 'recording title', class: "" %>
+    <%= f.text_area :description, placeholder: 'recording description here', class: "" %>
+    <%= f.text_field :iframe, placeholder: 'iframe link, ie:: https//video.com/1223', class: "" %>
+    <%= f.select :type, options_for_select([["twitch", "twitch"], ["youtube", "youtube"], ["iframe", "iframe"]]) %>
+    <%= f.submit t("Save"), data: { disable_with: t("Saving...") }, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+  </div>
+<% end %>

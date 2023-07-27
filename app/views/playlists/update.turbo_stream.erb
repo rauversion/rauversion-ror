@@ -1,0 +1,7 @@
+<%= turbo_stream.update("playlist-form") do %>
+  <%= render "edit_form", playlist: @playlist, tab: @tab %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

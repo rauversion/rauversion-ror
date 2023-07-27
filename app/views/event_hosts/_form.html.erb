@@ -1,0 +1,53 @@
+<%= form_for [@event, @event_host] do |form| %>
+  <div class="space-y-2">
+    <% if form.object.new_record? %>
+      <%= form.text_field :email, hint: "Añade un host para resaltarlo en la página del evento o para obtener ayuda en la gestión del evento." %>
+      <%= form.submit gettext("Save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+
+    <% else %>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-6 space-y-4">
+          <div class="sm:col-span-4 pb-4">
+              type: :upload,
+              live_uploads: @uploads,
+              name: :avatar,
+              label: "Avatar"
+          
+          </div>
+
+
+          <div class="sm:col-span-3">
+            <%= form.text_field :name,
+              hint: gettext("Host Name")
+            %>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.text_area :description,
+              hint: gettext("Host description.")
+            %>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= form.check_box :listed_on_page,
+              label: "Listed on page",
+              hint: gettext("if checked Host will be listed on Event's page.")
+            %>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= form.check_box :event_manager,
+              label: "Manager",
+              hint: gettext("if checked the Host will have manager access to event.")
+            %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6 flex justify-end space-x-2">
+          <%= form.submit gettext("Save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
