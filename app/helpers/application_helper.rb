@@ -26,6 +26,14 @@ module ApplicationHelper
     end
   end
 
+  def serialized_to_html(serialized_content)
+    Dante::Renderer.new(raw: serialized_content.with_indifferent_access).render
+  rescue StandardError => e
+    Rails.logger.error(e)
+    Bugsnag.notify(e)
+    nil
+  end
+
   def event_status_label(event)
     case event.state
     when "published" then gettext("Your event is published")

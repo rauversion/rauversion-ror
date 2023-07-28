@@ -112,6 +112,8 @@
       phx-hook="ArticleContent"
       phx-update="ignore"
     >
+      <%= serialized_to_html(@post.body.with_indifferent_access).html_safe %>
+      
     </div>
   </div>
 </div>
