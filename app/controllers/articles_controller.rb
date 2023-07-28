@@ -8,6 +8,10 @@ class ArticlesController < ApplicationController
     @article = current_user.posts.new
   end
 
+  def show
+    @post = Post.published.friendly.find(params[:id])
+  end
+
   def create
     @article = current_user.posts.create(body: params[:post][:body])
     redirect_to edit_article_path(@article), status: :see_other

@@ -20,6 +20,11 @@ class EventPurchasesController < ApplicationController
     #end
   end
 
+  def show
+    @event = Event.friendly.find(params[:event_id])
+    @purchase = current_user.purchases.find(params[:id])
+    render "show"
+  end
 
   def create
     @event = Event.friendly.find(params[:event_id])

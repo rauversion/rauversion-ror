@@ -9,20 +9,28 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :articles do
-    collection do
-      get :mine
-    end
-  end
-
   scope path: '/api' do
     scope path: '/v1' do
       resources :direct_uploads, only: [:create], controller: 'api/v1/direct_uploads'
     end
   end
 
-  post "webhooks/:provider", to: "webhooks#create", as: :webhooks
 
+  resources :articles do
+    collection do
+      get :mine
+    end
+  end
+
+  resources :playlists
+  resources :purchases do
+    collection do
+      get :tickets
+      get :music
+    end
+  end
+
+  post "webhooks/:provider", to: "webhooks#create", as: :webhooks
 
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -55,8 +63,6 @@ Rails.application.routes.draw do
     resource :reposts
     resource :likes
   end
-
-  resources :playlists
 
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
