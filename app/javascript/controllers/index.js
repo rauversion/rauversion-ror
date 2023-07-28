@@ -26,6 +26,7 @@ import nested_form_controller from "./nested_form_controller"
 import infinite_pagination_controller from "./infinite_pagination_controller"
 import modal_controller from "./modal_controller"
 import google_maps from "./google_maps"
+import redirect_controller from "./redirect_controller"
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -53,3 +54,4 @@ application.register("nested-form", nested_form_controller)
 application.register("infinite-pagination", infinite_pagination_controller)
 application.register("modal", modal_controller)
 application.register("gmaps", google_maps)
+application.register("redirect", redirect_controller)

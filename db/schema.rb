@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_222042) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_28_042852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -269,6 +269,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_222042) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "purchased_items", force: :cascade do |t|
+    t.bigint "purchase_id", null: false
+    t.string "purchased_item_type", null: false
+    t.bigint "purchased_item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.index ["purchase_id"], name: "index_purchased_items_on_purchase_id"
+    t.index ["purchased_item_type", "purchased_item_id"], name: "index_purchased_items_on_purchased_item"
+    t.index ["state"], name: "index_purchased_items_on_state"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.string "checkout_type"
+    t.string "checkout_id"
+    t.string "purchasable_type"
+    t.bigint "purchasable_id"
+    t.index ["checkout_type"], name: "index_purchases_on_checkout_type"
+    t.index ["purchasable_type", "purchasable_id"], name: "index_purchases_on_purchasable_type_and_purchasable_id"
+    t.index ["state"], name: "index_purchases_on_state"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
+
   create_table "reposts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "track_id", null: false
@@ -404,6 +431,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_222042) do
   add_foreign_key "oauth_credentials", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
+  add_foreign_key "purchased_items", "purchases"
+  add_foreign_key "purchases", "users"
   add_foreign_key "reposts", "tracks"
   add_foreign_key "reposts", "users"
   add_foreign_key "schedule_schedulings", "event_schedules"

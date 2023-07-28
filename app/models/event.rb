@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   has_many :event_recordings
   has_many :schedule_schedulings, through: :event_schedules
   has_many :event_tickets
+  belongs_to :purchasable, polymorphic: true
 
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -28,6 +29,13 @@ class Event < ApplicationRecord
 
   scope :published, -> { where(:state => "published")}
   scope :drafts, -> { where(:state => "draft")}
+
+  def available_tickets(argument) 
+    self.event_tickets
+    .where('selling_start <= ?', argument)
+    .where('selling_end >= ?', argument)
+    .where('qty > ?', 0)
+  end
 
   include AASM
   aasm column: :state do

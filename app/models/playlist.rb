@@ -8,6 +8,8 @@ class Playlist < ApplicationRecord
   has_many :listening_events
   has_one_attached :cover
   acts_as_likeable
+  belongs_to :purchasable, polymorphic: true
+
 
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
 

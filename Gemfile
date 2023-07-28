@@ -75,6 +75,7 @@ gem "socialization", "~> 2.0"
 gem "kaminari"
 gem "store_attribute", "~> 1.0"
 gem 'omniauth-discord'
+gem "rqrcode", "~> 2.0"
 # gem 'omniauth-zoom'
 # gem "omniauth-github"
 # gem 'omniauth-twitter'
@@ -122,3 +123,7 @@ group :development, :test do
 end
 
 gem "rails_autolink", "~> 1.1"
+
+gem "transbank-sdk", "~> 3.0"
+gem "stripe", "~> 8.6"
+gem "mercadopago", "~> 2.3"

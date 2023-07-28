@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     end
   end
 
+  post "webhooks/:provider", to: "webhooks#create", as: :webhooks
+
+
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
     :registrations => "users/registrations",
@@ -38,6 +41,8 @@ Rails.application.routes.draw do
 
     resources :event_hosts
     resources :event_recordings
+    resources :event_tickets
+    resources :event_purchases
   end
 
   resources :tracks do

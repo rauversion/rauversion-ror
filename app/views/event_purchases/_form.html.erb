@@ -1,0 +1,29 @@
+<% if purchase.new_record? %>
+    <%= form_for [@event, purchase], url: event_event_purchases_path(@event) do |form|%>
+      <% @tickets.each do |ticket| %>
+        <%= ticket.title %>
+        <%= ticket.price %>
+
+        <div>
+          <h3><%= ticket.title %></h3>
+          <%= form.object.errors.as_json %>
+          <p>Price: <%= number_to_currency(ticket.price) %></p>
+          <p>Available Quantity: <%= ticket.qty %></p>
+          <%= form.fields_for :virtual_purchased, purchase.virtual_purchased do |ff| %>
+            <%= ff.hidden_field :ticket_id, value: ticket.id %>
+            <%= ff.label :quantity, "Quantity" %>
+            <%= ff.number_field :quantity, min: 0, maddx: ticket.qty, step: 1, label: "aa" %>
+          <% end %>
+        </div>
+
+        <%= form.submit %>
+
+      <% end %>
+    <% end %>
+<% else %>
+
+  <div data-turbo="false" data-controller="redirect" data-redirect-url-value="<%= @session["url"] %>">
+    serás redirigido a esta pagina de pago:
+    <%= link_to @session["url"], @session["url"], target: "_blank" %>
+  </div>
+<% end %>

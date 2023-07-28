@@ -8,6 +8,7 @@ class Track < ApplicationRecord
   has_many :playlists, through: :track_playlists
   has_many :listening_events
   has_many :reposts
+  belongs_to :purchasable, polymorphic: true
 
   has_many :likes, as: :likeable
 

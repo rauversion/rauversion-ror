@@ -9,4 +9,7 @@ class EventTicket < ApplicationRecord
   store_accessor :settings, :min_tickets_per_order, :integer
   store_accessor :settings, :sales_channel, :string
   store_accessor :settings, :after_purchase_message, :string
+
+
+
 end

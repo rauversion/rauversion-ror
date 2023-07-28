@@ -53,9 +53,11 @@
 
 
       <div class="hidden sm:mt-10 sm:flex lg:mt-0 lg:grow lg:basis-0 lg:justify-end">
-       
-          <%= link_to "Get your tickets", "#", 
-            class: "inline-flex justify-center rounded-2xl bg-brand-600 p-4 text-base font-semibold text-white hover:bg-brand-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 active:text-white/70" %>
+          <%= link_to new_event_event_purchase_path(@event), 
+            class: "inline-flex justify-center rounded-2xl bg-brand-600 p-4 text-base font-semibold text-white hover:bg-brand-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 active:text-white/70", 
+            data: { turbo_frame: 'modal' } do %>
+            Get your tickets
+          <% end %>
       </div>
     </div>
   </header>

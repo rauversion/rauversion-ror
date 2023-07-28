@@ -15,6 +15,8 @@ module RauversionRor
       ErrorsController.action(:show).call(env)
     }
 
+    config.hosts << "chaskiq.sa.ngrok.io"
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

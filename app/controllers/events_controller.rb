@@ -58,6 +58,7 @@ class EventsController < ApplicationController
       :ticket_currency, :location, :lat, :lng, :country, :city, :province, 
       :participant_label, :participant_description, :scheduling_label, 
       :scheduling_description,
+      
       event_schedules_attributes: [
         :id, :name, :_destroy, :start_date, :end_date, :schedule_type, :description,
         schedule_schedulings_attributes: [:id, :_destroy, :name, :start_date, :end_date, :short_description]
@@ -65,6 +66,7 @@ class EventsController < ApplicationController
       event_tickets_attributes: [
         :id,
         :title, :_destroy, :show_sell_until, 
+        :price, :qty, :selling_start, :selling_end, :short_description,
         :show_after_sold_out, :hidden, :min_tickets_per_order, 
         :max_tickets_per_order, :after_purchase_message, 
         :sales_channel
