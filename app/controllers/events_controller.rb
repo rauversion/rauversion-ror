@@ -1,5 +1,10 @@
 class EventsController < ApplicationController
 
+  def index
+    @upcoming_events = Event.upcoming_events
+    @past_events = Event.past_events
+  end
+
   def new
     @event = current_user.events.new
   end
@@ -24,6 +29,13 @@ class EventsController < ApplicationController
   def update
     @section = params[:section]
     @event = current_user.events.friendly.find(params[:id])
+
+    if params[:toggle_published].present?
+      @event.toggle_published!
+      flash[:now] = "event #{@event.state}"
+      render "toggle_published" and return
+    end
+
     if @event.update(event_params)
       flash[:now] = "yes!"
       #redirect_to edit_event_path(@event, section: @section)

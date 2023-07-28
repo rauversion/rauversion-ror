@@ -197,82 +197,86 @@
           <div>
             <% # for scheduling <- @days |> Enum.map(fn x -> x.schedulings end) |> List.flatten do %>
 
-            <% @event.event_schedules.map{|o| o.schedule_schedulings}.flatten!.each do |scheduling| %>
-              <div
-                class="[&amp;:not(:focus-visible)]:focus:outline-none"
-                role="tabpanel"
-                tabindex="0"
-              >
-                <ol
-                  role="list"
-                  class="space-y-8 bg-white/60 dark:bg-white/10 py-14 px-10 text-center shadow-xl shadow-brand-900/5 backdrop-blur"
+            <% if @event.event_schedules.any? %>
+              <% @event.event_schedules.map{|o| o.schedule_schedulings}.flatten!.each do |scheduling| %>
+                <div
+                  class="[&amp;:not(:focus-visible)]:focus:outline-none"
+                  role="tabpanel"
+                  tabindex="0"
                 >
-                  <li aria-label={"#{scheduling.title} #{scheduling.short_description} at 9:00AM - 10:00AM PST"}>
-                    <h4 class="text-lg font-semibold tracking-tight text-brand-900 dark:text-brand-100">
-                      <%= scheduling.name %>
-                    </h4>
-                    <p class="mt-1 tracking-tight text-brand-900 dark:text-brand-100">
-                      <%= auto_link scheduling.short_description %>
-                    </p>
-                    <p class="mt-1 font-mono text-sm text-gray-500 dark:text-gray-300">
-                      <!--<time datetime="2022-04-04T9:00AM-08:00">9:00AM</time>-->
-
-                      <% 
-                      # render_date(scheduling.start_date, @timezone)  render_date(
-                      #  scheduling.end_date,
-                      #  @timezone
-                      #) 
-                      %>
-                    </p>
-                  </li>
-                </ol>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="hidden lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <% @event.event_schedules.each do |day| %>
-            <section>
-              <h3 class="text-2xl font-semibold tracking-tight text-brand-900 dark:text-brand-100">
-                <time datetime={day.start_date}>
-                  <%= l(day.start_date, format: :day_with_year) %>
-                </time>
-              </h3>
-
-              <p class="mt-1.5 text-base tracking-tight text-brand-900 dark:text-brand-100">
-                <%= day.description %>
-              </p>
-
-              <% if day.schedule_schedulings.any? %>
-                <ol
-                  role="list"
-                  class="mt-10 space-y-8 dark:bg-gray-900 --dark:bg-black/60 bg-white/60 py-14 px-10 text-center shadow-xl shadow-brand-900/5 backdrop-blur"
-                >
-                  <% day.schedule_schedulings.each do |scheduling| %>
-                    <li>
-                      <div class="mx-auto mb-8 h-px w-48 bg-gray-200/10"></div>
+                  <ol
+                    role="list"
+                    class="space-y-8 bg-white/60 dark:bg-white/10 py-14 px-10 text-center shadow-xl shadow-brand-900/5 backdrop-blur"
+                  >
+                    <li aria-label={"#{scheduling.title} #{scheduling.short_description} at 9:00AM - 10:00AM PST"}>
                       <h4 class="text-lg font-semibold tracking-tight text-brand-900 dark:text-brand-100">
                         <%= scheduling.name %>
                       </h4>
                       <p class="mt-1 tracking-tight text-brand-900 dark:text-brand-100">
-                        <%= scheduling.short_description %>
+                        <%= auto_link scheduling.short_description %>
                       </p>
                       <p class="mt-1 font-mono text-sm text-gray-500 dark:text-gray-300">
-                        
-                        <%= l(scheduling.start_date, format: :short) %> - <%= l(scheduling.end_date, format: :short) %>
-                        <%
-                        # render_date(scheduling.start_date, @timezone) - render_date(
+                        <!--<time datetime="2022-04-04T9:00AM-08:00">9:00AM</time>-->
+
+                        <% 
+                        # render_date(scheduling.start_date, @timezone)  render_date(
                         #  scheduling.end_date,
                         #  @timezone
                         #) 
                         %>
                       </p>
                     </li>
-                  <% end %>
-                </ol>
+                  </ol>
+                </div>
               <% end %>
-            </section>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="hidden lg:grid lg:grid-cols-3 lg:gap-x-8">
+          <% if @event.event_schedules.any? %>
+            <% @event.event_schedules.each do |day| %>
+              <section>
+                <h3 class="text-2xl font-semibold tracking-tight text-brand-900 dark:text-brand-100">
+                  <time datetime={day.start_date}>
+                    <%= l(day.start_date, format: :day_with_year) %>
+                  </time>
+                </h3>
+
+                <p class="mt-1.5 text-base tracking-tight text-brand-900 dark:text-brand-100">
+                  <%= day.description %>
+                </p>
+
+                <% if day.schedule_schedulings.any? %>
+                  <ol
+                    role="list"
+                    class="mt-10 space-y-8 dark:bg-gray-900 --dark:bg-black/60 bg-white/60 py-14 px-10 text-center shadow-xl shadow-brand-900/5 backdrop-blur"
+                  >
+                    <% day.schedule_schedulings.each do |scheduling| %>
+                      <li>
+                        <div class="mx-auto mb-8 h-px w-48 bg-gray-200/10"></div>
+                        <h4 class="text-lg font-semibold tracking-tight text-brand-900 dark:text-brand-100">
+                          <%= scheduling.name %>
+                        </h4>
+                        <p class="mt-1 tracking-tight text-brand-900 dark:text-brand-100">
+                          <%= scheduling.short_description %>
+                        </p>
+                        <p class="mt-1 font-mono text-sm text-gray-500 dark:text-gray-300">
+                          
+                          <%= l(scheduling.start_date, format: :short) %> - <%= l(scheduling.end_date, format: :short) %>
+                          <%
+                          # render_date(scheduling.start_date, @timezone) - render_date(
+                          #  scheduling.end_date,
+                          #  @timezone
+                          #) 
+                          %>
+                        </p>
+                      </li>
+                    <% end %>
+                  </ol>
+                <% end %>
+              </section>
+            <% end %>
           <% end %>
         </div>
       </div>

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<%= turbo_stream.update "event-manager-ticket-state" do %>
+  <%= render "manager_form" %>
+<% end %>

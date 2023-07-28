@@ -19,3 +19,9 @@ TODO:
     + add form
     + edit form
     + metatags
+
+  + events
+    + upload images hosts
+
+  + purchases
+    + ticket: add checked in at

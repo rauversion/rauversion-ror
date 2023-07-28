@@ -40,17 +40,7 @@
 
   <% #= image_tag("cid:purchase_item_#{item.purchased_item.id}_qr_code.png") %>
 
-  
-  <% 
-    url = event_event_ticket_url(@purchase.purchasable, item.encoded_id)
-    encoded_url = ERB::Util.url_encode(url) 
-  %>
-  <% 
-  size = 120
-  data_param = "chl=#{encoded_url}"
-  google_charts_url = "https://chart.googleapis.com/chart?cht=qr&chs=#{size}x#{size}&#{data_param}"
-  %>
-  <%= image_tag(google_charts_url) %> 
+  <%= image_tag(item.qr) %> 
 
   <%= link_to "ver ticket en la web", url %>
 

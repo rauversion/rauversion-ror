@@ -1,0 +1,7 @@
+<%= turbo_stream.replace("event-published-status") do %>
+  <%= render "status_button" %>
+<% end %>
+
+<%= turbo_stream.replace("flashes") do %>
+  <%= render "shared/flash" %>
+<% end %>

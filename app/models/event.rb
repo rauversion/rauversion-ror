@@ -6,7 +6,12 @@ class Event < ApplicationRecord
   has_many :event_recordings
   has_many :schedule_schedulings, through: :event_schedules
   has_many :event_tickets
-  belongs_to :purchasable, polymorphic: true
+  has_many :purchases, as: :purchasable
+  has_many :purchased_items, through: :purchases
+
+  #has_many :paid_tickets, 
+
+  has_one_attached :cover
 
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -29,6 +34,23 @@ class Event < ApplicationRecord
 
   scope :published, -> { where(:state => "published")}
   scope :drafts, -> { where(:state => "draft")}
+  scope :managers, -> { where(:event_manager => true)}
+  # Ex:- scope :active, -> {where(:active => true)}
+
+  scope :public_events, -> {
+    where(private: false)
+      .where(state: "published")
+  }
+
+  scope :upcoming_events, -> {
+    where("event_start >= ?", Time.now)
+      .order(event_start: :asc)
+  }
+
+  scope :past_events, -> {
+    where("event_start <= ?", Time.now)
+      .order(event_start: :desc)
+  }
 
   def available_tickets(argument) 
     self.event_tickets
@@ -36,6 +58,7 @@ class Event < ApplicationRecord
     .where('selling_end >= ?', argument)
     .where('qty > ?', 0)
   end
+
 
   include AASM
   aasm column: :state do
@@ -48,6 +71,7 @@ class Event < ApplicationRecord
   end
 
   def self.format_date_range(start_date, end_date)
+    return if end_date.nil?
     # If end_date is nil or same as start_date, just show start_date
     if end_date.nil? || start_date.to_date == end_date.to_date
       I18n.l(start_date, format: :day_with_year)
@@ -55,5 +79,36 @@ class Event < ApplicationRecord
       # If end_date exists and is different from start_date, show range
       "#{I18n.l(start_date, format: :day)} to #{I18n.l(end_date, format: :day_with_year)}"
     end
+  end
+
+  def presicion_for_currency
+    0
+  end
+
+  def toggle_published!
+    new_state = self.state == "published" ? "draft" : "published"
+    self.update(state: new_state)
+  end
+
+  def event_dates
+    self.class.format_date_range(self.event_start, self.event_ends)
+  end
+
+  def cover_url(size = nil)
+    url = case size
+      when :medium
+        self.cover.variant(resize_to_limit: [200, 200])&.processed&.url
+
+      when :large
+        self.cover.variant(resize_to_limit: [500, 500])&.processed&.url
+
+      when :small
+        self.cover.variant(resize_to_limit: [50, 50])&.processed&.url
+
+      else
+        self.cover.variant(resize_to_limit: [200, 200])&.processed&.url
+    end
+
+    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 end

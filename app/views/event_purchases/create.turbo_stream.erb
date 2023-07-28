@@ -4,8 +4,7 @@
 
 <%= turbo_stream.update "modal" do %>
   <%= render "shared/modal" do %>
-    zsz
-    <%= @purchase.errors.as_json %>
+    <% # @purchase.errors.as_json %>
     <%= render "form", purchase: @purchase %>
   <% end %>
 <% end %>

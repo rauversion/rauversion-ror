@@ -29,6 +29,7 @@ class TracksController < ApplicationController
     @track = current_user.tracks.friendly.find(params[:id])
     @tab = params[:track][:tab] || "basic-info-tab"
     @track.update(track_params)
+    puts @track.errors.as_json
     @track.tab = @tab
     flash.now[:notice] = "Track was successfully updated."
   end
@@ -44,6 +45,7 @@ class TracksController < ApplicationController
 
   def track_params
     params.require(:track).permit(
+      :private,
       :audio, :title, :step, :description,
       :tab, :genre, :contains_music, :artist, :publisher, :isrc, 
       :composer, :release_title, :buy_link, :album_title, 

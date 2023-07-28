@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "event-manager-ticket-state" do %>
+  <% if @is_manager %>
+    <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+      <span class="block">The status of this ticket is?</span>
+      <% if @purchased_item.checked_in_at %>
+        <span class="block text-green-600">
+          CHECKED IN
+        </span>
+      <% else %>
+        <span class="block text-yellow-600">
+          NOT CHECKED IN
+        </span>
+      <% end %>
+    </h2>
+
+    <div class="mt-8 flex justify-center">
+      <div class="inline-flex rounded-md shadow space-x-3">
+      
+          <%= form_for @purchased_item, 
+            url: event_event_ticket_path(@event, @purchased_item.encoded_id), 
+            method: :put do |form| %>
+            <%= submit_tag "#{!@purchased_item.checked_in? ? "Confirm Check in" : "Un check!"}",           
+              class: "button-large"
+            %>
+          <% end %>
+        
+      </div>
+    </div>
+  <% end %>
+<% end %>

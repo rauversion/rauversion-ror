@@ -42,7 +42,12 @@ Rails.application.routes.draw do
     resources :event_hosts
     resources :event_recordings
     resources :event_tickets
-    resources :event_purchases
+    resources :event_purchases do
+      member do
+        get :success
+        get :failure
+      end
+    end
   end
 
   resources :tracks do

@@ -69,7 +69,7 @@ class Purchase < ApplicationRecord
     PurchasesMailer.event_ticket_confirmation(purchase: self)
   end
 
-  def verifier
+  def self.verifier
     @verifier ||= ActiveSupport::MessageVerifier.new(ENV['SECRET_KEY_BASE'])
   end
 

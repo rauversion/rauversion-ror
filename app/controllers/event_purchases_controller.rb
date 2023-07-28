@@ -72,8 +72,8 @@ class EventPurchasesController < ApplicationController
         },
         customer_email: current_user.email,
         mode: "payment",
-        success_url: "http://success_url.com", # Replace with your success URL
-        cancel_url: "http://cancel_url.com"   # Replace with your cancel URL
+        success_url: success_event_event_purchase_url(@event, @purchase), # Replace with your success URL
+        cancel_url:  failure_event_event_purchase_url(@event, @purchase)   # Replace with your cancel URL
       )
 
       @purchase.update(
@@ -81,12 +81,23 @@ class EventPurchasesController < ApplicationController
         checkout_id: @session["id"]
       )
     end
-
         #if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
     #  purchase = Purchase.create(customer: customer, purchased_item: ticket)
       # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
     #else
       # Handle the case where the ticket is not valid for purchase.
     #end
+  end
+
+  def success
+    @event = Event.friendly.find(params[:event_id])
+    @purchase = current_user.purchases.find(params[:id])
+    render "show"
+  end
+
+  def failure
+    @event = Event.friendly.find(params[:event_id])
+    @purchase = current_user.purchases.find(params[:id])
+    render "show"
   end
 end

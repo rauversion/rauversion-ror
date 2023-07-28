@@ -73,9 +73,9 @@
       </div>
 
 
-      <%= render "likes/like_button", track: track, button_class: track&.like_id.present? ? "button-active" :  "button" %>
+      <%= render "likes/like_button", track: track, button_class: track.respond_to?(:like_id) && track&.like_id.present? ? "button-active" :  "button" %>
 
-      <%= render "reposts/repost_button", track: track, button_class: track&.repost_id.present? ? "button-active" :  "button" %>
+      <%= render "reposts/repost_button", track: track, button_class: track.respond_to?(:repost_id) && track&.repost_id.present? ? "button-active" :  "button" %>
 
       <div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5" data-phx-component="14" id="phx-F3Thph2Pk8w3cjBh-14-0">
         <%= link_to "Añadir a playlist", new_playlist_path(track_id: track.id), class: "button" %>

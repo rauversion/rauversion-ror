@@ -1,24 +1,97 @@
 <% if purchase.new_record? %>
     <%= form_for [@event, purchase], url: event_event_purchases_path(@event) do |form|%>
-      <% @tickets.each do |ticket| %>
-        <%= ticket.title %>
-        <%= ticket.price %>
+      
+      
+      <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+        <thead class="bg-gray-50-- dark:bg-gray-900--">
+          <tr class="hidden sm:table-row">
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 sm:pl-6">
+              Name
+            </th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">
+              Price
+            </th>
+            <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-gray-100">
+              QTY
+            </th>
+          </tr>
+        </thead>
 
-        <div>
-          <h3><%= ticket.title %></h3>
-          <%= form.object.errors.as_json %>
-          <p>Price: <%= number_to_currency(ticket.price) %></p>
-          <p>Available Quantity: <%= ticket.qty %></p>
-          <%= form.fields_for :virtual_purchased, purchase.virtual_purchased do |ff| %>
-            <%= ff.hidden_field :ticket_id, value: ticket.id %>
-            <%= ff.label :quantity, "Quantity" %>
-            <%= ff.number_field :quantity, min: 0, maddx: ticket.qty, step: 1, label: "aa" %>
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-900-- bg-white-- dark:bg-gray-800--">
+
+          <% @tickets.each do |ticket| %>
+            <tr>
+              <td class="hidden sm:table-cell whitespace-nowrap-- py-4 pl-4 pr-3 text-sm sm:pl-6">
+                <div class="flex items-center">
+                  <div class="">
+                    <div class="font-medium text-gray-900 dark:text-gray-100">
+                      <%= ticket.title %>
+                    </div>
+                    <div class="text-gray-500 dark:text-gray-400">
+                      <%= ticket.short_description %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                <div class="text-gray-900 dark:text-gray-100 text-2xl">
+                  <%= number_to_currency(ticket.price, unit: "$#{ticket.event.ticket_currency} " ) %>
+                </div>
+              </td>
+
+              <td class="whitespace-nowrap-- px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                <div class="flex flex-col space-y-2 sm:space-y-0">
+                  <div class="flex items-center sm:hidden">
+                    <div class="">
+                      <div class="font-medium text-gray-900 dark:text-gray-100">
+                        <%= ticket.title %>
+                      </div>
+                      <div class="text-gray-500 dark:text-gray-400 break-all">
+                        <span class="overflow-wrap">
+                          <%= ticket.short_description %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex sm:justify-center items-center space-x-3">
+                    
+                    <% if ticket.free? %>
+                      <div class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          Free ticket already added
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <%= form.fields_for :virtual_purchased, purchase.virtual_purchased do |ff| %>
+                      <%= ff.hidden_field :ticket_id, value: ticket.id %>
+                      <%= ff.number_field :quantity,
+                       min: 0, 
+                       maddx: ticket.qty, 
+                       step: 1, 
+                       label: false 
+                      %>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
           <% end %>
-        </div>
+        
+        </tbody>
+      </table>
 
-        <%= form.submit %>
+      
+      <div class="flex justify-items-end">
+        <%= form.submit "Place Order" %>
+      </div>
 
-      <% end %>
+
     <% end %>
 <% else %>
 

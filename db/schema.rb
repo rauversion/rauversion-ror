@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_042852) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_28_185316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -276,6 +276,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_042852) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state"
+    t.boolean "checked_in"
+    t.datetime "checked_in_at"
+    t.index ["checked_in"], name: "index_purchased_items_on_checked_in"
     t.index ["purchase_id"], name: "index_purchased_items_on_purchase_id"
     t.index ["purchased_item_type", "purchased_item_id"], name: "index_purchased_items_on_purchased_item"
     t.index ["state"], name: "index_purchased_items_on_state"
