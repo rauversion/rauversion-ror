@@ -14,6 +14,10 @@ module ApplicationHelper
     end
   end
 
+  def categories_section(slug)
+    Post.where(category: Category.friendly.find(slug))
+  end
+
   def active_tab_for?(current_tab, expected)
     if current_tab == expected
       "block"

@@ -33,6 +33,9 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:post).permit(:id, :title, :category, :state, :excerpt, body: {})
+    params.require(:post).permit(
+      :id, :title, :private, 
+      :category_id, :state, :excerpt, body: {}
+    )
   end
 end

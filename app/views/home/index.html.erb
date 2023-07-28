@@ -1,1 +1,181 @@
-hola
+<main class="dark:bg-black">
+  <!-- Hero -->
+  <% if !current_user && ENV["DISPLAY_HERO"] == "true" %>
+    <div class="flex flex-col border-b border-gray-200 dark:divide-gray-800 lg:border-0">
+      <nav aria-label="Offers" class="order-last lg:order-first hidden">
+        <div class="max-w-7xl mx-auto lg:px-8">
+          <ul role="list" class="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800 lg:grid-cols-3 lg:divide-y-0 lg:divide-x">
+            <li class="flex flex-col">
+              <a href="#" class="relative flex-1 flex flex-col justify-center bg-white py-6 px-4 text-center focus:z-10">
+                <p class="text-sm text-gray-500">
+                  <%= gettext("Download the app") %>
+                </p>
+                <p class="font-semibold text-gray-900 dark:text-gray-100">
+                  <%= gettext("Get an exclusive $5 off code") %>
+                </p>
+              </a>
+            </li>
+            <!-- Other list items -->
+          </ul>
+        </div>
+      </nav>
+
+      <div class="relative">
+        <div aria-hidden="true" class="hidden absolute w-1/2 h-full bg-gray-100 dark:bg-gray-900 lg:block"></div>
+        <div class="relative bg-black lg:bg-transparent- ">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-2">
+            <div class="max-w-2xl mx-auto py-6 lg:py-64 lg:max-w-none">
+              <div class="lg:pr-16">
+                <a href="/" class="text-white text-sm xl:text-xl font-extrabold">
+                  <%= ENV["APP_NAME"] %>
+                </a>
+
+                <h1 class="tracking-tight text-gray-900 dark:text-gray-100 text-3xl xl:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-brand-600">
+                  <%= gettext("Be your own music industry") %>
+                </h1>
+                <p class="mt-4 text-xl text-gray-100 ">
+                  <%= gettext("Empowering independent music communities on the internet") %>
+                </p>
+                <div class="mt-6">
+                  <a href="/users/register" class="inline-block bg-brand-600 border border-transparent py-3 px-8 rounded-md font-medium text-white hover:bg-brand-700">
+                    <%= gettext("Start now") %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full h-48 sm:h-64 lg:absolute lg:top-0 lg:right-0 lg:w-1/2 lg:h-full">
+          <img src="<%= image_url("daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s.png") %>" class="w-full h-full object-center object-cover" />
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render "articles/article_highlights", posts: Post.published.limit(4) %>
+  
+  <!-- Trending products -->
+  <section aria-labelledby="trending-heading" class="bg-white dark:bg-black">
+    
+    <div class="py-16 sm:py-24 lg:max-w-7xl lg:mx-auto lg:py-32 lg:px-8">
+      <div class="px-4 flex items-center justify-between sm:px-6 lg:px-0">
+        <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
+          <%= gettext("Recent Tracks") %>
+        </h2>
+        <%= link_to "/tracks", class: "hidden sm:block text-sm font-semibold text-brand-600 hover:text-brand-500" do %>
+          <%= gettext("See everything") %>
+          <span aria-hidden="true"> →</span>
+        <% end %>
+      </div>
+
+      <div class="mt-8 relative">
+        <div class="relative w-full overflow-x-auto">
+          <ul role="list" class="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-6 lg:gap-x-8">
+            <% Track.published.limit(10).each do |track| %>
+              <li class="w-64 inline-flex flex-col text-center lg:w-auto">
+                <div class="group group-hover">
+                  <div class="w-full bg-gray-200 dark:bg-gray-800 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
+                    <div phx-update="ignore" 
+                      phx-hook="PlayButton" 
+                      data-audio-id="<%= track.id %>" 
+                      class="group-hover:absolute group-hover:z-10 w-full h-full flex justify-center items-center">
+                      <button data-play-button="button" class="flex justify-center items-center w-24 h-24 rounded-full bg-black border-4 border-brand-100 focus:outline-none smooth-grow">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                        </svg>
+                      </button>
+                    </div>
+                    <%= image_tag(track.cover_url(:small), class: "w-full h-full object-center object-cover group-hover:opacity-75") %>
+                  </div>
+                  <div class="mt-3 text-left">
+                    <div class="space-y-1 text-sm">
+                      <h3 class="font-medium leading-none">
+                        <%= link_to track_path(track) do %>
+                          <%= track.title %>
+                        <% end %>
+                      </h3>
+                      <p class="text-xs text-slate-500 dark:text-slate-400">
+                        <%= t("by %{name}", name: track.user.username) %>
+                      </p>
+                    </div>
+
+                    <p class="mt-1 text-gray-900 dark:text-gray-100 hidden">
+                      ---
+                    </p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 px-4 sm:hidden">
+        <%= link_to "/tracks", class: "text-sm font-semibold text-brand-600 hover:text-brand-500" do %>
+          <%= gettext("See everything") %><span aria-hidden="true"> →</span>
+        <% end %>
+      </div>
+    </div>
+
+  </section>
+
+  <section aria-labelledby="collections-heading" class="bg-gray-100 dark:bg-gray-900">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
+        <div data-controller="scroll">
+          <div class="flex justify-between">
+            <h2 id="collections-playlists" class="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
+              Playlists
+            </h2>
+            <div class="flex items-center space-x-2">
+              <button data-action="click->scroll#scrollBackward" class="text-sm font-medium text-brand-600 hover:text-brand-500 md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"></path>
+                </svg>
+              </button>
+              <button data-action="click->scroll#scrollForward" class="text-sm font-medium text-brand-600 hover:text-brand-500 md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="overflow-auto no-scrollbar relative" data-scroll-target="scrollContainer">
+              <div class="grid grid-cols-1- grid-flow-col grid-rows-1- sm:gap-x-2 md:grid-cols-4- md:gap-y-0- lg:gap-x-8">
+                <% Playlist.limit(100).each do |playlist| %>
+                  <div class="w-64 m-4">
+                    <div class="group group-hover relative">
+                      <div class="relative w-full h-80 bg-white dark:bg-black rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                        <%= image_tag(playlist.cover_url,
+                          class: "w-full h-full object-center object-cover"
+                        ) %>
+                      </div>
+                      <div class="space-y-1 text-sm text-left mt-2">
+                        <h3 class="font-medium leading-none">
+                          <%= link_to playlist_path(playlist) do %>
+                            <%= playlist.title %>
+                          <% end %>
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                          <%= t("by %{name}", name: playlist.user.username) %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section aria-labelledby="collections-heading" class="bg-gray-100 dark:bg-black">
+    <!-- Content of the section -->
+  </section>
+</main>
