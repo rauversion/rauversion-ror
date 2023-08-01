@@ -95,8 +95,8 @@
     <% end %>
 <% else %>
 
-  <div data-turbo="false" data-controller="redirect" data-redirect-url-value="<%= @session["url"] %>">
+  <div data-turbo="false" data-controller="redirect" data-redirect-url-value="<%= @payment_url %>">
     serás redirigido a esta pagina de pago:
-    <%= link_to @session["url"], @session["url"], target: "_blank" %>
+    <%= link_to @payment_url, @payment_url, target: "_blank" %>
   </div>
 <% end %>

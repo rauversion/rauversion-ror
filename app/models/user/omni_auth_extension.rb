@@ -52,7 +52,7 @@ module User::OmniAuthExtension
           
           user.skip_confirmation!
           
-          user.oauth_credentials.build(
+          user.identities.build(
           :provider  => data['provider'],
           :uid       => data['uid'],
           :token     => data['credentials']['token'].present? ? data['credentials']['token'] : "",

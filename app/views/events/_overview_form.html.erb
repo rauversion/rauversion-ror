@@ -22,10 +22,12 @@
                     </dt>
                     <dd class="order-1 text-5xl font-bold tracking-tight text-brand-600 dark:text-brand-400">
                       <!-- $0.00 -->
-                      <%= "number_to_currency(
-                        Rauversion.Events.sales_count(@event),
-                        precision: Rauversion.Events.presicion_for_currency(@event)
-                      )"  %>
+                      <%= number_to_currency(@event.sales_count)%>
+                      <% #= "number_to_currency(
+                          #Rauversion.Events.sales_count(@event),
+                          #precision: Rauversion.Events.presicion_for_currency(@event)
+                        #)" 
+                       %>
                     </dd>
                   </div>
                   <div class="flex flex-col border-t border-b border-gray-100 dark:border-gray-900 p-6 text-center sm:border-0 sm:border-l sm:border-r">
@@ -33,7 +35,8 @@
                       <%= gettext("Tickets sold") %>
                     </dt>
                     <dd class="order-1 text-5xl font-bold tracking-tight text-brand-600 dark:text-brand-400">
-                      <%= "Rauversion.Events.purchased_tickets_count(@event)" %>
+                      <% #= "Rauversion.Events.purchased_tickets_count(@event)" %>
+                      <%= @event.tickets_sold %>
                     </dd>
                   </div>
                   <div class="flex flex-col border-t border-gray-100 dark:border-gray-900 p-6 text-center sm:border-0 sm:border-l">

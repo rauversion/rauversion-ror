@@ -1,5 +1,6 @@
 <%= turbo_frame_tag "modal" do %>
   <%= render "shared/modal" do %>
+    <%= @resp %>
     <%= render "form", purchase: @purchase %>
   <% end %>
 <% end %>

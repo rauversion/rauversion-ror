@@ -4,6 +4,7 @@ TODO:
     + avatar uploader
 
   + articles: 
+    + article creation gets duplicated // delay save // lock
     + upload cover
     + sidebar toggle
     + public magazine
@@ -27,3 +28,9 @@ TODO:
 
   + events
     + upload images hosts
+    + purchases calculate amounts for fees
+
+
+test mailers
+
+http://localhost:3000/rails/mailers/purchases/event_ticket_confirmation

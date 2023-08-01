@@ -1,4 +1,5 @@
 class EventPurchasesController < ApplicationController
+
   def new
     @event = Event.friendly.find(params[:event_id])
     
@@ -27,11 +28,11 @@ class EventPurchasesController < ApplicationController
   end
 
   def create
-    @event = Event.friendly.find(params[:event_id])
+
+    @event = Event.public_events.friendly.find(params[:event_id])
     
     # When a customer purchases a ticket for an event:
     customer = current_user
-    #ticket = EventTicket.find_by(id: ticket_id)
 
     @tickets = @event.available_tickets(Time.zone.now)
     @purchase = current_user.purchases.new(purchasable: @event)
@@ -39,8 +40,40 @@ class EventPurchasesController < ApplicationController
       VirtualPurchasedItem.new({resource: aa, quantity: 1})
     end
 
-    # @purchase.errors.add(:base, "hahahaha")
+    # handle_stripe_session
+    handle_tbk_session
 
+    #########
+
+    #if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
+    #  purchase = Purchase.create(customer: customer, purchased_item: ticket)
+      # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
+    #else
+      # Handle the case where the ticket is not valid for purchase.
+    #end
+  end
+
+  def success
+    @event = Event.friendly.find(params[:event_id])
+    @purchase = current_user.purchases.find(params[:id])
+
+    if params[:enc].present?
+      decoded_purchase = Purchase.find_by_decoded_id(CGI.unescape(params[:enc]))
+      @purchase.complete_purchase! if decoded_purchase.id = @purchase.id
+    end
+
+    render "show"
+  end
+
+  def failure
+    @event = Event.friendly.find(params[:event_id])
+    @purchase = current_user.purchases.find(params[:id])
+    render "show"
+  end
+
+
+  def handle_stripe_session
+    # @purchase.errors.add(:base, "hahahaha")
     account = @event.user.oauth_credentials.find_by(provider: "stripe_connect")
     Stripe.stripe_account = account.uid
 
@@ -64,7 +97,6 @@ class EventPurchasesController < ApplicationController
       end 
 
       puts line_items
-      fee_amount = 100
 
       @session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
@@ -85,24 +117,57 @@ class EventPurchasesController < ApplicationController
         checkout_type: "stripe",
         checkout_id: @session["id"]
       )
+
+      @payment_url = @session["url"]
     end
-        #if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
-    #  purchase = Purchase.create(customer: customer, purchased_item: ticket)
-      # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
-    #else
-      # Handle the case where the ticket is not valid for purchase.
-    #end
   end
 
-  def success
-    @event = Event.friendly.find(params[:event_id])
-    @purchase = current_user.purchases.find(params[:id])
-    render "show"
-  end
+  def handle_tbk_session
+    ### TRANSBANK ###
+    commerce_code = ENV['TBK_MALL_ID']
+    api_key = ENV['TBK_API_KEY']
 
-  def failure
-    @event = Event.friendly.find(params[:event_id])
-    @purchase = current_user.purchases.find(params[:id])
-    render "show"
+    @tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(
+      commerce_code,
+      api_key,
+      :integration)
+
+    @ctrl = "webpay_plus_mall"
+    
+    ActiveRecord::Base.transaction do
+
+      @purchase.store_items
+      @purchase.save
+
+      # cancel_url:  failure_event_event_purchase_url(@event, @purchase) 
+      
+      @details =[
+        {
+          "amount"=>"1000",
+          "commerce_code"=>::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD1,
+          "buy_order"=>"childBuyOrder1_#{rand(1000)}"
+        },
+        {
+          "amount"=>"2000",
+          "commerce_code"=>::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD2,
+          "buy_order"=>"childBuyOrder2_#{rand(1000)}"
+        }
+      ]
+
+      @buy_order = "buyOrder_#{rand(1000)}"
+      @session_id = "sessionId_#{rand(1000)}"
+
+      @purchase.update(
+        checkout_type: "tbk",
+        checkout_id: @session_id
+      )
+
+      @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.encoded_id)
+      
+      @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
+
+      @payment_url = "#{@resp["url"]}?token_ws=#{@resp["token"]}"
+    end
+    
   end
 end

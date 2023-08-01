@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     # :invitations => 'users/invitations'
   }
 
+  resources :sales
+
   resources :events do 
     collection do
       get :mine

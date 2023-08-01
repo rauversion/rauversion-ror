@@ -9,6 +9,13 @@ class Event < ApplicationRecord
   has_many :purchases, as: :purchasable
   has_many :purchased_items, through: :purchases
 
+  has_many :paid_purchased_items, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
+
+  has_many :event_tickets, -> { 
+    where(purchased_items: { purchased_item_type: 'EventTicket' }) 
+  }, through: :purchased_items, source: :purchased_item, source_type: 'EventTicket'
+
+
   #has_many :paid_tickets, 
 
   has_one_attached :cover
@@ -38,8 +45,8 @@ class Event < ApplicationRecord
   # Ex:- scope :active, -> {where(:active => true)}
 
   scope :public_events, -> {
-    where(private: false)
-      .where(state: "published")
+    # where(private: false)
+    where(state: "published")
   }
 
   scope :upcoming_events, -> {
@@ -110,5 +117,13 @@ class Event < ApplicationRecord
     end
 
     url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
+  end
+
+  def sales_count
+    event_tickets.where("purchased_items.state =?", "paid").sum("price")
+  end
+
+  def tickets_sold
+    paid_purchased_items.size
   end
 end

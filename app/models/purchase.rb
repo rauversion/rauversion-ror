@@ -73,4 +73,13 @@ class Purchase < ApplicationRecord
     @verifier ||= ActiveSupport::MessageVerifier.new(ENV['SECRET_KEY_BASE'])
   end
 
+  def encoded_id
+    Purchase.verifier.generate(self.id)
+  end
+
+  def self.find_by_decoded_id(code)
+    code = Purchase.verifier.verified(code)
+    find(code)
+  end
+
 end
