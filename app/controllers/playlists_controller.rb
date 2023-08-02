@@ -15,7 +15,7 @@ class PlaylistsController < ApplicationController
       title: "#{@playlist.title} on Rauversion",
       description: "Stream #{@playlist.title} by #{@playlist.user.username} on Rauversion.",
       image: @playlist.cover_url(:small),
-      "twitter:player": embed_url(@playlist),
+      "twitter:player": playlist_embed_url(@playlist),
       twitter: {
         card: "player",
         player: {

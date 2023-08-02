@@ -1,8 +1,5 @@
 TODO:
 
-  + account
-    + avatar uploader
-
   + articles: 
     + article creation gets duplicated // delay save // lock
     + sidebar toggle
@@ -12,15 +9,12 @@ TODO:
     + upload form
     + likes
     + reposts
-    + iframe
-    + track comments
     + track purchase
 
   + playlists:
     + playlist form
     + add form
     + edit form
-    + metatags
     + album purchase
 
   + events

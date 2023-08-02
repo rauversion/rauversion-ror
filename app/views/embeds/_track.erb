@@ -1,0 +1,55 @@
+<%= content_tag :div, "data-controller": "audio",
+                      "data-audio-target": "player",
+                      "data-audio-height-value": 70,
+                      "data-audio-peaks": @track.peaks.to_json,
+                      "data-audio-url": @track.mp3_audio.url,
+                      class: "h-32 bg-black"  do %>
+  <div class="controls flex items-center ">
+    <span class="relative z-0 inline-flex py-2 px-2 sm:px-0">
+      <button
+        type="button"
+        data-action="audio#play"
+        data-audio-target="play"
+        class="player-button"
+      >
+        <span class="sr-only"><%= gettext("Play") %></span>
+        <svg
+          data-audio-target="playicon"
+          style="display:none"
+          viewBox="0 0 15 15"
+          class="h-6 w-6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+        >
+          <path d="M5.5 3v9m4-9v9" stroke="currentColor"></path>
+        </svg>
+        <svg
+          data-audio-target="pauseicon"
+          viewBox="0 0 15 15"
+          class="h-6 w-6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+        >
+          <path d="M4.5 12.5v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </span>
+
+    <div class="flex-grow  ml-2 flex items-center justify-between">
+      <div class="">
+        <h4 class="text-md font-bold dark:text-gray-100">
+          <%= link_to track_url(@track), target: "blank" do %>
+            <%= @track.title %>
+          <% end %>
+        </h4>
+        <% if @track.user %>
+          <h5 class="text-sm dark:text-gray-300"><%= @track.user.username %></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

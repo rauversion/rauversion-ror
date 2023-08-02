@@ -9,14 +9,11 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources "embed"
-
   scope path: '/api' do
     scope path: '/v1' do
       resources :direct_uploads, only: [:create], controller: 'api/v1/direct_uploads'
     end
   end
-
 
   resources :articles do
     collection do
@@ -26,7 +23,9 @@ Rails.application.routes.draw do
 
   resources :playlists do
     resources :comments
+    resource :embed, only: :show
   end
+
   resources :purchases do
     collection do
       get :tickets
@@ -69,6 +68,7 @@ Rails.application.routes.draw do
     resource :reposts
     resource :likes
     resources :comments
+    resource :embed, only: :show
   end
 
   constraints(Constraints::UsernameRouteConstrainer.new) do

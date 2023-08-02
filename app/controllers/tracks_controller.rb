@@ -45,7 +45,7 @@ class TracksController < ApplicationController
       title: "#{@track.title} on Rauversion",
       description: "Stream #{@track.title} by #{@track.user.username} on Rauversion.",
       image: @track.cover_url(:small),
-      "twitter:player": embed_url(@track),
+      "twitter:player": track_embed_url(@track),
       twitter: {
         card: "player",
         player: {
