@@ -11,7 +11,7 @@
           <div class="flex flex-col">
             <div class="space-y-2">
               <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
-                <%= link_to playlist.title, playlist_path(playlist) %>
+                <%= link_to playlist.title, playlist_path(playlist), "data-turbo-frame": "_top" %>
 
                 <% if playlist.album? %>
                   <span class="text-xs dark:text-gray-400 font-thin">

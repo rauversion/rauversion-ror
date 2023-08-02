@@ -5,6 +5,8 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :category, optional: true
   has_one_attached :cover
+  has_many :comments, as: :commentable
+
   scope :published, -> { where.not(:state => "published")}
   scope :draft, -> { where.not(:state => "draft" )}
 

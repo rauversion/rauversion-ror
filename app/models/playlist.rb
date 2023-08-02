@@ -9,6 +9,7 @@ class Playlist < ApplicationRecord
   has_one_attached :cover
   acts_as_likeable
   belongs_to :purchasable, polymorphic: true
+  has_many :comments, as: :commentable
 
 
   accepts_nested_attributes_for :track_playlists, allow_destroy: true

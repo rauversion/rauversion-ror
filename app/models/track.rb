@@ -9,8 +9,8 @@ class Track < ApplicationRecord
   has_many :listening_events
   has_many :reposts
   has_many :purchased_items, as: :purchased_item
-
   has_many :likes, as: :likeable
+  has_many :comments, as: :commentable
 
   has_one_attached :cover
   has_one_attached :audio

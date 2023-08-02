@@ -36,6 +36,26 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.friendly.find(params[:id])
+
+    set_meta_tags(
+      title: @track.title,
+      description: @track.description,
+      keywords: "",
+      # url: Routes.articles_show_url(socket, :show, track.id),
+      title: "#{@track.title} on Rauversion",
+      description: "Stream #{@track.title} by #{@track.user.username} on Rauversion.",
+      image: @track.cover_url(:small),
+      "twitter:player": embed_url(@track),
+      twitter: {
+        card: "player",
+        player: {
+          stream: @track.mp3_audio&.url,
+          "stream:content_type": "audio/mpeg",
+          width: 290,
+          height: 58
+        }
+      }
+    )
   end
 
   def destroy

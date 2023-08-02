@@ -6,6 +6,26 @@ class PlaylistsController < ApplicationController
   def show
     @playlist = current_user.playlists.friendly.find(params[:id])
     @track = @playlist.tracks.first
+
+    set_meta_tags(
+      title: @playlist.title,
+      description: @playlist.description,
+      keywords: "",
+      # url: Routes.articles_show_url(socket, :show, playlist.id),
+      title: "#{@playlist.title} on Rauversion",
+      description: "Stream #{@playlist.title} by #{@playlist.user.username} on Rauversion.",
+      image: @playlist.cover_url(:small),
+      "twitter:player": embed_url(@playlist),
+      twitter: {
+        card: "player",
+        player: {
+          stream: @playlist.tracks.first.mp3_audio&.url,
+          "stream:content_type": "audio/mpeg",
+          width: 290,
+          height: 58
+        }
+      }
+    )
   end
 
   def edit

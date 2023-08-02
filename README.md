@@ -5,17 +5,14 @@ TODO:
 
   + articles: 
     + article creation gets duplicated // delay save // lock
-    + upload cover
     + sidebar toggle
     + public magazine
-    + metatags
 
   + tracks: 
     + upload form
     + likes
     + reposts
     + iframe
-    + metatags
     + track comments
     + track purchase
 
@@ -27,7 +24,6 @@ TODO:
     + album purchase
 
   + events
-    + upload images hosts
     + purchases calculate amounts for fees
 
 

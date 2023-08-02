@@ -204,4 +204,35 @@
       <% end %>
     </dl>
   </div>
+
+
+  <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="sm:col-span-2">
+      <!-- comments here -->
+      <section aria-labelledby="activity-title" class="mt-8 xl:mt-10" data-phx-component="6" id="phx-F3d1W8MlsrQMAQIC-6-0">
+        <div>
+          <div class="divide-y divide-gray-200 dark:divide-gray-800">
+
+            <div class="pb-4">
+              <h2 id="activity-title" class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Actividad
+              </h2>
+            </div>
+
+            <div class="pt-6">
+              <!-- Activity feed-->
+              <%= render "comments/comment_list", comments: @track.comments.limit(10)  %>
+              <%= render "comments/form", resource: @track, comment: current_user.comments.new(commentable: @post)  %>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+
+
+
+
 </article>

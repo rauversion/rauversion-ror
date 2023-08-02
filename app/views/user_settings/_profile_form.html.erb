@@ -58,15 +58,13 @@
           <div class="ml-4 flex space-x-2">
             <div class="relative py-2 px-3 border border-blue-gray-300 rounded-md shadow-sm flex items-center cursor-pointer hover:bg-blue-gray-50 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-blue-gray-50 focus-within:ring-blue-500">
               <%= form.label :avatar, class: "relative text-sm font-medium text-blue-gray-900 pointer-events-none" do %>
-                <span>Change</span>
                 <span class="sr-only"><%= gettext("user photo") %></span>
               <% end %>
-              <div phx-drop-target={@live_uploads.avatar.ref}>
-                <.live_file_input
-                  upload={@live_uploads.avatar}
-                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-                />
-                <% # = live_file_input @uploads.avatar, class: "absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" %>
+
+              <div class="sm:col-span-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+                <%= form.file_field :avatar, class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
               </div>
             </div>
 

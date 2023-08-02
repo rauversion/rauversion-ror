@@ -1,0 +1,7 @@
+<%= turbo_stream.update("comment_form") do %>
+  <%= render "form", resource: @resource, comment: @comment %>
+<% end %>
+
+<%= turbo_stream.append("track-comments-list") do %>
+  <%= render "comment_item", comment: @comment %>
+<% end %>

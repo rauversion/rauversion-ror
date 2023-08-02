@@ -48,7 +48,11 @@
         </span>
         <div class="flex-grow  ml-2 flex items-center justify-between">
           <div class="">
-            <h4 class="text-md font-bold"><%= link_to track_path(track) do %><%= track.title %><% end %> </h4>
+            <h4 class="text-md font-bold">
+              <%= link_to track_path(track), "data-turbo-frame": "_top" do %>
+                <%= track.title %>
+              <% end %> 
+            </h4>
             <h5 class="text-sm font-"><%= track.user.username %> </h5>
           </div>
         </div>
@@ -63,8 +67,8 @@
     <p class="hidden mt-1 text-sm text-gray-500"></p>
     <div class="p-2 sm:ml-3 sm:p-0 sm:pt-2 flex items-center space-x-1" data-turbo="false">
       
-      <div data-phx-component="11" id="phx-F3Thph2Pk8w3cjBh-11-0">
-        <a class="button" href="#" phx-click="share-track-modal" phx-target="11" phx-value-id="178">
+      <div data-phx-component="11">
+        <a class="button" href="#" phx-click="share-track-modal">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
           </svg>
@@ -77,8 +81,11 @@
 
       <%= render "reposts/repost_button", track: track, button_class: track.respond_to?(:repost_id) && track&.repost_id.present? ? "button-active" :  "button" %>
 
-      <div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5" data-phx-component="14" id="phx-F3Thph2Pk8w3cjBh-14-0">
-        <%= link_to "Añadir a playlist", new_playlist_path(track_id: track.id), class: "button" %>
+      <div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+        <%= link_to "Añadir a playlist", 
+          new_playlist_path(track_id: track.id), 
+          class: "button" 
+        %>
       </div>
 
       <div class="relative inline-block text-left" id="dropdownjj-dd-178" data-controller="dropdown">

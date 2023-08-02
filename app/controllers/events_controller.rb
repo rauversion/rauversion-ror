@@ -69,7 +69,7 @@ class EventsController < ApplicationController
       :description, :venue, :age_requirement, :payment_gateway, 
       :ticket_currency, :location, :lat, :lng, :country, :city, :province, 
       :participant_label, :participant_description, :scheduling_label, 
-      :scheduling_description,
+      :scheduling_description, :cover,
       
       event_schedules_attributes: [
         :id, :name, :_destroy, :start_date, :end_date, :schedule_type, :description,

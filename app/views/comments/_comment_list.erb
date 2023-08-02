@@ -1,0 +1,7 @@
+<div class="flow-root">
+  <ul id="track-comments-list" role="list" class="-mb-8">
+    <% comments.each do |comment| %>
+      <%= render "comments/comment_item", comment: comment %>
+    <% end %>
+  </ul>
+</div>

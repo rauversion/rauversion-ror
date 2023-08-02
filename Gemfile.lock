@@ -273,6 +273,8 @@ GEM
     mercadopago (2.3.0)
       faraday (>= 0.9.0)
       json (>= 1.4.6)
+    meta-tags (2.18.0)
+      actionpack (>= 3.2.0, < 7.1)
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
@@ -493,6 +495,7 @@ DEPENDENCIES
   kaminari
   kredis (~> 1.5)
   mercadopago (~> 2.3)
+  meta-tags (~> 2.18)
   omniauth (~> 2.0)
   omniauth-discord
   omniauth-rails_csrf_protection

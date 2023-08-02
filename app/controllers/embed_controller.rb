@@ -1,0 +1,2 @@
+class EmbedController < ApplicationController
+end

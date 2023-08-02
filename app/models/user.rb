@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :event_hosts
   has_many :hosted_events, through: :event_hosts
   has_many :purchases
-
+  has_many :comments
   has_one_attached :profile_header
   has_one_attached :avatar
 
