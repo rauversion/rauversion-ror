@@ -81,9 +81,10 @@
 
       <%= render "reposts/repost_button", track: track, button_class: track.respond_to?(:repost_id) && track&.repost_id.present? ? "button-active" :  "button" %>
 
-      <div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+      <div data-turbo="true" class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
         <%= link_to "Añadir a playlist", 
-          new_playlist_path(track_id: track.id), 
+          new_playlist_path(track_id: track.id, tab: "add-to-playlist"), 
+          "data-turbo-frame": "modal",
           class: "button" 
         %>
       </div>
@@ -136,7 +137,8 @@
             </div>
           </div>
           <div class="py-1" role="none">
-            <a class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 block px-4 py-2 text-sm" href="#" phx-click="add-to-next" phx-target="6" phx-value-id="178">
+            <a class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 block px-4 py-2 text-sm" 
+              href="#" phx-click="add-to-next" phx-target="6" phx-value-id="178">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M4.555 5.168A1 1 0 003 6v8a1 1 0 001.555.832L10 11.202V14a1 1 0 001.555.832l6-4a1 1 0 000-1.664l-6-4A1 1 0 0010 6v2.798l-5.445-3.63z"></path>
               </svg>

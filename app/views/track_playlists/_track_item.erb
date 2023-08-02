@@ -1,0 +1,22 @@
+<div id="track-item-<%= track.id %>-<%= playlist.id %>">
+  <% if track_count > 0 %>
+
+    <div data-turbo="true">
+      <%= link_to track_playlist_path(playlist, track_id: track.id),
+          "data-method": "delete",
+          "data-turbo-method": "delete",
+          "data-confirm": "Are you sure?",
+          class: "button" do %>
+        delete
+      <% end %>
+    </div>
+
+  <% else %>
+
+    <%= form_for playlist.track_playlists.new(track: track) do |f|%>
+      <%= f.hidden_field :track_id %>
+      <%= f.hidden_field :playlist_id %>
+      <%= f.submit %>
+    <% end %>
+  <% end %>
+</div>

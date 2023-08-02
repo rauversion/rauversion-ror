@@ -88,8 +88,8 @@
               <% end %>
 
               <% if current_user && current_user.id == playlist.user_id %>
-                <%= link_to playlist_path(playlist),
-                  class: "button" do %>
+                <%= link_to edit_playlist_path(playlist),
+                  class: "button", "data-turbo-frame": "modal" do %>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"

@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "track-item-#{@track_playlist.track.id}-#{@track_playlist.playlist.id}" do %>
+  <%= render "track_item", playlist: @playlist, track: @track , track_count: 0 %>
+<% end %>

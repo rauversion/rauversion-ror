@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resource :embed, only: :show
   end
 
+  resources :track_playlists
+
   resources :purchases do
     collection do
       get :tickets

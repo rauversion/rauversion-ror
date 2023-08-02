@@ -1,3 +1,8 @@
-<div id="playlist-form">
-  <%= render "edit_form", playlist: @playlist, tab: @tab %>
-</div>
+<%= turbo_frame_tag "modal" do %>
+
+  <%= render "shared/modal" do %>
+    <div id="playlist-form">
+      <%= render "edit_form", playlist: @playlist, tab: @tab %>
+    </div>
+  <% end %>
+<% end %>

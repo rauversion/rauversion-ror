@@ -1,3 +1,59 @@
-<div id="playlist-form">
-  <%= render "form" %>
-</div>
+<%= turbo_frame_tag "modal" do %>
+
+  <%= render "shared/modal" do %>
+    <div id="playlist-form">
+
+
+      <nav class="flex space-x-4 mb-10" aria-label="Tabs" data-controller="tabs">
+        <%= link_to "Add to playlist", new_playlist_path(track_id: @track.id, tab: "add-to-playlist"), class: "bg-brand-100 text-brand-700 px-3 py-2 font-medium text-sm rounded-md" %>
+        <%= link_to "Create a playlist", new_playlist_path(track_id: @track.id), class: "text-brand-500 hover:text-brand-700 px-3 py-2 font-medium text-sm rounded-md" %>
+      </nav>
+
+      <% if @tab == "add-to-playlist" %>
+        <section id="add-to-tab" class="tab-pane py-4 block">
+          <h2 class="mx-0 mt-0 mb-4 font-sans text-base font-bold leading-none">
+            Añadir a la lista
+          </h2>
+
+          <div class="sm:col-span-6">
+            <div class="flow-root mt-6">
+              <ul role="list" class="-my-5 divide-y divide-gray-200 dark:divide-gray-800">
+                <% Playlist.list_playlists_by_user_with_track(@track.id, current_user.id).each do |playlist| %>
+
+                  <li class="py-4">
+                    <div class="flex items-center space-x-4">
+                      <div class="flex-shrink-0">
+                        
+                        
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                          <%= playlist.title %>
+                        </p>
+                        <p class="text-sm text-gray-500 truncate"></p>
+                      </div>
+                      <div>
+
+                      <%= render "track_playlists/track_item", track: @track, playlist: playlist, track_count: playlist.track_count %>
+
+                    </div>
+                  </li>
+
+                <% end %>
+                
+              </ul>
+            </div>
+            <div class="mt-6 hidden">
+              <a href="#" class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                Ver todo
+              </a>
+            </div>
+          </div>
+        </section>
+      <% else %>
+        <%= render "form" %>
+      <% end %>
+    </div>
+  <% end %>
+
+<% end %>

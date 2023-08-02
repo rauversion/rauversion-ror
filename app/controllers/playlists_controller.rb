@@ -34,9 +34,10 @@ class PlaylistsController < ApplicationController
   end
 
   def new
-    track = Track.friendly.find(params[:track_id])
+    @tab = params[:tab]
+    @track = Track.friendly.find(params[:track_id])
     @playlist = current_user.playlists.new
-    @playlist.track_playlists << TrackPlaylist.new(track: track)
+    @playlist.track_playlists << TrackPlaylist.new(track: @track)
   end
 
   def create
@@ -71,6 +72,7 @@ class PlaylistsController < ApplicationController
       :copyright,
       :attribution, :noncommercial, :non_derivative_works, :copies,
       track_playlists_attributes: [
+        :_destroy,
         :track_id
       ]
     )
