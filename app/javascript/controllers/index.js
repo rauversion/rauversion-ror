@@ -27,6 +27,7 @@ import infinite_pagination_controller from "./infinite_pagination_controller"
 import modal_controller from "./modal_controller"
 import google_maps from "./google_maps"
 import redirect_controller from "./redirect_controller"
+import player_info_controller from './player_info_controller'
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -55,3 +56,4 @@ application.register("infinite-pagination", infinite_pagination_controller)
 application.register("modal", modal_controller)
 application.register("gmaps", google_maps)
 application.register("redirect", redirect_controller)
+application.register("player-info", player_info_controller)

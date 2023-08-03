@@ -2,11 +2,22 @@ import { Controller } from "@hotwired/stimulus";
 import WaveSurfer from 'wavesurfer.js';
 
 export default class extends Controller {
-  static targets = ["player", "playicon", "pauseicon", "loadingicon", "play", "next", "rew", "range"];
+  static targets = [
+    "player", 
+    "playicon", 
+    "pauseicon", 
+    "loadingicon", 
+    "play", 
+    "next", 
+    "rew", 
+    "range",
+    "trackinfo"
+  ];
   static values = {
+    id: Number,
     url: String,
     peaks: String,
-    height: Number
+    height: Number,
   }
   initialize() {
     this.waveClickListener = null;
@@ -15,31 +26,7 @@ export default class extends Controller {
     this.currentSongIndex = 0;
     this.currentSong = window.store.getState().playlist[this.currentSongIndex];
 
-    this.peaks = this.data.get("playerPeaks");
-    this.url = this.data.get("playerUrl");
-
     this.rangeValue = window.store.getState().volume;
-
-    /*
-    this.element.addEventListener("click", (e) => {
-      if (e.target.dataset.action === "play") {
-        this.play(e);
-      } else if (e.target.dataset.action === "next") {
-        this.nextSong(e);
-      } else if (e.target.dataset.action === "rew") {
-        this.prevSong(e);
-      }
-    });*/
-
-    /*this.rangeTarget.addEventListener("change", (e) => {
-      window.store.setState({ volume: e.target.value });
-      this._wave.setVolume(e.target.value);
-      this.rangePaint(e.target);
-    });*/
-
-    //document.getElementById("toggle-volume").addEventListener("click", (e) => {
-    //  document.getElementById("volume-wrapper").classList.toggle("hidden");
-    //});
 
     window.addEventListener(`phx:add-to-next`, this.addToNextListener);
     window.addEventListener(`phx:play-song`, this.playSongListener);
@@ -48,10 +35,25 @@ export default class extends Controller {
 
     this._wave = null;
     this.initWave();
+
+    document.addEventListener("player:info", 
+      (e) =>  {
+        if(e.detail.id !== this.idValue){
+          this.idValue = e.detail.id
+          this.peaksValue = e.detail.peaks
+          this.urlValue = e.detail.url
+
+          this.playSongListener(e)
+        }
+      }
+    )
+
+  }
+
+  connect(){
   }
 
   disconnect() {
-    this.element.removeEventListener("click");
     this.rangeTarget.removeEventListener("change");
     window.removeEventListener(`phx:add-to-next`, this.addToNextListener);
     window.removeEventListener(`phx:play-song`, this.playSongListener);
@@ -94,7 +96,7 @@ export default class extends Controller {
     setTimeout(()=>{
       // this does nothing for now. We will improve this soon...
       // window.prependSongID(this.el.dataset.trackId)
-      this._wave.load(this.el.dataset.playerUrl, JSON.parse(this.el.dataset.playerPeaks))
+      this._wave.load(this.urlValue, JSON.parse(this.peaksValue))
     }, 400)
   }
 

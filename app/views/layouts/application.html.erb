@@ -20,9 +20,9 @@
     <%= yield %>
 
     <div id="cart-counter" data-turbo-permanent>
-      <% if Track.last.present? %>
-        <%= render "shared/player", track: Track.last, slideover:nil %>
-      <% end %>
+      <%= turbo_frame_tag "player-frame", 
+        loading: :lazy,  
+        src: player_path(id: Track.first.id) %>
     </div>
 
     <div class="flash">

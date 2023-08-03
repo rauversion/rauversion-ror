@@ -41,13 +41,17 @@
                     <div class="flex text-sm text-gray-600 dark:text-gray-400 py-3">
                       <label class="relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500">
                         <span> Subir portada de una pista </span>
-                        <input id="phx-F3Ulgs4LtR7Ltz5i" type="file" name="cover" accept=".jpg,.jpeg,.png" data-phx-hook="Phoenix.LiveFileUpload" data-phx-update="ignore" data-phx-upload-ref="phx-F3Ulgs4LtR7Ltz5i" data-phx-active-refs="" data-phx-done-refs="" data-phx-preflighted-refs="" class="hidden">
+                        <%= form.file_field :cover , accept: ".jpg,.jpeg,.png", class: "hidden" %>
                       </label>
                       <p class="pl-1"> o arrastre y suelte </p>
+
                     </div>
                     <div></div>
                     <p class="text-xs text-gray-500"> PNG, JPG, GIF hasta 10MB </p>
                   </div>
+                </div>
+                <div class="flex items-center justify-center p-2">
+                  <%= image_tag form.object.cover_url(:medium) %>
                 </div>
               </div>
             </div>

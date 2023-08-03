@@ -3,7 +3,7 @@
     <%= link_to article_path(post),
       class: "block w-full h-32 image_height_class" do %>
       <span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-        <%= image_tag(post.cover_url) %>
+        <%= image_tag(post.cover_url(:horizontal)) %>
       </span>
     <% end %>
   </div>

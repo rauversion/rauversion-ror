@@ -1,6 +1,6 @@
 <div class="relative flex flex-wrap items-end w-full dark:text-white">
   <%= link_to article_path(post), class: "w-full" do %>
-    <%= image_tag(post.cover_url(:small),
+    <%= image_tag(post.cover_url(:large),
       class: "inset-0 block object-cover object-center w-full h-72 grayscale filter"
     ) %>
   <% end %>

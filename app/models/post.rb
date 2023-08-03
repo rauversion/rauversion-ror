@@ -22,6 +22,8 @@ class Post < ApplicationRecord
       when :small
         self.cover.variant(resize_to_limit: [50, 50])&.processed&.url
 
+      when :horizontal
+        self.cover.variant(resize_to_limit: [600, 300])&.processed&.url
       else
         self.cover.variant(resize_to_limit: [200, 200])&.processed&.url
     end

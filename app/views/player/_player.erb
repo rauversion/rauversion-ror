@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "player-frame" do %>
+  <div id="main-player" 
+    phx-hook="PlayerInitiator" 
+    class="z-50 fixed bottom-0 w-full h-[6rem]-- py-2 bg-black border-t border-gray-800">
+    
+    <div
+      id="player-component" 
+      data-controller="player" 
+      data-player-id-value="<%= track.id %>" 
+      data-player-peaks-value="<%= track.peaks %>"
+      data-player-url-value="<%= track.mp3_audio.url %>" 
+      class="flex">
+
+      <%= render "controls" %>
+      
+      <div id="player-main-player" 
+        data-turbo-permanent
+        phx-update="ignore" 
+        data-player-target="player" 
+        class="mx-3 flex-grow items-center">
+      </div>
+
+      <div id="track-info-wrapper">
+        <%= render "player/track_info", track: track %>
+      </div>
+
+    </div>
+
+
+  </div>
+<% end %>
