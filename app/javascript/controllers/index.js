@@ -28,6 +28,9 @@ import modal_controller from "./modal_controller"
 import google_maps from "./google_maps"
 import redirect_controller from "./redirect_controller"
 import player_info_controller from './player_info_controller'
+import track_detector_controller from './track_detector_controller'
+import play_button_controller from './play_button_controller'
+
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -57,3 +60,5 @@ application.register("modal", modal_controller)
 application.register("gmaps", google_maps)
 application.register("redirect", redirect_controller)
 application.register("player-info", player_info_controller)
+application.register("track-detector", track_detector_controller)
+application.register("play-button", play_button_controller)

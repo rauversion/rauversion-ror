@@ -13,13 +13,17 @@ const store = create(
       //addAFish: () => set({ fishes: get().fishes + 1 }),
     }),
     {
-      name: 'rau-storage', // unique name
+      name: 'rau-ror-storage', // unique name
       getStorage: () => localStorage // sessionStorage, // (optional) by default, 'localStorage' is used
     }
   )
 )
 
 const { getState, setState, subscribe, destroy } = store
+
+if (!Array.isArray(store.getState().playlist)){
+  store.setState({playlist: []})
+}
 
 subscribe((v)=> {
   console.log("value changes", v)

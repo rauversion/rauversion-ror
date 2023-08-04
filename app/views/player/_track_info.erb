@@ -16,7 +16,7 @@
             max="1" 
             step="0.1" 
             data-player-target="range" 
-            class="vertical mt-[52px] ml-[-55px] rotate-90" 
+            class="vertical mt-[52px] ml-[-55px] -rotate-90" 
             id="player-range">
         </div>
         <button id="toggle-volume" data-action="player#toggleVolume" 
@@ -38,11 +38,14 @@
       
         <%= link_to track.user.username, user_path(track.user.username),
           class: "flex items-center w-full h-4 text-xs cursor-pointer truncate text-gray-200 focus:text-black hover:text-gray-300",
-          title: track.title
+          title: track.title,
+          "data-turbo-frame": "_top"
         %> 
       
         <div class="flex items-center w-full h-4 text-zinc-800">
-          <%= link_to track_path(track.user.username), class: "text-xs cursor-pointer truncate text-gray-200 focus:text-black hover:text-gray-200" do %>
+          <%= link_to user_path(track.user.username), 
+            "data-turbo-frame": "_top",
+            class: "text-xs cursor-pointer truncate text-gray-200 focus:text-black hover:text-gray-200" do %>
             <span class="sr-only">Current track: <%= track.title %></span>
             <span aria-hidden="true" class="whitespace-nowrap"><%= track.title %></span>
           <% end %>
@@ -53,7 +56,7 @@
       <div class="flex ml-2 text-zinc-200 ">
         <button type="button" class="hidden inline-block relative p-3 m-0 h-5 font-sans font-thin text-left text-brand-600 whitespace-nowrap bg-transparent rounded-sm border-0 border-solid cursor-pointer select-none box-border border-neutral-200 focus:border focus:border-solid focus:border-brand-600 focus:text-brand-600 hover:border hover:border-solid hover:border-brand-600 hover:text-brand-600" aria-describedby="tooltip-1455" tabindex="0" title="Unlike" aria-label="Unlike"> Me gustó </button>
         <button type="button" class="hidden inline-block relative p-3 m-0 h-5 font-sans font-thin text-left whitespace-nowrap bg-transparent rounded-sm border-0 border-solid cursor-pointer select-none box-border border-neutral-200 focus:border-stone-300 focus:text-zinc-800 hover:border-stone-300 hover:text-zinc-800" tabindex="0" title="Follow" aria-label="Follow"> Seguir </button>
-        <button phx-click="display-slideover">
+        <button data-action="click->player#displaySidebar">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
           </svg>

@@ -1,4 +1,6 @@
-<div id="track-item-<%= track.id %>-<%= playlist.id %>">
+<div id="track-item-<%= track.id %>-<%= playlist.id %>"      
+  data-track-detector-target="track"
+  data-track-id="<%= track.id %>">
   <% if track_count > 0 %>
 
     <div data-turbo="true">

@@ -3,8 +3,8 @@ class PlayerController < ApplicationController
   def show
     id = params[:id]
     @track = Track.friendly.find(id)
-    @next_track = next_track(@track.id)
-    @prev_track = previous(@track.id)
+    #@next_track = next_track(@track.id)
+    #@prev_track = previous(@track.id)
 
     if params[:t] 
       render turbo_stream: [
@@ -17,8 +17,6 @@ class PlayerController < ApplicationController
       ]
     end
   end
-
-
 
   def next_track(id)
     Track.where("id > ?", id).order(id: :asc).first

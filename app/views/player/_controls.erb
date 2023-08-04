@@ -1,6 +1,6 @@
-<div class="flex text-white items-center justify-center space-x-3">
+<div class="flex text-white items-center justify-center space-x-3 ml-2">
   
-  <button type="button" data-action="player#rew" data-player-target="rew">
+  <button type="button" data-action="player#prevSong" data-player-target="rew">
     <svg viewBox="0 0 15 15" aria-label="fwd" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
       <path d="M14.5 12.5v-10l-7 5 7 5zm-7 0v-10l-7 5 7 5z" stroke="currentColor" stroke-linejoin="round"></path>
     </svg>
@@ -46,13 +46,13 @@
       <path d="M4.5 12.5v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
     </svg>
   </button>
-  <button type="button" data-action="player#next" data-player-target="next">
+  <button type="button" data-action="player#nextSong" data-player-target="next">
     <svg viewBox="0 0 15 15" aria-label="fwd" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
       <path d="M.5 12.5v-10l7 5-7 5zm7 0v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
     </svg>
   </button>
 
-  <%= link_to "nxt #{@prev_track.id}", player_path(id: @prev_track, t: true) if @prev_track %>
-  <%= link_to "nxt #{@track.id}", player_path(id: @track, t: true) %>
-  <%= link_to "nxt #{@next_track.id}", player_path(id: @next_track, t: true) if @next_track %>
+  <% #= link_to "nxt #{@prev_track.id}", player_path(id: @prev_track, t: true) if @prev_track %>
+  <% #= link_to "nxt #{@track.id}", player_path(id: @track, t: true) %>
+  <% #= link_to "nxt #{@next_track.id}", player_path(id: @next_track, t: true) if @next_track %>
 </div>

@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import WaveSurfer from 'wavesurfer.js';
+import { get, post, put, patch, destroy } from '@rails/request.js'
 
 export default class extends Controller {
   static targets = [
@@ -11,7 +12,8 @@ export default class extends Controller {
     "next", 
     "rew", 
     "range",
-    "trackinfo"
+    "trackinfo",
+    "sidebar"
   ];
   static values = {
     id: Number,
@@ -77,7 +79,7 @@ export default class extends Controller {
 
   addToNextListener(e) {
     console.log("ADD TO NEXT ITEM", e.detail);
-    this.pushEvent("add-song", { id: e.detail.value.id });
+    //this.pushEvent("add-song", { id: e.detail.value.id });
   }
 
   playSongListener(e) {
@@ -237,15 +239,61 @@ export default class extends Controller {
     this._wave.destroy();
   }
 
-  nextSong() {
+  async nextSong() {
     this.hasHalfwayEventFired = false;
-    this.pushEvent("request-song", { action: "next" });
-    console.log("no more songs to play");
+    const c = this.getNextTrackIndex()
+    const aa = document.querySelector(`#sidebar-track-${ c }`)
+    const response = await get(aa.dataset.url, { 
+      responseKind: "turbo-stream", 
+    })
+    console.log("RESPONSE", response)
+    console.log("no more songs to play", c, aa);
   }
 
-  prevSong() {
+  getNextTrackIndex(){
+    const { playlist } = window.store.getState();
+
+    const currentTrackId = this.idValue + ""
+   
+    const currentTrackIndex = playlist.indexOf(currentTrackId);
+  
+    // If the current track ID is not found, return null or undefined.
+    if (currentTrackIndex === -1) return playlist[0];
+  
+    // If the current track is the last one, return the first track ID.
+    // Otherwise, return the next track ID.
+    return currentTrackIndex === playlist.length - 1
+      ? playlist[0]
+      : playlist[currentTrackIndex + 1];
+  }
+
+  getPreviousTrackIndex() {
+    const { playlist } = window.store.getState();
+  
+    const currentTrackId = this.idValue + ""
+   
+    const currentTrackIndex = playlist.indexOf(currentTrackId);
+  
+    // If the current track ID is not found, return null or undefined.
+    if (currentTrackIndex === -1) return playlist[0];
+  
+    // If the current track is the first one, return the last track ID.
+    // Otherwise, return the previous track ID.
+    return currentTrackIndex === 0
+      ? playlist[playlist.length - 1]
+      : playlist[currentTrackIndex - 1];
+  }
+
+  async prevSong() {
     this.hasHalfwayEventFired = false;
-    this.pushEvent("request-song", { action: "prev" });
+
+    const c = this.getPreviousTrackIndex()
+    const aa = document.querySelector(`#sidebar-track-${ c }`)
+    const response = await get(aa.dataset.url, { 
+      responseKind: "turbo-stream", 
+    })
+    console.log("RESPONSE", response)
+    console.log("no more songs to play", c, aa);
   }
 
   playSong() {
@@ -257,5 +305,26 @@ export default class extends Controller {
     fetch(`/tracks/${trackId}/events`)
       .then(response => response.json())
       .then(data => console.log(data));
+  }
+
+  displaySidebar(){
+    this.sidebarTarget.classList.toggle("hidden")
+  }
+
+  closeSidebar(){
+    this.sidebarTarget.classList.add("hidden")
+  }
+
+  removeSong(e) {
+    e.preventDefault()
+    const trackIdToRemove = e.currentTarget.dataset.value
+    const { playlist } = store.getState();
+
+    document.querySelector(`#sidebar-track-${trackIdToRemove}`).remove()
+  
+    // Filter out the track ID to remove
+    const newPlaylist = playlist.filter(trackId => trackId !== trackIdToRemove);
+  
+    store.setState({ playlist: newPlaylist });
   }
 }
