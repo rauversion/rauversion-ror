@@ -75,7 +75,8 @@ class TracksController < ApplicationController
       :direct_download, :display_embed, :enable_comments, 
       :display_comments, :display_stats, :include_in_rss, 
       :offline_listening, :enable_app_playblack,
-      :cover
+      :cover,
+      tags: []
     )
   end
 end

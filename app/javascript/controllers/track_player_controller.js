@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import WaveSurfer from 'wavesurfer.js'
+import { get, post, put, patch, destroy } from '@rails/request.js'
 
 export default class extends Controller {
   static targets = ["player", "playicon", "pauseicon", "play"]
@@ -78,8 +79,12 @@ export default class extends Controller {
     }
   }
 
-  play(e){
+  async play(e){
     
+    const response = await get(e.currentTarget.dataset.url, { 
+      responseKind: "turbo-stream", 
+    })
+    console.log("RESPONSE", response)
   }
 
   addFromPlaylistListener(e) {

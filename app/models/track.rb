@@ -262,5 +262,10 @@ class Track < ApplicationRecord
       {count: v, day: k }
     }
   end
+
+
+  def tags=(list)
+    self[:tags] = list.reject { |item| item.empty? }
+  end
   
 end

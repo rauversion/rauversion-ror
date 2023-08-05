@@ -58,8 +58,11 @@
                   <div class="max-w-lg flex- rounded-md shadow-sm">
                     <div phx-update="ignore" id="ignore-tags-">
                       <div data-controller="select" id="oe">
+                          <%= form.select :tags, 
+                            Category::Genres.plain , 
+                            {} ,
+                            {:multiple => true, class: "hidden text-gray-800" } %>
                         <div class="select-wrapper">
-                          <%= form.select :tags, Category::Genres.plain , class: "hidden text-gray-800", multiple: true%>
                         </div>
                       </div>
                     </div>

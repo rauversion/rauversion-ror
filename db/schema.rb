@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_041902) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_04_054909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -378,12 +378,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_041902) do
     t.integer "likes_count"
     t.integer "reposts_count"
     t.string "state"
-    t.jsonb "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
     t.string "genre"
+    t.string "tags", default: [], array: true
     t.index ["slug"], name: "index_tracks_on_slug"
+    t.index ["tags"], name: "index_tracks_on_tags", using: :gin
     t.index ["user_id"], name: "index_tracks_on_user_id"
   end
 

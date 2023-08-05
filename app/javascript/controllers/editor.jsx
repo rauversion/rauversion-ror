@@ -18,19 +18,99 @@ import { DirectUpload } from "@rails/activestorage";
 
 import { get, post, put, patch, destroy } from '@rails/request.js'
 
-
+import {useDebounce} from '../hooks/use_debounce'
 
 
 export default class extends Controller {
+
+  static targets = ["sidebar", "status", "wrapper"]
+
   connect() {
     const wrapper = this.element;
-    const root = createRoot(wrapper);
-    this.locked = false
-    
+    const root = createRoot(this.wrapperTarget);
+
     root.render(
-      <Dante 
+      <EditorComponent 
+        upload={this.upload} 
+        ctx={this}
+        initialValue={JSON.parse(wrapper.dataset.field)}
+        callback={this.updateContent}>
+      </EditorComponent>
+    );
+  }
+
+  upload(file, cb){
+    if(!file) return
+    const url = '/api/v1/direct_uploads'
+    const upload = new DirectUpload(file, url)
+  
+    upload.create((error, blob) => {
+      if (error) {
+        // Handle the error
+      } else {
+        cb(blob)
+      }
+    })
+  }
+
+  async createArticle (body) {
+    this.statusTarget.text = "saving" 
+    const response = await post('/articles', { 
+      responseKind: "turbo-stream", 
+      body: { post: {body: body } } 
+    })
+    
+    if (response.redirected) {
+      Turbo.visit(response.response.url);
+    }
+  }
+  
+  async updateArticle (body) {
+    this.statusTarget.innerHTML = "saving" 
+    const id = this.element.dataset.id
+    await put(`/articles/${id}`, { 
+      responseKind: "turbo-stream", 
+      body: {
+        post: { body: body, id: id }
+      } 
+    })
+  }
+
+  updateContent(ctx, data) {
+    ctx.updateArticle(data)
+    // You will need to implement this method to handle the 
+    // "update-content" event. This may involve making an AJAX 
+    // request to your server with the updated content.
+  }
+
+  disconnect() {
+    // Cleanup when the controller is disconnected
+  }
+
+  displaySidebar(){
+    this.sidebarTarget.classList.toggle("hidden")
+  }
+
+  closeSidebar(){
+    this.sidebarTarget.classList.add("hidden")
+  }
+}
+
+
+function EditorComponent({callback, ctx, upload, initialValue}){
+  const [value, setValue] = React.useState(initialValue)
+  const debouncedValue = useDebounce(value, 500)
+  
+  // Fetch API (optional)
+  React.useEffect(() => {
+    console.log("kjjkjjj")
+    callback(ctx, value)
+  }, [debouncedValue])
+
+  return (
+    <Dante 
         theme={darkTheme}
-        content={JSON.parse(wrapper.dataset.field)}
+        content={value}
         widgets={[
           ImageBlockConfig({
             options: {
@@ -70,7 +150,7 @@ export default class extends Controller {
               upload_handler: (file, ctx) => {
                 console.log("UPLOADED VIDEO FILE!!!!", file)
                 
-                this.upload(file, (blob)=>{
+                upload(file, (blob)=>{
                   console.log(blob)
                   console.log(ctx)
                   ctx.updateAttributes({
@@ -84,69 +164,8 @@ export default class extends Controller {
         ]}
         onUpdate={(editor)=>{
           console.log(editor.getJSON())
-          //wrapper.dataset.field = editor.getHTML()
-          if(!this.locked && !this.element.dataset.id && editor.state.doc.textContent.length > 0 ){
-            this.createArticle(editor.getJSON())
-            this.locked = false
-          }
-
-          if(!this.locked && this.element.dataset.id){
-            this.updateArticle(editor.getJSON())
-            this.locked = false
-          }
+          setValue(editor.getJSON())
           // this.pushEvent("update-content", {content: editor.getJSON() } )
       }}/>
-    );
-  }
-
-  async createArticle (body) {
-    this.locked = true
-    const response = await post('/articles', { 
-      responseKind: "turbo-stream", 
-      body: { post: {body: body } } 
-    })
-    
-    if (response.redirected) {
-      Turbo.visit(response.response.url);
-    }
-  }
-
-  async updateArticle (body) {
-    this.locked = true
-    const id = this.element.dataset.id
-    const response = await put(`/articles/${id}`, { 
-      responseKind: "turbo-stream", 
-      body: {
-        post: { body: body, id: id }
-      } 
-    })
-    
-    if (response.redirected) {
-      Turbo.visit(response.response.url);
-    }
-  }
-
-  upload(file, cb){
-    if(!file) return
-    const url = '/api/v1/direct_uploads'
-    const upload = new DirectUpload(file, url)
-  
-    upload.create((error, blob) => {
-      if (error) {
-        // Handle the error
-      } else {
-        cb(blob)
-      }
-    })
-  }
-
-  updateContent(data) {
-    // You will need to implement this method to handle the 
-    // "update-content" event. This may involve making an AJAX 
-    // request to your server with the updated content.
-  }
-
-  disconnect() {
-    // Cleanup when the controller is disconnected
-  }
+  )
 }

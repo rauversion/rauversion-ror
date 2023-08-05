@@ -20,6 +20,7 @@
           <button type="button" 
             data-action="trackplayer#play" 
             data-trackplayer-target="play" 
+            data-url="<%= player_url(id: track, t: true) %>"
             class="player-button">
             <span class="sr-only">Jugar</span>
             <svg data-trackplayer-target="playicon" 
@@ -58,16 +59,23 @@
         </div>
         <div class="mr-2">
           <div class="py-4">
-            <a href="/tracks/genre/Electronica" data-phx-link="redirect" data-phx-link-state="push" class="inline-flex dark:hover:bg-gray-900 hover:cursor-pointer items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200"> Electronica </a>
+            <% track.tags.each do |tag| %>
+              <a href="/tracks/genre/Electronica" 
+                data-phx-link="redirect" 
+                data-phx-link-state="push" 
+                class="inline-flex dark:hover:bg-gray-900 hover:cursor-pointer items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200"> 
+                <%= tag %> 
+              </a>
+            <% end %>
           </div>
         </div>
       </div>
       <div></div>
     </div>
     <p class="hidden mt-1 text-sm text-gray-500"></p>
-    <div class="p-2 sm:ml-3 sm:p-0 sm:pt-2 flex items-center space-x-1" data-turbo="false">
+    <div class="p-2 sm:ml-3 sm:p-0 sm:pt-2 flex items-center space-x-1">
       
-      <div data-phx-component="11">
+      <div>
         <a class="button" href="#" phx-click="share-track-modal">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
@@ -114,7 +122,8 @@
         <div class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-900 rounded-md bg-white dark:bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" data-dropdown-target="menu" classsss="hidden transition transform origin-top-right absolute right-0" data-transition-enter-from="opacity-0 scale-95" data-transition-enter-to="opacity-100 scale-100" data-transition-leave-from="opacity-100 scale-100" data-transition-leave-to="opacity-0 scale-95">
           <div class="py-1" role="none">
             
-            <%= link_to edit_track_path(track), class: "flex items-center space-x-2 text-gray-700 dark:text-gray-300 block px-4 py-2 text-sm" do %>
+            <%= link_to edit_track_path(track), class: "flex items-center space-x-2 text-gray-700 dark:text-gray-300 block px-4 py-2 text-sm",
+            "data-turbo-frame": "_top" do %>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
               </svg>

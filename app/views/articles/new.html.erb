@@ -29,21 +29,14 @@
     </div>
   </div>
 
-  <div
-    id="article-editor"
-    phx-update="ignore"
-    data-controller="editor"
-    data-field="<%= @article.body || 'null' %>"
-    class="w-3/4 prose dark:prose-invert prose-brand prose-lg p-10 mx-auto "
-  >
+  <div class="w-full flex justify-center">
+    <div class="w-2/4 mt-10">
+      <%= form_for @article, url: articles_path(@article) do |form| %>
+        <%= form.text_field :title, hint: "Lets start with a title" %>
+        <% # form.text_area :excerpt %>
+        <%= form.submit("save and edit article", class: "mt-4") %>
+      <% end %>
+    </div>
   </div>
 
-  <% if @open %>
-    <.live_component
-      module={RauversionWeb.ArticlesLive.SidebarFormComponent}
-      id={:article_sidebar_form}
-      post={@post}
-      current_user={@current_user}
-    />
-  <% end %>
 </div>

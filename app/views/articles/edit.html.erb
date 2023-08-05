@@ -1,8 +1,9 @@
-<div class="h-screen mt-6- text-gray-500 flex dark:bg-black dark:text-white ">
+<div data-controller="panel" class="h-full mt-6- text-gray-500 flex dark:bg-black dark:text-white ">
   <div class="fixed bottom-[20] right-0 ">
     <div class=" mr-10 flex items-center mt-4">
       <button
         phx-click="toggle-panel"
+        data-action="panel#toggle"
         class="p-4 text-black dark:text-white hover:text-gray-500 inline-flex space-x-2"
       >
         <svg
@@ -29,15 +30,28 @@
     </div>
   </div>
 
-  <div
-    data-turbo-permanentnono
-    id="article-editor"
-    phx-update="ignore"
-    data-controller="editor"
-    data-id="<%= @article.id %>"
-    data-field="<%= @article.body.to_json || 'null' %>"
-    class="w-3/4 prose dark:prose-invert prose-brand prose-lg p-10 mx-auto "
-  >
+  <div class="flex flex-col justify-center items-center w-full mt-10">
+    
+
+
+    <div
+      id="article-editor"
+      phx-update="ignore"
+      data-controller="editor"
+      data-id="<%= @article.id %>"
+      data-field="<%= @article.body.to_json || 'null' %>"
+      class="w-3/4 prose dark:prose-invert prose-brand prose-lg p-10 mx-auto "
+    >
+
+      <div class="flex items-center">
+        <div id="article-status" 
+          data-editor-target="status" 
+          class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+        </div>
+      </div>
+
+      <div data-editor-target="wrapper"></div>
+    </div>
   </div>
 
   <% if !@open %>

@@ -1,4 +1,9 @@
 
-<%= turbo_stream.replace("flashes") do %>
-  <%= render "shared/flash" %>
+<%= turbo_stream.replace("article-status") do %>
+  <div id="article-status"
+     data-editor-target="status" 
+     class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+     Saved
+  </div>
+
 <% end %>

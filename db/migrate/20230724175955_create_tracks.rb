@@ -11,7 +11,6 @@ class CreateTracks < ActiveRecord::Migration[7.0]
       t.integer :likes_count
       t.integer :reposts_count
       t.string :state
-      t.jsonb :tags
 
       t.timestamps
     end

@@ -11,7 +11,7 @@ class Event < ApplicationRecord
 
   has_many :paid_purchased_items, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
 
-  has_many :event_tickets, -> { 
+  has_many :purchased_event_tickets, -> { 
     where(purchased_items: { purchased_item_type: 'EventTicket' }) 
   }, through: :purchased_items, source: :purchased_item, source_type: 'EventTicket'
 
@@ -120,7 +120,7 @@ class Event < ApplicationRecord
   end
 
   def sales_count
-    event_tickets.where("purchased_items.state =?", "paid").sum("price")
+    purchased_event_tickets.where("purchased_items.state =?", "paid").sum("price")
   end
 
   def tickets_sold

@@ -30,6 +30,7 @@ import redirect_controller from "./redirect_controller"
 import player_info_controller from './player_info_controller'
 import track_detector_controller from './track_detector_controller'
 import play_button_controller from './play_button_controller'
+import panel from "./panel_controller"
 
 //import GeoChart from './geo_chart_controller'
 
@@ -62,3 +63,4 @@ application.register("redirect", redirect_controller)
 application.register("player-info", player_info_controller)
 application.register("track-detector", track_detector_controller)
 application.register("play-button", play_button_controller)
+application.register("panel", panel)

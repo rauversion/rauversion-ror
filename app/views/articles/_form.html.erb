@@ -1,4 +1,6 @@
-<div class="z-[500]-- pointer-events-none fixed-- inset-y-0 right-0 flex max-w-full pl-10 w-1/4" data-phx-component="3" id="phx-F3UlQWi-ITQF6F-h-3-0">
+
+
+<div data-panel-target="panel" class="hidden z-[500]-- pointer-events-none fixed-- inset-y-0 right-0 flex max-w-full pl-10 w-1/4" data-phx-component="3" id="phx-F3UlQWi-ITQF6F-h-3-0">
   <!--
     Slide-over panel, show/hide based on slide-over state.
 
@@ -16,7 +18,9 @@
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-medium text-white" id="slide-over-title"> Nuevo artículo </h2>
             <div class="ml-3 flex h-7 items-center">
-              <button phx-click="toggle-panel" type="button" class="rounded-md bg-brand-700 text-brand-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white" @click="open = false">
+              <button phx-click="toggle-panel" 
+                data-action="panel#toggle"
+                type="button" class="rounded-md bg-brand-700 text-brand-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white" @click="open = false">
                 <span class="sr-only">Cerrar panel</span>
                 <svg class="h-6 w-6" x-description="Heroicon name: outline/x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
