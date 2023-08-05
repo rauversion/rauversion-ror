@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resource :oembed, controller: 'oembed', only: :show
+
   resource :player, controller: "player"
 
   scope path: '/api' do

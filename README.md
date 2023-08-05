@@ -1,13 +1,11 @@
 TODO:
 
   + player
-    + show playlist on the side
-    + play form tracks outside player
+    + sidebar show selected
 
   + articles: 
     + article creation gets duplicated // delay save // lock
     + sidebar toggle
-    + public magazine
 
   + tracks: 
     + upload form
@@ -18,9 +16,6 @@ TODO:
     + track sharer
 
   + playlists:
-    + playlist form
-    + add form
-    + edit form
     + album purchase
 
   + events
