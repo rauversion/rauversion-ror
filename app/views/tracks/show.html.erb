@@ -37,7 +37,6 @@
             data-trackplayer-height-value="250"
             data-trackplayer-id-value="<%= @track.id %>">
         
-          
             <div class="controls flex items-center mb-4">
               <span class="relative z-0 inline-flex ml-2 pl-6 pt-6">
                 <button
@@ -128,9 +127,7 @@
       </div>
 
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <!-- Profile info omitted for brevity -->
-        
       </div>
     </div>
 
@@ -203,7 +200,6 @@
 
         <%= render "tag_list", track: @track %>
 
-
         <div class="hidden sm:flex space-x-2 2xl:hidden my-6 min-w-0 flex-1">
           <%= image_tag @track.user.avatar_url(:small), class: "h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center" %>
           <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">
@@ -213,8 +209,6 @@
           </h1>
         </div>
 
-        
-      
         <% if @track.description %>
           <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
             <%= t("About") %>
@@ -227,6 +221,8 @@
         <% if @track.metadata && @track.metadata[:buy_link] %>
           <%= link_to t("Buy Link"), @track.metadata[:buy_link], class: "underline", target: "_blank" %>
         <% end %>
+
+        <%= render "shared/attribution", resource: @track %>
       </div>
 
       <% if @track.created_at %>
@@ -251,6 +247,14 @@
         </div>
       <% end %>
     </dl>
+  </div>
+
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    
+    <!-- Profile info omitted for brevity -->
+    <%= render "shared/music_purchase", resource: @track %>
+
   </div>
 
 

@@ -14,11 +14,9 @@
       <%= render "player/controls" %>
       
       <div id="player-main-player" 
-        data-turbo-permanent
         phx-update="ignore" 
         data-player-target="player" 
         class="mx-3 flex-grow items-center">
-        <%= Time.now.to_i %>
       </div>
 
       <div id="track-info-wrapper">

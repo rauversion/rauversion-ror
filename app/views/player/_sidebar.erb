@@ -58,8 +58,8 @@
                   <% # = for item <- @tracks  do %>
                   <li id="sidebar-track-<%= item.id %>" 
                     data-url="<%= player_path(id: item, t: true) %>"
-                    class="py-4 px-2 <%= false ? "bg-gray-100 dark:bg-gray-900" : "" %>">
-                    <div class="flex items-center space-x-4">
+                    class="py-4 px-2 w-full <%= false ? "bg-gray-100 dark:bg-gray-900" : "" %>">
+                    <div class="flex items-center space-x-4 justify-between">
                       <%= link_to player_path(id: item, t: true), class: "flex items-center space-x-4" do %>
                         <div class="flex-shrink-0">
                           <%= image_tag item.cover_url(:small), class: "h-8 w-8 rounded-full" %>

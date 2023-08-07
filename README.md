@@ -17,6 +17,8 @@ TODO:
 
   + events
     + purchases calculate amounts for fees
+    + handle: handle_stripe_session or handle_tbk_session, on event purchases controller
+    
 
 
 test mailers

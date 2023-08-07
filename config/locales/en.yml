@@ -33,6 +33,14 @@ en:
   hello: "Hello world"
   by: "By %{name}"
 
+  payments:
+    include_message: "include a message to %{name}"
+    optional_message: optional message
+    purchase_includes: "Includes unlimited streaming via the %{app_name} app, plus high-quality download in MP3, FLAC"
+    name_your_price: Name your price %{num} or more
+    buy_digital_album: "Buy Digital album"
+    buy_digital_track: "Buy Digital track"
+
   time:
     formats:
       day: '%b %d'

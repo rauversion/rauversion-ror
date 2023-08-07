@@ -87,6 +87,12 @@ Rails.application.routes.draw do
     resource :likes
     resources :comments
     resource :embed, only: :show
+    resources :track_purchases do
+      member do
+        get :success
+        get :failure
+      end
+    end
   end
 
   constraints(Constraints::UsernameRouteConstrainer.new) do
