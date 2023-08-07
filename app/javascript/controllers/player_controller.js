@@ -30,9 +30,6 @@ export default class extends Controller {
 
     this.rangeValue = window.store.getState().volume;
 
-    window.addEventListener(`phx:add-to-next`, this.addToNextListener);
-    window.addEventListener(`phx:play-song`, this.playSongListener);
-
     this.rangePaint(this.rangeTarget);
 
     this._wave = null;
@@ -56,10 +53,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.rangeTarget.removeEventListener("change");
-    window.removeEventListener(`phx:add-to-next`, this.addToNextListener);
-    window.removeEventListener(`phx:play-song`, this.playSongListener);
-    this._wave.destroy();
+    // this._wave.destroy();
   }
 
   toggleVolume(e){

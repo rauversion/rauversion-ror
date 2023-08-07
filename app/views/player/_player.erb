@@ -11,13 +11,14 @@
       data-player-url-value="<%= track.mp3_audio.url %>" 
       class="flex">
 
-      <%= render "controls" %>
+      <%= render "player/controls" %>
       
       <div id="player-main-player" 
         data-turbo-permanent
         phx-update="ignore" 
         data-player-target="player" 
         class="mx-3 flex-grow items-center">
+        <%= Time.now.to_i %>
       </div>
 
       <div id="track-info-wrapper">
