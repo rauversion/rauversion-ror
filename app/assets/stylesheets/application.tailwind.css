@@ -42,10 +42,13 @@
     @apply block text-gray-700 dark:text-white text-sm font-bold mb-1;
   }
 
-  input[type="submit"]{
+  input[type="submit"], .brand-button {
     @apply cursor-pointer rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
   }
 
+  .link {
+    @apply text-brand-600 hover:text-brand-900;
+  }
 
   /* .my-react-select-container {
       oijoijoij

@@ -50,7 +50,8 @@
           <div class="sm:block">
             <div class="border-b border-gray-200">
               <nav class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-                <%= link_to "#", phx_click: "section-change", phx_value_section: "all_music",
+                <%= link_to music_purchases_path(tab: "albums"), 
+                phx_click: "section-change", phx_value_section: "all_music",
                   class: "border-transparent text-gray-500 dark:text-gray-200 hover:text-gray-700 hover:text-gray-300 hover:border-gray-200 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" do %>
                   <%= gettext("Purchased albums") %>
                   <!--<span class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">2</span>-->
@@ -60,7 +61,9 @@
                   <%= gettext("Pending orders") %>
                   <span class="hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">4</span>
                 <% end %> -->
-                <%= link_to "#", phx_click: "section-change", phx_value_section: "all_tracks",
+                <%= link_to music_purchases_path(tab: "tracks"), 
+                  phx_click: "section-change", 
+                  phx_value_section: "all_tracks",
                   class: "border-transparent text-gray-500 dark:text-gray-200 hover:text-gray-700 hover:text-gray-300 hover:border-gray-200 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" do %>
                   <%= gettext("Purchased individual Tracks") %>
                   <!--<span class="hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">4</span>-->
@@ -71,8 +74,8 @@
         </div>
         <!-- Stacked list -->
         <ul role="list" class="mt-5 divide-y divide-gray-200 dark:divide-gray-800 border-t border-gray-200 dark:border-gray-800 sm:mt-0 sm:border-t-0">
-          <% [].each do |ticket| %>
-            
+          <% @collection.each do |purchase| %>
+            <%= render "track", purchase: purchase %>
           <% end %>
         </ul>
         <!-- Pagination -->

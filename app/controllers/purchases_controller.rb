@@ -5,10 +5,11 @@ class PurchasesController < ApplicationController
   end
 
   def tickets
-    @purchases = current_user.purchases.where(purchasable_type: "Event").page
+    @purchases = current_user.purchases.where(state: "paid", purchasable_type: "Event").page
   end
 
   def music
-    @purchases = current_user.purchases.where(purchasable_type: "Track").page
+    kind = params[:tab] == "tracks" ? "Track" : "Playlist"
+    @collection = current_user.purchases.where(state: "paid", purchasable_type: kind).page
   end
 end

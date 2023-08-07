@@ -1,0 +1,12 @@
+<div class="flex justify-center flex-col space-y-3">
+  <p class="text-lg">
+    <%= gettext("Player not available please open the metting on Zoom service") %>
+  </p>
+  <a
+    href="<%= @event.meeting_url %>"
+    target="blank"
+    class="inline-flex items-center justify-center rounded-md border border-transparent bg-brand-600 px-5 py-3 text-base font-medium text-white hover:bg-brand-700"
+  >
+    <%= gettext("Go to the Zoom meeting") %>
+  </a>
+</div>

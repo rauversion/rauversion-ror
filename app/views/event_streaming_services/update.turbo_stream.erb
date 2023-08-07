@@ -1,0 +1,8 @@
+<% if @service.errors.any? %>
+  <%= render "shared/modal" do %>
+    <%= render "form" %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "modal" do %>
+  <% end %>
+<% end %>

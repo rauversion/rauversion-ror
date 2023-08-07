@@ -136,4 +136,10 @@ class User < ApplicationRecord
   def is_creator?
     role == "artist" || role == "admin"
   end
+
+  def user_sales_for(kind = "Track")
+    purchased_items = PurchasedItem.joins(
+      "INNER JOIN tracks ON purchased_items.purchased_item_id = tracks.id AND purchased_items.purchased_item_type = '#{kind}'")
+    .where(tracks: { user_id: self.id })
+  end
 end

@@ -1,0 +1,32 @@
+    <div class="">
+     
+     <%= purchase.id %>
+     <%= purchase.state %>
+
+      <div class="flex justify-between items-center">
+        <% purchase.purchased_items.each do |item|%>
+
+          <div class="flex space-x-2">
+            <%= image_tag(item.purchased_item.cover_url(:small),
+              class: "w-20 h-20 object-center object-cover group-hover:opacity-75"
+            ) %>
+
+            <div>
+              <%= link_to track_path(item.purchased_item.slug) do %>
+                <h3 class="text-2xl"><%= item.purchased_item.title %></h3>
+                <span><%= gettext("Created at:") %> <%= purchase.created_at %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+
+        <% if purchase.is_downloadable?  %>
+          <p class="truncate text-sm font-medium text-brand-600">
+            <%= link_to purchase_url(purchase.signed_id), class: "group block", target: "_blank" do %>
+              <%= gettext("Download link") %>
+            <% end %>
+          </p>
+        <% end %>
+      </div>
+    </div>

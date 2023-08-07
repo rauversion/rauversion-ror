@@ -76,6 +76,25 @@ class TrackPurchasesController < ApplicationController
     end
   end
 
+  def success
+    @track = Track.friendly.find(params[:track_id])
+    @purchase = current_user.purchases.find(params[:id])
+
+    if params[:enc].present?
+      decoded_purchase = Purchase.find_signed(CGI.unescape(params[:enc]))
+      @purchase.complete_purchase! if decoded_purchase.id = @purchase.id
+    end
+
+    render "show"
+  end
+
+  def failure
+    @track = Track.friendly.find(params[:track_id])
+    @purchase = current_user.purchases.find(params[:id])
+    render "show"
+  end
+
+
   def build_params
     params.require(:payment).permit(:include_message, :optional_message)
   end

@@ -7,8 +7,8 @@
             <ol role="list" class="flex items-center space-x-4">
               <li>
                 <div>
-                  <%= link_to "/purchases", class: "text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 hover:text-gray-300" do %>
-                    <%= gettext("Purchases") %>
+                  <%= link_to "/sales", class: "text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 hover:text-gray-300" do %>
+                    <%= gettext("Sales") %>
                   <% end %>
                 </div>
               </li>
@@ -34,7 +34,7 @@
           </nav>
 
           <h1 class="mt-2 text-2xl font-bold leading-7 text-gray-900 dark:text-gray-100 dark:text-gray-100 sm:truncate sm:text-3xl sm:tracking-tight">
-            <%= gettext("My Purchased music") %>
+            <%= gettext("My music sales") %>
           </h1>
         </div>
       </div>
@@ -44,15 +44,15 @@
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="px-4 sm:px-0">
           <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            <%= t("Purchased Music", section: @section) %>
+            <%= t("Music sales", section: @section) %>
           </h2>
 
           <div class="sm:block">
             <div class="border-b border-gray-200">
               <nav class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-                <%= link_to "#", phx_click: "section-change", phx_value_section: "all_music",
+                <%= link_to sales_path(tab: "albums"), phx_click: "section-change", phx_value_section: "all_music",
                   class: "border-transparent text-gray-500 dark:text-gray-200 hover:text-gray-700 hover:text-gray-300 hover:border-gray-200 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" do %>
-                  <%= gettext("Purchased albums") %>
+                  <%= gettext("Album sale") %>
                   <!--<span class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">2</span>-->
                 <% end %>
                 <!--<%= link_to "#", phx_click: "section-change", phx_value_section: "pending_orders",
@@ -60,9 +60,9 @@
                   <%= gettext("Pending orders") %>
                   <span class="hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">4</span>
                 <% end %> -->
-                <%= link_to "#", phx_click: "section-change", phx_value_section: "all_tracks",
+                <%= link_to sales_path(tab: "tracks"), phx_click: "section-change", phx_value_section: "all_tracks",
                   class: "border-transparent text-gray-500 dark:text-gray-200 hover:text-gray-700 hover:text-gray-300 hover:border-gray-200 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" do %>
-                  <%= gettext("Purchased individual Tracks") %>
+                  <%= gettext("Individual Tracks sales") %>
                   <!--<span class="hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-gray-900 dark:text-gray-100 hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">4</span>-->
                 <% end %>
               </nav>
@@ -71,8 +71,12 @@
         </div>
         <!-- Stacked list -->
         <ul role="list" class="mt-5 divide-y divide-gray-200 dark:divide-gray-800 border-t border-gray-200 dark:border-gray-800 sm:mt-0 sm:border-t-0">
-          <% [].each do |ticket| %>
+          <% @collection.each do |item| %>
             
+            <%= render "tracks", item: item if @tab == "Track" %>
+            <%= render "albums", item: item if @tab == "Album" %>
+
+
           <% end %>
         </ul>
         <!-- Pagination -->

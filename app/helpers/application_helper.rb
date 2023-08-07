@@ -18,6 +18,10 @@ module ApplicationHelper
     Post.where(category: Category.friendly.find(slug))
   end
 
+  def tab_class(item)
+    item ? "tab-active" : "tab-default"
+  end
+
   def active_tab_for?(current_tab, expected)
     if current_tab == expected
       "block"
@@ -425,6 +429,19 @@ module ApplicationHelper
     
     else
       ""
+    end
+  end
+
+
+  def definition_renderer(form, definition)
+    case definition[:type]
+    when :select
+      form.select definition[:name], definition[:options]
+    when :text_input
+      form.text_field definition[:name], hint: definition[:hint]
+    else 
+      "no definition for #{definition[:type]}"
+      
     end
   end
 end

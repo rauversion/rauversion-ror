@@ -1,0 +1,11 @@
+<div class="w-full h-[520px]" id="mux_renderer" phx-update="ignore">
+  <script src="https://unpkg.com/@mux/mux-player">
+  </script>
+  <mux-player
+    stream-type="on-demand"
+    playback-id="<%= @service.playback_url %>"
+    metadata-video-title="<%= @service.title || "streaming video" %>"
+    metadata-viewer-user-id="user-id-007"
+  >
+  </mux-player>
+</div>

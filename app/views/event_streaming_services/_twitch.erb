@@ -1,0 +1,19 @@
+<div id="twitch-wrapper" phx-update="ignore">
+  <script src="https://player.twitch.tv/js/embed/v1.js">
+  </script>
+  <div id="twitch-div"></div>
+  <script type="text/javascript">
+    var options = {
+      width: '100%',
+      height: '520',
+      <%= @service.streaming_type %>: "<%= @eventservice.streaming_identifier %>"
+      //channel: "<channel ID>",
+      // video: "738688473",
+      //collection: "<collection ID>",
+      // only needed if your site is also embedded on embed.example.com and othersite.example.com
+      //parent: ["embed.example.com", "othersite.example.com"]
+    };
+    var player = new Twitch.Player("twitch-div", options);
+    player.setVolume(0.5);
+  </script>
+</div>

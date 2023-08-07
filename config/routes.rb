@@ -60,6 +60,11 @@ Rails.application.routes.draw do
 
   resources :sales
 
+  resources :event_webhooks
+
+  get "/events/:id/livestream", to: "event_streaming_services#show", as: :event_livestream
+
+
   resources :events do 
     collection do
       get :mine
@@ -71,6 +76,7 @@ Rails.application.routes.draw do
     resources :event_hosts
     resources :event_recordings
     resources :event_tickets
+    resources :event_streaming_services
     resources :event_purchases do
       member do
         get :success

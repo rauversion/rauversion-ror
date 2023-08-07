@@ -1,0 +1,122 @@
+<div class="relative bg-white dark:bg-black dark:text-white py-16 sm:py-24">
+  <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
+    <div class="relative sm:py-16 lg:py-0">
+      <div
+        aria-hidden="true"
+        class="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
+      >
+        <div class="absolute inset-y-0 right-1/2 w-full rounded-r-3xl bg-gray-50 dark:bg-gray-900 lg:right-72">
+        </div>
+        <svg
+          class="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
+          width="404"
+          height="392"
+          fill="none"
+          viewBox="0 0 404 392"
+        >
+          <defs>
+            <pattern
+              id="02f20b47-fd69-4224-a62a-4c9de5c763f7"
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                x="0"
+                y="0"
+                width="4"
+                height="4"
+                class="text-gray-200 dark:text-gray-800"
+                fill="currentColor"
+              />
+            </pattern>
+          </defs>
+          <rect width="404" height="392" fill="url(#02f20b47-fd69-4224-a62a-4c9de5c763f7)" />
+        </svg>
+      </div>
+      <div class="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:px-0 lg:py-20">
+        <!-- Testimonial card-->
+        <div
+          class="relative overflow-hidden rounded-2xl pt-64- pb-10- shadow-xl"
+          id="streaming-renderer"
+        >
+          <!--<img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100" alt="">
+            <div class="absolute inset-0 bg-brand-500 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-600 via-brand-600 opacity-90"></div>-->
+          <%= render @provider, event: @event %>
+          
+          <div class="flex items-start space-x-3 ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              />
+            </svg>
+            <span>
+              <%= gettext("no renderer avaiable") %>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
+      <!-- Content area -->
+      <div class="pt-12 sm:pt-16 lg:pt-20">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+          <%= @event.title %>
+        </h2>
+        <div class="mt-6 space-y-6 text-gray-500 dar:text-gray-300">
+          <p class="text-lg"><%= @event.description %></p>
+          <!--
+              <p class="text-base leading-7">Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros eu viverra donec ut volutpat donec laoreet quam urna. Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros eu viverra donec ut volutpat donec laoreet quam urna.</p>
+              <p class="text-base leading-7">Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet velit faucibus semper. Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi enim fermentum lacus in. Viverra.</p>
+            -->
+        </div>
+      </div>
+      <!-- Stats section -->
+      <div class="mt-10">
+        <!--
+          <dl class="grid grid-cols-2 gap-x-4 gap-y-8">
+            <div class="border-t-2 border-gray-100 pt-6">
+              <dt class="text-base font-medium text-gray-500">Founded</dt>
+              <dd class="text-3xl font-bold tracking-tight text-gray-900">2021</dd>
+            </div>
+
+            <div class="border-t-2 border-gray-100 pt-6">
+              <dt class="text-base font-medium text-gray-500">Employees</dt>
+              <dd class="text-3xl font-bold tracking-tight text-gray-900">5</dd>
+            </div>
+
+            <div class="border-t-2 border-gray-100 pt-6">
+              <dt class="text-base font-medium text-gray-500">Beta Users</dt>
+              <dd class="text-3xl font-bold tracking-tight text-gray-900">521</dd>
+            </div>
+
+            <div class="border-t-2 border-gray-100 pt-6">
+              <dt class="text-base font-medium text-gray-500">Raised</dt>
+              <dd class="text-3xl font-bold tracking-tight text-gray-900">$25M</dd>
+            </div>
+          </dl>
+          -->
+        <div class="mt-10">
+          <%= link_to event_path(@event), class:"text-base font-medium text-brand-600" do %>
+            <%= gettext("Go and check the event details") %>
+            <span aria-hidden="true"> &rarr;</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

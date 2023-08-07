@@ -68,4 +68,8 @@ class Purchase < ApplicationRecord
   def notify_purchase
     PurchasesMailer.event_ticket_confirmation(purchase: self)
   end
+
+  def is_downloadable?
+    state == "paid" or state == "free_access"
+  end
 end
