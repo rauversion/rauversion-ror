@@ -1,7 +1,7 @@
 class EventTicketsController < ApplicationController
 
   def show
-    @purchased_item = PurchasedItem.find_by_decoded_id(params[:id])
+    @purchased_item = PurchasedItem.find_signed(params[:id])
     @ticket = @purchased_item.purchased_item
     @purchase = @purchased_item.purchase
     @event = @purchase.purchasable
@@ -9,7 +9,7 @@ class EventTicketsController < ApplicationController
   end
 
   def update
-    @purchased_item = PurchasedItem.find_by_decoded_id(params[:id])
+    @purchased_item = PurchasedItem.find_signed(params[:id])
     @ticket = @purchased_item.purchased_item
     @purchase = @purchased_item.purchase
     @event = @purchase.purchasable

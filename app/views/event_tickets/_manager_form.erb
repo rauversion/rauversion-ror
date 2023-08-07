@@ -17,7 +17,7 @@
       <div class="inline-flex rounded-md shadow space-x-3">
       
           <%= form_for @purchased_item, 
-            url: event_event_ticket_path(@event, @purchased_item.encoded_id), 
+            url: event_event_ticket_path(@event, @purchased_item.signed_id), 
             method: :put do |form| %>
             <%= submit_tag "#{!@purchased_item.checked_in? ? "Confirm Check in" : "Un check!"}",           
               class: "button-large"

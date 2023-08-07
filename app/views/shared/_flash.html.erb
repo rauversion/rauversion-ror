@@ -2,6 +2,7 @@
   <% flash.each do |flash_type, message| %>
     <div aria-live="assertive" 
       data-controller="removals"
+      data-turbo-cache="false"
       data-transition-enter="transform ease-out duration-300 transition"
       data-transition-enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
       data-transition-enter-end="translate-y-0 opacity-100 sm:translate-x-0"

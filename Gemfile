@@ -129,3 +129,7 @@ gem "stripe", "~> 8.6"
 gem "mercadopago", "~> 2.3"
 
 gem "meta-tags", "~> 2.18"
+
+gem "http", "~> 5.1"
+
+gem "ruby-oembed", "~> 0.16.1"

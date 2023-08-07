@@ -13,7 +13,7 @@
     <% end %>
 
     <strong class="text-xs font-bold leading-relaxed tracking-widest uppercase">
-      <%= gettext("by") %> <%= post.user.username %> · <%= "Rauversion.Posts.date(@post.inserted_at, :y_mm_md)" %>.
+      <%= gettext("by") %> <%= post.user.username %> · <%= l post.created_at, format: :short %>.
     </strong>
 
     <p class="mt-4 text-sm tracking-wide text-ellipsis overflow-hidden h-10">

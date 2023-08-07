@@ -7,7 +7,7 @@ class PlaylistsController < ApplicationController
     @playlist = current_user.playlists.friendly.find(params[:id])
     @track = @playlist.tracks.first
 
-    set_meta_tags(
+    metatags = {
       title: @playlist.title,
       description: @playlist.description,
       keywords: "",
@@ -15,17 +15,21 @@ class PlaylistsController < ApplicationController
       title: "#{@playlist.title} on Rauversion",
       description: "Stream #{@playlist.title} by #{@playlist.user.username} on Rauversion.",
       image: @playlist.cover_url(:small),
-      "twitter:player": playlist_embed_url(@playlist),
+      "twitter:player": playlist_embed_url(@playlist)
+    }
+
+    metatags.merge!({
       twitter: {
         card: "player",
         player: {
-          stream: @playlist.tracks.first.mp3_audio&.url,
+          stream: @playlist.tracks&.first&.mp3_audio&.url,
           "stream:content_type": "audio/mpeg",
           width: 290,
           height: 58
         }
       }
-    )
+    })
+    set_meta_tags(metatags)
   end
 
   def edit

@@ -58,7 +58,7 @@ class EventPurchasesController < ApplicationController
     @purchase = current_user.purchases.find(params[:id])
 
     if params[:enc].present?
-      decoded_purchase = Purchase.find_by_decoded_id(CGI.unescape(params[:enc]))
+      decoded_purchase = Purchase.find_signed(CGI.unescape(params[:enc]))
       @purchase.complete_purchase! if decoded_purchase.id = @purchase.id
     end
 
@@ -162,7 +162,7 @@ class EventPurchasesController < ApplicationController
         checkout_id: @session_id
       )
 
-      @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.encoded_id)
+      @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.signed_id)
       
       @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
 

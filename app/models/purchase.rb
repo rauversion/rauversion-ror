@@ -68,18 +68,4 @@ class Purchase < ApplicationRecord
   def notify_purchase
     PurchasesMailer.event_ticket_confirmation(purchase: self)
   end
-
-  def self.verifier
-    @verifier ||= ActiveSupport::MessageVerifier.new(ENV['SECRET_KEY_BASE'])
-  end
-
-  def encoded_id
-    Purchase.verifier.generate(self.id)
-  end
-
-  def self.find_by_decoded_id(code)
-    code = Purchase.verifier.verified(code)
-    find(code)
-  end
-
 end

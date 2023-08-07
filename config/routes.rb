@@ -9,7 +9,17 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resource :oembed, controller: 'oembed', only: :show
+  # resource :oembed, controller: 'oembed', only: :show
+
+  get "/oembed/", to: "oembed#show", as: :oembed
+
+  get "/embed/:track_id", to: "embeds#show"
+  get "/oembed/:track_id", to: "embeds#oembed_show", as: :oembed_show
+  get "/oembed/:track_id/private", to: "embeds#oembed_private_show"
+  get "/embed/:track_id/private", to: "embeds#private_track", as: :private_embed
+  get "/embed/sets/:playlist_id", to: "embeds#show_playlist"
+  get "/embed/sets/:playlist_id/private", to: "embeds#private_playlist"
+
 
   resource :player, controller: "player"
 
@@ -68,6 +78,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get "/tracks/genre/:tag", to: "tags#index", as: :track_tag
 
   resources :tracks do
     resource :events, only: :show, controller: "tracking_events"

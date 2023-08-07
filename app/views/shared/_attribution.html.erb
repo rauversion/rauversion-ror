@@ -1,0 +1,19 @@
+<div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center">
+  <% if resource.copyright == "common" %>
+    <div class="flex space-x-2 mx-2">
+      <!-- SVG for copyright -->
+    </div>
+  <% end %>
+
+  <% if resource.noncommercial == true %>
+    <!-- SVG for noncommercial -->
+  <% end %>
+
+  <% if resource.copies == "non_derivative_works" %>
+    <!-- SVG for non_derivative_works -->
+  <% end %>
+
+  <% if resource.copies == "share_alike" || !resource.copies %>
+    <!-- SVG for share_alike -->
+  <% end %>
+</div>

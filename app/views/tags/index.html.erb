@@ -1,0 +1,23 @@
+<div>
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
+      Descubre pistas y álbumes
+    </h1>
+    <p class="mt-4 max-w-xl text-sm text-gray-700 dark:text-gray-300">
+     Musica categorizada en <span class="p-1 text-xs border rounded-md inline-block"><%= params[:tag] %></span>
+    </p>
+  </div>
+</div>
+
+
+<section aria-labelledby="products-heading" 
+  class="max-w-2xl mx-auto pt-12-- pb-16 px-4 sm:pt-16-- sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
+  <h2 id="products-heading" class="sr-only">Pistas</h2>
+
+  <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-5 xl:grid-cols-6 xl:gap-x-8" id="infinite-scroll" phx-hook="InfiniteScroll" phx-update="append" data-page="1" phx-target="1" data-total-pages="6" data-phx-component="1">
+
+    <% @tracks.each do |track| %>
+      <%= render "tracks/track_cell", track: track %>
+    <% end %>
+  </div>
+</section>

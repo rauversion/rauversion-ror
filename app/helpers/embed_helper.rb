@@ -1,0 +1,2 @@
+module EmbedHelper
+end

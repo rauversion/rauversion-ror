@@ -2,17 +2,8 @@ class PurchasedItem < ApplicationRecord
   belongs_to :purchase
   belongs_to :purchased_item, polymorphic: true
 
-  def encoded_id
-    Purchase.verifier.generate(self.id)
-  end
-
-  def self.find_by_decoded_id(code)
-    code = Purchase.verifier.verified(code)
-    find(code)
-  end
-
   def qr
-    url = Rails.application.routes.url_helpers.event_event_ticket_url(purchase.purchasable, encoded_id)
+    url = Rails.application.routes.url_helpers.event_event_ticket_url(purchase.purchasable, signed_id)
     encoded_url = ERB::Util.url_encode(url) 
     size = 120
     data_param = "chl=#{encoded_url}"

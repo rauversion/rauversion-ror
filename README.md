@@ -3,11 +3,8 @@ TODO:
   + player
     + sidebar show selected
 
-  + articles: 
-    + article creation gets duplicated // delay save // lock
-    + sidebar toggle
-
   + tracks: 
+    + tags view
     + upload form
     + likes
     + reposts

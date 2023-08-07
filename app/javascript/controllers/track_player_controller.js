@@ -8,7 +8,8 @@ export default class extends Controller {
     url: String,
     peaks: String,
     height: Number,
-    id: Number
+    id: Number,
+    urlLink: String
   }
 
   connect() {
@@ -80,8 +81,7 @@ export default class extends Controller {
   }
 
   async play(e){
-    
-    const response = await get(e.currentTarget.dataset.url, { 
+    const response = await get(this.urlLinkValue, { 
       responseKind: "turbo-stream", 
     })
     console.log("RESPONSE", response)
@@ -97,6 +97,7 @@ export default class extends Controller {
   }
 
   audioProcessListeners(e) {
+    //console.log(e.detail)
     this._wave.seekTo(e.detail.percent)
   }
 

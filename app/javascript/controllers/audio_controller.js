@@ -18,7 +18,7 @@ export default class extends Controller {
   connect() {
 
     this._listener = window.addEventListener(`phx:change-playlist-track`, (e)=>{
-      console.log(e.detail)
+      // console.log(e.detail)
       this.element.dataset.audioPeaks = e.detail.audio_peaks
       this.element.dataset.audioUrl = e.detail.audio_url
 

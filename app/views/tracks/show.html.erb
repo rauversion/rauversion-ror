@@ -30,6 +30,7 @@
             <%= image_tag @track.cover_url(:medium), class: "hidden h-32 w-full object-cover lg:h-48" %>
 
           <div data-controller="trackplayer"
+            data-trackplayer-url-link-value="<%= player_url(id: @track, t: true) %>"
             data-trackplayer-url-value="<%= @track.mp3_audio.url %>"
             data-trackplayer-peaks-value="<%= @track.peaks %>"
             data-trackplayer-id-value="<%= @track.id %>"
@@ -135,131 +136,91 @@
 
     <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
+      <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+        <div class="flex">
 
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-          <div class="flex">
-
+        <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+          
+          <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">
+              <%= link_to @track.user.username %>
+            </h1>
           </div>
 
-          <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-            
-            <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-              <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">
-                <%= link_to @track.user.username %>
-              </h1>
+          <div class="mt-6 flex items-center justify-stretch space-x-2 sm:flex-row sm:space-y-0 sm:space-x-4">
+            <div>
+              <%= link_to "#", class: "button" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
+                </svg>
+                <span class="hidden sm:block">Compartir</span>
+              <% end %>
             </div>
 
-            <div class="mt-6 flex items-center justify-stretch space-x-2 sm:flex-row sm:space-y-0 sm:space-x-4">
-              <div>
-                <%= link_to "#", class: "button" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
-                  </svg>
-                  <span class="hidden sm:block">Compartir</span>
-                <% end %>
-              </div>
+            <div>
+              <%= link_to "#", class: "button" do %>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                
+                <span class="flex space-x-1">
+                  <span>1</span>
+                  <span class="hidden sm:block">Me gusta</span>
+                </span>
+              <% end %>
+            </div>
 
-              <div>
-                <%= link_to "#", class: "button" do %>
-                  
+            <div>
+              <%= link_to "#", class: "button" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="hidden sm:block">Repostar</span>
+              <% end %>
+            </div>
+
+            <div>
+                <%= link_to edit_track_path(@track), class: "button" do %>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                   </svg>
-                  
-                  <span class="flex space-x-1">
-                    <span>1</span>
-                    <span class="hidden sm:block">Me gusta</span>
-                  </span>
+                  <span>Editar</span>
                 <% end %>
-              </div>
-
-              <div>
-                <%= link_to "#", class: "button" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
-                  </svg>
-                  <span class="hidden sm:block">Repostar</span>
-                <% end %>
-              </div>
-
-              <div>
-                  <%= link_to edit_track_path(@track), class: "button" do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                    </svg>
-                    <span>Editar</span>
-                  <% end %>
-              </div>
             </div>
           </div>
         </div>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          
-          <!-- Tag list component omitted -->
-
-          <% if @track.description.present? %>
-            <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
-              About
-            </dt>
-            <dd class="mt-1 mb-4 max-w-prose text-lg text-gray-900 dark:text-gray-100 space-y-5 prose lg:prose-xl dark:prose-invert">
-              <%= @track.description.html_safe %>
-            </dd>
-          <% end %>
-
-          <% if @track.metadata && @track.metadata[:buy_link] %>
-            <%= link_to 'Buy Link', @track.metadata[:buy_link], target: '_blank', class: 'underline' %>
-          <% end %>
-          
-          <!-- More omitted for brevity -->
-
-      <% if @track.user %>
-          <%= link_to user_path(@track.user), class: "text-lg font-bold text-gray-900 dark:text-gray-100 truncate" do %>
-            <%= @track.user.username %>
-          <% end %>
-        <% end %>
     </div>
   </div>
 
   <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
       <div class="sm:col-span-2">
-        <% #= render partial: "tag_list", locals: { track: @track } %>
+
+        <%= render "tag_list", track: @track %>
+
+
+        <div class="hidden sm:flex space-x-2 2xl:hidden my-6 min-w-0 flex-1">
+          <%= image_tag @track.user.avatar_url(:small), class: "h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center" %>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">
+            <% if @track.user %>
+              <%= link_to @track.user.username, user_path(@track.user.username), class: "text-lg font-bold text-gray-900 dark:text-gray-100 truncate" %>
+            <% end %>
+          </h1>
+        </div>
+
+        
       
         <% if @track.description %>
           <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">
             <%= t("About") %>
           </dt>
           <dd class="mt-1 mb-4 max-w-prose text-lg text-gray-900 dark:text-gray-100 space-y-5 prose lg:prose-xl dark:prose-invert">
-            <%= sanitize(@track.description, tags: %w(a)) %>
+            <%= sanitize(auto_link(@track.description), tags: %w(a)) %>
           </dd>
         <% end %>
 
@@ -296,24 +257,32 @@
   <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="sm:col-span-2">
       <!-- comments here -->
-      <section aria-labelledby="activity-title" class="mt-8 xl:mt-10" data-phx-component="6" id="phx-F3d1W8MlsrQMAQIC-6-0">
+
+      <section aria-labelledby="activity-title" class="mt-8 xl:mt-10">
         <div>
           <div class="divide-y divide-gray-200 dark:divide-gray-800">
 
             <div class="pb-4">
               <h2 id="activity-title" class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Actividad
+                Comentarios
               </h2>
             </div>
 
             <div class="pt-6">
+
               <!-- Activity feed-->
-              <%= render "comments/comment_list", comments: @track.comments.limit(10)  %>
-              <%= render "comments/form", resource: @track, comment: current_user.comments.new(commentable: @post)  %>
+              <% if @track.display_comments %>
+                <%= render "comments/comment_list", comments: @track.comments.limit(10)  %>
+              <% end %>
+
+              <% if user_signed_in? && @track.enable_comments %>
+                <%= render "comments/form", resource: @track, comment: current_user.comments.new(commentable: @post)  %>
+              <% end %>
             </div>
           </div>
         </div>
       </section>
+  
     </div>
   </div>
 

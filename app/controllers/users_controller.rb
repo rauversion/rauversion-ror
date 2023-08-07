@@ -3,14 +3,16 @@ class UsersController < ApplicationController
   before_action :find_user
 
   def show
-    @collection = @user.tracks.page(params[:page]).per(5)
+    @collection = @user.tracks.page(params[:page]).per(2)
     @as = :track
     @section = "tracks/track_item"
   end
 
   def tracks
 
-    @collection = User.track_preloaded_by_user(@user.id).page(params[:page]).per(5)
+    # @collection = @user.tracks.page(params[:page]).per(2)
+    @collection = User.track_preloaded_by_user(current_user&.id).page(params[:page]).per(2)
+    
     # @collection = @user.tracks.page(params[:page]).per(5)
     @as = :track
     @section = "tracks/track_item"

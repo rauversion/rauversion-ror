@@ -40,7 +40,7 @@ class TracksController < ApplicationController
     set_meta_tags(
       title: @track.title,
       description: @track.description,
-      keywords: "",
+      keywords: @track.tags.join(", "),
       # url: Routes.articles_show_url(socket, :show, track.id),
       title: "#{@track.title} on Rauversion",
       description: "Stream #{@track.title} by #{@track.user.username} on Rauversion.",
@@ -56,6 +56,8 @@ class TracksController < ApplicationController
         }
       }
     )
+
+    @oembed_json = oembed_show_url(track_id: @track, format: :json)
   end
 
   def destroy

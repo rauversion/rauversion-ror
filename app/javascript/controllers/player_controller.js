@@ -104,8 +104,7 @@ export default class extends Controller {
 
   waveClickListener(e) {
     setTimeout(()=>{
-      const trackId = this.element.dataset.trackId
-      const ev = new CustomEvent(`audio-process-${trackId}`, {
+      const ev = new CustomEvent(`audio-process-${this.idValue}`, {
         detail: {
          position: this._wave.getCurrentTime(),
          percent: this._wave.getCurrentTime() / this._wave.getDuration()
@@ -117,14 +116,14 @@ export default class extends Controller {
   }
 
   mouseUpHandler(e) {
-    if(e.detail.trackId == this.el.dataset.trackId){
+    if(e.detail.trackId == this.idValue){
       this._wave.seekTo(e.detail.percent)
       //this._wave.drawer.progress(e.detail.percent)
     }
   }
 
   audioPauseHandler(e) {
-    if(e.detail.trackId == this.el.dataset.trackId){
+    if(e.detail.trackId == this.idValue){
       this._wave.pause()
     }
   }
@@ -169,7 +168,6 @@ export default class extends Controller {
     })
 
     this._wave.on('audioprocess', (e)=> {
-      const trackId = this.element.dataset.trackId
       const currentTime = this._wave.getCurrentTime();
       const duration = this._wave.getDuration();
       const percent = currentTime / duration;
@@ -177,10 +175,10 @@ export default class extends Controller {
 
       if (percent >= 0.3 && !this.hasHalfwayEventFired) {
         this.hasHalfwayEventFired = true;
-        this.trackEvent(trackId);
+        this.trackEvent(this.idValue);
       }
 
-      const ev = new CustomEvent(`audio-process-${trackId}`, {
+      const ev = new CustomEvent(`audio-process-${this.idValue}`, {
         detail: {
           position: this._wave.getCurrentTime(), //this._wave.drawer.lastPos,
           percent: this._wave.getCurrentTime() / this._wave.getDuration()
@@ -217,8 +215,7 @@ export default class extends Controller {
     // this.loadingiconTarget.style.display = 'block'
     this.pauseiconTarget.style.display = 'none'
 
-    const trackId = this.element.dataset.trackId
-    const ev = new CustomEvent(`audio-process-${trackId}-play`, {
+    const ev = new CustomEvent(`audio-process-${this.idValue}-play`, {
       detail: {}
     });
     document.dispatchEvent(ev)
@@ -228,8 +225,7 @@ export default class extends Controller {
     this.playiconTarget.style.display = 'none'
     this.pauseiconTarget.style.display = 'block'
     this.loadingiconTarget.style.display = 'none'
-    const trackId = this.element.dataset.trackId
-    const ev = new CustomEvent(`audio-process-${trackId}-pause`, {
+    const ev = new CustomEvent(`audio-process-${this.idValue}-pause`, {
       detail: {}
     });
     document.dispatchEvent(ev)

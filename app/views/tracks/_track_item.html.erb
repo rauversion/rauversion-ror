@@ -60,12 +60,11 @@
         <div class="mr-2">
           <div class="py-4">
             <% track.tags.each do |tag| %>
-              <a href="/tracks/genre/Electronica" 
-                data-phx-link="redirect" 
-                data-phx-link-state="push" 
-                class="inline-flex dark:hover:bg-gray-900 hover:cursor-pointer items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200"> 
-                <%= tag %> 
-              </a>
+              <%= link_to tag, 
+                track_tag_path(tag: tag), 
+                "data-turbo-frame": "_top",
+                class: "inline-flex dark:hover:bg-gray-900 hover:cursor-pointer items-center rounded-full bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200" 
+              %>
             <% end %>
           </div>
         </div>

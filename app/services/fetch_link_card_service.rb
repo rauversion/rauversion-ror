@@ -42,7 +42,7 @@ class FetchLinkCardService < BaseService
   private
 
   def user_agent
-    @user_agent ||= "#{HTTP::Request::USER_AGENT} (ChaskiqApp/Crawler; +http://github.com/chaskiq/chaskiq/)"
+    @user_agent ||= "#{HTTP::Request::USER_AGENT} (Rauversion/Crawler; +http://github.com/rauversion)"
   end
 
   def parse_urls(status)
@@ -65,15 +65,15 @@ class FetchLinkCardService < BaseService
 
   def attempt_oembed(card, url)
     response = OEmbed::Providers.get(url)
-
+    debugger
     card.type          = response.type
     card.title         = response.respond_to?(:title)         ? response.title         : ""
     card.author_name   = response.respond_to?(:author_name)   ? response.author_name   : ""
     card.author_url    = response.respond_to?(:author_url)    ? response.author_url    : ""
-    card.provider_name = response.respond_to?(:provider_name) ? response.provider_name : ""
-    card.provider_url  = response.respond_to?(:provider_url)  ? response.provider_url  : ""
-    card.width         = 0
-    card.height        = 0
+    #card.provider_name = response.respond_to?(:provider_name) ? response.provider_name : ""
+    #card.provider_url  = response.respond_to?(:provider_url)  ? response.provider_url  : ""
+    #card.width         = 0
+    #card.height        = 0
 
     if response.respond_to?(:thumbnail_url)
       image = begin
@@ -84,8 +84,8 @@ class FetchLinkCardService < BaseService
       card.image.attach(image) if image.present?
     end
     # card.url    = response.url
-    card.width  = response.width.presence  || 0
-    card.height = response.height.presence || 0
+    #card.width  = response.width.presence  || 0
+    #card.height = response.height.presence || 0
     card.html   = response.try(:html)
     # case card.type
     card.save

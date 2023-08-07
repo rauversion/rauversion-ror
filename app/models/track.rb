@@ -52,8 +52,8 @@ class Track < ApplicationRecord
   store_attribute :metadata, :genre, :string
   store_attribute :metadata, :direct_download, :boolean
   store_attribute :metadata, :display_embed, :boolean
-  store_attribute :metadata, :enable_comments, :boolean
-  store_attribute :metadata, :display_comments, :boolean
+  store_attribute :metadata, :enable_comments, :boolean, default: true
+  store_attribute :metadata, :display_comments, :boolean, default: true
   store_attribute :metadata, :display_stats, :boolean
   store_attribute :metadata, :include_in_rss, :boolean
   store_attribute :metadata, :offline_listening, :boolean
@@ -263,9 +263,29 @@ class Track < ApplicationRecord
     }
   end
 
-
   def tags=(list)
     self[:tags] = list.reject { |item| item.empty? }
+  end
+
+  def iframe_code_string(url)
+    <<-HTML
+    <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="#{url}"></iframe>
+    <div 
+      style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+      <a href="#{user.username}" title="#{user.username}" 
+        target="_blank" 
+        style="color: #cccccc; text-decoration: none;">
+        #{user.username}
+      </a> · 
+      <a href="#{url}" title="#{title}" target="_blank" style="color: #cccccc; text-decoration: none;">
+        #{title}
+      </a>
+    </div>
+    HTML
+  end
+
+  def self.get_tracks_by_tag(tag)
+    includes(:user).where('? = ANY (tags)', tag)
   end
   
 end

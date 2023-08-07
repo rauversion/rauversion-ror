@@ -52,7 +52,7 @@
     </div>
   <% end %>
 
-  <%= render "articles/article_highlights", posts: Post.published.limit(4) %>
+  <%= render "articles/article_highlights", posts: Post.published.limit(3) %>
   
   <!-- Trending products -->
   <section aria-labelledby="trending-heading" class="bg-white dark:bg-black">
@@ -72,9 +72,7 @@
         <div class="relative w-full overflow-x-auto">
           <ul role="list" class="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-6 lg:gap-x-8">
             <% Track.published.limit(10).each do |track| %>
-
               <%= render "tracks/track_cell", track: track %>
-
             <% end %>
           </ul>
         </div>
@@ -116,23 +114,24 @@
               <div class="grid grid-cols-1- grid-flow-col grid-rows-1- sm:gap-x-2 md:grid-cols-4- md:gap-y-0- lg:gap-x-8">
                 <% Playlist.limit(100).each do |playlist| %>
                   <div class="w-64 m-4">
-                    <div class="group group-hover relative">
-                      <div class="relative w-full h-80 bg-white dark:bg-black rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                        <%= image_tag(playlist.cover_url,
-                          class: "w-full h-full object-center object-cover"
-                        ) %>
+                    <%= link_to playlist_path(playlist) do %>
+                      <div class="group group-hover relative">
+                        <div class="relative w-full h-80 bg-white dark:bg-black rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                          <%= image_tag(playlist.cover_url,
+                            class: "w-full h-full object-center object-cover"
+                          ) %>
+                        </div>
+                        <div class="space-y-1 text-sm text-left mt-2">
+                          <h3 class="font-medium leading-none">
+                              <%= playlist.title %>
+                            
+                          </h3>
+                          <p class="text-xs text-slate-500 dark:text-slate-400">
+                            <%= t(:by, name: playlist.user.username) %>
+                          </p>
+                        </div>
                       </div>
-                      <div class="space-y-1 text-sm text-left mt-2">
-                        <h3 class="font-medium leading-none">
-                          <%= link_to playlist_path(playlist) do %>
-                            <%= playlist.title %>
-                          <% end %>
-                        </h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">
-                          <%= t("by %{name}", name: playlist.user.username) %>
-                        </p>
-                      </div>
-                    </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
