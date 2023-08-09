@@ -422,6 +422,11 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    sidekiq (7.1.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -534,6 +539,7 @@ DEPENDENCIES
   ruby-oembed (~> 0.16.1)
   selenium-webdriver
   shoulda-matchers (~> 5.0)
+  sidekiq (~> 7.1)
   socialization (~> 2.0)
   sprockets-rails
   standardrb (~> 1.0)

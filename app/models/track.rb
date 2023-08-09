@@ -68,7 +68,7 @@ class Track < ApplicationRecord
 
   include AASM
 
-  after_create :reprocess!
+  after_create :reprocess_async
 
   aasm column: :state do
     state :pending, initial: true
@@ -170,6 +170,10 @@ class Track < ApplicationRecord
     peaks = process_audio_peaks
 
     self.update(peaks: peaks)
+  end
+
+  def reprocess_async
+    TrackProcessorJob.perform_later(self.id)
   end
 
   def reprocess!

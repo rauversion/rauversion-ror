@@ -18,6 +18,7 @@ export default class extends Controller {
     this.playing = false
 
     this.url = this.urlValue
+    this.urlLink = this.urlLinkValue
     this.peaks = JSON.parse(this.peaksValue)
     this.height = this.heightValue
     this._wave = null
@@ -81,6 +82,7 @@ export default class extends Controller {
   }
 
   async play(e){
+    console.log(this.urlLinkValue)
     const response = await get(this.urlLinkValue, { 
       responseKind: "turbo-stream", 
     })

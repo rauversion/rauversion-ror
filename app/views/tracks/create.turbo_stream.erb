@@ -1,25 +1,21 @@
 <%= turbo_stream.update "track-form" do %>
   
-  <% if @track.step == "info" %>
-    <%= form_with model: @track, class: 'direct-upload' do |form| %>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-
-      <%= form.text_field :audio, value: form.object.audio.signed_id %>
-
-      <div id="progress">
-        <div id="bar"></div>
-      </div>
-
+  <% if @track_form.step == "info" %>
+    <%= form_with model: @track_form, url: tracks_path(), class: 'direct-upload' do |form| %>
+      <%= form.text_field :step %>
+      <%= form.fields_for :tracks do |ff| %>
+        <%= ff.label :title %>
+        <%= ff.text_field :title %>
+        <%= ff.file_field :cover %>
+        <%= ff.text_field :audio, value: ff.object.audio.signed_id %>
+      <% end %>
+    
       <%= form.submit %>
     <% end %>
   <% end %>
 
-
-  <% if @track.step == "share" %>
-    
-    SHARROOOOON
+  <% if @track_form.step == "share" %>
+    <%= render partial: "share_form_track", collection: @track_form.tracks, as: :track %>
   <% end %>
-
 
 <% end %>

@@ -14,6 +14,7 @@
       data-trackplayer-height-value="70" 
       data-trackplayer-id-value="<%= track.id %>"
       data-trackplayer-url-value="<%= track.mp3_audio.url %>"
+      data-trackplayer-url-link-value="<%= player_path(id: track, t: true) %>"
       data-trackplayer-peaks-value="<%= track.peaks || "[]" %>">
       <div class="controls flex items-center">
         <span class="sm:ml-4 relative z-0 inline-flex py-2 px-2 sm:px-0">

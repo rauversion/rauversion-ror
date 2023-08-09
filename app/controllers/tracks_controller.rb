@@ -5,17 +5,31 @@ class TracksController < ApplicationController
   end
 
   def new
-    @track = current_user.tracks.new
-    @track.step = "upload"
+    #@track = current_user.tracks.new
+    #@track.step = "upload"
+    @track_form = TrackBulkCreator.new
+    @track_form.step = "upload"
   end
 
   def create
-    @track = current_user.tracks.new(track_params)
-    if @track.step == "upload"
-      @track.step = "info"
+
+    @track_form = TrackBulkCreator.new()
+    @track_form.step = track_bulk_params[:step]
+
+    if @track_form.step == "upload"
+      audios = track_bulk_params["audio"].select{|o| o.is_a?(String)}.reject(&:empty?)
+      #@track = current_user.tracks.new(track_params)
+      @track_form.user = current_user
+      @track_form.tracks_attributes = audios.map{|o| {audio: o} }
+      @track_form.step = "info"
     else
-      @track.save
-      @track.step = "share"
+      @track_form.tracks_attributes_objects = track_bulk_params[:tracks_attributes]
+      @track_form.user = current_user
+      @track_form.save
+      if @track_form.errors.blank?
+        @track_form.step = "share"
+      else
+      end
     end
   end
 
@@ -38,8 +52,8 @@ class TracksController < ApplicationController
     @track = Track.friendly.find(params[:id])
 
     set_meta_tags(
-      title: @track.title,
-      description: @track.description,
+      # title: @track.title,
+      # description: @track.description,
       keywords: @track.tags.join(", "),
       # url: Routes.articles_show_url(socket, :show, track.id),
       title: "#{@track.title} on Rauversion",
@@ -80,5 +94,9 @@ class TracksController < ApplicationController
       :cover,
       tags: []
     )
+  end
+
+  def track_bulk_params
+    params.require(:track_bulk_creator).permit(:step, audio: [], tracks_attributes: [:audio, :cover, :title] )
   end
 end
