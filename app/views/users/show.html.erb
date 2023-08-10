@@ -2,7 +2,7 @@
   <div class="flex justify-between bg-cover bg-center" style="background: url('<%= image_url(@user.profile_header_url(:medium)) %>')">
     <div class="flex">
       <div class="m-4">
-        <%= image_tag current_user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
+        <%= image_tag @user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
       </div>
       <div class="text-white sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
         <p class="sm:text-3xl text-lg font-extrabold bg-black p-1 inline-block"> <%= @user.username %> </p>
@@ -37,7 +37,7 @@
           -->
         </nav>
         <div class="flex items-center md:ml-12">
-          <% if @user.id != current_user&.id %>
+          <% if current_user && @user.id != current_user&.id %>
             <%= render "user_follows/follow_button", user: @user %>
           <% else %>
             <a href="/michelson/insights" data-phx-link="redirect" data-phx-link-state="push" class="text-base font-medium text-gray-500 hover:text-gray-900  dark:text-gray-300 dark:hover:text-gray-100">Tus estadísticas </a>

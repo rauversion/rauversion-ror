@@ -7,7 +7,11 @@ class Post < ApplicationRecord
   has_one_attached :cover
   has_many :comments, as: :commentable
 
-  scope :published, -> { where.not(:state => "published")}
+  scope :published, -> { 
+    where(:state => "published").
+    where(private: false)
+  }
+
   scope :draft, -> { where.not(:state => "draft" )}
 
   

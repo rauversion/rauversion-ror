@@ -50,12 +50,12 @@ class Event < ApplicationRecord
   }
 
   scope :upcoming_events, -> {
-    where("event_start >= ?", Time.now)
+    public_events.where("event_start >= ?", Time.now)
       .order(event_start: :asc)
   }
 
   scope :past_events, -> {
-    where("event_start <= ?", Time.now)
+    public_events.where("event_start <= ?", Time.now)
       .order(event_start: :desc)
   }
 

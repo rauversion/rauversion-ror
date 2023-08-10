@@ -23,6 +23,7 @@ class Track < ApplicationRecord
 
   scope :published, -> { where(:private => false)}
   # scope :private, -> { where.not(:private => true)}
+  scope :latests, -> { order("id desc") }
 
 
   #store_attribute :metadata, :ratio, :integer, limit: 1

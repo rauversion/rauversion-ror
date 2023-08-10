@@ -12,8 +12,10 @@ class Playlist < ApplicationRecord
   acts_as_likeable
   has_many :comments, as: :commentable
 
-
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
+
+  scope :latests, -> { order("id desc") }
+  scope :published, -> { where(:private => false)}
 
   store_accessor :metadata, :buy_link, :string
   store_accessor :metadata, :buy_link_title, :string

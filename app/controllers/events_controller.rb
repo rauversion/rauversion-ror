@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = current_user.events.friendly.find(params[:id])
+    @event = Event.public_events.friendly.find(params[:id])
   end
 
   def edit
