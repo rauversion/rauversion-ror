@@ -16,6 +16,7 @@ module RauversionRor
     }
 
     config.hosts << "chaskiq.sa.ngrok.io"
+    config.hosts << ENV['HOST']
 
     # Configuration for the application, engines, and railties goes here.
     #
