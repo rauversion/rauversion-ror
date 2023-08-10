@@ -12,15 +12,23 @@
 
     <div class="mt-12 grid lg:gap-16 pt-12 lg:grid-cols-6 lg:gap-x-5 lg:gap-y-12">
       <div class="col-span-5 flex lg:flex-row flex-col lg:space-x-4 lg:divide-x-2 lg:divide-y-0 divide-y-2">
-        <div class="w-1/4- space-y-4">
-          <% @articles.each do |post| %>
-            <%= render "article_item", post: post %>
+        <div class="w-1/4 space-y-4">
+          <% @news.each do |post| %>
+            <%= render "article_item", 
+              post: post,
+              hide_excerpt: true,
+              image_class: nil
+            %>
           <% end %>
         </div>
 
         <div class="lg:px-4 flex-grow space-y-4 pb-4">
           <% @articles.each do |post| %>
-            <%= render "article_item", post: post, image_class: "h-64" %>
+            <%= render "article_item", 
+              post: post, 
+              image_class: "h-64",
+              image_type: :horizontal
+            %>
           <% end %>
         </div>
       </div>

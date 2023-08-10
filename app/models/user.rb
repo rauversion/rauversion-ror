@@ -48,6 +48,8 @@ class User < ApplicationRecord
   store_attribute :settings, :tbk_commerce_code, :string
   store_attribute :settings, :tbk_test_mode, :boolean
 
+  scope :artists, -> { where(role: "artist").where.not(username: nil) }
+  # Ex:- scope :active, -> {where(:active => true)}
   def has_invitations_left?
     true
   end
@@ -143,7 +145,7 @@ class User < ApplicationRecord
     .where(tracks: { user_id: self.id })
   end
 
-  def password_required?
-    false
-  end
+  #def password_required?
+  #  false
+  #end
 end

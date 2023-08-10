@@ -1,0 +1,72 @@
+# This workfow shows how to build a Docker image, tag and push it to DigitalOcean Container Registry, and
+# deploy the application on a DIgitalOcean Kubernetes cluster. For description to the entire worklow, 
+# see www.digitalocean.com/docs/kubernetes/how-to/deploy-using-github-actions.
+
+name: Build, push
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push request on the main branch for changes in the specified paths.
+  push:
+    branches:
+      - main
+      - stage
+      - master
+    #paths:
+    #  - 'config/**'
+    #  - 'server.py'
+    #  - 'Dockerfile'
+    #  - '.github/workflows/**'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel.
+jobs:
+  # This workflow contains a single job called "build".
+  build:
+    # The type of runner that the job will run on.
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+    - name: Checkout master
+      uses: actions/checkout@main
+
+    # Install doctl.
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    
+    # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
+    - name: Build container image
+      #run: docker build -t ${{ secrets.REGISTRY_NAME }}/rauversion-ror:$(echo $GITHUB_SHA | head -c7) .
+      run: docker build -t ${{ secrets.REGISTRY_NAME }}/rauversion-ror:main .
+
+    - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      run: doctl registry login --expiry-seconds 1200
+
+    - name: Push image to DigitalOcean Container Registry
+      run: docker push ${{ secrets.REGISTRY_NAME }}/rauversion-ror:main
+      #run: docker push ${{ secrets.REGISTRY_NAME }}/rauversion-ror:$(echo $GITHUB_SHA | head -c7)
+
+    # Deploy to DigitalOCcean Kubernetes.
+    #- name: Update deployment file
+    #  run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/rauversion-ror:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+
+    #- name: Save DigitalOcean kubeconfig with short-lived credentials
+    #  run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
+    
+    # If you haven't already integrated with your registry and only want workloads in a particular namespace to be able to pull 
+    # from your registry, uncomment the next two commands.
+    #- name: Upload credentials of your registry to your DigitalOcean Kubernetes cluster
+    #  run: doctl registry kubernetes-manifest | kubectl apply -f -
+      
+    #- name: Reference the secret you just uploaded as an imagePullSecrets
+    #  run: "kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"registry-<your-registry-name>`\"}]}'"
+
+    #- name: Deploy to DigitalOcean Kubernetes
+    #  run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml
+
+    #- name: Verify deployment
+    #  run: kubectl rollout status deployment/rauversion-ror
