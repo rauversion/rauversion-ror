@@ -15,6 +15,7 @@ class Track < ApplicationRecord
   has_one_attached :cover
   has_one_attached :audio
   has_one_attached :mp3_audio
+  has_one_attached :zip
 
   acts_as_likeable
   

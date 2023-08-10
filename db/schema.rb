@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_04_054909) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_001847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -235,6 +235,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_054909) do
   end
 
   create_table "playlists", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "title"
     t.string "slug"
     t.text "description"
@@ -247,8 +248,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_054909) do
     t.integer "likes_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.string "tags", default: [], array: true
     t.index ["slug"], name: "index_playlists_on_slug"
+    t.index ["tags"], name: "index_playlists_on_tags", using: :gin
+    t.index ["user_id"], name: "index_playlists_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -446,6 +449,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_054909) do
   add_foreign_key "event_tickets", "events"
   add_foreign_key "events", "users"
   add_foreign_key "oauth_credentials", "users"
+  add_foreign_key "playlists", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
   add_foreign_key "purchased_items", "purchases"

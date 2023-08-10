@@ -7,6 +7,8 @@ class Playlist < ApplicationRecord
   has_many :tracks, through: :track_playlists
   has_many :listening_events
   has_one_attached :cover
+  has_one_attached :zip
+
   acts_as_likeable
   has_many :comments, as: :commentable
 

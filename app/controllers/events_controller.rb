@@ -66,6 +66,7 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:title, :event_start, :event_ends, 
+      :timezone,
       :description, :venue, :age_requirement, :payment_gateway, 
       :ticket_currency, :location, :lat, :lng, :country, :city, :province, 
       :participant_label, :participant_description, :scheduling_label, 

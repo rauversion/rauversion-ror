@@ -9,13 +9,8 @@
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6 space-y-4">
           <div class="sm:col-span-4 pb-4">
-              type: :upload,
-              live_uploads: @uploads,
-              name: :avatar,
-              label: "Avatar"
-          
+            <%= form.file_field :avatar %>
           </div>
-
 
           <div class="sm:col-span-3">
             <%= form.text_field :name,

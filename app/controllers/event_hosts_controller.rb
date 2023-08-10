@@ -36,6 +36,8 @@ class EventHostsController < ApplicationController
   end
 
   def event_host_params
-    params.require(:event_host).permit(:email, :name, :description, :listed_on_page, :event_manager)
+    params.require(:event_host).permit(
+      :email, :name, :description, :listed_on_page, :event_manager, :avatar
+    )
   end
 end

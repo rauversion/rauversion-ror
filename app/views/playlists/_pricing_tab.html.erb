@@ -1,12 +1,12 @@
 <div id="pricing-tab" class="tab-pane">
     <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-      <div class="sm:col-span-4">
+      <div class="sm:col-span-6">
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-          <div class="sm:col-span-4">
+          <div class="sm:col-span-6">
             <%= form.number_field :price, label: "price", hint: "$0 or more. We apply a fee of #{ENV["APP_FEE"]} when price is higher than $0. The fee will be capped at the total payment amount" %>
           </div>
 
-          <div class="sm:col-span-4">
+          <div class="sm:col-span-6">
             <%= form.check_box :name_your_price, 
               label: false,
               hint: "let fans pay more if they want" %>

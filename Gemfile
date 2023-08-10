@@ -135,3 +135,7 @@ gem "http", "~> 5.1"
 gem "ruby-oembed", "~> 0.16.1"
 
 gem "sidekiq", "~> 7.1"
+
+gem "rubyzip", "~> 2.3"
+
+gem "sequel", "~> 5.71"

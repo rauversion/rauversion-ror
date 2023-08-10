@@ -1,6 +1,6 @@
     <div id="basic-info" class="tab-pane <%= active_tab_for?(@tab, "basic-info-tab") %>">
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-        <div class="sm:col-span-2">
+        <div class="sm:col-span-6">
           <label
             for="cover-photo"
             class="block text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -27,10 +27,9 @@
                 >
                 </path>
               </svg>
-              <div class="flex text-sm text-gray-600">
-                <label class="relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500">
+              <div class="flex text-sm text-gray-600 items-center space-x-2">
+                <label>
                   <span><%= gettext("Upload Cover") %></span>
-                  <.live_file_input upload={@live_uploads.cover} class="hidden" />
                 </label>
                 <p class="pl-1">or drag and drop</p>
               </div>
@@ -49,13 +48,9 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-6">
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <% # for field <- Rauversion.Playlists.Playlist.form_definitions(@changeset) do %>
-              <% # form_input_renderer(f, field) %>
-            <% # end %>
-
-
+           
             <div class="sm:col-span-4">
               <%= form.text_field :title %>
             </div>

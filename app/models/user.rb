@@ -142,4 +142,8 @@ class User < ApplicationRecord
       "INNER JOIN tracks ON purchased_items.purchased_item_id = tracks.id AND purchased_items.purchased_item_type = '#{kind}'")
     .where(tracks: { user_id: self.id })
   end
+
+  def password_required?
+    false
+  end
 end

@@ -420,6 +420,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sequel (5.71.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     sidekiq (7.1.2)
@@ -537,7 +538,9 @@ DEPENDENCIES
   rspec-rails!
   rspec-support!
   ruby-oembed (~> 0.16.1)
+  rubyzip (~> 2.3)
   selenium-webdriver
+  sequel (~> 5.71)
   shoulda-matchers (~> 5.0)
   sidekiq (~> 7.1)
   socialization (~> 2.0)
