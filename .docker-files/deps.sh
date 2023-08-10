@@ -12,7 +12,8 @@ apt-get update -qq \
     zlib1g-dev \
     apt-transport-https \
     ca-certificates \
-    libgnutls30  
+    libgnutls30 \
+    libvips42
     #software-properties-common
 
 #add-apt-repository ppa:chris-needham/ppa

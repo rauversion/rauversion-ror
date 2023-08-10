@@ -78,8 +78,6 @@ RUN NODE_OPTIONS="--max-old-space-size=2048" \
 
 # RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales 
 
-RUN apt install -y --no-install-recommends libvips42
-
 COPY --from=mwader/static-ffmpeg:4.1.4-2 /ffmpeg /ffprobe /usr/local/bin/
 
 # Audiowaveform
