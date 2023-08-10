@@ -62,9 +62,9 @@ WORKDIR /usr/src/app
 # Copy app source into container
 COPY --chown=docker:docker . /usr/src/app/
 
-RUN yarn --version
+# RUN yarn --version
 
-RUN yarn install
+RUN npm install
 
 # Precompile assets - production only
 # Clean up temp files and Yarn cache folder

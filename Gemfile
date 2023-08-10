@@ -139,3 +139,5 @@ gem "sidekiq", "~> 7.1"
 gem "rubyzip", "~> 2.3"
 
 gem "sequel", "~> 5.71"
+
+gem "mrsk", "~> 0.15.1"
