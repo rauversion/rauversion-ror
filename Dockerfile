@@ -76,8 +76,7 @@ RUN NODE_OPTIONS="--max-old-space-size=2048" \
   && echo "done!"
 
 
-RUN apt-get update -y && apt-get install -y libstdc++6 openssl \ 
-  libncurses5 locales 
+# RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales 
 
 RUN apt install -y --no-install-recommends libvips42
 
