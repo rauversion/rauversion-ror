@@ -11,7 +11,7 @@ class StreamingProviders::Jitsi
     "jitsi"
   end
 
-  def self.definitions do
+  def self.definitions
     [
       {type: :text_input, name: :api_key, wrapper_class: "", placeholder: "your api_key"},
       {type: :text_input, name: :app_id, wrapper_class: "", placeholder: "your app id"}
