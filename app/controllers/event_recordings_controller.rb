@@ -1,5 +1,7 @@
 class EventRecordingsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @event = current_user.events.friendly.find(params[:event_id])
     @event_recording = @event.event_recordings.new

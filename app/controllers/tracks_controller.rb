@@ -1,5 +1,7 @@
 class TracksController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show ]
+
   def index
     @tracks = Track.published.page(params[:page]).per(10)
   end

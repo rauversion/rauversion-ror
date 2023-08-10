@@ -1,5 +1,6 @@
 class TrackPlaylistsController < ApplicationController
 
+  before_action :authenticate_user!
 
   def create
     @track_playlist = TrackPlaylist.new(build_params)

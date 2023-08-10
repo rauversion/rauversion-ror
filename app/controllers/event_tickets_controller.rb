@@ -1,5 +1,7 @@
 class EventTicketsController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show ]
+
   def show
     @purchased_item = PurchasedItem.find_signed(params[:id])
     @ticket = @purchased_item.purchased_item

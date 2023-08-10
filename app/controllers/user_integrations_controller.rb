@@ -1,5 +1,7 @@
 class UserIntegrationsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def destroy
     identity = current_user.identities.find(params[:id])
     if identity.destroy

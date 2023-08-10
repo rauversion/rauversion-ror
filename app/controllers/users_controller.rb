@@ -11,8 +11,14 @@ class UsersController < ApplicationController
   def tracks
 
     # @collection = @user.tracks.page(params[:page]).per(2)
-    @collection = User.track_preloaded_by_user(current_user&.id).page(params[:page]).per(2)
-    
+    if current_user 
+      @collection = User.track_preloaded_by_user(current_user&.id)
+        where(user_id: @user.id )
+        .order("id desc")
+        .page(params[:page]).per(2)
+    else
+      @collection = @user.tracks.published.order("id desc").page(params[:page]).per(2)
+    end
     # @collection = @user.tracks.page(params[:page]).per(5)
     @as = :track
     @section = "tracks/track_item"

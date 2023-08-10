@@ -1,5 +1,7 @@
 class TrackPurchasesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @track = Track.friendly.find(params[:track_id])
     @payment = Payment.new
@@ -23,7 +25,6 @@ class TrackPurchasesController < ApplicationController
   
     handle_stripe_session
   end
-
 
   def handle_stripe_session
     # @purchase.errors.add(:base, "hahahaha")
@@ -93,7 +94,6 @@ class TrackPurchasesController < ApplicationController
     @purchase = current_user.purchases.find(params[:id])
     render "show"
   end
-
 
   def build_params
     params.require(:payment).permit(:include_message, :optional_message)

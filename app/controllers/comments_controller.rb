@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show ]
+
   def create
     if params[:track_id]
       @resource = Track.friendly.find(params[:track_id])

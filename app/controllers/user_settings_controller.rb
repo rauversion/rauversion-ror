@@ -1,5 +1,7 @@
 class UserSettingsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def show
     @section = params[:section] || "profile"
     @user = User.find_by(username: params[:user_id])

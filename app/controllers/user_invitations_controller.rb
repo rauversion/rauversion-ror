@@ -1,5 +1,7 @@
 class UserInvitationsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def create
     if current_user.has_invitations_left?
       user = User.invite!({email: params[:email]}, current_user)

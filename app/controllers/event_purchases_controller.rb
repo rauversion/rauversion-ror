@@ -1,5 +1,7 @@
 class EventPurchasesController < ApplicationController
 
+  before_action :authenticate_user!
+  
   def new
     @event = Event.friendly.find(params[:event_id])
     

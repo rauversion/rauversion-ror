@@ -1,5 +1,7 @@
 class EventHostsController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show ]
+
   def new
     @event = current_user.events.friendly.find(params[:event_id])
     @event_host = @event.event_hosts.new

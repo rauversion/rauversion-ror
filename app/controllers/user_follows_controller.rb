@@ -1,5 +1,7 @@
 class UserFollowsController < ApplicationController
 
+  before_action :authenticate_user!, except: [:index, :show ]
+
   def followees
     @user = User.find_by(username: params[:user_id])
     @collection = @user.followees(User)

@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show ]
 
   def index
     @upcoming_events = Event.upcoming_events
