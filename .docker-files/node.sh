@@ -3,7 +3,7 @@ set -x
 
 # Add NodeJS to sources list
 # curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
-curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+curl -fsSL https://deb.nodesource.com/setup_19.x | bash -
 apt-get install -y nodejs
 
 # curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
