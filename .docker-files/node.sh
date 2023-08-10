@@ -6,21 +6,11 @@ set -x
 curl -fsSL https://deb.nodesource.com/setup_19.x | bash -
 apt-get install -y nodejs
 
-# curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
-# apt-get install -y nodejs
+#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
-# apt-get install -y nodejs #to install Node.js 18.x and npm
 
-#17 10.80 ## You may also need development tools to build native addons:
-#apt-get install gcc g++ make
-#17 10.80 ## To install the Yarn package manager, run:
-#curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
-#echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-#apt-get update && apt-get install yarn
+#apt update
+#apt -y install yarn
 
-#npm install --global yarn
-
-#corepack enable
-#echo yarn -v 
-
-# yarn install
+npm install -g yarn
