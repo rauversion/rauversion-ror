@@ -10,7 +10,7 @@ DB = Sequel.connect(
   port: 25061,
   database: ENV["PHX_DB_DB"],
   sslmode: "require"
-)
+) rescue nil
 
 
 def create_users
