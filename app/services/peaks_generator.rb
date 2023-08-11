@@ -6,7 +6,7 @@ class PeaksGenerator
   end
 
   def run
-    case true # Rails.application.config.peaks_processor
+    case ENV['PEAKS_PROCESSOR']
     when "audiowaveform"
       run_audiowaveform
     else
