@@ -20,13 +20,13 @@
             <div class="flex space-x-2">
               <% if event_host.listed_on_page %>
                 <span class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
-                  <%= gettext("Listed on page") %>
+                  <%= t("event_hosts.listed") %>
                 </span>
               <% end %>
 
               <% if event_host.event_manager %>
                 <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                  <%= gettext("Event Manager") %>
+                  <%= t("event_hosts.manager") %>
                 </span>
               <% end %>
             </div>

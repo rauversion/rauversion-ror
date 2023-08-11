@@ -3,10 +3,10 @@
     <div class="">
       <div class="border-b--- border-gray-200 dark:border-gray-700">
         <nav class="-mb-px flex space-x-8 text-2xl " aria-label="Tabs">
-          <%= link_to gettext("My Events"), mine_events_path(tab: "all"), class: tab_class(@tab == "all") %>
-          <%= link_to gettext("Drafts"), mine_events_path(tab: "drafts"), class: tab_class(@tab == "drafts") %>
-          <%= link_to gettext("Published"), mine_events_path(tab: "published"), class: tab_class(@tab == "published") %>
-          <%= link_to gettext("Events I manage"), mine_events_path(tab: "manager"), class: tab_class(@tab == "manager") %>
+          <%= link_to t("events.my_events"), mine_events_path(tab: "all"), class: tab_class(@tab == "all") %>
+          <%= link_to t("events.drafts"), mine_events_path(tab: "drafts"), class: tab_class(@tab == "drafts") %>
+          <%= link_to t("events.published"), mine_events_path(tab: "published"), class: tab_class(@tab == "published") %>
+          <%= link_to t("events.manager"), mine_events_path(tab: "manager"), class: tab_class(@tab == "manager") %>
         </nav>
       </div>
     </div>
@@ -18,11 +18,11 @@
         <%= @tab.capitalize %> Events
       </h1>
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-        <%= gettext("Your articles.") %>
+        <%= t("events.your_events") %>
       </p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-      <%= link_to "New event", new_event_path(), class: "brand-button" %>
+      <%= link_to t("events.new_event"), new_event_path(), class: "brand-button" %>
     </div>
   </div>
   <div class="mt-8 flex flex-col">
@@ -72,7 +72,7 @@
                     <%= event.state %>
                   </td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 dark:text-gray-200 dark:bg-gray-900">
-                    <%= link_to gettext("Edit"), edit_event_path(event), class: "link" %>
+                    <%= link_to t("edit"), edit_event_path(event), class: "link" %>
                   </td>
                 </tr>
               <% end %>

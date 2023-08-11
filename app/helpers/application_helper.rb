@@ -40,17 +40,17 @@ module ApplicationHelper
 
   def event_status_label(event)
     case event.state
-    when "published" then gettext("Your event is published")
+    when "published" then t("events.published")
     else  
-      gettext("Your event has not been published")
+      t("events.unpublished")
     end
   end
 
   def button_label(event)
     case event.state
-    when "published" then gettext("Unpublish Event")
+    when "published" then t("events.unpublish")
     else  
-      gettext("Publish Event")
+      t("events.publish")
     end
   end
 

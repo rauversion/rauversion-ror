@@ -7,9 +7,9 @@
     <div class="">
       <div class="border-b--- border-gray-200 dark:border-gray-700">
         <nav class="-mb-px flex space-x-8 text-2xl" aria-label="Tabs">
-          <%= link_to "My Articles", mine_articles_path(tab: "all"), class: @tab == "all" ? 'tab-active' : 'tab-default' %>
-          <%= link_to "Drafts", mine_articles_path(tab: "draft"), class: @tab == "draft" ? 'tab-active' : 'tab-default' %>
-          <%= link_to "Published", mine_articles_path(tab: "published"), class: @tab == "published" ? 'tab-active' : 'tab-default' %>
+          <%= link_to t("articles.my_articles"), mine_articles_path(tab: "all"), class: @tab == "all" ? 'tab-active' : 'tab-default' %>
+          <%= link_to t("articles.drafts"), mine_articles_path(tab: "draft"), class: @tab == "draft" ? 'tab-active' : 'tab-default' %>
+          <%= link_to t("articles.published"), mine_articles_path(tab: "published"), class: @tab == "published" ? 'tab-active' : 'tab-default' %>
         </nav>
       </div>
     </div>
@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-      <%= link_to 'New article', 
+      <%= link_to t('new_article'), 
         new_article_path, 
         class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 sm:w-auto' 
       %>
@@ -61,10 +61,10 @@
                     <%= post.state %>
                   </td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 dark:text-gray-200 dark:bg-gray-900 divide-x space-x-2">
-                    <%= link_to 'Edit', edit_article_path(post), class: 'text-brand-600 hover:text-brand-900' %>
+                    <%= link_to t('Edit'), edit_article_path(post), class: 'text-brand-600 hover:text-brand-900' %>
 
                     <% if post.slug %>
-                      <%= link_to 'View Article', article_path(post.slug), class: 'text-brand-600 hover:text-brand-900 pl-2' %>
+                      <%= link_to t('articles.view'), article_path(post.slug), class: 'text-brand-600 hover:text-brand-900 pl-2' %>
                     <% end %>
                   </td>
                 </tr>

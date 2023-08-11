@@ -33,6 +33,7 @@ en:
   hello: "Hello world"
   by: "By %{name}"
   see_everything: See Everything
+  edit: Edit
 
   menu:
     music: Music
@@ -57,7 +58,21 @@ en:
     by: By
     read_now: Read Now
     article_settings: Article settings
+    my_articles: My articles
+    drafts: Drafts
+    published: Published
+    new_article: new_article
+    view: View Article
 
+  attribution:
+    some: Some rights reserved
+    all: All rights reserved
+
+  tickets:
+    checked_in: Checked in tickets
+    all: All your Tickets
+    title: Tickets
+    my: My Tickets
   events:
     past: Past Events
     upcoming: Upcoming Events
@@ -71,9 +86,34 @@ en:
     get_tickets: Get your tickets
     watch_live: Watch live stream
 
+    my_events: My Events
+    your_events: Your events
+    drafts: Drafts
+    published: Published
+    manager: Events I manage
+    new_event: New Event
+
+    edit: Edit Event
+    create: Create Event
+
+    published: Your event is published
+    unpublished: Your event has not been published
+    unpublish: Unpublish Event
+    publish: Publish Event
+
+  event_hosts:
+    listed: Listed on page
+    manager: Event Manager
+    email_hint: "Añade un host para resaltarlo en la página del evento o para obtener ayuda en la gestión del evento."
+
+
   tracks:
     recent: Recent Tracks
     new_track: New track
+    private: Private
+    go_to: Go to your track
+    share: Share your new track
+    link: Link
 
   home:
     artists: Artists you should know
@@ -98,6 +138,9 @@ en:
     sign_in: Sign in to your account
     register: Register
     or: Or continue with
+    follow: Follow
+    unfollow: Unfollow
+    following: Following
 
   user_settings:
     title_account: Account
@@ -115,6 +158,19 @@ en:
     title_invitations: Invitations
     sub_invitations: Invite other artists to your account.
 
+  purchases:
+    title: Purchases
+    my_music: My music
+    my_tickets: My tickets
+    purchased_albums: Purchased Albums
+    purchased_tracks: Purchased Individual tracks
+
+  sales:
+    title: My Music sellings
+    my_music: My music sellings
+    my_tickets: My tickets
+    albums: Albums
+    tracks: Individual tracks
 
   payments:
     include_message: "include a message to %{name}"
@@ -123,6 +179,28 @@ en:
     name_your_price: Name your price %{num} or more
     buy_digital_album: "Buy Digital album"
     buy_digital_track: "Buy Digital track"
+
+
+  sessions:
+    forgot_pass: "Forgot your password?"
+    sign_in: Sign in
+
+  errors:
+    404:
+      title: Page not found
+      desc: Please check the URL in the address bar and try again
+      action: Go back home
+      cta: Contact support
+    500:
+      title: Something went wrong
+      desc: Please check the URL in the address bar and try again
+      action: Go back home
+      cta: Contact support
+    422:
+      title: Access Denied
+      desc: Please check the URL in the address bar and try again
+      action: Go back home
+      cta: Contact support
 
   time:
     formats:
