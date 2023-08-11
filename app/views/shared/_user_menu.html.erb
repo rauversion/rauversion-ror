@@ -219,7 +219,7 @@
                   <a href="#" class="hidden block- px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
                     License
                   </a>
-                  <%= link_to "Routes.user_session_path(@conn, :delete)}",
+                  <%= button_to destroy_user_session_path,
                     method: :delete,
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                     <%= gettext("Log out") %>
@@ -262,11 +262,11 @@
       <% # end %>
 
       <% if !current_user %>
-        <%= link_to "Routes.user_registration_path(@conn, :new)}", class: "block rounded-md py-2 px-3 text-base font-medium text-white hover:text-white hover:bg-gray-800" do %>
+        <%= link_to new_user_registration_path, class: "block rounded-md py-2 px-3 text-base font-medium text-white hover:text-white hover:bg-gray-800" do %>
           <%= gettext("Register") %>
         <% end %>
 
-        <%= link_to "Routes.user_session_path(@conn, :new)}", class:
+        <%= link_to new_user_session_path, class:
             "block rounded-md py-2 px-3 text-base font-medium text-white hover:text-white hover:bg-gray-800" do %>
           <%= gettext("Log in") %>
         <% end %>
@@ -343,7 +343,7 @@
           <div class="border-1"></div>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">Support</a>
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">License</a>
-          <%= link_to "Routes.user_session_path(@conn, :delete)}", method: :delete, class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
+          <%= button_to destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
             <%= gettext("Log out") %>
           <% end %>
 

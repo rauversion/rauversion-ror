@@ -1,16 +1,21 @@
-<h2>Resend unlock instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <h2 class="text-2xl">Resend unlock instructions</h2>
 
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
-  </div>
-<% end %>
+  <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "space-y-2 flex flex-col" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= render "devise/shared/links" %>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Resend unlock instructions" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
+</div>

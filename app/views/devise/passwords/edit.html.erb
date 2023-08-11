@@ -1,9 +1,12 @@
 
+<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+
 <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 
   <h2>Change your password</h2>
 
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { 
+    method: :put, class: "space-y-2 flex flex-col" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
 
@@ -27,4 +30,5 @@
 
   <%= render "devise/shared/links" %>
 
+</div>
 </div>

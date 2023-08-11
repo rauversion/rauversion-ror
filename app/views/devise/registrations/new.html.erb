@@ -93,11 +93,10 @@
             </div>
 
             <div class="field mt-10">
-              <%= f.label :password %>
-              <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
-              <% end %><br />
-              <%= f.password_field :password, autocomplete: "new-password" %>
+              <%= f.password_field :password, 
+                autocomplete: "new-password", 
+                hint: "#{@minimum_password_length} characters minimum"
+              %>
             </div>
 
             <div class="field">
