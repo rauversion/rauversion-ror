@@ -12,7 +12,7 @@ class Post < ApplicationRecord
     where(private: false)
   }
 
-  scope :draft, -> { where.not(:state => "draft" )}
+  scope :draft, -> { where(:state => "draft" )}
 
   
   def cover_url(size = nil)
