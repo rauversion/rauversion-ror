@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     if current_user.is_admin?
       user = User.find(params[:id])
       sign_in(:user, user)
+      redirect_to root_url, notice: "logged in as #{user.username}"
     else
       redirect_to root_url, error: "not allowed"
     end

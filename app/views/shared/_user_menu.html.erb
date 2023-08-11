@@ -154,7 +154,7 @@
               >
                 <span class="sr-only"><%= gettext("Notifications") %></span>
 
-                <% #= image_tag(current_user, :small) %>
+                <%= image_tag(current_user.avatar_url(:small), class: "h-6 w-6 rounded-full") %>
               </button>
 
               <button
