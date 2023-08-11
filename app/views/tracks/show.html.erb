@@ -146,6 +146,7 @@
             </h1>
           </div>
 
+          <!--
           <div class="mt-6 flex items-center justify-stretch space-x-2 sm:flex-row sm:space-y-0 sm:space-x-4">
             <div>
               <%= link_to "#", class: "button" do %>
@@ -180,14 +181,15 @@
             </div>
 
             <div>
-                <%= link_to edit_track_path(@track), class: "button" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                  </svg>
-                  <span>Editar</span>
-                <% end %>
+              <%= link_to edit_track_path(@track), class: "button" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+                <span>Editar</span>
+              <% end %>
             </div>
           </div>
+          -->
         </div>
       </div>
 
@@ -218,8 +220,8 @@
           </dd>
         <% end %>
 
-        <% if @track.metadata && @track.metadata[:buy_link] %>
-          <%= link_to t("Buy Link"), @track.metadata[:buy_link], class: "underline", target: "_blank" %>
+        <% if @track.buy_link %>
+          <%= link_to t("Buy Link"), @track.buy_link, class: "underline", target: "_blank" %>
         <% end %>
 
         <%= render "shared/attribution", resource: @track %>
@@ -249,12 +251,10 @@
     </dl>
   </div>
 
-
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    
-    <!-- Profile info omitted for brevity -->
-    <%= render "shared/music_purchase", resource: @track %>
-
+    <% if @track.price %>
+      <%= render "shared/music_purchase", resource: @track %>
+    <% end %>
   </div>
 
 
