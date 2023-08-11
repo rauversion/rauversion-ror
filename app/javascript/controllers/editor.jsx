@@ -115,9 +115,7 @@ function EditorComponent({callback, ctx, upload, initialValue}){
           ImageBlockConfig({
             options: {
               upload_handler: (file, ctx) => {
-                console.log("UPLOADED FILE!!!!", file)
-                
-                this.upload(file, (blob)=>{
+                upload(file, (blob)=>{
                   console.log(blob)
                   console.log(ctx)
                   ctx.updateAttributes({

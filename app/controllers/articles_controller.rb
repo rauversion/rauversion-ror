@@ -45,8 +45,18 @@ class ArticlesController < ApplicationController
   end
 
   def mine
-    @posts = current_user.posts
+    
     @tab = params[:tab] || "all"
+    case @tab
+    when "all"
+      @posts = current_user.posts
+    when "published"
+      @posts = current_user.posts.published
+    else "draft"
+      @posts = current_user.posts.draft
+    end
+
+    @posts.page(params[:page]).per(10)
   end
 
   private
