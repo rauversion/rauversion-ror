@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   get "/embed/sets/:playlist_id", to: "embeds#show_playlist"
   get "/embed/sets/:playlist_id/private", to: "embeds#private_playlist"
 
+  get "/404" => "errors#not_found"
+  get "/500" => "errors#fatal"
+
 
   resource :player, controller: "player"
 

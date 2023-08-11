@@ -11,9 +11,8 @@ module RauversionRor
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    #config.exceptions_app = ->(env) {
-    #  ErrorsController.action(:show).call(env)
-    #}
+    config.exceptions_app = self.routes
+
 
     config.hosts << "chaskiq.sa.ngrok.io"
     config.hosts << ENV['HOST']
