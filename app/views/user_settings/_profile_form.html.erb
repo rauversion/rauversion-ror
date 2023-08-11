@@ -3,9 +3,6 @@
 
   <%= form_for user, url: user_setting_path(user.username, :profile), class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800"  do |form| %>
 
-    <div class="alert alert-danger">
-      <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
-    </div>
   
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
       <div class="sm:col-span-6">

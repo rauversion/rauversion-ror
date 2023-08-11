@@ -32,6 +32,89 @@
 en:
   hello: "Hello world"
   by: "By %{name}"
+  see_everything: See Everything
+
+  menu:
+    music: Music
+    events: Events
+    magazine: Magazine
+    upload: "upload"
+    register: "Register"
+    log_in: "Log in"
+    notifications: "notifications"
+    my_music: My music
+    my_articles: My articles
+    my_events: My events
+    my_purchases: My purchases
+    my_sales: My sales
+    settings: Settings
+    log_out: Log out
+
+  articles:
+    recent_publications: Recent publications
+    selected_articles: Selected articles & reviews from Rauversion community and editorial
+    the_latest: The latests
+    by: By
+    read_now: Read Now
+    article_settings: Article settings
+
+  events:
+    past: Past Events
+    upcoming: Upcoming Events
+    upcoming_sub: Upcoming Events from the Rauversion community
+    speakers: Speakers
+    people_attending: People Attending
+    venue: venue
+    location: location
+    copyright: Copyright ©
+    all_rights: All rights reserved.
+    get_tickets: Get your tickets
+    watch_live: Watch live stream
+
+  tracks:
+    recent: Recent Tracks
+    new_track: New track
+
+  home:
+    artists: Artists you should know
+
+  profile:
+    stats: Your stats
+    edit: Edit profile
+    followings: Following
+    followers: Followers
+    comments: Comments
+    likes: likes
+    tracks: Tracks
+    go_to: Go to profile
+
+    albums: Albums
+    playlists: Playlists
+    reposts: Reposts
+    tracks: Tracks
+
+
+  users:
+    sign_in: Sign in to your account
+    register: Register
+    or: Or continue with
+
+  user_settings:
+    title_account: Account
+    sub_account: Basic Account Information.
+    title_email: Change Email
+    sub_email: Change Email information.
+    title_security: Security
+    sub_security: Change your credentials
+    title_notification: Notifications
+    sub_notification: Change your notification preferences.
+    title_integrations: Integrations
+    sub_integrations: Manage your external integrations.
+    title_transbank: Transbank settings
+    sub_transbank: Manage your transbank commerce (Chile only).
+    title_invitations: Invitations
+    sub_invitations: Invite other artists to your account.
+
 
   payments:
     include_message: "include a message to %{name}"

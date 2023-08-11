@@ -62,10 +62,10 @@
     <div class="py-16 sm:py-24 lg:max-w-7xl lg:mx-auto lg:py-32 lg:px-8">
       <div class="px-4 flex items-center justify-between sm:px-6 lg:px-0">
         <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
-          <%= gettext("Recent Tracks") %>
+          <%= t("tracks.recent_tracks") %>
         </h2>
         <%= link_to "/tracks", class: "hidden sm:block text-sm font-semibold text-brand-600 hover:text-brand-500" do %>
-          <%= gettext("See everything") %>
+          <%= t("see_everything") %>
           <span aria-hidden="true"> →</span>
         <% end %>
       </div>
@@ -153,7 +153,7 @@
           id="collections-users"
           class="text-2xl font-extrabold text-gray-900 dark:text-gray-100"
         >
-          <%= gettext("Artists You Should Know") %>
+          <%= t("home.artists") %>
         </h2>
 
         <div class="mt-6 space-x-2 lg:space-y-0 grid-cols-3 grid lg:grid-cols-6 lg:gap-x-6 lg:gap-y-6">

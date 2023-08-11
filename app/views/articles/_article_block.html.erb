@@ -13,7 +13,7 @@
     <% end %>
 
     <strong class="text-xs font-bold leading-relaxed tracking-widest uppercase">
-      <%= gettext("by") %> <%= post.user.username %> · <%= l post.created_at, format: :short %>.
+      <%= t("articles.by") %> <%= post.user.username %> · <%= l post.created_at, format: :short %>.
     </strong>
 
     <p class="mt-4 text-sm tracking-wide text-ellipsis overflow-hidden h-10">
@@ -21,7 +21,7 @@
     </p>
 
     <%= link_to article_path(post), class: "inline-flex items-center py-4 mt-3 text-xs font-bold tracking-widest text-black uppercase transition duration-500 ease-in-out transform border-b-2 border-black dark:border-white dark:text-white hover:text-gray-600 hover:border-gray-600" do %>
-      <%= gettext("Read Now") %>
+      <%= t("articles.read_now") %>
       <svg
         fill="none"
         stroke="currentColor"
