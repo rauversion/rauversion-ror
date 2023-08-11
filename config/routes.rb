@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get "/oembed/", to: "oembed#show", as: :oembed
 
+  get "/become/:id", to: "application#become"
+
   get "/embed/:track_id", to: "embeds#show"
   get "/oembed/:track_id", to: "embeds#oembed_show", as: :oembed_show
   get "/oembed/:track_id/private", to: "embeds#oembed_private_show"

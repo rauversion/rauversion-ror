@@ -48,12 +48,12 @@ class ArticlesController < ApplicationController
     
     @tab = params[:tab] || "all"
     case @tab
-    when "all"
-      @posts = current_user.posts
     when "published"
       @posts = current_user.posts.published
-    else "draft"
+    when "draft"
       @posts = current_user.posts.draft
+    else
+      @posts = current_user.posts
     end
 
     @posts.page(params[:page]).per(10)
