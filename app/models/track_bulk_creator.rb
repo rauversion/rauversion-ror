@@ -20,7 +20,10 @@ class TrackBulkCreator
   end
 
   def save
-    return false unless valid?
+    if !valid?
+      puts self.errors.full_messages
+      return false
+    end
     tracks.each(&:save!)
     true
   rescue => e
