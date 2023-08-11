@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     # @collection = @user.tracks.page(params[:page]).per(2)
     if current_user 
       @collection = User.track_preloaded_by_user(current_user&.id)
-        where(user_id: @user.id )
+        .where(user_id: @user.id )
         .order("id desc")
         .page(params[:page]).per(2)
     else
