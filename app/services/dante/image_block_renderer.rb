@@ -1,8 +1,9 @@
 class Dante::ImageBlockRenderer
-  def initialize(block_key:, data:, domain: nil)
+  def initialize(block_key:, data:, domain: nil, text: nil)
     @block_key = block_key
     @data = data
     @domain = domain
+    @text = (text || []).join(" ")
   end
 
   def render
@@ -24,13 +25,13 @@ class Dante::ImageBlockRenderer
 
     figure = <<~HTML
       <figure id="#{@block_key}" class="graf graf--figure #{direction_class}">
-        <div>
-          <div class="aspectRatioPlaceholder is-locked" style="#{default_style}">
-            <div class="aspect-ratio-fill" style="padding-bottom: #{ratio}%;"></div>
-            <img src="#{image_url}" width="#{width}" height="#{height}" class="graf-image medium-zoom-image" alt="#{caption}">
-          </div>
+    
+        <div class="aspectRatioPlaceholder is-locked" style="#{default_style}">
+          <div class="aspect-ratio-fill" style="padding-bottom: #{ratio}%;"></div>
+          <img src="#{image_url}" width="#{width}" height="#{height}" class="graf-image medium-zoom-image" alt="#{caption}">
         </div>
-        #{caption_html(caption)}
+      
+        #{caption_html(@text)}
       </figure>
     HTML
 
@@ -57,7 +58,7 @@ class Dante::ImageBlockRenderer
   end
 
   def caption_html(caption)
-    return "" unless caption && caption != "type a caption (optional)"
+    # return "" unless caption && caption == "type a caption (optional)"
 
     <<~HTML
       <figcaption class="imageCaption">

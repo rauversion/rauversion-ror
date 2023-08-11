@@ -35,7 +35,7 @@ class Dante::Renderer
       handle_text_node(node)
 
     when "ImageBlock"
-      renderer = Dante::ImageBlockRenderer.new(block_key: node[:id], data: node[:attrs], domain: domain)
+      renderer = Dante::ImageBlockRenderer.new(text: traverse_nodes(node[:content]), block_key: node[:id], data: node[:attrs], domain: domain)
       renderer.render
 
     when "FileBlock"

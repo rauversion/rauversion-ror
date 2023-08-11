@@ -107,10 +107,9 @@
     </div>
     <div
       id="article-<%= @post.id %>"
-      class="mt-6 prose dark:prose-invert prose-indigo prose-lg text-gray-500 dark:text-gray-300 mx-auto"
+      class="post-wrapper mt-6 prose dark:prose-invert prose-indigo prose-lg text-gray-500 dark:text-gray-300 mx-auto"
       data-field=""
-      phx-hook="ArticleContent"
-      phx-update="ignore"
+      data-controller="medium-zoom"
     >
       <%= serialized_to_html(@post.body.with_indifferent_access).html_safe %>
       
