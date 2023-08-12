@@ -61,6 +61,21 @@
                     </div>
 
                 </div>
+
+                <div class="my-5">
+                  <%= form.check_box :make_playlist , label: "Make a playlist when multiple files are selected" %>
+
+                  <%= form.label :privacy%>
+
+                  <div class="flex-col space-y-3">
+                    <div class="flex space-x-2 items-center">
+                      <%= form.radio_button :private, false, label: "Acceso público", hint: "Todo el mundo con el enlace verá este artículo." %> 
+                    </div>
+                    <div class="flex space-x-2 items-center">
+                      <%= form.radio_button :private, true, label: "Miembros privados al artículo", hint: "Sólo los miembros de este artículo podrían acceder." %>
+                    </div>
+                </div>
+
               <% end %>
             </div>
           </div>

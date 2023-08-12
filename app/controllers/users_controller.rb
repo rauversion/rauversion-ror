@@ -3,22 +3,13 @@ class UsersController < ApplicationController
   before_action :find_user
 
   def show
-    @collection = @user.tracks.page(params[:page]).per(2)
+    get_tracks
     @as = :track
     @section = "tracks/track_item"
   end
 
   def tracks
-
-    # @collection = @user.tracks.page(params[:page]).per(2)
-    if current_user 
-      @collection = User.track_preloaded_by_user(current_user&.id)
-        .where(user_id: @user.id )
-        .order("id desc")
-        .page(params[:page]).per(2)
-    else
-      @collection = @user.tracks.published.order("id desc").page(params[:page]).per(2)
-    end
+    get_tracks
     # @collection = @user.tracks.page(params[:page]).per(5)
     @as = :track
     @section = "tracks/track_item"
@@ -50,6 +41,18 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_tracks
+    # @collection = @user.tracks.page(params[:page]).per(2)
+    if current_user 
+      @collection = User.track_preloaded_by_user(current_user&.id)
+        .where(user_id: @user.id )
+        .order("id desc")
+        .page(params[:page]).per(6)
+    else
+      @collection = @user.tracks.published.order("id desc").page(params[:page]).per(6)
+    end
+  end
 
   def find_user
     @user = User.find_by(username: params[:id] || params[:user_id])

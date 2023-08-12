@@ -99,6 +99,12 @@ class TracksController < ApplicationController
   end
 
   def track_bulk_params
-    params.require(:track_bulk_creator).permit(:step, audio: [], tracks_attributes: [:audio, :cover, :title] )
+    params.require(:track_bulk_creator).permit(
+      :make_playlist, :private,
+      :step, 
+      audio: [], tracks_attributes: [
+        :audio, :cover, :title, :tags, :description
+      ] 
+    )
   end
 end

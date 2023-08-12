@@ -4,7 +4,7 @@
 class TrackBulkCreator
   include ActiveModel::Model
 
-  attr_accessor :tracks_attributes, :step, :user
+  attr_accessor :tracks_attributes, :step, :user, :make_playlist, :private
 
   validate :validate_tracks
 
@@ -33,8 +33,11 @@ class TrackBulkCreator
 
   def tracks
     @tracks ||= tracks_attributes.map do |attributes|
+      blob = ActiveStorage::Blob.find_signed(attributes[:audio])
       t = Track.new(attributes)
+      t.title = blob.filename.to_s
       t.user = user
+      t.private = self.private
       t
     end
   end
