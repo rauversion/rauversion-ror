@@ -3,7 +3,7 @@ class TracksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
 
   def index
-    @tracks = Track.published.page(params[:page]).per(10)
+    @tracks = Track.published.order("id desc").page(params[:page]).per(12)
   end
 
   def new
@@ -52,7 +52,7 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.friendly.find(params[:id])
-
+    @supporters = []
     set_meta_tags(
       # title: @track.title,
       # description: @track.description,

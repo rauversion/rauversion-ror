@@ -1,22 +1,31 @@
 <div id="xx-5">
-  <div class="text-2xl font-bold space-x-2">
+  <div class="text-xl font-bold space-x-2">
     <%= link_to new_track_track_purchase_path(@track), 
       "data-turbo-frame": "modal", 
       class: "hover:underline dark:border-white border-black rounded-lg border-2 p-2 bg-green-500 hover:bg-green-500/90" do %> 
-      Comprar álbum digital 
+      <%= t("tracks.buy_digital_music")%>
     <% end %>
-    <span> <%= resource.price %> <span class="text-gray-700 dark:text-gray-300"> USD </span>
+    <span> <%= number_to_currency(resource.price) %> <span class="text-gray-700 dark:text-gray-300"> USD </span>
     </span>
-    <span class="text-gray-700 dark:text-gray-300"> o más </span>
+
+    <% if resource.name_your_price? %>
+      <span class="text-gray-700 dark:text-gray-300"> (<%= t("tracks.or_more") %>) </span>
+    <% end %>
   </div>
 </div>
 
-<div class="sm:text-xl text-sm container mx-auto my-4 flex flex-col space-y-4">
-  <h3 class="font-bold font-medium">Supporters</h3>
-  <div class="-space-x-4">
-    <a href="/pueblonuevo" data-phx-link="redirect" data-phx-link-state="push">
-      <img class="relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNTgxIiwicHVycG9zZSI6bnVsbH0.lSA7cpcMmQhKxah4FF8lgkeoOUcKYIRR8IwJs7Dbxhc/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCIyMDB4MjAwXCJ9IiwicHVycG9zZSI6bnVsbH0.6eK0-2F79Tbc3XOJhTLe4owI_7qgf-ay0_FT3Jn-tg0/Foto-Mika-Martini-destacada[1].jpg">
-      <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> pueblonuevo </h3>
-    </a>
+<% if @supporters.any? %>
+  <div class="sm:text-xl text-sm container mx-auto my-4 flex flex-col space-y-4">
+    <h3 class="font-bold font-medium"><%= t("tracks.supporters") %></h3>
+    <div class="-space-x-4">
+      <% @supporters.each do |supporter| %>
+        <%= link_to user_path(supporter.username) do %>
+          <%= image_tag supporter.cover_url(:small), class: "relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" %>
+          <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> 
+            <%= supporter.username %> 
+          </h3>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -17,7 +17,13 @@ class TrackPurchasesController < ApplicationController
     # When a customer purchases a ticket for an event:
     customer = current_user
 
-    @purchase = current_user.purchases.new(purchasable: @track)
+    price = @track.price
+    price_param = build_params[:price].to_f
+    if @track.name_your_price? && price_param && price_param > @track.price
+      price = price_param 
+    end
+
+    @purchase = current_user.purchases.new(purchasable: @track, price: price )
 
     @purchase.virtual_purchased = [ 
       VirtualPurchasedItem.new({resource: @track, quantity: 1})
@@ -39,7 +45,7 @@ class TrackPurchasesController < ApplicationController
         {
           "quantity" => 1,
           "price_data" => {
-            "unit_amount" => ((@track.price * v) * 100).to_i,
+            "unit_amount" => ((@purchase.price * v) * 100).to_i,
             "currency" => "USD",
             "product_data" => {
               "name" => @track.title,
@@ -53,15 +59,19 @@ class TrackPurchasesController < ApplicationController
 
       fee_amount = 3
 
+      payment_intent_data = {}
+
+      payment_intent_data = {
+        application_fee_amount: fee_amount
+        # "transfer_data"=> %{
+        #  "destination"=> c.uid
+        # }
+      } if account
+
       @session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
         line_items: line_items,
-        payment_intent_data: {
-          application_fee_amount: fee_amount
-          # "transfer_data"=> %{
-          #  "destination"=> c.uid
-          # }
-        },
+        payment_intent_data: payment_intent_data,
         customer_email: current_user.email,
         mode: "payment",
         success_url: success_track_track_purchase_url(@track, @purchase), # Replace with your success URL
@@ -96,6 +106,8 @@ class TrackPurchasesController < ApplicationController
   end
 
   def build_params
-    params.require(:payment).permit(:include_message, :optional_message)
+    params.require(:payment).permit(
+      :include_message, :optional_message, :price
+    )
   end
 end

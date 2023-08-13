@@ -2,7 +2,6 @@
   <div id="purchase-form">
     <%= form_for @payment, url: track_track_purchases_path(@track) do |form| %>
       
-
       <span class="text-xl py-4">
         <%= t("payments.buy_digital_track") %>
       </span>
@@ -21,6 +20,7 @@
               $
             </span>
             <%= form.text_field( :price,
+              label: false,
               class: "block w-64 flex-1- rounded-none rounded-r-md border-gray-300 dark:border-gray-800 dark:bg-gray-800 focus:border-brand-500 focus:ring-brand-500 sm:text-sm",
               placeholder: t("payments.name_your_price", num: number_to_currency(@track.price, precision: 2) )
             ) %>

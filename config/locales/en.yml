@@ -4,6 +4,7 @@ en:
   by: "By %{name}"
   see_everything: See Everything
   edit: Edit
+  loading: Loading...
 
   menu:
     music: Music
@@ -84,6 +85,9 @@ en:
     go_to: Go to your track
     share: Share your new track
     link: Link
+    buy_digital_music: Buy digital music
+    or_more: or more
+    supporters: Supporters
 
   home:
     artists: Artists you should know

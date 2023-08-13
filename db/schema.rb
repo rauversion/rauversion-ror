@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_001847) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_191411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -308,6 +308,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_001847) do
     t.string "checkout_id"
     t.string "purchasable_type"
     t.bigint "purchasable_id"
+    t.decimal "price"
     t.index ["checkout_type"], name: "index_purchases_on_checkout_type"
     t.index ["purchasable_type", "purchasable_id"], name: "index_purchases_on_purchasable_type_and_purchasable_id"
     t.index ["state"], name: "index_purchases_on_state"

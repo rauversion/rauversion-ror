@@ -14,10 +14,26 @@
   class="max-w-2xl mx-auto pt-12-- pb-16 px-4 sm:pt-16-- sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
   <h2 id="products-heading" class="sr-only">Pistas</h2>
 
-  <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-5 xl:grid-cols-6 xl:gap-x-8" id="infinite-scroll" phx-hook="InfiniteScroll" phx-update="append" data-page="1" phx-target="1" data-total-pages="6" data-phx-component="1">
 
-    <% @tracks.each do |track| %>
-      <%= render "tracks/track_cell", track: track %>
+  <%= turbo_frame_tag "conversation-list-#{@tracks.current_page}" do %>
+    <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-5 xl:grid-cols-6 xl:gap-x-8" id="infinite-scroll">
+
+      <% @tracks.each do |track| %>
+        <%= render "tracks/track_cell", track: track %>
+      <% end %>
+    </div>
+
+    <% if @tracks.next_page.present? %>
+      <%= turbo_frame_tag "conversation-list-#{@tracks.next_page}", loading: :lazy,
+                          src: tracks_path(page: @tracks.next_page) do %>
+        <div class="">
+          <%= t('loading') %>
+        </div>
+      <% end %>
     <% end %>
-  </div>
+
+  <% end %>
+
+
+
 </section>
