@@ -89,6 +89,12 @@ en:
     or_more: or more
     supporters: Supporters
 
+    private_label: Private 
+    private_hint: Private access. Hidden to the world
+
+    public_label: Public 
+    public_hint: Public access to everyone
+
   home:
     artists: Artists you should know
 

@@ -69,10 +69,10 @@
 
                   <div class="flex-col space-y-3">
                     <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, false, label: "Acceso público", hint: "Todo el mundo con el enlace verá este artículo." %> 
+                      <%= form.radio_button :private, false, label: t("tracks.private_label"), hint: t("tracks.private_hint") %> 
                     </div>
                     <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, true, label: "Miembros privados al artículo", hint: "Sólo los miembros de este artículo podrían acceder." %>
+                      <%= form.radio_button :private, true, label: t("tracks.public_label"), hint: t("tracks.public_hint") %>
                     </div>
                 </div>
 
