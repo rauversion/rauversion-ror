@@ -94,6 +94,7 @@ en:
 
     public_label: Public 
     public_hint: Public access to everyone
+    pending_state_message: "Hold on, this track is in %{state} state"
 
   home:
     artists: Artists you should know

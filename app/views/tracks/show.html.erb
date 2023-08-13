@@ -129,9 +129,7 @@
                   />
                 </svg>
                 <p>
-                  <%= gettext("Hold on, this track is in %{state} state",
-                    state: @track.state || "pending"
-                  ) %>
+                  <%= t("tracks.pending_state_message", state: @track.state || "pending" ) %>
                 </p>
               </span>
             </div>
