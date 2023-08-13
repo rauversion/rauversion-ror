@@ -2,20 +2,18 @@
   
   <% if @track_form.step == "info" %>
 
-
     <%= form_with model: @track_form, url: tracks_path(), class: 'direct-upload' do |form| %>
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
-        <%= form.text_field :step %>
+        <%= form.hidden_field :step %>
         <%= form.fields_for :tracks do |ff| %>
           <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 border rounded-md">
-            <%= ff.text_field :audio, value: ff.object.audio.signed_id %>
+            <%= ff.hidden_field :audio, value: ff.object.audio.signed_id %>
             <%= render "basic_info_fields", form: ff %>
           </div>
         <% end %>
         <%= form.submit %>
       </div>
     <% end %>
-
 
   <% end %>
 
