@@ -1,4 +1,5 @@
 require_relative "../lib/constraints/username_route_contrainer.rb"
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   # devise_for :users
@@ -106,6 +107,10 @@ Rails.application.routes.draw do
     end
   end
 
+  authenticate :user, lambda { |u| u.is_admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+  
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
     resources :users, path: "" do
