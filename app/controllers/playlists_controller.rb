@@ -6,7 +6,15 @@ class PlaylistsController < ApplicationController
   end
 
   def show
-    @playlist = current_user.playlists.friendly.find(params[:id])
+    if current_user
+      begin
+        @playlist = current_user.playlists.friendly.find(params[:id]) 
+      rescue  ActiveRecord::RecordNotFound
+        nil
+      end
+    end
+
+    @playlist = Playlist.published.friendly.find(params[:id]) unless @playlist
     @track = @playlist.tracks.first
 
     metatags = {

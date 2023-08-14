@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     end
 
     if params[:playlist_id]
-      @resource = Playlist.find(params[:playlist_id])
+      @resource = Playlist.friendly.find(params[:playlist_id])
     end
 
     @comment = @resource.comments.create(body: params[:comment][:body], user: current_user)
