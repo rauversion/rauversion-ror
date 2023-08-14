@@ -41,7 +41,7 @@ jobs:
     # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
     - name: Build container image
       #run: docker build -t ${{ secrets.REGISTRY_NAME }}/rauversion-ror:$(echo $GITHUB_SHA | head -c7) .
-      run: docker build --platform=linux/arm64 -t ${{ secrets.REGISTRY_NAME }}/rauversion-ror:main .
+      run: docker build --platform=linux/amd64 -t ${{ secrets.REGISTRY_NAME }}/rauversion-ror:main .
 
     - name: Log in to DigitalOcean Container Registry with short-lived credentials
       run: doctl registry login --expiry-seconds 1200

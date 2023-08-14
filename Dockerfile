@@ -53,8 +53,8 @@ COPY --from=mwader/static-ffmpeg:4.1.4-2 /ffmpeg /ffprobe /usr/local/bin/
 
 
 RUN apt-get update && \
-  wget https://github.com/bbc/audiowaveform/releases/download/1.8.1/audiowaveform_1.8.1-1-12_arm64.deb && \
-  dpkg -i audiowaveform_1.8.1-1-12_arm64.deb || true && \
+  wget https://github.com/bbc/audiowaveform/releases/download/1.8.1/audiowaveform_1.8.1-1-12_amd64.deb && \
+  dpkg -i audiowaveform_1.8.1-1-12_amd64.deb || true && \
   apt-get -f install -y
 
 
