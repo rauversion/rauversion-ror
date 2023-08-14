@@ -1,48 +1,57 @@
+# .github/workflows/ci.yml
 
-name: Main
-
-on: [push]
-
+name: CI
+on:
+  push:
+    branches_ignore:
+      - 'l10n_master2'
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     services:
-      mysql:
-        image: mysql:5.7
+      db:
+        image: postgres:11
         env:
-          MYSQL_ROOT_PASSWORD: password
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
       redis:
         image: redis
-        ports:
-        - 6379/tcp
-      elasticsearch:
-        image: elasticsearch:7.10.1
-        env:
-          discovery.type: single-node
-        ports:
-          - 9200:9200
-        options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
 
+    
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
+      REDIS_URL: redis://localhost:6379/0
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.2.2' # Not needed with a .ruby-version file
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          # ruby-version: 2.7.2 # no need with ruby-version file
+          bundler-cache: true
 
-    - name: Build and test with Rake
-      env:
-        MYSQL_HOST: 127.0.0.1
-        MYSQL_PORT: 3306
-        MYSQL_USERNAME: root
-        MYSQL_PASSWORD: password
-        ELASTICSEARCH_URL: http://localhost:9200
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rspec
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Build and precompile
+        run: |
+          sudo apt-get -yqq install libpq-dev curl libgconf-2-4
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:prepare
+          bundle exec rake assets:precompile
+      - name: Build and run tests
+        run: |
+          bundle exec rspec ./spec
+
