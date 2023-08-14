@@ -136,7 +136,7 @@ class User < ApplicationRecord
   end
 
   def is_creator?
-    role == "artist" || role == "admin"
+    username.present? && role == "artist" || role == "admin"
   end
 
   def user_sales_for(kind = "Track")

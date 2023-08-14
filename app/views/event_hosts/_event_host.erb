@@ -8,12 +8,12 @@
             <%= event_host.name %>
           </h3>
             <% if event_host.user.is_creator? %>
-            <ul>
-              <li>
-                <%= link_to event_host.user.username , user_path(event_host.user.username) %>
-              </li>
-              <li><%= event_host.user.username %></li>
-            </ul>
+              <ul>
+                <li>
+                  <%= link_to event_host.user.username , user_path(event_host.user.username) %>
+                </li>
+                <li><%= event_host.user.username %></li>
+              </ul>
             <% end %>
           
           <div class="flex space-x-2">
