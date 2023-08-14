@@ -1,10 +1,10 @@
 #ARG RUBY_VERSION
-FROM ruby:3.2.0-bullseye
+FROM ruby:3.2-bookworm
 
 ARG APP_ENV=production
 
 ARG PG_MAJOR
-ARG NODE_MAJOR=16
+ARG NODE_MAJOR=18
 ARG BUNDLER_VERSION=2.2.15
 ARG YARN_VERSION=1.22.19
 
@@ -50,6 +50,7 @@ COPY Gemfile Gemfile.lock /tmp/
 RUN bundle install -j ${BUNDLE_JOBS} --retry ${BUNDLE_RETRY}
 
 COPY --from=mwader/static-ffmpeg:4.1.4-2 /ffmpeg /ffprobe /usr/local/bin/
+
 
 RUN apt-get update && \
   wget https://github.com/bbc/audiowaveform/releases/download/1.8.1/audiowaveform_1.8.1-1-12_arm64.deb && \
