@@ -171,7 +171,7 @@ class Track < ApplicationRecord
   def update_peaks
     peaks = process_audio_peaks
 
-    self.update(peaks: peaks)
+    self.update(peaks: peaks, state: "processed")
   end
 
   def reprocess_async
