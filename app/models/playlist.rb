@@ -11,6 +11,7 @@ class Playlist < ApplicationRecord
 
   acts_as_likeable
   has_many :comments, as: :commentable
+  has_many :likes, as: :likeable
 
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
 
@@ -60,6 +61,20 @@ class Playlist < ApplicationRecord
                   .left_outer_joins(:track_playlists)
                   .where(user_id: user_id, track_playlists: { track_id: [nil, track_id] })
                   .group('playlists.id')
+  end
+
+  def iframe_code_string(url)
+  end
+
+  def iframe_code_string(url)
+    <<-HTML
+      <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="#{url}">
+      </iframe>
+      <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+        <a href="#{user.username}" title="#{user.username}" target="_blank" style="color: #cccccc; text-decoration: none;">#{user.username}</a> · 
+        <a href="#{url}" title="#{title}" target="_blank" style="color: #cccccc; text-decoration: none;">#{title}</a>
+      </div>
+    HTML
   end
 
 end

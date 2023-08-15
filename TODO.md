@@ -4,9 +4,6 @@ TODO:
     + sidebar show selected
 
   + tracks: 
-    + upload form
-    + likes
-    + reposts
     show:
     + track purchase
     + track sharer

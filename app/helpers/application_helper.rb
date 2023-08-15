@@ -6,6 +6,16 @@ module ApplicationHelper
     text
   end
 
+  def liked?(object, user = current_user)
+    return if user.blank?
+    object.liked_by?(user)
+  end
+
+  def reposted?(object, user = current_user)
+    return if current_user.blank?
+    Repost.find_by(user: current_user, track: object).present?
+  end
+
   def item_class(action, kind)
     if action == kind
       "dark:bg-black dark:text-gray-100 bg-gray-50 bg-opacity-50 flex p-6 border-b border-gray-gray-200 dark:border-gray-800"

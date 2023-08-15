@@ -7,7 +7,7 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 
 import Dropdown from "./dropdown"
-// import Clipboard from 'stimulus-clipboard'
+import Clipboard from 'stimulus-clipboard'
 import Audio from "./audio_controller"
 import Tabs from "./tabs_controller"
 import FooterPlayer from './footer_player_controller'
@@ -43,7 +43,7 @@ application.register("dropdown", Dropdown)
 application.register("audio", Audio)
 application.register("tabs", Tabs)
 application.register("player", FooterPlayer)
-// application.register("clipboard", Clipboard)
+application.register("clipboard", Clipboard)
 application.register("chart", Chart)
 application.register("gmaps", GoogleMaps)
 application.register("scroll", Scroll)

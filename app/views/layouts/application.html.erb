@@ -55,9 +55,9 @@
 
     <%= render("shared/footer", assigns) %>
 
-    <% if ENV["GOOGLE_ANALYTICS_ID"] %>
+    <% if ENV["GA_ID"] %>
       <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-S5CQZMGV0S">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV["GA_ID"] %>">
       </script>
       <script>
         window.dataLayer = window.dataLayer || [];

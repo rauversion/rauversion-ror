@@ -1,5 +1,7 @@
-<%= turbo_frame_tag "like-frame-item-#{track.id}", "data-turbo": true do %>
-  <%= button_to track_likes_path(track), 
+<% path = resource.is_a?(Track) ? track_likes_path(resource) : playlist_likes_path(resource) %>
+
+<%= turbo_frame_tag "like-frame-item-#{resource.id}", "data-turbo": true do %>
+  <%= button_to path, 
       class: local_assigns[:button_class], 
       "data-method": "post",
       "data-confirm": "Are you sure?" do %>
@@ -7,7 +9,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
     </svg>
     <span class="flex space-x-1">
-      <span><%= track.likes.count %></span>
+      <span><%= resource.likes.count %></span>
       <span class="hidden sm:block">Me gusta</span>
     </span>
   <% end %>

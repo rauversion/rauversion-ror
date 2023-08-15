@@ -5,6 +5,8 @@ en:
   see_everything: See Everything
   edit: Edit
   loading: Loading...
+  repost: Repost
+  like: Like
 
   menu:
     music: Music
@@ -161,7 +163,6 @@ en:
     buy_digital_album: "Buy Digital album"
     buy_digital_track: "Buy Digital track"
 
-
   sessions:
     forgot_pass: "Forgot your password?"
     sign_in: Sign in
@@ -183,6 +184,22 @@ en:
       action: Go back home
       cta: Contact support
 
+  sharer:
+    share: "Share"
+    embed: "Embed"
+    message: "Message"
+    private_share: "Private Share"
+    private_share_instructions: "Private share instructions."
+    reset_link_warning: "Reset link warning."
+    link_reset_error: "Link reset error."
+    reset_secret_link: "Reset secret link"
+    reset: "Reset"
+    cancel: "Cancel"
+    secret_link_reset_success: "Secret link reset successfully."
+    copy: "Copy"
+    message_placeholder: "Enter your message here..."
+    at: "At"
+    
   time:
     formats:
       day: '%b %d'

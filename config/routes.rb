@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get "/404" => "errors#not_found"
   get "/500" => "errors#fatal"
+  post "webhooks/:provider", to: "webhooks#create", as: :webhooks
 
 
   resource :player, controller: "player"
@@ -41,21 +42,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :playlists do
-    resources :comments
-    resource :embed, only: :show
-  end
-
-  resources :track_playlists
-
   resources :purchases do
     collection do
       get :tickets
       get :music
     end
   end
-
-  post "webhooks/:provider", to: "webhooks#create", as: :webhooks
 
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -69,7 +61,6 @@ Rails.application.routes.draw do
   resources :event_webhooks
 
   get "/events/:id/livestream", to: "event_streaming_services#show", as: :event_livestream
-
 
   resources :events do 
     collection do
@@ -99,6 +90,7 @@ Rails.application.routes.draw do
     resource :likes
     resources :comments
     resource :embed, only: :show
+    resource :sharer, controller: "sharer"
     resources :track_purchases do
       member do
         get :success
@@ -106,6 +98,17 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :playlists do
+    resources :comments
+    resource :embed, only: :show
+    resource :likes
+    resource :reposts
+    resource :sharer, controller: "sharer"
+  end
+
+  resources :track_playlists
+
 
   authenticate :user, lambda { |u| u.is_admin? } do
     mount Sidekiq::Web => '/sidekiq'

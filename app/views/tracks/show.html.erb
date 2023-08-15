@@ -177,9 +177,9 @@
               <% end %>
             </div>
 
-            <%= render "likes/like_button", track: @track, button_class: "button" %>
+            <%= render "likes/like_button", resource: @track, button_class: liked?(@track) ? "button-active" : "button" %>
 
-            <%= render "reposts/repost_button", track: @track, button_class: "button" %>
+            <%= render "reposts/repost_button", track: @track, button_class: reposted?(@track) ? "button-active" : "button" %>
 
             <div>
               <%= link_to edit_track_path(@track), class: "button" do %>

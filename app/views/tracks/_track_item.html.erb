@@ -97,17 +97,9 @@
     <p class="hidden mt-1 text-sm text-gray-500"></p>
     <div class="p-2 sm:ml-3 sm:p-0 sm:pt-2 flex items-center space-x-1">
       
-      <div>
-        <a class="button" href="#" phx-click="share-track-modal">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
-          </svg>
-          <span class="hidden sm:block">Compartir</span>
-        </a>
-      </div>
-
-
-      <%= render "likes/like_button", track: track, button_class: track.respond_to?(:like_id) && track&.like_id.present? ? "button-active" :  "button" %>
+      <%= render "sharer/share_button", resource: track %>
+      
+      <%= render "likes/like_button", resource: track, button_class: track.respond_to?(:like_id) && track&.like_id.present? ? "button-active" :  "button" %>
 
       <%= render "reposts/repost_button", track: track, button_class: track.respond_to?(:repost_id) && track&.repost_id.present? ? "button-active" :  "button" %>
 
@@ -119,7 +111,7 @@
         %>
       </div>
 
-      <div class="relative inline-block text-left" id="dropdownjj-dd-178" data-controller="dropdown">
+      <div class="relative inline-block text-left" data-controller="dropdown">
         <div>
           <button type="button" data-action="dropdown#toggle click@window->dropdown#hide" class="button" aria-expanded="true" aria-haspopup="true">
             <span class="flex space-x-1">

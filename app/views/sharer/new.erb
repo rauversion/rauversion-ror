@@ -1,0 +1,142 @@
+
+<%= turbo_frame_tag "modal" do %>
+  <%= render "shared/modal" do %>
+    
+    <div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+      <div class="mx-2 py-6">
+        <div class="relative">
+          <nav class="flex space-x-4 mt-2" aria-label="Tabs" data-controller="tabs">
+            <a
+              href="#"
+              data-tab="#share-tab"
+              data-action="click->tabs#changeTab"
+              class="tab-link bg-brand-100 text-brand-700 px-3 py-2 font-medium text-sm rounded-md"
+            >
+              <%= t("sharer.share") %>
+            </a>
+            <a
+              href="#"
+              data-tab="#embed-tab"
+              data-action="click->tabs#changeTab"
+              class="tab-link text-brand-500 hover:text-brand-700 px-3 py-2 font-medium text-sm rounded-md"
+            >
+              <%= t("sharer.embed") %>
+            </a>
+            <a
+              href="#"
+              data-tab="#message-tab"
+              data-action="click->tabs#changeTab"
+              class="hidden tab-link text-brand-500 hover:text-brand-700 px-3 py-2 font-medium text-sm rounded-md"
+            >
+              <%= t("sharer.message") %>
+            </a>
+          </nav>
+
+          <section id="share-tab" class="tab-pane block py-4">
+            <h2 class="mx-0 mt-0 mb-4 font-sans text-base font-bold leading-none">
+              <%= t("sharer.private_share") %>
+            </h2>
+            <div class="mb-4 text-zinc-800 dark:text-gray-100">
+              <div class="flex items-center space-x-3">
+                <input
+                  type="text"
+                  value="<%= track_url(@resource, format: :private, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text') %>"
+                  class="shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-100"
+                  readonly="readonly"
+                />
+                <label class="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id=""
+                    name="share_from"
+                    class="focus:ring-brand-500 h-4 w-4 text-brand-600 border-gray-300 rounded"
+                  />
+                  <span class=""><%= t("sharer.at") %></span>
+                </label>
+                <input
+                  type="text"
+                  value="0:00"
+                  class="w-1/4 shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-100"
+                />
+              </div>
+            </div>
+            <div class="text-sm text-gray-700 dark:text-gray-300 py-2">
+              <%= t("sharer.private_share_instructions") %>
+            </div>
+            <div class="hidden mb-4 text-brand-600 dark:text-brand-400">
+              <%= t("sharer.reset_link_warning") %>
+            </div>
+            <div class="hidden visible py-1 px-0 mb-4 font-sans text-xs text-red-700 opacity-100">
+              <%= t("sharer.link_reset_error") %>
+            </div>
+            <div class="text-zinc-800">
+              <button
+                type="button"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+              >
+                <%= t("sharer.reset_secret_link") %>
+              </button>
+              <div class="hidden">
+                <button
+                  type="button"
+                  class="inline-block relative py-px pr-3 pl-2 m-0 h-6 font-sans text-sm font-thin leading-5 text-center text-white whitespace-nowrap bg-brand-600 rounded-sm border border-brand-600 border-solid cursor-pointer select-none box-border focus:border-brand-600 focus:bg-brand-600 focus:text-white hover:border-brand-600 hover:bg-brand-600 hover:text-white"
+                >
+                  <%= t("sharer.reset") %>
+                </button>
+                <button
+                  type="button"
+                  class="inline-block relative py-1 pr-3 pl-2 m-0 h-6 font-sans text-sm font-thin leading-5 text-center whitespace-nowrap bg-none rounded-sm border-0 border-solid cursor-pointer select-none box-border border-neutral-200 focus:border-0 focus:border-stone-300 focus:bg-none focus:py-1 focus:text-zinc-800 hover:border-0 hover:border-stone-300 hover:bg-none hover:py-1 hover:text-zinc-800"
+                >
+                  <%= t("sharer.cancel") %>
+                </button>
+              </div>
+            </div>
+            <div class="hidden text-zinc-800">
+              <%= t("sharer.secret_link_reset_success") %>
+            </div>
+          </section>
+
+          <section id="embed-tab" class="tab-pane hidden py-4">
+            <h2 class="mx-0 mt-0 mb-4 font-sans text-base font-bold leading-none">
+              <%= t("sharer.embed") %>
+            </h2>
+            <div>
+              <div
+                data-controller="clipboard"
+                data-clipboard-success-content="Copied!"
+                class="mt-1 flex rounded-md shadow-sm"
+              >
+                <input
+                  type="text"
+                  value="<%= @resource.iframe_code_string(@resource_path) %>"
+                  data-clipboard-target="source"
+                  readonly=""
+                  class="py-2 border-0 focus:ring-brand-500 focus:border-brand-500 flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-100"
+                />
+                <span
+                  data-clipboard-target="trigger"
+                  data-action="clipboard#copy"
+                  class="cursor-pointer inline-flex items-center px-4 py-2 border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+                >
+                  <%= t("sharer.copy") %>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section id="message-tab" class="tab-pane hidden py-4">
+            <h2 class="mx-0 mt-0 mb-4 font-sans text-base font-bold leading-none">
+              <%= t("sharer.message") %>
+            </h2>
+            <div class="text-zinc-800">
+              <%= t("sharer.message_placeholder") %>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+<% end %>
+
+
