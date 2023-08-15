@@ -328,7 +328,7 @@ Devise.setup do |config|
   # require "omniauth-github"
   config.omniauth :zoom, ENV['ZOOM_CLIENT_ID'], ENV['ZOOM_CLIENT_SECRET'], :scope=>"read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
   # config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], :scope=>"read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
-  # config.omniauth :twitter,  ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_CLIENT_SECRET'], scope: "tweet.read users.read offline.access"
+  config.omniauth :twitter,  ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_CLIENT_SECRET'], scope: "tweet.read users.read offline.access"
   config.omniauth :discord,  ENV['DISCORD_CLIENT_ID'], ENV['DISCORD_CLIENT_SECRET'], scope: "email identify"
   config.omniauth :twitch,  ENV['TWITCH_CLIENT_ID'], ENV['TWITCH_CLIENT_SECRET'], scope: "channel:manage:broadcast channel:manage:videos user:read:email channel:read:stream_key"
   config.omniauth :stripe_connect,  ENV['STRIPE_CLIENT_ID'], ENV['STRIPE_CLIENT_SECRET'], scope: "read_write"

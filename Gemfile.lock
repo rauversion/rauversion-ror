@@ -325,6 +325,12 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
+    oauth (1.1.0)
+      oauth-tty (~> 1.0, >= 1.0.1)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    oauth-tty (1.0.5)
+      version_gem (~> 1.1, >= 1.1.1)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -339,6 +345,9 @@ GEM
     omniauth-discord (1.1.0)
       omniauth (~> 2.1.0)
       omniauth-oauth2
+    omniauth-oauth (1.2.0)
+      oauth
+      omniauth (>= 1.0, < 3)
     omniauth-oauth2 (1.7.3)
       oauth2 (>= 1.4, < 3)
       omniauth (>= 1.9, < 3)
@@ -347,6 +356,9 @@ GEM
       omniauth (~> 2.0)
     omniauth-twitch (1.2.0)
       omniauth-oauth2 (~> 1.6)
+    omniauth-twitter (1.4.0)
+      omniauth-oauth (~> 1.1)
+      rack
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -549,6 +561,7 @@ DEPENDENCIES
   omniauth-discord
   omniauth-rails_csrf_protection
   omniauth-twitch
+  omniauth-twitter
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.6)

@@ -61,10 +61,6 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 gem "aasm", "~> 5.2"
-gem "devise"
-gem "devise_invitable", "~> 2.0"
-gem "omniauth-rails_csrf_protection"
-gem "omniauth", "~> 2.0"
 gem "acts-as-taggable-on", "~> 9.0"
 gem "aws-sdk-rails"
 gem "aws-sdk-s3", "~> 1.48"
@@ -74,12 +70,16 @@ gem "active_storage_validations", "~> 0.9.8"
 gem "socialization", "~> 2.0"
 gem "kaminari"
 gem "store_attribute", "~> 1.0"
-gem 'omniauth-discord'
 gem "rqrcode", "~> 2.0"
+gem "devise"
+gem "devise_invitable", "~> 2.0"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth", "~> 2.0"
 # gem 'omniauth-zoom'
 # gem "omniauth-github"
-# gem 'omniauth-twitter'
+gem 'omniauth-twitter'
 # gem 'omniauth-stripe'
+gem 'omniauth-discord'
 gem 'omniauth-twitch'
 gem 'dotenv-rails', groups: [:development, :test]
 
