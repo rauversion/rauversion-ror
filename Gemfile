@@ -84,6 +84,17 @@ gem 'omniauth-twitch'
 gem 'dotenv-rails', groups: [:development, :test]
 
 
+gem "ruby-openai", "~> 4.2"
+gem "qdrant-ruby", "~> 0.9.2"
+
+# gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
+
+
+# sentry
+
+gem "sentry-ruby"
+gem "sentry-rails"
+gem "sentry-sidekiq"
 
 
 group :development, :test do
