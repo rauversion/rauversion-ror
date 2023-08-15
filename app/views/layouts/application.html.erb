@@ -10,6 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= display_meta_tags site: "Rauversion" %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Oswald:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <% if @oembed_json %>
       <link rel="alternate" type="application/json+oembed" href="<%= @oembed_json %>" />
     <% end %>
@@ -46,12 +53,14 @@
      with https://www.npmjs.com/package/@googlemaps/js-api-loader.
     -->
     
-    <script
-      data-turbo="false"
-      src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=dispatchMapsEvent&libraries=places&v=weekly"
-      defer
-    >
-    </script>
+    <% if ENV['GOOGLE_MAPS_KEY'] %>
+      <script
+        data-turbo="false"
+        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=dispatchMapsEvent&libraries=places&v=weekly"
+        defer
+      >
+      </script>
+    <% end %>
 
     <%= render("shared/footer", assigns) %>
 

@@ -6,7 +6,6 @@ TODO:
   + tracks: 
     show:
     + track purchase
-    + track sharer
     + purchase downloads
 
   + playlists:
