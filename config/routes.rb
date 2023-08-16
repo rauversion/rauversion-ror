@@ -109,7 +109,6 @@ Rails.application.routes.draw do
 
   resources :track_playlists
 
-
   authenticate :user, lambda { |u| u.is_admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -133,4 +132,6 @@ Rails.application.routes.draw do
       get "/albums", to: "users#albums"
     end
   end
+
+  mount Plain::Engine => "/plain"
 end

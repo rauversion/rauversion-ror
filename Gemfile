@@ -30,6 +30,8 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "tailwindcss-rails"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -86,9 +88,9 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem "ruby-openai", "~> 4.2"
 gem "qdrant-ruby", "~> 0.9.2"
+# gem "pgvector", "~> 0.2"
 
-# gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
-
+gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
 
 # sentry
 

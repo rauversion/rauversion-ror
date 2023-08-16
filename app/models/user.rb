@@ -69,7 +69,7 @@ class User < ApplicationRecord
         self.avatar.variant(resize_to_fill: [200, 200])&.processed&.url
     end
 
-    url ? url : "sai-harish-kjNwiW4BjJE-unsplash-sqr.png"
+    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
   def self.track_preloaded_by_user(id)
@@ -128,11 +128,7 @@ class User < ApplicationRecord
         self.profile_header.variant(resize_to_fill: [200, 200])&.processed&.url
     end
 
-    url ? url : "sai-harish-kjNwiW4BjJE-unsplash-sqr.png"
-  end
-
-  def is_admin?
-    role == "admin"
+    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
   def is_creator?

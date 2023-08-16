@@ -32,7 +32,8 @@ import track_detector_controller from './track_detector_controller'
 import play_button_controller from './play_button_controller'
 import panel from "./panel_controller"
 import MediumZoom from "./medium_controller.js"
-
+import ScrollTo from './scroll_to_controller'
+import ToggleClass from './toggle_class_controller'
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -66,3 +67,5 @@ application.register("track-detector", track_detector_controller)
 application.register("play-button", play_button_controller)
 application.register("panel", panel)
 application.register("medium-zoom", MediumZoom)
+application.register("scroll-to", ScrollTo)
+application.register("toggle-class", ToggleClass)

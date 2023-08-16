@@ -1,0 +1,49 @@
+name: "Rauversion docs"
+logo: "logo.png"
+chat_envs: 
+  - "development"
+  - "test"
+links:
+  -
+    name: "Start us on github"
+    url: "https://github.com/rauversion/rauversion-ror"
+  - 
+    name: "Twitter / X"
+    url: "https://twitter.com/rauversion"
+footer:
+  legend: "Rauversion © Copyright 2023 . All rights reserved."
+  links:
+    - 
+      name: "Twitter / X"
+      url: "https://twitter.com/rauversion"
+    - 
+      name: "IG"
+      url: "https://instagram.com/rauversion"
+sections:
+  - 
+    name: "getting_started"
+    position: 1
+    items:
+      - 
+        name: "oli"
+        path: "aaa"
+        description: "hello there"
+
+      - 
+        name: "oli2"
+        path: "bbb"
+        description: "hello foo"
+
+  - 
+    name: "Models"
+    position: 2
+    items:
+      - 
+        name: "oli"
+        path: "aaa"
+        description: "hello there"
+
+      - 
+        name: "oli2"
+        path: "bbb"
+        description: "hello foo"
