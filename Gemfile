@@ -90,7 +90,7 @@ gem "ruby-openai", "~> 4.2"
 gem "qdrant-ruby", "~> 0.9.2"
 # gem "pgvector", "~> 0.2"
 
-gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
+gem "plain", github: "chaskiq/plain", branch: "main" #path: "/Users/michelson/Documents/rubyonrails/plain"
 
 # sentry
 
