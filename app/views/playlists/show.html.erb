@@ -277,7 +277,9 @@
               <div class="pt-6">
                 <!-- Activity feed-->
                 <%= render "comments/comment_list", comments: @playlist.comments.limit(10)  %>
-                <%= render "comments/form", resource: @playlist, comment: current_user.comments.new(commentable: @playlist)  %>
+                <% if user_signed_in? %>
+                  <%= render "comments/form", resource: @playlist, comment: current_user.comments.new(commentable: @playlist)  %>
+                <% end %>
               </div>
             </div>
           </div>
