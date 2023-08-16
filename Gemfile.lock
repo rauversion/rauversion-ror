@@ -639,7 +639,6 @@ DEPENDENCIES
   stimulus-rails
   store_attribute (~> 1.0)
   stripe (~> 8.6)
-  tailwindcss-rails
   transbank-sdk (~> 3.0)
   turbo-rails
   tzinfo-data
