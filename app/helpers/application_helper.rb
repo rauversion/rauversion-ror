@@ -44,7 +44,8 @@ module ApplicationHelper
     Dante::Renderer.new(raw: serialized_content.with_indifferent_access).render
   rescue StandardError => e
     Rails.logger.error(e)
-    Bugsnag.notify(e)
+    Bugsnag.notify(e) if defined?(Bugsnag)
+    Sentry.capture_exception(e) if defined?(Sentry)
     nil
   end
 

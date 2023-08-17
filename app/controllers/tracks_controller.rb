@@ -3,7 +3,10 @@ class TracksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
 
   def index
-    @tracks = Track.published.order("id desc").page(params[:page]).per(12)
+    @tracks = Track.published.order("id desc")
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
+    .page(params[:page]).per(12)
   end
 
   def new

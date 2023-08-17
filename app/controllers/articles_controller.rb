@@ -3,10 +3,21 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
 
   def index
-    @articles = Post.published.order("id desc").page(1).per(7)
-    @latest_articles = Post.published.order("id desc").page(2).per(7)
+    @articles = Post.published.order("id desc")
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
+    .page(1).per(7)
+
+    @latest_articles = Post.published.order("id desc")
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
+    .page(2).per(7)
+    
     @category = Category.friendly.find("news")
-    @news = Post.published.friendly.where(category_id: @category).order("id desc").page(1).per(7)
+    @news = Post.published.friendly.where(category_id: @category)
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
+    .order("id desc").page(1).per(7)
   end
 
   def new
