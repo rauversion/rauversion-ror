@@ -90,7 +90,7 @@
   <div class="relative px-4 sm:px-6 lg:px-8">
     <div class="text-lg max-w-prose mx-auto">
       <h1>
-        <%= link_to user_path(@post.user) do %>
+        <%= link_to user_path(@post.user.username) do %>
           <span class="block text-base text-center text-brand-600 font-semibold tracking-wide uppercase">
             <%= t(:by, name: @post.user.username) %>
           </span>

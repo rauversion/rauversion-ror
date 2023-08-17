@@ -65,7 +65,6 @@ class FetchLinkCardService < BaseService
 
   def attempt_oembed(card, url)
     response = OEmbed::Providers.get(url)
-    debugger
     card.type          = response.type
     card.title         = response.respond_to?(:title)         ? response.title         : ""
     card.author_name   = response.respond_to?(:author_name)   ? response.author_name   : ""

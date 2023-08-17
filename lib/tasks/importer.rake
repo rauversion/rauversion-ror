@@ -274,7 +274,6 @@ def create_events
       streaming_service: streaming_service
     })
 
-    debugger
   end
 end
 
