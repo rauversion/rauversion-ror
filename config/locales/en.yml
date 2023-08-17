@@ -134,9 +134,9 @@ en:
     title_email: Change Email
     sub_email: Change Email information.
     title_security: Security
-    sub_security: Change your credentials
-    title_notification: Notifications
-    sub_notification: Change your notification preferences.
+    sub_credentials: Change your credentials
+    title_notifications: Notifications
+    sub_notifications: Change your notification preferences.
     title_integrations: Integrations
     sub_integrations: Manage your external integrations.
     title_transbank: Transbank settings

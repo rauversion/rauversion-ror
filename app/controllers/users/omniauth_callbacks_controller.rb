@@ -92,8 +92,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     if user.present?
       flash.now[:notice] = "We are synchronizing your #{provider} data, it may take a while"
-      # sign_in_and_redirect(user, :event => :authentication)
-      redirect_to user_setting_path(user.username, :integrations)
+      redirect_to user_setting_path(user.username, :integrations) if user_signed_in?
+      unless user_signed_in?
+        sign_in(:user, user)
+        redirect_to root_url and return
+      end
+
     else
       session['devise.omniauth_data'] = auth.except('extra')
       redirect_to(new_user_registration_url)
