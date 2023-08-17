@@ -90,6 +90,7 @@ en:
     buy_digital_music: Buy digital music
     or_more: or more
     supporters: Supporters
+    edit: Edit this track
 
     private_label: Private 
     private_hint: Private access. Hidden to the world
@@ -199,7 +200,7 @@ en:
     copy: "Copy"
     message_placeholder: "Enter your message here..."
     at: "At"
-    
+
   time:
     formats:
       day: '%b %d'
