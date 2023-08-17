@@ -79,6 +79,8 @@ en:
     manager: Event Manager
     email_hint: "Añade un host para resaltarlo en la página del evento o para obtener ayuda en la gestión del evento."
 
+  delete:
+    confirm: "Are you sure you want to delete this?"
 
   tracks:
     recent: Recent Tracks

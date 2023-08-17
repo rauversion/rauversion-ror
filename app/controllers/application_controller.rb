@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def become
     if current_user.is_admin?
-      user = User.find(params[:id])
+      user = User.find_by(username: params[:id])
       sign_in(:user, user)
       redirect_to root_url, notice: "logged in as #{user.username}"
     else
