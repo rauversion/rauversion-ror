@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   get "/embed/:track_id", to: "embeds#show"
   get "/oembed/:track_id", to: "embeds#oembed_show", as: :oembed_show
-  get "/oembed/:track_id/private", to: "embeds#oembed_private_show"
+  get "/oembed/:track_id/private", to: "embeds#oembed_private_show", as: :private_oembed_track
   get "/embed/:track_id/private", to: "embeds#private_track", as: :private_embed
   get "/embed/sets/:playlist_id", to: "embeds#show_playlist"
   get "/embed/sets/:playlist_id/private", to: "embeds#private_playlist"
@@ -91,6 +91,9 @@ Rails.application.routes.draw do
     resources :comments
     resource :embed, only: :show
     resource :sharer, controller: "sharer"
+    member do
+      get :private , to: "tracks#private_access"
+    end
     resources :track_purchases do
       member do
         get :success

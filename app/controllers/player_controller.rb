@@ -2,6 +2,8 @@ class PlayerController < ApplicationController
 
   def update
     @tracks = Track.where(id: params[:player][:ids])
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
   end
 
   def show

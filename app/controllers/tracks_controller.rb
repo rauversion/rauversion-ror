@@ -1,6 +1,6 @@
 class TracksController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show, :private_access ]
 
   def index
     @tracks = Track.published.order("id desc")
@@ -53,8 +53,23 @@ class TracksController < ApplicationController
     flash.now[:notice] = "Track was successfully updated."
   end
 
+  def private_access
+    @track = Track.find_signed(params[:id])
+    get_meta_tags
+    render "show"
+  end
+
   def show
     @track = Track.friendly.find(params[:id])
+    get_meta_tags
+  end
+
+  def destroy
+    @track = current_user.tracks.friendly.find(params[:id])
+    @track.destroy
+  end
+
+  def get_meta_tags
     @supporters = []
     set_meta_tags(
       # title: @track.title,
@@ -76,12 +91,7 @@ class TracksController < ApplicationController
       }
     )
 
-    @oembed_json = oembed_show_url(track_id: @track, format: :json)
-  end
-
-  def destroy
-    @track = current_user.tracks.friendly.find(params[:id])
-    @track.destroy
+    @oembed_json = private_oembed_track_url(track_id: @track, format: :json)
   end
 
   def track_params

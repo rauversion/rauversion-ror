@@ -168,14 +168,8 @@
 
           
           <div class="mt-6 flex items-center justify-stretch space-x-2 sm:flex-row sm:space-y-0 sm:space-x-4">
-            <div>
-              <%= link_to "#", class: "button" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
-                </svg>
-                <span class="hidden sm:block">Compartir</span>
-              <% end %>
-            </div>
+
+            <%= render "sharer/share_button", resource: @track %>
 
             <%= render "likes/like_button", resource: @track, button_class: liked?(@track) ? "button-active" : "button" %>
 

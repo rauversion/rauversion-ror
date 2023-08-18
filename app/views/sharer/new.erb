@@ -40,10 +40,12 @@
               <div class="flex items-center space-x-3">
                 <input
                   type="text"
-                  value="<%= track_url(@resource, format: :private, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text') %>"
+                  value="<%= @share_url %>"
                   class="shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-100"
                   readonly="readonly"
                 />
+                <!--
+                
                 <label class="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -53,11 +55,12 @@
                   />
                   <span class=""><%= t("sharer.at") %></span>
                 </label>
+                
                 <input
                   type="text"
                   value="0:00"
                   class="w-1/4 shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-900 dark:text-gray-100"
-                />
+                />-->
               </div>
             </div>
             <div class="text-sm text-gray-700 dark:text-gray-300 py-2">

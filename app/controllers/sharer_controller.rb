@@ -6,6 +6,13 @@ class SharerController < ApplicationController
     @resource, @resource_path = find_resource
 
     @button_class = "button"
+
+    @share_url = private_track_url(@resource.signed_id, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
+    #@share_url = #if @resource.private? 
+    #  private_track_url(@resource.signed_id, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
+    #else
+    #  track_url(@resource, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
+    #end
   end
 
   def find_resource
