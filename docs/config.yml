@@ -25,25 +25,15 @@ sections:
     position: 1
     items:
       - 
-        name: "oli"
-        path: "aaa"
+        name: "Intro"
+        path: "/plain/docs/getting_started/intro"
         description: "hello there"
 
-      - 
-        name: "oli2"
-        path: "bbb"
-        description: "hello foo"
-
   - 
-    name: "Models"
+    name: "On the wild"
     position: 2
     items:
       - 
-        name: "oli"
-        path: "aaa"
+        name: "github Repo"
+        path: "https://github.com/rauversion/rauversion-ror"
         description: "hello there"
-
-      - 
-        name: "oli2"
-        path: "bbb"
-        description: "hello foo"

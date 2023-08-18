@@ -23,6 +23,7 @@ class Dante::VideoBlockRenderer
   private
 
   def render_embed_html(embed_data)
+    return nil if embed_data.blank?
     embed_data[:media] ? embed_data[:media][:html] : embed_data[:html]
   end
 

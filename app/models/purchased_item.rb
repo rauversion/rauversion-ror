@@ -2,6 +2,17 @@ class PurchasedItem < ApplicationRecord
   belongs_to :purchase
   belongs_to :purchased_item, polymorphic: true
 
+  include AASM
+
+  aasm column: :state do
+    state :pending, initial: true
+    state :paid
+
+    event :confirm do
+      transitions from: :pending, to: :paid
+    end
+  end
+
   def qr
     url = Rails.application.routes.url_helpers.event_event_ticket_url(purchase.purchasable, signed_id)
     encoded_url = ERB::Util.url_encode(url) 
