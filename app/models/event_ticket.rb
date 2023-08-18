@@ -18,7 +18,7 @@ class EventTicket < ApplicationRecord
   store_accessor :settings, :sales_channel, :string
   store_accessor :settings, :after_purchase_message, :string
 
-  scope :purchased_tickets, -> { where(:attibute => value)}
+  # scope :purchased_tickets, -> { where(:attibute => value)}
   # Ex:- scope :active, -> {where(:active => true)}
 
   def free?
