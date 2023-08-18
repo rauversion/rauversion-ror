@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :event do
     title { "MyString" }
     description { "MyText" }
-    slug { "MyString" }
-    state { "MyString" }
+    # slug { "MyString" }
+    # state { "MyString" }
     timezone { "MyString" }
     event_start { "2023-07-26 16:05:55" }
     event_ends { "2023-07-26 16:05:55" }
@@ -24,15 +24,15 @@ FactoryBot.define do
     event_capacity_limit { 1 }
     eticket { false }
     will_call { false }
-    order_form { "" }
-    widget_button { "" }
+    # order_form { "" }
+    # widget_button { "" }
     event_short_link { "MyString" }
-    tax_rates_settings { "" }
-    attendee_list_settings { "" }
-    scheduling_settings { "" }
-    event_settings { "" }
-    tickets { "" }
+    # tax_rates_settings { "" }
+    # attendee_list_settings { "" }
+    # scheduling_settings { "" }
+    # event_settings { "" }
+    # tickets { "" }
     user { nil }
-    streaming_service { "" }
+    # streaming_service { "" }
   end
 end

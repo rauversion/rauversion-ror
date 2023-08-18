@@ -8,9 +8,9 @@ FactoryBot.define do
     selling_start { "2023-07-26 18:20:42" }
     selling_end { "2023-07-26 18:20:42" }
     short_description { "MyString" }
-    settings { "" }
+    # settings { "" }
     event { nil }
-    inserted_at { "2023-07-26 18:20:42" }
+    created_at { "2023-07-26 18:20:42" }
     updated_at { "2023-07-26 18:20:42" }
   end
 end

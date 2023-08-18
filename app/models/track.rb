@@ -270,7 +270,7 @@ class Track < ApplicationRecord
   end
 
   def tags=(list)
-    self[:tags] = list.reject { |item| item.empty? }
+    self[:tags] = list.map(&:downcase).reject { |item| item.empty? }
   end
 
   def iframe_code_string(url)
@@ -291,6 +291,7 @@ class Track < ApplicationRecord
   end
 
   def self.get_tracks_by_tag(tag)
+    tag = tag.downcase
     includes(:user).where('? = ANY (tags)', tag)
   end
   

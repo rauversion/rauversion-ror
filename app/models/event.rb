@@ -8,9 +8,7 @@ class Event < ApplicationRecord
   has_many :event_tickets
   has_many :purchases, as: :purchasable
   has_many :purchased_items, through: :purchases
-
   has_many :paid_purchased_items, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
-
   has_many :purchased_event_tickets, -> { 
     where(purchased_items: { purchased_item_type: 'EventTicket' }) 
   }, through: :purchased_items, source: :purchased_item, source_type: 'EventTicket'
@@ -59,14 +57,6 @@ class Event < ApplicationRecord
       .order(event_start: :desc)
   }
 
-  def available_tickets(argument) 
-    self.event_tickets
-    .where('selling_start <= ?', argument)
-    .where('selling_end >= ?', argument)
-    .where('qty > ?', 0)
-  end
-
-
   include AASM
   aasm column: :state do
     state :draft, initial: true
@@ -75,6 +65,13 @@ class Event < ApplicationRecord
     event :run do
       transitions from: :draft, to: :published
     end
+  end
+
+  def available_tickets(argument) 
+    self.event_tickets
+    .where('selling_start <= ?', argument)
+    .where('selling_end >= ?', argument)
+    .where('qty > ?', 0)
   end
 
   def self.format_date_range(start_date, end_date)
@@ -120,7 +117,8 @@ class Event < ApplicationRecord
   end
 
   def sales_count
-    purchased_event_tickets.where("purchased_items.state =?", "paid").sum("price")
+    purchased_event_tickets
+    .where("purchased_items.state =?", "paid").sum("price")
   end
 
   def tickets_sold

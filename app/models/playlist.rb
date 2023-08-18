@@ -6,12 +6,12 @@ class Playlist < ApplicationRecord
   has_many :track_playlists
   has_many :tracks, through: :track_playlists
   has_many :listening_events
+  has_many :comments, as: :commentable
+  has_many :likes, as: :likeable
   has_one_attached :cover
   has_one_attached :zip
 
   acts_as_likeable
-  has_many :comments, as: :commentable
-  has_many :likes, as: :likeable
 
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
 
@@ -55,15 +55,11 @@ class Playlist < ApplicationRecord
     playlist_type != "playlist"
   end
 
-
   def self.list_playlists_by_user_with_track(track_id, user_id)
     Playlist.select('playlists.*, COUNT(track_playlists.track_id) as track_count')
                   .left_outer_joins(:track_playlists)
                   .where(user_id: user_id, track_playlists: { track_id: [nil, track_id] })
                   .group('playlists.id')
-  end
-
-  def iframe_code_string(url)
   end
 
   def iframe_code_string(url)

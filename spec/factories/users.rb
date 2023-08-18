@@ -1,15 +1,10 @@
 FactoryBot.define do
   factory :user do
-    email { "MyString" }
-    username { "MyString" }
-    label { false }
-    support_link { "MyString" }
-    first_name { "MyString" }
-    last_name { "MyString" }
-    country { "MyString" }
-    city { "MyString" }
-    bio { "MyText" }
-    settings { "" }
-    role { "MyString" }
+    first_name { "User Name" }
+    last_name { "User Name" }
+    password { "123456" }
+    password_confirmation {"123456"}
+    sequence(:username) {|n| "user-#{n}" }
+    sequence(:email) { |n| "person#{n}@example.com" }
   end
 end
