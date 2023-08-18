@@ -5,7 +5,7 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
-
+import player_sidebar_controller from "./player_sidebar_controller"
 import Dropdown from "./dropdown"
 import Clipboard from 'stimulus-clipboard'
 import Audio from "./audio_controller"
@@ -69,3 +69,5 @@ application.register("panel", panel)
 application.register("medium-zoom", MediumZoom)
 application.register("scroll-to", ScrollTo)
 application.register("toggle-class", ToggleClass)
+application.register("player-sidebar", player_sidebar_controller)
+

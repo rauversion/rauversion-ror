@@ -1,5 +1,9 @@
 class PlayerController < ApplicationController
 
+  def update
+    @tracks = Track.where(id: params[:player][:ids])
+  end
+
   def show
     id = params[:id]
     @track = Track.friendly.find(id)
@@ -20,9 +24,13 @@ class PlayerController < ApplicationController
 
   def next_track(id)
     Track.where("id > ?", id).order(id: :asc).first
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
   end
 
   def previous(id)
     Track.where("id < ?", id).order(id: :desc).first
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
   end
 end

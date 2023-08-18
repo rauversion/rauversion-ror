@@ -148,6 +148,8 @@ gem "http", "~> 5.1"
 gem "ruby-oembed", "~> 0.16.1"
 
 gem "sidekiq", "~> 7.1"
+gem 'sidekiq-grouping'
+gem 'sidekiq-limit_fetch'
 
 gem "rubyzip", "~> 2.3"
 

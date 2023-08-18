@@ -53,7 +53,10 @@
   <% end %>
 
   <%= render "articles/article_highlights",
-    posts: Post.published.order("id desc").limit(3)
+    posts: Post.published
+    .with_attached_cover
+    .includes(user: { avatar_attachment: :blob })
+    .order("id desc").limit(3)
   %>
   
   <!-- Trending products -->
@@ -73,7 +76,10 @@
       <div class="mt-8 relative">
         <div class="relative w-full overflow-x-auto">
           <ul role="list" class="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-6 lg:gap-x-8">
-            <% Track.published.latests.limit(12).each do |track| %>
+            <% Track.published.latests
+              .with_attached_cover
+              .includes(user: { avatar_attachment: :blob })
+              .limit(12).each do |track| %>
               <%= render "tracks/track_cell", track: track %>
             <% end %>
           </ul>
@@ -126,7 +132,6 @@
                         <div class="space-y-1 text-sm text-left mt-2">
                           <h3 class="font-medium leading-none">
                               <%= playlist.title %>
-                            
                           </h3>
                           <p class="text-xs text-slate-500 dark:text-slate-400">
                             <%= t(:by, name: playlist.user.username) %>
