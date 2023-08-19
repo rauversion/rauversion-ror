@@ -101,16 +101,16 @@ class Event < ApplicationRecord
   def cover_url(size = nil)
     url = case size
       when :medium
-        self.cover.variant(resize_to_limit: [200, 200])&.processed&.url
+        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
 
       when :large
-        self.cover.variant(resize_to_limit: [500, 500])&.processed&.url
+        self.cover.variant(resize_to_limit: [500, 500]) #&.processed&.url
 
       when :small
-        self.cover.variant(resize_to_limit: [50, 50])&.processed&.url
+        self.cover.variant(resize_to_limit: [50, 50]) #&.processed&.url
 
       else
-        self.cover.variant(resize_to_limit: [200, 200])&.processed&.url
+        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
     end
 
     url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"

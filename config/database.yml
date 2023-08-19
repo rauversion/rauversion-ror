@@ -24,7 +24,7 @@ default: &default
 development:
   prepared_statements: false
   adapter: postgresql
-  database: <%= ENV.fetch('POSTGRES_DATABASE', 'rauversion_ror_development') %>
+  database: <%= ENV.fetch('POSTGRES_DATABASE', 'rauversion_ror_development_as_local') %>
   username: <%= ENV.fetch('POSTGRES_USERNAME', 'postgres') %>
   password: <%= ENV.fetch('POSTGRES_PASSWORD', '') %>
   min_messages: warning

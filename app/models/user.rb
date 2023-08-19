@@ -57,16 +57,16 @@ class User < ApplicationRecord
   def avatar_url(size)
     url = case size
       when :medium
-        self.avatar.variant(resize_to_fill: [200, 200])&.processed&.url
+        self.avatar.variant(resize_to_fill: [200, 200]) #&.processed&.url
 
       when :large
-        self.avatar.variant(resize_to_fill: [500, 500])&.processed&.url
+        self.avatar.variant(resize_to_fill: [500, 500]) #&.processed&.url
 
       when :small
-        self.avatar.variant(resize_to_fill: [50, 50])&.processed&.url
+        self.avatar.variant(resize_to_fill: [50, 50]) #&.processed&.url
 
       else
-        self.avatar.variant(resize_to_fill: [200, 200])&.processed&.url
+        self.avatar.variant(resize_to_fill: [200, 200]) #&.processed&.url
     end
 
     url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
