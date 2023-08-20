@@ -68,7 +68,8 @@ gem "aws-sdk-rails"
 gem "aws-sdk-s3", "~> 1.48"
 gem "friendly_id", "~> 5.4"
 gem "standardrb", "~> 1.0"
-gem "active_storage_validations", "~> 0.9.8"
+# gem "active_storage_validations", "~> 0.9.8"
+gem 'activestorage-validator'
 gem "socialization", "~> 2.0"
 gem "kaminari"
 gem "store_attribute", "~> 1.0"
@@ -90,7 +91,8 @@ gem "ruby-openai", "~> 4.2"
 gem "qdrant-ruby", "~> 0.9.2"
 # gem "pgvector", "~> 0.2"
 
-gem "plain", github: "chaskiq/plain", branch: "main" #path: "/Users/michelson/Documents/rubyonrails/plain"
+# gem "plain", github: "chaskiq/plain", branch: "main" #path: "/Users/michelson/Documents/rubyonrails/plain"
+gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
 
 # sentry
 

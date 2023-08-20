@@ -3,7 +3,7 @@ import { DirectUpload } from "@rails/activestorage";
 
 export default class extends Controller {
   //static targets = ["input", "progress"];
-  static targets = ["input", "progressContainer", "template"]; // Renaming target to "progressContainer"
+  static targets = ["input", "progressContainer", "template", "submit"]; // Renaming target to "progressContainer"
 
   connect(){
     this.validFiles = []
@@ -11,7 +11,7 @@ export default class extends Controller {
 
   uploadFile() {
     this.totalUploads = this.inputTarget.files.length;  // Set the total number of files to be uploaded
-    this.maxSizeValue = 10 * 1024 * 1024  // 10 MB in bytes
+    this.maxSizeValue = 200 * 1024 * 1024  // 200 MB in bytes
 
     if(this.totalUploads > 5){
       alert(`You can only select ${5} files.`);
@@ -33,10 +33,10 @@ export default class extends Controller {
       }
 
       // Check the file format
-      /*if (!file.type.startsWith("audio/")) {
+      if (!file.type.startsWith("audio/")) {
         errors.push(`File ${file.name} is not an audio file.`);
         return;
-      }*/
+      }
 
       // Check the file size
       if (file.size > this.maxSizeValue) {
@@ -50,6 +50,9 @@ export default class extends Controller {
     if(errors.length > 0) {
       alert(JSON.stringify(errors))
     }
+
+    // hide submit button
+    this.submitTarget.classList.add("hidden")
 
     this.validFiles.forEach((validFile) => {
       const {file, index} = validFile
@@ -89,6 +92,7 @@ export default class extends Controller {
   checkAllUploadsComplete() {
     if (this.completedUploads === this.totalUploads) {
       console.log("All uploads are complete!");
+      this.submitTarget.classList.remove("hidden")
       // Here you can perform any other actions you want when all files are uploaded
     }
   }
@@ -118,8 +122,7 @@ export default class extends Controller {
   add_template(identifier, file) {
     let doc = this.templateTarget
     var content = doc.innerHTML.replace(/NEW_RECORD/g, `progress-bar-${identifier}`);
-    const url = URL.createObjectURL(file); 
-    content = content.replace(/FILE/g, `<img src="${url}" class="h-20">`);
+    content = content.replace(/FILE/g, `${file.name}`);
     this.progressContainerTarget.insertAdjacentHTML('beforebegin', content);
   }
 
@@ -127,11 +130,11 @@ export default class extends Controller {
     const progress = (event.loaded / event.total) * 100;
     const fileIndex = index
 
+    // updater(ctx, progress, index)
+
     const progressBar = document.querySelector(`#progress-bar-${fileIndex}`);
     if (progressBar) {
-      const pge = `${progress}%`
-      progressBar.style.width = pge;
-      progressBar.innerHTML = pge
+      progressBar.style.width = `${progress}%`;
     }
   }
 
@@ -145,6 +148,7 @@ export default class extends Controller {
     this.preventDefaults(e);
     let files = e.dataTransfer.files;
     this.inputTarget.files = files;
+    debugger
     this.uploadFile();
   }
 }

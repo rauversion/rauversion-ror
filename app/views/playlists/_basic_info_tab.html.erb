@@ -1,52 +1,16 @@
     <div id="basic-info" class="tab-pane <%= active_tab_for?(@tab, "basic-info-tab") %>">
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-        <div class="sm:col-span-6">
-          <label
-            for="cover-photo"
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            <%= gettext("Cover photo") %>
-          </label>
-          <div
-            phx-drop-target={@live_uploads.cover.ref}
-            class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md"
-          >
-            <div class="space-y-1 text-center">
-              <svg
-                class="mx-auto h-12 w-12 text-gray-400"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 48 48"
-                aria-hidden="true"
-              >
-                <path
-                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                </path>
-              </svg>
-              <div class="flex text-sm text-gray-600 items-center space-x-2">
-                <label>
-                  <span><%= gettext("Upload Cover") %></span>
-                </label>
-                <p class="pl-1">or drag and drop</p>
-              </div>
-
-              <div>
-                <div class="flex items-center space-x-2">
-                  <div class="text-xl font-bold">
-                  </div>
-                </div>
-              </div>
-
-              <p class="text-xs text-gray-500">
-                <%= gettext("PNG, JPG, GIF up to 10MB") %>
-              </p>
-            </div>
-          </div>
+        
+      
+        <%= form.label :cover %>
+        <div class="mt-1 sm:mt-0 sm:col-span-6">
+          <%= render "shared/upload_field", 
+            form: form, 
+            attribute: :cover,
+            image_url: form.object.cover_url(:small)
+          %>
         </div>
+    
 
         <div class="sm:col-span-6">
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -59,20 +23,12 @@
               <%= form.text_area :description %>
             </div>
 
-            <div class="sm:col-span-2">
-              <%= form.select :playlist_type, Category.playlist_types %>
-            </div>
-
             <div class="sm:col-span-4">
               <%= form.select :playlist_type, Category::Genres.plain, label: "Playlist type" %>
             </div>
 
             <div class="sm:col-span-1">
               <%= form.datetime_field :release_date %>
-            </div>
-
-            <div class="sm:col-span-3">
-              <%= form.select :release_date , Category.genres %>
             </div>
 
           </div>

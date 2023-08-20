@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   scope path: '/api' do
     scope path: '/v1' do
       resources :direct_uploads, only: [:create], controller: 'api/v1/direct_uploads'
+      resources :audio_direct_uploads, only: [:create], controller: 'api/v1/audio_direct_uploads'
+
     end
   end
 

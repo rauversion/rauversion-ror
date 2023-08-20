@@ -15,6 +15,7 @@ import Chart from './chart_controller'
 import GoogleMaps from './google_maps'
 import Scroll from './scroll_controller'
 import Upload from './upload_controller'
+import AudioUpload from './audio_upload_controller'
 import select_controller from "./select_controller"
 import animate_controller from "./animate_controller"
 import removals_controller from "./removals_controller"
@@ -50,6 +51,7 @@ application.register("gmaps", GoogleMaps)
 application.register("scroll", Scroll)
 application.register("hello", HelloController)
 application.register("upload", Upload)
+application.register("audio-upload", AudioUpload)
 application.register("select", select_controller)
 application.register("animate", animate_controller)
 application.register("removals", removals_controller)

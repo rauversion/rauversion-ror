@@ -15,8 +15,8 @@
               <%= form_with model: @track_form, url: tracks_path, class: 'direct-upload' do |form| %>
 
                 <div 
-                  data-controller="upload" 
-                  data-action="dragover->upload#preventDefaults drop->upload#handleDrop"
+                  data-controller="audio-upload" 
+                  data-action="dragover->audio-upload#preventDefaults drop->audio-upload#handleDrop"
                   class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md">
 
                     <%= form.hidden_field :step %>
@@ -29,29 +29,32 @@
                       <div class="flex flex-col space-y-2 text-sm text-gray-600 py-3">
                         <div class="flex flex-col justify-center">
 
-                            <template data-upload-target="template">
-                              <div class="p-1 text-white">
-                                <div>FILE</div>
-                                <div id="NEW_RECORD" 
-                                  class="bg-green-500 h-4 mt-3 rounded-md"
-                                  style="width: 0%;"></div>
-                              </div>
-                            </template>
-
-                            <%= form.label :audio, "Upload a Audio file", class: "relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500" %>
-
-                            <p class="pl-1">or drag and drop</p>
-                            <%= form.file_field :audio, direct_upload: true,
-                              multiple: true,
-                              class: "hidden",
-                              data: { upload_target: "input",
-                                      action:        "change->upload#uploadFile" } %>
-                            <div data-upload-target="progress"></div>
-                            <div data-upload-target="progressContainer" 
-                              class="flex flex-col space-y-2">
+                          <template data-audio-upload-target="template">
+                            <div class="p-1 text-white">
+                              <div>FILE</div>
+                              <div id="NEW_RECORD" 
+                                class="bg-green-500 h-4 mt-3 rounded-md"
+                                style="width: 0%;"></div>
                             </div>
-                         
-                            <%= form.submit("next" , "data-upload-target": "submit", class: "hidden") %>
+                          </template>
+
+                          <%= form.label :audio, "Upload a Audio file", class: "relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500" %>
+
+                          <p class="pl-1">or drag and drop</p>
+                          <%= form.file_field :audio, direct_upload: true,
+                            multiple: true,
+                            accept: 'audio/*',
+                            class: "hidden",
+                            data: { "audio-upload-target": "input",
+                                    action:        "change->audio-upload#uploadFile",
+                                    "direct-upload-url": audio_direct_uploads_path
+                                  } %>
+                          <div data-audio-upload-target="progress"></div>
+                          <div data-audio-upload-target="progressContainer" 
+                            class="flex flex-col space-y-2">
+                          </div>
+                        
+                          <%= form.submit("next" , "data-audio-upload-target": "submit", class: "hidden") %>
                         </div>
                       </div>
 
@@ -69,10 +72,10 @@
 
                   <div class="flex-col space-y-3">
                     <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, false, label: t("tracks.private_label"), hint: t("tracks.private_hint") %> 
+                      <%= form.radio_button :private, true, label: t("tracks.private_label"), hint: t("tracks.private_hint") %> 
                     </div>
                     <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, true, label: t("tracks.public_label"), hint: t("tracks.public_hint") %>
+                      <%= form.radio_button :private, false, label: t("tracks.public_label"), hint: t("tracks.public_hint") %>
                     </div>
                 </div>
 

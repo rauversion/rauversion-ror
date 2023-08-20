@@ -13,10 +13,14 @@ class Track < ApplicationRecord
   has_many :comments, as: :commentable
 
   has_one_attached :cover
-
   has_one_attached :audio
   has_one_attached :mp3_audio
   has_one_attached :zip
+
+  validates :cover, presence: true, blob: { content_type: :web_image } # supported options: :web_image, :image, :audio, :video, :text
+
+  validates :audio, presence: true, blob: { content_type: :audio, size_range: 1..(400.megabytes) } # supported options: :web_image, :image, :audio, :video, :text
+
 
   acts_as_likeable
   

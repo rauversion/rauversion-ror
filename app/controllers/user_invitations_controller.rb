@@ -7,6 +7,8 @@ class UserInvitationsController < ApplicationController
       user = User.invite!({email: params[:email]}, current_user)
       if user.valid?
         # user.update(role: "artist")
+        current_user.decrement(:invitations_count)
+        current_user.save
         flash[:now] = "User invited"
       end
       @user = current_user

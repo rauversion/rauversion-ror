@@ -1,6 +1,6 @@
 <div id="metadata-tab" class="tab-pane">
 
-  <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+  <div class="my-6 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-4">
     <div class="sm:col-span-4">
       <%= form.text_field :buy_link %>
     </div>
@@ -105,40 +105,40 @@
     </div>
   </div>
 
-    <% if form.object.copyright == "common" %>
-      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
+  <% if form.object.copyright == "common" %>
+    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
 
-        <div class="sm:col-span-2">
-          <%= form.check_box :attribution,
-            data: {action: "input->input-submitter#submitForm"}, 
-            hint: "Allow others to copy, distribute, display and perform your copyrighted work but only if they give credit the way you request." %>
-        </div>
-
-        <div class="sm:col-span-2">
-          <%= form.check_box :noncommercial,
-            data: {action: "input->input-submitter#submitForm"}, 
-            hint: "Allow others to distribute, display and perform your work—and derivative works based upon it—but for noncommercial purposes only." %>
-        </div>
-
-        <div class="sm:col-span-2">
-          <%= form.radio_button :copies,
-            "non_derivative_works",
-            label: "Non derivative works",
-            data: {action: "input->input-submitter#submitForm"}, 
-            hint: "Allow others to copy, distribute, display and perform only verbatim copies of your work, not derivative works based upon it." %>
-        </div>
-
-        <div class="sm:col-span-2">
-          <%= form.radio_button :copies,
-            "share_alike", 
-            label: "Share Alike",
-            data: {action: "input->input-submitter#submitForm"},  
-            hint: "Allow others to distribute derivative works only under a license identical to the license that governs your work." %>
-        </div>
-
+      <div class="sm:col-span-2">
+        <%= form.check_box :attribution,
+          data: {action: "input->input-submitter#submitForm"}, 
+          hint: "Allow others to copy, distribute, display and perform your copyrighted work but only if they give credit the way you request." %>
       </div>
-    <% else %>
-    <% end %>
- 
+
+      <div class="sm:col-span-2">
+        <%= form.check_box :noncommercial,
+          data: {action: "input->input-submitter#submitForm"}, 
+          hint: "Allow others to distribute, display and perform your work—and derivative works based upon it—but for noncommercial purposes only." %>
+      </div>
+
+      <div class="sm:col-span-2">
+        <%= form.radio_button :copies,
+          "non_derivative_works",
+          label: "Non derivative works",
+          data: {action: "input->input-submitter#submitForm"}, 
+          hint: "Allow others to copy, distribute, display and perform only verbatim copies of your work, not derivative works based upon it." %>
+      </div>
+
+      <div class="sm:col-span-2">
+        <%= form.radio_button :copies,
+          "share_alike", 
+          label: "Share Alike",
+          data: {action: "input->input-submitter#submitForm"},  
+          hint: "Allow others to distribute derivative works only under a license identical to the license that governs your work." %>
+      </div>
+
+    </div>
+  <% else %>
+  <% end %>
+
 
 </div>

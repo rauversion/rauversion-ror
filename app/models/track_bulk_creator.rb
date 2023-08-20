@@ -10,6 +10,7 @@ class TrackBulkCreator
 
   # Initialize the tracks_attributes with an empty array
   def initialize(attributes = {})
+    self.private = true
     self.tracks_attributes ||= []
   end
 

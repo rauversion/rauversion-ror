@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class Api::V1::DirectUploadsController < ActiveStorage::DirectUploadsController
+class Api::V1::AudioDirectUploadsController < ActiveStorage::DirectUploadsController
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token
+
   before_action :authenticate_user!
 
   def create
-    # ActiveStorage::Current.url_options = { host: Chaskiq::Config.fetch("HOST", nil) }
     blob = ActiveStorage::Blob.create_before_direct_upload!(**blob_args)
     render json: direct_upload_json(blob)
   end

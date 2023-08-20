@@ -120,7 +120,6 @@ en:
     reposts: Reposts
     tracks: Tracks
 
-
   users:
     sign_in: Sign in to your account
     register: Register
@@ -204,6 +203,12 @@ en:
     message_placeholder: "Enter your message here..."
     at: "At"
 
+  upload:
+    upload_label: Upload %{name}
+    or_drag_and_drop: Or drag and drop
+
+  invitations:
+    left: You have %{count} invitations left
   time:
     formats:
       day: '%b %d'

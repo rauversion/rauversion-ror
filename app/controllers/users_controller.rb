@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :find_user
+  before_action :check_user_role
 
   def show
     get_tracks
@@ -98,5 +99,9 @@ class UsersController < ApplicationController
         )
       ]
     end
+  end
+
+  def check_user_role
+    redirect_to root_url, notice: "The profile you are trying to access is not activated" and return unless @user.is_creator?
   end
 end
