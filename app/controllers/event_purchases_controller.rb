@@ -100,13 +100,14 @@ class EventPurchasesController < ApplicationController
 
         puts line_items
 
+      
         total = line_items.map{|o| o["price_data"]["unit_amount"] }.sum
 
         @session = Stripe::Checkout::Session.create(
           payment_method_types: ["card"],
           line_items: line_items,
           payment_intent_data: {
-            application_fee_amount: @purchase.calculate_fee(total, @event.ticket_currency)
+            application_fee_amount: @purchase.calculate_fee(total, @event.ticket_currency).to_i
             # "transfer_data"=> %{
             #  "destination"=> c.uid
             # }

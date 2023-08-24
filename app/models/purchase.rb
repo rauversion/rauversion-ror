@@ -106,6 +106,6 @@ class Purchase < ApplicationRecord
   end
 
   def app_fee
-    ENV['APP_FEE'].to_i
+    ENV['PLATFORM_EVENTS_FEE'].to_i
   end
 end

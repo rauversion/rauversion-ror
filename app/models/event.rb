@@ -121,7 +121,7 @@ class Event < ApplicationRecord
   end
 
   def tickets_sold
-    paid_purchased_items.size
+    paid_purchased_items.where(state: "paid").size
   end
 
   def has_transbank?
