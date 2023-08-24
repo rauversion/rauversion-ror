@@ -3,7 +3,7 @@ class ScheduleScheduling < ApplicationRecord
 
   validates :name, :start_date, :end_date, :short_description, presence: true
 
-  validates :end_date, comparison: { greater_than: :start_date }
+  validates :end_date, comparison: {greater_than: :start_date}
 
   validate :dates_within_event_schedule
 

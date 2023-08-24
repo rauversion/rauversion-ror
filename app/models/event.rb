@@ -9,12 +9,11 @@ class Event < ApplicationRecord
   has_many :purchases, as: :purchasable
   has_many :purchased_items, through: :purchases
   has_many :paid_purchased_items, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
-  has_many :purchased_event_tickets, -> { 
-    where(purchased_items: { purchased_item_type: 'EventTicket' }) 
-  }, through: :purchased_items, source: :purchased_item, source_type: 'EventTicket'
+  has_many :purchased_event_tickets, -> {
+    where(purchased_items: {purchased_item_type: "EventTicket"})
+  }, through: :purchased_items, source: :purchased_item, source_type: "EventTicket"
 
-
-  #has_many :paid_tickets, 
+  # has_many :paid_tickets,
 
   has_one_attached :cover
 
@@ -37,9 +36,9 @@ class Event < ApplicationRecord
   store_accessor :event_settings, :scheduling_description, :string
   store_accessor :event_settings, :ticket_currency, :string
 
-  scope :published, -> { where(:state => "published")}
-  scope :drafts, -> { where(:state => "draft")}
-  scope :managers, -> { where(:event_manager => true)}
+  scope :published, -> { where(state: "published") }
+  scope :drafts, -> { where(state: "draft") }
+  scope :managers, -> { where(event_manager: true) }
   # Ex:- scope :active, -> {where(:active => true)}
 
   scope :public_events, -> {
@@ -67,11 +66,11 @@ class Event < ApplicationRecord
     end
   end
 
-  def available_tickets(argument) 
-    self.event_tickets
-    .where('selling_start <= ?', argument)
-    .where('selling_end >= ?', argument)
-    .where('qty > ?', 0)
+  def available_tickets(argument)
+    event_tickets
+      .where("selling_start <= ?", argument)
+      .where("selling_end >= ?", argument)
+      .where("qty > ?", 0)
   end
 
   def self.format_date_range(start_date, end_date)
@@ -90,35 +89,35 @@ class Event < ApplicationRecord
   end
 
   def toggle_published!
-    new_state = self.state == "published" ? "draft" : "published"
-    self.update(state: new_state)
+    new_state = (state == "published") ? "draft" : "published"
+    update(state: new_state)
   end
 
   def event_dates
-    self.class.format_date_range(self.event_start, self.event_ends)
+    self.class.format_date_range(event_start, event_ends)
   end
 
   def cover_url(size = nil)
     url = case size
-      when :medium
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    when :medium
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
 
-      when :large
-        self.cover.variant(resize_to_limit: [500, 500]) #&.processed&.url
+    when :large
+      cover.variant(resize_to_limit: [500, 500]) # &.processed&.url
 
-      when :small
-        self.cover.variant(resize_to_limit: [50, 50]) #&.processed&.url
+    when :small
+      cover.variant(resize_to_limit: [50, 50]) # &.processed&.url
 
-      else
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    else
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
     end
 
-    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
+    url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
   def sales_count
     purchased_event_tickets
-    .where("purchased_items.state =?", "paid").sum("price")
+      .where("purchased_items.state =?", "paid").sum("price")
   end
 
   def tickets_sold

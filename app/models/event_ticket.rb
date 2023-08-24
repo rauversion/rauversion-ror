@@ -3,9 +3,9 @@ class EventTicket < ApplicationRecord
 
   has_many :purchased_items, as: :purchased_item
 
-  has_many :purchased_tickets, -> { where(purchased_item_type: 'EventTicket') }, class_name: 'PurchasedItem', as: :purchased_tickets
-  has_many :paid_tickets, -> { where(purchased_item_type: 'EventTicket', paid: true) }, class_name: 'PurchasedItem', as: :paid_tickets
-  
+  has_many :purchased_tickets, -> { where(purchased_item_type: "EventTicket") }, class_name: "PurchasedItem", as: :purchased_tickets
+  has_many :paid_tickets, -> { where(purchased_item_type: "EventTicket", paid: true) }, class_name: "PurchasedItem", as: :paid_tickets
+
   # has_many :pending_comments, -> { where(state: 'pending') }, class_name: 'Comment', as: :commentable
 
   store_accessor :settings, :show_sell_until, :boolean
@@ -25,11 +25,10 @@ class EventTicket < ApplicationRecord
   validates :short_description, presence: true
   validate :selling_start_before_selling_end
 
-
   def free?
     price.to_i == 0
   end
-  
+
   private
 
   def selling_start_before_selling_end
@@ -41,5 +40,4 @@ class EventTicket < ApplicationRecord
   end
   # scope :purchased_tickets, -> { where(:attibute => value)}
   # Ex:- scope :active, -> {where(:active => true)}
-
 end

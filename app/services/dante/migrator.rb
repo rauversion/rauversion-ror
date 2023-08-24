@@ -1,8 +1,8 @@
 class Dante::Migrator
   def self.migrate_conversation_parts(id: nil)
     parts = ConversationPartContent.joins("INNER JOIN conversation_parts ON conversation_parts.messageable_id = conversation_part_contents.id AND conversation_parts.messageable_type = 'ConversationPartContent'")
-                                   .joins("INNER JOIN conversations ON conversations.id = conversation_parts.conversation_id")
-                                   .where(conversations: { app_id: id })
+      .joins("INNER JOIN conversations ON conversations.id = conversation_parts.conversation_id")
+      .where(conversations: {app_id: id})
 
     parts.find_each do |record|
       Rails.logger.info("INIT PROCESS OF #{record.id}")
@@ -11,7 +11,7 @@ class Dante::Migrator
         new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
         record.update_column(:serialized_content, new_content.to_json)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}")
         # Rails.logger.error(e)
       end
@@ -27,7 +27,7 @@ class Dante::Migrator
           new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
           record.update_column(:serialized_content, new_content.to_json)
           Rails.logger.info("OK content #{record.id}")
-        rescue StandardError => e
+        rescue => e
           Rails.logger.error("Error converting part content #{record.id}")
           Rails.logger.error(e)
         end
@@ -57,10 +57,10 @@ class Dante::Migrator
           end
           path
         end
-        record.update_column(:settings, record.settings.merge({ "paths" => updated_paths }))
+        record.update_column(:settings, record.settings.merge({"paths" => updated_paths}))
         # record.update_column(:serialized_content, new_content.to_json)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}")
         Rails.logger.error(e)
       end
@@ -78,7 +78,7 @@ class Dante::Migrator
         new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
         record.update_column(:serialized_content, new_content.to_json)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}, #{e.message}")
       end
     end
@@ -96,7 +96,7 @@ class Dante::Migrator
         new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
         record.update_column(:serialized_content, new_content.to_json)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}, #{e.message}")
       end
     end
@@ -114,7 +114,7 @@ class Dante::Migrator
         new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
         record.update_column(:serialized_content, new_content.to_json)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}, #{e.message}")
       end
     end
@@ -134,7 +134,7 @@ class Dante::Migrator
         end
         record.update_column(:settings, updated_settings)
         Rails.logger.info("OK content #{record.id}")
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error("Error converting part content #{record.id}, #{e.message}")
       end
     end
@@ -151,7 +151,7 @@ class Dante::Migrator
           new_content = Dante::Converter.draftjs_to_prosemirror(draft_content)
           record.update_column(:content, new_content.to_json)
           Rails.logger.info("OK content #{record.id}")
-        rescue StandardError => e
+        rescue => e
           Rails.logger.error("Error converting part content #{record.id}")
           Rails.logger.error(e)
         end

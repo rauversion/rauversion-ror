@@ -1,31 +1,29 @@
 class TracksController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show, :private_access ]
+  before_action :authenticate_user!, except: [:index, :show, :private_access]
 
   def index
     @tracks = Track.published.order("id desc")
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .page(params[:page]).per(12)
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .page(params[:page]).per(12)
   end
 
   def new
-    #@track = current_user.tracks.new
-    #@track.step = "upload"
+    # @track = current_user.tracks.new
+    # @track.step = "upload"
     @track_form = TrackBulkCreator.new
     @track_form.step = "upload"
   end
 
   def create
-
-    @track_form = TrackBulkCreator.new()
+    @track_form = TrackBulkCreator.new
     @track_form.step = track_bulk_params[:step]
 
     if @track_form.step == "upload"
-      audios = track_bulk_params["audio"].select{|o| o.is_a?(String)}.reject(&:empty?)
-      #@track = current_user.tracks.new(track_params)
+      audios = track_bulk_params["audio"].select { |o| o.is_a?(String) }.reject(&:empty?)
+      # @track = current_user.tracks.new(track_params)
       @track_form.user = current_user
-      @track_form.tracks_attributes = audios.map{|o| {audio: o} }
+      @track_form.tracks_attributes = audios.map { |o| {audio: o} }
       @track_form.step = "info"
     else
       @track_form.tracks_attributes_objects = track_bulk_params[:tracks_attributes]
@@ -33,7 +31,6 @@ class TracksController < ApplicationController
       @track_form.save
       if @track_form.errors.blank?
         @track_form.step = "share"
-      else
       end
     end
   end
@@ -103,13 +100,13 @@ class TracksController < ApplicationController
     params.require(:track).permit(
       :private,
       :audio, :title, :step, :description,
-      :tab, :genre, :contains_music, :artist, :publisher, :isrc, 
-      :composer, :release_title, :buy_link, :album_title, 
-      :record_label, :release_date, :barcode, 
+      :tab, :genre, :contains_music, :artist, :publisher, :isrc,
+      :composer, :release_title, :buy_link, :album_title,
+      :record_label, :release_date, :barcode,
       :iswc, :p_line,
       :price, :name_your_price,
-      :direct_download, :display_embed, :enable_comments, 
-      :display_comments, :display_stats, :include_in_rss, 
+      :direct_download, :display_embed, :enable_comments,
+      :display_comments, :display_stats, :include_in_rss,
       :offline_listening, :enable_app_playblack,
       :cover,
       :copyright, :attribution, :noncommercial, :copies,
@@ -120,10 +117,10 @@ class TracksController < ApplicationController
   def track_bulk_params
     params.require(:track_bulk_creator).permit(
       :make_playlist, :private,
-      :step, 
+      :step,
       audio: [], tracks_attributes: [
         :audio, :cover, :title, :tags, :description
-      ] 
+      ]
     )
   end
 end

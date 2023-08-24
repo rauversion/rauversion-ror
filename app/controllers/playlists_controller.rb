@@ -1,6 +1,5 @@
 class PlaylistsController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
   end
@@ -8,13 +7,13 @@ class PlaylistsController < ApplicationController
   def show
     if current_user
       begin
-        @playlist = current_user.playlists.friendly.find(params[:id]) 
-      rescue  ActiveRecord::RecordNotFound
+        @playlist = current_user.playlists.friendly.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
         nil
       end
     end
 
-    @playlist = Playlist.published.friendly.find(params[:id]) unless @playlist
+    @playlist ||= Playlist.published.friendly.find(params[:id])
     @track = @playlist.tracks.first
 
     metatags = {
@@ -65,13 +64,13 @@ class PlaylistsController < ApplicationController
   def update
     @tab = params[:tab] || "basic-info-tab"
     @playlist = current_user.playlists.friendly.find(params[:id])
-    
-    if !params[:nonpersist] && @playlist.update(playlist_params) 
+
+    if !params[:nonpersist] && @playlist.update(playlist_params)
       flash[:now] = "successfully created"
     end
 
-    if params[:nonpersist] 
-      @playlist.assign_attributes(playlist_params) 
+    if params[:nonpersist]
+      @playlist.assign_attributes(playlist_params)
     end
   end
 
@@ -80,7 +79,7 @@ class PlaylistsController < ApplicationController
 
   def playlist_params
     params.require(:playlist).permit(
-      :title, :description, :private, :price, 
+      :title, :description, :private, :price,
       :playlist_type, :release_date, :cover,
       :record_label, :buy_link,
       :copyright,

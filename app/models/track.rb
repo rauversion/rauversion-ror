@@ -17,26 +17,24 @@ class Track < ApplicationRecord
   has_one_attached :mp3_audio
   has_one_attached :zip
 
-  validates :cover, presence: false, blob: { content_type: :web_image } # supported options: :web_image, :image, :audio, :video, :text
+  validates :cover, presence: false, blob: {content_type: :web_image} # supported options: :web_image, :image, :audio, :video, :text
 
-  validates :audio, presence: false, blob: { content_type: :audio, size_range: 1..(400.megabytes) } # supported options: :web_image, :image, :audio, :video, :text
-
+  validates :audio, presence: false, blob: {content_type: :audio, size_range: 1..(400.megabytes)} # supported options: :web_image, :image, :audio, :video, :text
 
   acts_as_likeable
-  
+
   attr_accessor :step, :tab
 
-  scope :published, -> { where(:private => false)}
+  scope :published, -> { where(private: false) }
   # scope :private, -> { where.not(:private => true)}
   scope :latests, -> { order("id desc") }
 
-
-  #store_attribute :metadata, :ratio, :integer, limit: 1
-  #store_attribute :metadata, :login_at, :datetime
-  ##store_attribute :metadata, :active, :boolean
-  #store_attribute :metadata, :color, :string, default: "red"
-  #store_attribute :metadata, :colors, :json, default: ["red", "blue"]
-  #store_attribute :metadata, :data, :datetime, default: -> { Time.now }
+  # store_attribute :metadata, :ratio, :integer, limit: 1
+  # store_attribute :metadata, :login_at, :datetime
+  # #store_attribute :metadata, :active, :boolean
+  # store_attribute :metadata, :color, :string, default: "red"
+  # store_attribute :metadata, :colors, :json, default: ["red", "blue"]
+  # store_attribute :metadata, :data, :datetime, default: -> { Time.now }
 
   store_attribute :metadata, :peaks, :json, default: []
   store_attribute :metadata, :contains_music, :boolean
@@ -91,22 +89,21 @@ class Track < ApplicationRecord
   end
 
   def cover_url(size = nil)
-
     url = case size
-      when :medium
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    when :medium
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
 
-      when :large
-        self.cover.variant(resize_to_limit: [500, 500]) #&.processed&.url
+    when :large
+      cover.variant(resize_to_limit: [500, 500]) # &.processed&.url
 
-      when :small
-        self.cover.variant(resize_to_limit: [50, 50]) #&.processed&.url
+    when :small
+      cover.variant(resize_to_limit: [50, 50]) # &.processed&.url
 
-      else
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    else
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
     end
 
-    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
+    url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
   def self.permission_definitions
@@ -177,11 +174,11 @@ class Track < ApplicationRecord
   def update_peaks
     peaks = process_audio_peaks
 
-    self.update(peaks: peaks, state: "processed")
+    update(peaks: peaks, state: "processed")
   end
 
   def reprocess_async
-    TrackProcessorJob.perform_later(self.id)
+    TrackProcessorJob.perform_later(id)
   end
 
   def reprocess!
@@ -193,7 +190,7 @@ class Track < ApplicationRecord
   def update_mp3(temp_file = nil)
     if temp_file.nil?
       # Create a temp file
-      temp_file = Tempfile.new(['audio', '.mp3'], binmode: true)
+      temp_file = Tempfile.new(["audio", ".mp3"], binmode: true)
 
       # Download the blob to the temp file in chunks
       audio.download do |chunk|
@@ -207,7 +204,7 @@ class Track < ApplicationRecord
     mp3_file = File.open(mp3_path)
 
     # Attach the MP3 file to the Track model
-    mp3_audio.attach(io: mp3_file, filename: 'converted_audio.mp3', content_type: 'audio/mpeg')
+    mp3_audio.attach(io: mp3_file, filename: "converted_audio.mp3", content_type: "audio/mpeg")
 
     FileUtils.remove_entry mp3_path
     # Ensure the temp file is removed after the Mp3Converter has finished
@@ -218,7 +215,7 @@ class Track < ApplicationRecord
   def process_audio_peaks(temp_file = nil)
     # Create a temp file
     if temp_file.nil?
-      temp_file = Tempfile.new(['audio', '.mp3'], binmode: true)
+      temp_file = Tempfile.new(["audio", ".mp3"], binmode: true)
 
       # Download the blob to the temp file in chunks
       audio.download do |chunk|
@@ -240,37 +237,37 @@ class Track < ApplicationRecord
 
   def self.top_tracks(profile_id)
     Track.joins(:listening_events)
-         .where(listening_events: { resource_profile_id: profile_id })
-         .group(:id)
-         .limit(10)
-         .select("tracks.*, COUNT(listening_events.id) as count")
-         .order('count DESC')
-         .includes(:cover_blob, user: :avatar_blob)
+      .where(listening_events: {resource_profile_id: profile_id})
+      .group(:id)
+      .limit(10)
+      .select("tracks.*, COUNT(listening_events.id) as count")
+      .order("count DESC")
+      .includes(:cover_blob, user: :avatar_blob)
   end
 
   def self.top_listeners(profile_id)
     User.joins(:listening_events)
-        .where(listening_events: { resource_profile_id: profile_id })
-        .group(:id)
-        .limit(10)
-        .select("users.*, COUNT(listening_events.id) as count")
-        .order('count DESC')
-        .includes(:avatar_blob)
+      .where(listening_events: {resource_profile_id: profile_id})
+      .group(:id)
+      .limit(10)
+      .select("users.*, COUNT(listening_events.id) as count")
+      .order("count DESC")
+      .includes(:avatar_blob)
   end
 
   def self.top_countries(profile_id)
     ListeningEvent.where(resource_profile_id: profile_id)
-         .group(:country)
-         .limit(10)
-         .select("country, COUNT(country) as count")
-         .order('count DESC')
+      .group(:country)
+      .limit(10)
+      .select("country, COUNT(country) as count")
+      .order("count DESC")
   end
 
   def self.series_by_month(profile_id)
     ListeningEvent.where(resource_profile_id: profile_id)
-    .group_by_month(:created_at, range: 12.months.ago.midnight..Time.now).count
-    .map{|k, v|
-      {count: v, day: k }
+      .group_by_month(:created_at, range: 12.months.ago.midnight..Time.now).count
+      .map { |k, v|
+      {count: v, day: k}
     }
   end
 
@@ -297,8 +294,6 @@ class Track < ApplicationRecord
 
   def self.get_tracks_by_tag(tag)
     tag = tag.downcase
-    includes(:user).where('? = ANY (tags)', tag)
+    includes(:user).where("? = ANY (tags)", tag)
   end
-
-  
 end

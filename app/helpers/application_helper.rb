@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   ActionView::Base.default_form_builder = TailwindFormBuilder
 
   def gettext(text)
@@ -42,7 +41,7 @@ module ApplicationHelper
 
   def serialized_to_html(serialized_content)
     Dante::Renderer.new(raw: serialized_content.with_indifferent_access).render
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error(e)
     Bugsnag.notify(e) if defined?(Bugsnag)
     Sentry.capture_exception(e) if defined?(Sentry)
@@ -52,7 +51,7 @@ module ApplicationHelper
   def event_status_label(event)
     case event.state
     when "published" then t("events.published")
-    else  
+    else
       t("events.unpublished")
     end
   end
@@ -60,7 +59,7 @@ module ApplicationHelper
   def button_label(event)
     case event.state
     when "published" then t("events.unpublish")
-    else  
+    else
       t("events.publish")
     end
   end
@@ -111,7 +110,7 @@ module ApplicationHelper
       HTML
 
     when :profile
-        <<-HTML
+      <<-HTML
         <svg
           class="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
           x-description="Heroicon name: outline/cog"
@@ -136,10 +135,10 @@ module ApplicationHelper
           >
           </path>
         </svg>
-        HTML
+      HTML
 
     when :email
-        <<-HTML
+      <<-HTML
         <svg
           class="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
           x-description="Heroicon name: outline/mail"
@@ -156,10 +155,10 @@ module ApplicationHelper
             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           />
         </svg>
-        HTML
+      HTML
 
     when :security
-        <<-HTML
+      <<-HTML
         <svg
           class="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
           x-description="Heroicon name: outline/key"
@@ -177,10 +176,10 @@ module ApplicationHelper
           >
           </path>
         </svg>
-        HTML
+      HTML
 
     when :integrations
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -195,10 +194,10 @@ module ApplicationHelper
             d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z"
           />
         </svg>
-        HTML
+      HTML
 
     when :notifications
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -213,12 +212,10 @@ module ApplicationHelper
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
           />
         </svg>
-        HTML
-
-    
+      HTML
 
     when :recordings
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -233,10 +230,10 @@ module ApplicationHelper
             d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"
           />
         </svg>
-        HTML
+      HTML
 
     when :streaming
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -250,10 +247,10 @@ module ApplicationHelper
             d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
           />
         </svg>
-        HTML
+      HTML
 
-    when :widgets 
-        <<-HTML
+    when :widgets
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -268,10 +265,10 @@ module ApplicationHelper
             d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
           />
         </svg>
-        HTML
+      HTML
 
     when :edit
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -286,10 +283,10 @@ module ApplicationHelper
             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
           />
         </svg>
-        HTML
+      HTML
 
     when :tickets
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -304,10 +301,10 @@ module ApplicationHelper
             d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
           />
         </svg>
-        HTML
+      HTML
 
     when :attendees
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -322,10 +319,10 @@ module ApplicationHelper
             d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
           />
         </svg>
-        HTML
+      HTML
 
     when :schedule
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -340,10 +337,10 @@ module ApplicationHelper
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        HTML
+      HTML
 
     when :tax
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -358,10 +355,10 @@ module ApplicationHelper
             d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z"
           />
         </svg>
-        HTML
+      HTML
 
     when :email_attendees
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -376,10 +373,10 @@ module ApplicationHelper
             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           />
         </svg>
-        HTML
+      HTML
 
     when :security
-        <<-HTML
+      <<-HTML
         <svg
           class="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
           x-description="Heroicon name: outline/key"
@@ -397,10 +394,10 @@ module ApplicationHelper
           >
           </path>
         </svg>
-        HTML
+      HTML
 
     when :sponsors
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -415,10 +412,10 @@ module ApplicationHelper
             d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
           />
         </svg>
-        HTML
+      HTML
 
     when :hosts
-        <<-HTML
+      <<-HTML
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -433,8 +430,7 @@ module ApplicationHelper
             d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
           />
         </svg>
-        HTML
-
+      HTML
 
     when :zoom
       <<-HTML
@@ -490,16 +486,15 @@ module ApplicationHelper
     end
   end
 
-
   def definition_renderer(form, definition)
     case definition[:type]
     when :select
       form.select definition[:name], definition[:options]
     when :text_input
       form.text_field definition[:name], hint: definition[:hint]
-    else 
+    else
       "no definition for #{definition[:type]}"
-      
+
     end
   end
 end

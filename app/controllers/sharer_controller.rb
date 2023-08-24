@@ -1,27 +1,26 @@
 class SharerController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def new
     @resource, @resource_path = find_resource
 
     @button_class = "button"
 
-    @share_url = private_track_url(@resource.signed_id, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
-    #@share_url = #if @resource.private? 
+    @share_url = private_track_url(@resource.signed_id, utm_source: "clipboard", utm_campaign: "social_sharing", utm_medium: "text")
+    # @share_url = #if @resource.private?
     #  private_track_url(@resource.signed_id, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
-    #else
+    # else
     #  track_url(@resource, utm_source: 'clipboard', utm_campaign: 'social_sharing', utm_medium: 'text')
-    #end
+    # end
   end
 
   def find_resource
     if params[:track_id]
       resource = Track.friendly.find(params[:track_id])
-      [ resource, track_embed_url(resource)]
+      [resource, track_embed_url(resource)]
     elsif params[:playlist_id]
       resource = Playlist.friendly.find(params[:playlist_id])
-      [ resource, playlist_embed_url(resource)]
+      [resource, playlist_embed_url(resource)]
     end
   end
 end

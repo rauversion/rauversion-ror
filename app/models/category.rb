@@ -64,7 +64,7 @@ class Category < ApplicationRecord
   end
 end
 
-module Category::Genres 
+module Category::Genres
   def self.all
     [
       {
@@ -238,11 +238,11 @@ module Category::Genres
   end
 
   def self.categories
-    all().map{|o| o["genre"]}
+    all.map { |o| o["genre"] }
   end
 
   def self.plain
-    all().reduce([]) do |acc, el|
+    all.reduce([]) do |acc, el|
       acc + [el["genre"]] + el["subgenres"]
     end
   end

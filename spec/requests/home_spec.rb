@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Homes", type: :request do
-
   describe "GET /" do
     it "sets the locale based on the locale parameter" do
       get root_path(locale: :es)

@@ -1,9 +1,8 @@
-
 Plain.configure do |config|
   config.paths = [
-    Rails.root.join("app/models"), 
-    Rails.root.join("app/controllers"), 
-    Rails.root.join("docs"), 
+    Rails.root.join("app/models"),
+    Rails.root.join("app/controllers"),
+    Rails.root.join("docs"),
     Rails.root.join("plain-rails.gemspec"),
     Rails.root.join("config/routes.rb"),
     Rails.root.join("db"),

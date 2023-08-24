@@ -3,7 +3,7 @@ class Dante::Utils
     nodes.inject("") do |text, node|
       case node["type"]
       when "text"
-        text << "#{node['text']} "
+        text << "#{node["text"]} "
       else
         node_content = node["content"]
         text << extract_plain_text(node_content) if node_content

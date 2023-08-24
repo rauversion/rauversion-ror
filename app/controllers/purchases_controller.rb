@@ -1,5 +1,4 @@
 class PurchasesController < ApplicationController
-
   before_action :authenticate_user!
 
   def index
@@ -11,7 +10,7 @@ class PurchasesController < ApplicationController
   end
 
   def music
-    kind = params[:tab] == "tracks" ? "Track" : "Playlist"
+    kind = (params[:tab] == "tracks") ? "Track" : "Playlist"
     @collection = current_user.purchases.where(state: "paid", purchasable_type: kind).page
   end
 end

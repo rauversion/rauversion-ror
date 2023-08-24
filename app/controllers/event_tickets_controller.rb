@@ -1,6 +1,5 @@
 class EventTicketsController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def show
     @purchased_item = PurchasedItem.find_signed(params[:id])
@@ -18,5 +17,4 @@ class EventTicketsController < ApplicationController
     @is_manager = @event.user_id == current_user.id || @event.managers.includes?(current_user)
     @purchased_item.toggle_check_in!
   end
-
 end

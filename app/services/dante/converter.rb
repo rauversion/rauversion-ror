@@ -10,7 +10,7 @@ class Dante::Converter
       convert_block_to_prosemirror_node(block, entity_map)
     end
 
-    { type: "doc", content: prosemirror_nodes }
+    {type: "doc", content: prosemirror_nodes}
   end
 
   def self.convert_block_to_prosemirror_node(block, entity_map)
@@ -20,8 +20,8 @@ class Dante::Converter
     }
 
     if node[:type] == "heading"
-      a = { "one" => 1, "two" => 2, "three" => 3 }
-      node[:attrs] = { level: a[block[:type].split("-").last] || 0 }
+      a = {"one" => 1, "two" => 2, "three" => 3}
+      node[:attrs] = {level: a[block[:type].split("-").last] || 0}
     end
 
     node[:attrs] = block[:data] if %w[DividerBlock ImageBlock EmbedBlock VideoBlock VideoRecorderBlock AudioRecorderBlock].include?(node[:type])
@@ -44,7 +44,7 @@ class Dante::Converter
       entity_range = entity_ranges.find { |range| position >= range[:offset] && position < (range[:offset] + range[:length]) }
       if entity_range
         entity = entity_map[entity_range[:key].to_s.to_sym]
-        marks << { type: "link", attrs: { href: entity[:data][:url] } } if entity[:type] == "LINK"
+        marks << {type: "link", attrs: {href: entity[:data][:url]}} if entity[:type] == "LINK"
       end
 
       next_position_ranges = style.map { |s| s[:offset] + s[:length] } + entity_ranges.map { |range| range[:offset] + range[:length] }
@@ -90,10 +90,10 @@ class Dante::Converter
   def self.convert_style_to_marks(style)
     marks = []
 
-    marks << { type: "bold" } if style.include?("BOLD")
-    marks << { type: "italic" } if style.include?("ITALIC")
-    marks << { type: "code" } if style.include?("CODE")
-    marks << { type: "textStyle", attrs: { color: style.match(/CUSTOM_COLOR_(#[0-9a-fA-F]{6})/)&.captures&.first } } if style.include?("CUSTOM_COLOR")
+    marks << {type: "bold"} if style.include?("BOLD")
+    marks << {type: "italic"} if style.include?("ITALIC")
+    marks << {type: "code"} if style.include?("CODE")
+    marks << {type: "textStyle", attrs: {color: style.match(/CUSTOM_COLOR_(#[0-9a-fA-F]{6})/)&.captures&.first}} if style.include?("CUSTOM_COLOR")
 
     marks
   end

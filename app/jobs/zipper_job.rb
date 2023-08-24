@@ -15,7 +15,7 @@ class ZipperJob < ApplicationJob
     else
       Rails.logger.warn "ZipperJob called without track_id or playlist_id."
     end
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error "Failed to zip: #{e.message}"
   end
 
@@ -29,15 +29,15 @@ class ZipperJob < ApplicationJob
     end
 
     # Download the audio in chunks and save to a temp file
-    audio_path = Rails.root.join('tmp', record.audio.filename.to_s)
+    audio_path = Rails.root.join("tmp", record.audio.filename.to_s)
     record.audio.download do |chunk|
-      File.open(audio_path, 'ab') do |file|
+      File.open(audio_path, "ab") do |file|
         file.write(chunk)
       end
     end
 
     # Zip the audio
-    zipfile_path = Rails.root.join('tmp', "#{record.audio.filename.base}.zip")
+    zipfile_path = Rails.root.join("tmp", "#{record.audio.filename.base}.zip")
     Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
       zipfile.add(record.audio.filename.to_s, audio_path)
     end
@@ -52,17 +52,16 @@ class ZipperJob < ApplicationJob
     Rails.logger.error "Error zipping track #{record.id}: #{e.message}"
   end
 
-
   def playlist_zip(playlist)
-    zipfile_path = Rails.root.join('tmp', "#{playlist.slug}-#{playlist.id}.zip")
+    zipfile_path = Rails.root.join("tmp", "#{playlist.slug}-#{playlist.id}.zip")
 
     Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
       playlist.tracks.each do |track|
         next unless track.audio.attached?
 
-        audio_path = Rails.root.join('tmp', track.slug)
+        audio_path = Rails.root.join("tmp", track.slug)
         track.audio.download do |chunk|
-          File.open(audio_path, 'ab') { |file| file.write(chunk) }
+          File.open(audio_path, "ab") { |file| file.write(chunk) }
         end
 
         zipfile.add(track.audio.filename.to_s, audio_path)
@@ -71,9 +70,9 @@ class ZipperJob < ApplicationJob
     end
 
     # Here you can attach the zipped file to the playlist or whatever you want
-    # e.g. 
+    # e.g.
     playlist.zip.attach(
-      io: File.open(zipfile_path), 
+      io: File.open(zipfile_path),
       filename: "#{playlist.slug}.zip"
     )
     # or store it somewhere else or let the user download it directly.

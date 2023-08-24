@@ -5,7 +5,7 @@ class StreamingProviders::Jitsi
   attr_accessor :api_key, :app_id, :name
 
   validates :api_key, presence: true
-  validates :app_id, length: { minimum: 4 }
+  validates :app_id, length: {minimum: 4}
 
   def name
     "jitsi"

@@ -1,6 +1,5 @@
 class UserFollowsController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def followees
     @user = User.find_by(username: params[:user_id])
@@ -16,10 +15,10 @@ class UserFollowsController < ApplicationController
 
   def create
     @user = User.find_by(username: params[:user_id])
-    if current_user.toggle_follow!(@user)
-      flash[:now] = "Followed"
+    flash[:now] = if current_user.toggle_follow!(@user)
+      "Followed"
     else
-      flash[:now] = "Unfollowed"
+      "Unfollowed"
     end
   end
 end

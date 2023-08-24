@@ -1,23 +1,22 @@
 class ArticlesController < ApplicationController
-
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @articles = Post.published.order("id desc")
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .page(1).per(7)
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .page(1).per(7)
 
     @latest_articles = Post.published.order("id desc")
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .page(2).per(7)
-    
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .page(2).per(7)
+
     @category = Category.friendly.find("news")
     @news = Post.published.friendly.where(category_id: @category)
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .order("id desc").page(1).per(7)
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .order("id desc").page(1).per(7)
   end
 
   def new
@@ -56,15 +55,14 @@ class ArticlesController < ApplicationController
   end
 
   def mine
-    
     @tab = params[:tab] || "all"
-    case @tab
+    @posts = case @tab
     when "published"
-      @posts = current_user.posts.published
+      current_user.posts.published
     when "draft"
-      @posts = current_user.posts.draft
+      current_user.posts.draft
     else
-      @posts = current_user.posts
+      current_user.posts
     end
 
     @posts.page(params[:page]).per(10)
@@ -75,7 +73,7 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:post).permit(
       :id, :title, :private,
-      :cover, 
+      :cover,
       :category_id, :state, :excerpt, body: {}
     )
   end

@@ -1,4 +1,4 @@
-require 'tempfile'
+require "tempfile"
 
 class Mp3Converter
   def initialize(file)
@@ -12,15 +12,15 @@ class Mp3Converter
 
     output_file = "#{dir}/#{filename}.mp3"
 
-    output = %x(#{ffmpeg_path} -i #{@file} -vn -ar 44100 -ac 2 -b:a 192k #{output_file})
+    output = `#{ffmpeg_path} -i #{@file} -vn -ar 44100 -ac 2 -b:a 192k #{output_file}`
 
     puts output
 
     puts "OUTPUT EXISTS? #{File.exist?(output_file)}"
 
     output_file
-    #ensure
-    #FileUtils.remove_entry dir
+    # ensure
+    # FileUtils.remove_entry dir
   end
 
   private

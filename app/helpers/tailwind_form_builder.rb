@@ -100,7 +100,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  #def select_field(object_name, method_name, template_object, options = {})
+  # def select_field(object_name, method_name, template_object, options = {})
   #  puts options
   #  @template.tag.div(class: "w-full sm:w-full py-2", "data-controller": "select") do
   #    @template.label_tag(tr(options[:label] || object_name), nil) +
@@ -108,7 +108,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   #      @template.tag.div(data: {"select-target": "holder"}) { "" } +
   #      field_details(object_name, object, options)
   #  end
-  #end
+  # end
 
   def color_fieldssss(object_name, method = "", options = {})
     Tags::ColorField.new(object_name, method, self, options).render
@@ -178,8 +178,8 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag :div, class: "overflow-hidden relative w-64 mt-4 mb-4" do
       @template.content_tag :div, "data-controller": "image-preview" do
         [
-          file_field(method, options.merge(data: { action: "change->image-preview#preview", "image-preview-target": "file" }, class: "hidden")),
-          @template.image_tag(tag_value, data: { "image-preview-target": "output" }, class: "p-4 w-[100px]"),
+          file_field(method, options.merge(data: {action: "change->image-preview#preview", "image-preview-target": "file"}, class: "hidden")),
+          @template.image_tag(tag_value, data: {"image-preview-target": "output"}, class: "p-4 w-[100px]"),
           label(method, "Upload file", class: "rounded-full cursor-pointer bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600")
         ].join.html_safe
       end

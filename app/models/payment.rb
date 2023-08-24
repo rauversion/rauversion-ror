@@ -9,7 +9,6 @@ class Payment
   attribute :optional_message, :string
   attribute :initial_price, :decimal
 
-
   # Validations
   validates :optional_message, presence: true, if: :include_message?
 

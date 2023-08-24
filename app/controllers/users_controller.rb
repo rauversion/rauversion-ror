@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :find_user
   before_action :check_user_role
 
@@ -23,12 +22,12 @@ class UsersController < ApplicationController
     @title = "Playlists"
     @section = "playlists"
     @collection = @user.playlists
-    .where.not(playlist_type: ["album", "ep"])
-    .where(user_id: @user.id )
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .includes(tracks: {cover_attachment: :blob})
-    .page(params[:page]).per(5)
+      .where.not(playlist_type: ["album", "ep"])
+      .where(user_id: @user.id)
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .includes(tracks: {cover_attachment: :blob})
+      .page(params[:page]).per(5)
     @as = :playlist
     @section = "playlists/playlist_item"
     render "show"
@@ -47,9 +46,9 @@ class UsersController < ApplicationController
     @section = "albums"
     @collection = @user.playlists
       .where(playlist_type: ["album", "ep"])
-      .where(user_id: @user.id )
+      .where(user_id: @user.id)
       .with_attached_cover
-      .includes(user: { avatar_attachment: :blob })
+      .includes(user: {avatar_attachment: :blob})
       .includes(tracks: {cover_attachment: :blob})
       .page(params[:page]).per(5)
     @as = :playlist
@@ -61,18 +60,18 @@ class UsersController < ApplicationController
 
   def get_tracks
     # @collection = @user.tracks.page(params[:page]).per(2)
-    if current_user 
-      @collection = User.track_preloaded_by_user(current_user&.id)
-        .where(user_id: @user.id )
+    @collection = if current_user
+      User.track_preloaded_by_user(current_user&.id)
+        .where(user_id: @user.id)
         .with_attached_cover
-        .includes(user: { avatar_attachment: :blob })
+        .includes(user: {avatar_attachment: :blob})
         .order("id desc")
         .page(params[:page]).per(6)
     else
-      @collection = @user.tracks.published
-      .with_attached_cover
-      .includes(user: { avatar_attachment: :blob })
-      .order("id desc").page(params[:page]).per(6)
+      @user.tracks.published
+        .with_attached_cover
+        .includes(user: {avatar_attachment: :blob})
+        .order("id desc").page(params[:page]).per(6)
     end
   end
 

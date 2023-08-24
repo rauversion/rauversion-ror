@@ -1,5 +1,4 @@
 class WebhooksController < ApplicationController
-
   skip_before_action :verify_authenticity_token
 
   def create
@@ -9,48 +8,48 @@ class WebhooksController < ApplicationController
   def handle_webhook(provider:)
     case provider
     when "stripe" then handle_stripe
-    else 
+    else
       render json: {status: :nok}, status: 422
     end
   end
 
   def handle_stripe
     payload = request.body.read
-    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
     event = nil
     json_event = JSON.parse(payload)
     begin
-      if json_event["account"]
-        event = Stripe::Webhook.construct_event(payload, sig_header, ENV['STRIPE_SIGNING_SECRET'])
+      event = if json_event["account"]
+        Stripe::Webhook.construct_event(payload, sig_header, ENV["STRIPE_SIGNING_SECRET"])
       else
-        event = Stripe::Webhook.construct_event(payload, sig_header, ENV['STRIPE_SIGNING_SECRET_ACC'])
+        Stripe::Webhook.construct_event(payload, sig_header, ENV["STRIPE_SIGNING_SECRET_ACC"])
       end
     rescue JSON::ParserError => e
       # Invalid payload
-      render json: { error: { message: e.message }}, status: :bad_request
+      render json: {error: {message: e.message}}, status: :bad_request
       return
     rescue Stripe::SignatureVerificationError => e
       # Invalid signature
-      render json: { error: { message: e.message, extra: "Sig verification failed" }}, status: :bad_request
+      render json: {error: {message: e.message, extra: "Sig verification failed"}}, status: :bad_request
       return
     end
 
     # Handle the event
     case event.type
-    when 'payment_intent.succeeded'
+    when "payment_intent.succeeded"
       payment_intent = event.data.object # contains a Stripe::PaymentIntent
-      puts 'PaymentIntent was successful!'
-    when 'checkout.session.completed'
+      puts "PaymentIntent was successful!"
+    when "checkout.session.completed"
       confirm_stripe_purchase(event.data.object)
-    when 'payment_method.attached'
+    when "payment_method.attached"
       payment_method = event.data.object # contains a Stripe::PaymentMethod
-      puts 'PaymentMethod was attached to a Customer!'
+      puts "PaymentMethod was attached to a Customer!"
       # ... handle other event types
     else
       puts "Unhandled event type: #{event.type}"
     end
 
-    render json: { message: :success }
+    render json: {message: :success}
   end
 
   def confirm_stripe_purchase(event_object)

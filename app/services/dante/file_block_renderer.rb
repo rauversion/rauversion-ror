@@ -31,7 +31,7 @@ class Dante::FileBlockRenderer
 
   def get_file_name_from_url(url)
     URI.parse(url).path.split("/").last
-  rescue StandardError
+  rescue
     url.split("/").last
   end
 

@@ -1,5 +1,4 @@
 class RepostsController < ApplicationController
-
   before_action :authenticate_user!
 
   def create
@@ -14,7 +13,5 @@ class RepostsController < ApplicationController
         flash[:now] = "Reposted ok!"
       end
     end
-      
-
   end
 end
