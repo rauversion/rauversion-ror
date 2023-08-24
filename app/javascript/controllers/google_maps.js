@@ -16,7 +16,7 @@ function getAddressParts(obj) {
 export default class extends Controller {
   static targets = ["field", "map", "latitude", "longitude", "country", "city", "province"]
 
-  connect() {
+  initialize() {
     if (typeof (google) != "undefined"){
       this.initializeMap()
     }

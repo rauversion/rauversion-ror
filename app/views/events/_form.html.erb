@@ -109,16 +109,19 @@
           <div class="sm:col-span-6 space-y-3 flex flex-col justify-between">
             <div class="flex items-center justify-between space-x-2">
               <div class="sm:w-1/2 flex flex-col justify-start space-y-2">
+                <%= f.label :payment_gateway %>
                 <%= f.select( :payment_gateway, [
                     ["none", "none"],
-                    #{key: "stripe", value: "stripe", disabled: has_stripe?(@event.user_id)},
-                    #{key: "transbank", value: "transbank", disabled: has_transbank?(@current_user)} ]
+                    ["stripe", "stripe", {disabled: !@event.has_stripe?} ],
+                    ["transbank", "transbank", {disabled: !@event.has_transbank?} ]
                   ],
                   hint: gettext("para transbank usaremos tu codigo de comercio de los ajustes")
                 ) %>
+
               </div>
               <div class="sm:w-1/2 flex flex-col justify-start space-y-2">
                 
+                <%= f.label :ticket_currency %>
                 <%= f.select( :ticket_currency, [
                       ["CLP", "clp"],
                       ["USD", "usd"],

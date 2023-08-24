@@ -1,9 +1,7 @@
 ---
 title: Events
-layout: post
 menu_position: 2
 ---
-
 
 # Event Model Documentation
 

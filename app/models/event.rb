@@ -123,4 +123,12 @@ class Event < ApplicationRecord
   def tickets_sold
     paid_purchased_items.size
   end
+
+  def has_transbank?
+    self.user.tbk_commerce_code.present?
+  end
+
+  def has_stripe?
+    self.user.oauth_credentials.where(provider: "stripe_connect").present?
+  end
 end

@@ -40,8 +40,12 @@ class EventPurchasesController < ApplicationController
       VirtualPurchasedItem.new({resource: aa, quantity: 1})
     end
 
-    # handle_stripe_session
-    handle_tbk_session
+    case @event.payment_gateway 
+    when "stripe" then handle_stripe_session
+    when "transbank" then handle_tbk_session
+    else
+      raise "No payment gateway available for this event"
+    end
 
     #########
 
@@ -78,46 +82,49 @@ class EventPurchasesController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @purchase.store_items
-      @purchase.save
-
-      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k, v|
-        ticket = EventTicket.find(k)
-        {
-          "quantity" => v,
-          "price_data" => {
-            "unit_amount" => ((ticket.price * v) * 100).to_i,
-            "currency" => ticket.event.ticket_currency,
-            "product_data" => {
-              "name" => ticket.title,
-              "description" => "#{ticket.short_description} \r for event: #{ticket.event.title}"
+      if @purchase.save
+        line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k, v|
+          ticket = EventTicket.find(k)
+          {
+            "quantity" => v,
+            "price_data" => {
+              "unit_amount" => ((ticket.price * v) * 100).to_i,
+              "currency" => ticket.event.ticket_currency,
+              "product_data" => {
+                "name" => ticket.title,
+                "description" => "#{ticket.short_description} \r for event: #{ticket.event.title}"
+              }
             }
           }
-        }
+        end
+
+        puts line_items
+
+        total = line_items.map{|o| o["price_data"]["unit_amount"] }.sum
+
+        @session = Stripe::Checkout::Session.create(
+          payment_method_types: ["card"],
+          line_items: line_items,
+          payment_intent_data: {
+            application_fee_amount: @purchase.calculate_fee(total, @event.ticket_currency)
+            # "transfer_data"=> %{
+            #  "destination"=> c.uid
+            # }
+          },
+          customer_email: current_user.email,
+          mode: "payment",
+          success_url: success_event_event_purchase_url(@event, @purchase), # Replace with your success URL
+          cancel_url: failure_event_event_purchase_url(@event, @purchase)   # Replace with your cancel URL
+        )
+
+        @purchase.update(
+          checkout_type: "stripe",
+          checkout_id: @session["id"]
+        )
+
+        @payment_url = @session["url"]
+
       end
-
-      puts line_items
-
-      @session = Stripe::Checkout::Session.create(
-        payment_method_types: ["card"],
-        line_items: line_items,
-        payment_intent_data: {
-          application_fee_amount: fee_amount
-          # "transfer_data"=> %{
-          #  "destination"=> c.uid
-          # }
-        },
-        customer_email: current_user.email,
-        mode: "payment",
-        success_url: success_event_event_purchase_url(@event, @purchase), # Replace with your success URL
-        cancel_url: failure_event_event_purchase_url(@event, @purchase)   # Replace with your cancel URL
-      )
-
-      @purchase.update(
-        checkout_type: "stripe",
-        checkout_id: @session["id"]
-      )
-
-      @payment_url = @session["url"]
     end
   end
 
@@ -136,36 +143,36 @@ class EventPurchasesController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @purchase.store_items
-      @purchase.save
+      if @purchase.save
+        # cancel_url:  failure_event_event_purchase_url(@event, @purchase)
+        @details = [
+          {
+            "amount" => "1000",
+            "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD1,
+            "buy_order" => "childBuyOrder1_#{rand(1000)}"
+          },
+          {
+            "amount" => "2000",
+            "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD2,
+            "buy_order" => "childBuyOrder2_#{rand(1000)}"
+          }
+        ]
 
-      # cancel_url:  failure_event_event_purchase_url(@event, @purchase)
+        @buy_order = "buyOrder_#{rand(1000)}"
+        @session_id = "sessionId_#{rand(1000)}"
 
-      @details = [
-        {
-          "amount" => "1000",
-          "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD1,
-          "buy_order" => "childBuyOrder1_#{rand(1000)}"
-        },
-        {
-          "amount" => "2000",
-          "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD2,
-          "buy_order" => "childBuyOrder2_#{rand(1000)}"
-        }
-      ]
+        @purchase.update(
+          checkout_type: "tbk",
+          checkout_id: @session_id
+        )
 
-      @buy_order = "buyOrder_#{rand(1000)}"
-      @session_id = "sessionId_#{rand(1000)}"
+        @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.signed_id)
 
-      @purchase.update(
-        checkout_type: "tbk",
-        checkout_id: @session_id
-      )
+        @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
 
-      @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.signed_id)
+        @payment_url = "#{@resp["url"]}?token_ws=#{@resp["token"]}"
 
-      @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
-
-      @payment_url = "#{@resp["url"]}?token_ws=#{@resp["token"]}"
+      end
     end
   end
 end
