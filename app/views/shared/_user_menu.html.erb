@@ -97,6 +97,7 @@
             <%= t("menu.log_in") %>
           <% end %>
         <% end %>
+
       </div>
 
       <div class="flex items-center lg:hidden">
@@ -194,7 +195,6 @@
                   <% end %>
                 <% end %>
 
-
                 <% #= if is_creator?(current_user) do %>
                   <%= link_to "/purchases",
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
@@ -211,14 +211,15 @@
                   class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                   <%= t("menu.settings") %>
                 <% end %>
-
-           
+          
                 <a href="/plain/docs" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
                   Docs
                 </a>
+
                 <a href="#" class="hidden block- px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
                   License
                 </a>
+
                 <%= button_to destroy_user_session_path,
                   method: :delete,
                   class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
@@ -226,7 +227,8 @@
                 <% end %>
 
                 <div class="flex items-center space-x-2">
-                 
+                  <%= link_to "English", url_for(locale: :en), class: "#{I18n.locale == :en ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300' } block- px-4 py-2 text-sm" %>
+                  <%= link_to "Español", url_for(locale: :es), class: "#{I18n.locale == :es ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300'} block- px-4 py-2 text-sm" %>
                 </div>
               </div>
             </div>
@@ -351,6 +353,12 @@
            
           </div>
         <% end %>
+
+
+        <div class="flex items-center space-x-2">
+          <%= link_to "English", url_for(locale: :en), class: "#{I18n.locale == :en ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300' } block- px-4 py-2 text-sm" %>
+          <%= link_to "Español", url_for(locale: :es), class: "#{I18n.locale == :es ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300'} block- px-4 py-2 text-sm" %>
+        </div>
       </div>
     </div>
   </div>

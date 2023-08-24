@@ -20,11 +20,9 @@ class EventTicket < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true
   validates :qty, presence: true
-  validates :selling_start, presence: true
-  validates :selling_end, presence: true
+  # validates :selling_start, presence: true
+  # validates :selling_end, presence: true
   validates :short_description, presence: true
-
-  validates :title, :price, :qty, :selling_start, :selling_end, :short_description, presence: true
   validate :selling_start_before_selling_end
 
 

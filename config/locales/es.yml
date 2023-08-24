@@ -1,0 +1,225 @@
+es:
+  hello: "Hola mundo"
+  by: "Por %{name}"
+  see_everything: Ver Todo
+  edit: Editar
+  delete: Eliminar
+  loading: Cargando...
+  repost: Repostear
+  like: Me gusta
+  likes: Me gusta
+  sure: ¿Estás seguro?
+  more: Más
+
+  menu:
+    music: Música
+    events: Eventos
+    magazine: Revista
+    upload: "Subir"
+    register: "Registrar"
+    log_in: "Iniciar sesión"
+    notifications: "Notificaciones"
+    my_music: Mi música
+    my_articles: Mis artículos
+    my_events: Mis eventos
+    my_purchases: Mis compras
+    my_sales: Mis ventas
+    settings: Configuraciones
+    log_out: Cerrar sesión
+
+  articles:
+    recent_publications: Publicaciones recientes
+    selected_articles: Artículos y reseñas seleccionadas de la comunidad y editorial Rauversion
+    the_latest: Los últimos
+    by: Por
+    read_now: Leer Ahora
+    article_settings: Configuración del artículo
+    my_articles: Mis artículos
+    drafts: Borradores
+    published: Publicados
+    new_article: nuevo_artículo
+    view: Ver Artículo
+
+  attribution:
+    some: Algunos derechos reservados
+    all: Todos los derechos reservados
+
+  tickets:
+    checked_in: Entradas registradas
+    all: Todas tus entradas
+    title: Entradas
+    my: Mis Entradas
+  events:
+    past: Eventos pasados
+    upcoming: Próximos eventos
+    upcoming_sub: Próximos eventos de la comunidad Rauversion
+    speakers: Ponentes
+    people_attending: Personas asistentes
+    venue: recinto
+    location: ubicación
+    copyright: Derechos de autor ©
+    all_rights: Todos los derechos reservados.
+    get_tickets: Consigue tus entradas
+    watch_live: Ver transmisión en vivo
+
+    my_events: Mis Eventos
+    your_events: Tus eventos
+    drafts: Borradores
+    published: Publicados
+    manager: Eventos que gestiono
+    new_event: Nuevo Evento
+
+    edit: Editar Evento
+    create: Crear Evento
+
+    published: Tu evento ha sido publicado
+    unpublished: Tu evento no ha sido publicado
+    unpublish: Despublicar Evento
+    publish: Publicar Evento
+
+  event_hosts:
+    listed: Listado en página
+    manager: Gestor del evento
+    email_hint: "Añade un anfitrión para destacarlo en la página del evento o para obtener ayuda en la gestión del evento."
+
+  delete:
+    confirm: "¿Estás seguro que deseas eliminar esto?"
+
+  tracks:
+    recent: Pistas recientes
+    new_track: Nueva pista
+    private: Privado
+    go_to: Ir a tu pista
+    share: Comparte tu nueva pista
+    link: Enlace
+    buy_digital_music: Comprar música digital
+    or_more: o más
+    supporters: Partidarios
+    edit: Editar esta pista
+
+    private_label: Privado 
+    private_hint: Acceso privado. Oculto para el mundo
+
+    public_label: Público 
+    public_hint: Acceso público para todos
+    pending_state_message: "Espera, esta pista está en estado %{state}"
+
+  home:
+    artists: Artistas que deberías conocer
+
+  profile:
+    stats: Tus estadísticas
+    edit: Editar perfil
+    followings: Siguiendo
+    followers: Seguidores
+    comments: Comentarios
+    likes: Me gusta
+    tracks: Pistas
+    go_to: Ir al perfil
+
+    albums: Álbumes
+    playlists: Listas de reproducción
+    reposts: Reposts
+    tracks: Pistas
+
+  playlists:
+    add_to_playlists: Añadir a lista
+    create: Crear una lista
+    remove_from_playlist: Quitar de la lista
+
+  users:
+    sign_in: Iniciar sesión en tu cuenta
+    register: Registrar
+    or: O continuar con
+    follow: Seguir
+    unfollow: Dejar de seguir
+    following: Siguiendo
+
+  user_settings:
+    title_account: Cuenta
+    sub_account: Información básica de la cuenta.
+    title_email: Cambiar Email
+    sub_email: Cambiar información del Email.
+    title_security: Seguridad
+    sub_credentials: Cambiar tus credenciales
+    title_notifications: Notificaciones
+    sub_notifications: Cambiar tus preferencias de notificación.
+    title_integrations: Integraciones
+    sub_integrations: Gestionar tus integraciones externas.
+    title_transbank: Configuraciones Transbank
+    sub_transbank: Gestionar tu comercio transbank (solo Chile).
+    title_invitations: Invitaciones
+    sub_invitations: Invitar otros artistas a tu cuenta.
+
+  purchases:
+    title: Compras
+    my_music: Mi música
+    my_tickets: Mis entradas
+    purchased_albums: Álbumes comprados
+    purchased_tracks: Pistas individuales compradas
+
+  sales:
+    title: Mis ventas de música
+    my_music: Mis ventas de música
+    my_tickets: Mis entradas
+    albums: Álbumes
+    tracks: Pistas individuales
+
+  payments:
+    include_message: "incluye un mensaje para %{name}"
+    optional_message: mensaje opcional
+    purchase_includes: "Incluye transmisión ilimitada a través de la app %{app_name}, más descarga de alta calidad en MP3, FLAC"
+    name_your_price: Nombra tu precio %{num} o más
+    buy_digital_album: "Comprar álbum digital"
+    buy_digital_track: "Comprar pista digital"
+
+  sessions:
+    forgot_pass: "¿Olvidaste tu contraseña?"
+    sign_in: Iniciar sesión
+
+  errors:
+    404:
+      title: Página no encontrada
+      desc: Por favor, revisa la URL y prueba de nuevo
+      action: Volver al inicio
+      cta: Contactar soporte
+    500:
+      title: Algo salió mal
+      desc: Por favor, revisa la URL y prueba de nuevo
+      action: Volver al inicio
+      cta: Contactar soporte
+    422:
+      title: Acceso denegado
+      desc: Por favor, revisa la URL y prueba de nuevo
+      action: Volver al inicio
+      cta: Contactar soporte
+
+  sharer:
+    share: "Compartir"
+    embed: "Insertar"
+    message: "Mensaje"
+    private_share: "Compartir privado"
+    private_share_instructions: "Instrucciones para compartir privado."
+    reset_link_warning: "Advertencia de reinicio de enlace."
+    link_reset_error: "Error al reiniciar el enlace."
+    reset_secret_link: "Reiniciar enlace secreto"
+    reset: "Reiniciar"
+    cancel: "Cancelar"
+    secret_link_reset_success: "Enlace secreto reiniciado exitosamente."
+    copy: "Copiar"
+    message_placeholder: "Escribe tu mensaje aquí..."
+    at: "En"
+
+  upload:
+    upload_label: Subir %{name}
+    or_drag_and_drop: O arrastra y suelta
+
+  invitations:
+    left: Te quedan %{count} invitaciones
+  time:
+    formats:
+      day: '%b %d'
+      day_with_year: '%b %d %Y'
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"

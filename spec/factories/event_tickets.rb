@@ -5,8 +5,8 @@ FactoryBot.define do
     early_bird_price { "9.99" }
     standard_price { "9.99" }
     qty { 1 }
-    selling_start { "2023-07-26 18:20:42" }
-    selling_end { "2023-07-26 18:20:42" }
+    # selling_start { "2023-07-26 18:20:42" }
+    # selling_end { "2023-07-26 18:20:42" }
     short_description { "MyString" }
     # settings { "" }
     event { nil }

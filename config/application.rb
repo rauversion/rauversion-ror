@@ -17,6 +17,8 @@ module RauversionRor
     config.hosts << "chaskiq.sa.ngrok.io"
     config.hosts << ENV['HOST']
 
+    config.hosts << "www.example.com" if Rails.env.test?
+
     config.active_storage.track_variants = true
 
     # Configuration for the application, engines, and railties goes here.

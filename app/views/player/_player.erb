@@ -6,9 +6,11 @@
     <div
       id="player-component" 
       data-controller="player" 
+      <% if local_assigns[:track] %>
       data-player-id-value="<%= track.id %>" 
       data-player-peaks-value="<%= track.peaks %>"
       data-player-url-value="<%= track.mp3_audio.url %>" 
+      <% end %>
       class="flex">
 
       <%= render "player/controls" %>
@@ -19,14 +21,14 @@
         class="mx-3 flex-grow items-center">
       </div>
 
-      <div id="track-info-wrapper">
-        <%= render "player/track_info", track: track %>
-      </div>
+      <% if local_assigns[:track] %>
+        <div id="track-info-wrapper">
+          <%= render "player/track_info", track: track %>
+        </div>
+      <% end %>
 
       <%= render "player/sidebar" %>
    
-
-
     </div>
 
 

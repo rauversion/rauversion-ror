@@ -104,7 +104,7 @@
       <%= render "reposts/repost_button", track: track, button_class: track.respond_to?(:repost_id) && track&.repost_id.present? ? "button-active" :  "button" %>
 
       <div data-turbo="true" class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
-        <%= link_to "Añadir a playlist", 
+        <%= link_to t("playlists.add_to_playlist"), 
           new_playlist_path(track_id: track.id, tab: "add-to-playlist"), 
           "data-turbo-frame": "modal",
           class: "button" 
@@ -115,7 +115,7 @@
         <div>
           <button type="button" data-action="dropdown#toggle click@window->dropdown#hide" class="button" aria-expanded="true" aria-haspopup="true">
             <span class="flex space-x-1">
-              <span class="block">Más</span>
+              <span class="block"><%= t("more") %></span>
             </span>
             <!-- Heroicon name: mini/chevron-down -->
             <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

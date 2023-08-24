@@ -5,6 +5,19 @@ class ApplicationController < ActionController::Base
     #ActiveStorage::Current.url_options = { protocol: "http://", host: "localhost", port: "3000" }
   end
 
+  before_action :set_locale
+
+  def set_locale
+    if params[:locale].present?
+      cookies[:locale] = params[:locale]
+      I18n.locale = params[:locale]
+    elsif cookies[:locale].present?
+      I18n.locale = cookies[:locale]
+    else
+      I18n.locale = I18n.default_locale
+    end
+  end
+
   def become
     if current_user.is_admin?
       user = User.find_by(username: params[:id])

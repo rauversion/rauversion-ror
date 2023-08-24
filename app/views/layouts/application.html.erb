@@ -29,7 +29,7 @@
     <%= yield %>
 
     <div id="cart-counter" data-turbo-permanent>
-      <%= turbo_frame_tag "player-frame", src: player_path(id: Track.first.id) %>
+      <%= turbo_frame_tag "player-frame", src: player_path(id: Track.published&.last&.id) %>
       <% #= render "player/player", track: Track.first %>
     </div>
 
