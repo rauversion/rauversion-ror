@@ -91,8 +91,9 @@ gem "ruby-openai", "~> 4.2"
 gem "qdrant-ruby", "~> 0.9.2"
 # gem "pgvector", "~> 0.2"
 
-gem "plain", github: "chaskiq/plain", branch: "main" #path: "/Users/michelson/Documents/rubyonrails/plain"
-# gem "plain", path: "/Users/michelson/Documents/rubyonrails/plain"
+# gem "plain-rails", path: "/Users/michelson/Documents/rubyonrails/plain"
+gem "plain-rails", github: "chaskiq/plain", branch: "documents" #path: "/Users/michelson/Documents/rubyonrails/plain"
+# gem "plain-rails", "0.1.2" #, path: "/Users/michelson/Documents/rubyonrails/plain"
 
 # sentry
 
@@ -102,6 +103,7 @@ gem "sentry-sidekiq"
 
 
 group :development, :test do
+  gem "pry"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end

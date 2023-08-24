@@ -2,16 +2,6 @@
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         
       
-        <%= form.label :cover %>
-        <div class="mt-1 sm:mt-0 sm:col-span-6">
-          <%= render "shared/upload_field", 
-            form: form, 
-            attribute: :cover,
-            image_url: form.object.cover_url(:small)
-          %>
-        </div>
-    
-
         <div class="sm:col-span-6">
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
            
@@ -20,14 +10,27 @@
             </div>
 
             <div class="sm:col-span-6">
+              <%= form.label :cover %>
+              <div class="mt-1 sm:mt-0 sm:col-span-6">
+                <%= render "shared/upload_field", 
+                  form: form, 
+                  attribute: :cover,
+                  image_url: form.object.cover_url(:small)
+                %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-6">
               <%= form.text_area :description %>
             </div>
 
             <div class="sm:col-span-4">
+              <%= form.label :playlist_type %>
               <%= form.select :playlist_type, Category::Genres.plain, label: "Playlist type" %>
             </div>
 
-            <div class="sm:col-span-1">
+            <div class="sm:col-span-2">
+              <%= form.label :release_date %>
               <%= form.datetime_field :release_date %>
             </div>
 

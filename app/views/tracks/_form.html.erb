@@ -1,4 +1,8 @@
-<%= form_for @track, html: {class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800" } do |form| %>
+<%= form_for @track, 
+  html: {
+    "data-controller": "input-submitter",
+    class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800" 
+  } do |form| %>
   <div>
     <div class="sm:hidden">
       <label for="tabs" class="sr-only">Select a tab</label>
@@ -61,7 +65,7 @@
                       <div phx-update="ignore" id="ignore-tags-">
                         <div data-controller="select" id="oe">
                             <%= form.select :tags, 
-                              Category::Genres.plain , 
+                              Category::Genres.plain.map(&:downcase), 
                               {} ,
                               {:multiple => true, class: "hidden text-gray-800" } %>
                           <div class="select-wrapper">
@@ -110,6 +114,7 @@
       <% end %>
 
       <% if @tab == "metadata-tab" %>
+
         <div id="metadata" class="tab-pane">
           <div class="pt-8">
             <div>
@@ -197,17 +202,9 @@
                 </div>
               </div>
             </div>
-            <div class="my-4 py-4 border-t flex space-x-4 items-center">
-              <div class="space-x-2 flex items-center">
-                <input id="edit-track-form-178_metadata_copyright_all_rights" name="track[metadata][copyright]" type="radio" value="all-rights">
-                <label for="edit-track-form-178_metadata_Todos los derechos reservados">Todos los derechos reservados</label>
-              </div>
-              <div class="space-x-2 flex items-center">
-                <input id="edit-track-form-178_metadata_copyright_common" name="track[metadata][copyright]" type="radio" value="common">
-                <label for="edit-track-form-178_metadata_Creative commons">Creative commons</label>
-                <div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center"></div>
-              </div>
-            </div>
+
+            <%= render "shared/attribution_fields", form: form %>
+
           </div>
         </div>
       <% end %>
@@ -236,13 +233,13 @@
           </div>
           <input id="edit-track-form-178_metadata_id" name="track[metadata][id]" type="hidden" value="0ac23c39-f1be-4b95-a32d-2877a0a600fb">
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-4">
+            <div class="sm:col-span-2">
               <div class="mt-1">
                 <%= form.text_field :price, label: :price %>
               </div>
               <p class="mt-2 text-sm text-gray-500 dark:text-gray-300"> $0 o más. Aplicamos una comisión de %3 cuando el precio sea superior a $0. La cuota se limitará al monto total del pago </p>
             </div>
-            <div class="sm:col-span-4">
+            <div class="sm:col-span-4 flex items-center">
               <div class="flex items-center space-x-2 py-2">
                 <div class="flex space-x-1 items-center">
                   <%= form.check_box :name_your_price, label: "Let fans pay more if they want" %>

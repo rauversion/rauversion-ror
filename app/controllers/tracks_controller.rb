@@ -47,10 +47,15 @@ class TracksController < ApplicationController
   def update
     @track = current_user.tracks.friendly.find(params[:id])
     @tab = params[:track][:tab] || "basic-info-tab"
-    @track.update(track_params)
-    puts @track.errors.as_json
+    if params[:nonpersist]
+      @track.assign_attributes(track_params)
+      @track.valid?
+    else
+      flash.now[:notice] = "Track was successfully updated."
+      @track.update(track_params)
+    end
+    # puts @track.errors.as_json
     @track.tab = @tab
-    flash.now[:notice] = "Track was successfully updated."
   end
 
   def private_access
@@ -107,6 +112,7 @@ class TracksController < ApplicationController
       :display_comments, :display_stats, :include_in_rss, 
       :offline_listening, :enable_app_playblack,
       :cover,
+      :copyright, :attribution, :noncommercial, :copies,
       tags: []
     )
   end

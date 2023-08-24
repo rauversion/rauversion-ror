@@ -202,7 +202,6 @@ class Track < ApplicationRecord
 
       temp_file.rewind
     end
-
     # Use the path of the temp file in the Mp3Converter
     mp3_path = Mp3Converter.new(temp_file.path).run
     mp3_file = File.open(mp3_path)
@@ -300,5 +299,6 @@ class Track < ApplicationRecord
     tag = tag.downcase
     includes(:user).where('? = ANY (tags)', tag)
   end
+
   
 end

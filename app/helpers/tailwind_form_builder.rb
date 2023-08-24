@@ -31,7 +31,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   def text_field(attribute, options = {})
     @template.content_tag :div, class: "w-full sm:w-full" do
       [
-        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2"),
+        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil),
         super(attribute, options.reverse_merge(class: "input")),
         field_details(attribute, object, options)
       ].join.html_safe
@@ -41,7 +41,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   def email_field(attribute, options = {})
     @template.content_tag :div, class: "w-full sm:w-full" do
       [
-        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2"),
+        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil),
         super(attribute, options.reverse_merge(class: "input")),
         field_details(attribute, object, options)
       ].join.html_safe
@@ -51,7 +51,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   def password_field(attribute, options = {})
     @template.content_tag :div, class: "w-full sm:w-full" do
       [
-        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2"),
+        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil),
         super(attribute, options.reverse_merge(class: "input")),
         field_details(attribute, object, options)
       ].join.html_safe
@@ -61,7 +61,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   def number_field(attribute, options = {})
     @template.tag.div(class: "w-full sm:w-full py-2") do
       [
-        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2"),
+        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil),
         super(attribute, options.reverse_merge(class: "input")),
         field_details(attribute, object, options)
       ].join.html_safe
@@ -70,7 +70,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
 
   def link_field(attribute, options = {})
     @template.tag.div(class: "w-full sm:w-full py-2") do
-      @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2") +
+      @template.label_tag(tr(options[:label] || attribute), nil) +
         @template.tag.div(class: "flex") do
           @template.tag.span(class: "inline-flex items-center px-3 text-sm text-gray-900 dark:bg-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600") do
             options[:link]
@@ -82,7 +82,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
 
   def right_indicator_field(attribute, options = {})
     @template.tag.div(class: "w-full sm:w-full py-2") do
-      @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2") +
+      @template.label_tag(tr(options[:label] || attribute), nil) +
         @template.tag.div(class: "flex") do
           @template.tag.input(name: "#{object.class.table_name.singularize}[#{attribute}]", value: object.send(attribute), class: "rounded-none rounded-l-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500") +
             @template.tag.span(class: "inline-flex items-center px-3 text-sm text-gray-900 dark:bg-gray-900 bg-gray-200 border border-l-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600") do
@@ -94,7 +94,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
 
   def text_area(attribute, options = {})
     @template.tag.div(class: "w-full sm:w-full py-2") do
-      @template.label_tag(tr(options[:label] || attribute), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2") +
+      @template.label_tag(tr(options[:label] || attribute), nil) +
         super(attribute, options.reverse_merge(class: "block w-full rounded-md border-0 py-1.5 dark:bg-gray-900 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6")) +
         field_details(attribute, object, options)
     end
@@ -103,7 +103,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   #def select_field(object_name, method_name, template_object, options = {})
   #  puts options
   #  @template.tag.div(class: "w-full sm:w-full py-2", "data-controller": "select") do
-  #    @template.label_tag(tr(options[:label] || object_name), nil, class: "block text-gray-700 dark:text-white text-sm font-bold mb-2") +
+  #    @template.label_tag(tr(options[:label] || object_name), nil) +
   #      super(object_name, method_name, template_object, options.reverse_merge(class: "select")) +
   #      @template.tag.div(data: {"select-target": "holder"}) { "" } +
   #      field_details(object_name, object, options)
