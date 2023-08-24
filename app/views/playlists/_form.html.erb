@@ -11,11 +11,12 @@
           <%= form.text_field :title, label: gettext("Playlist title") %>
         </div>
       </div>
+    
+      <div class="flex items-center">
+        <%= form.label "Privacy" %>
+      </div>
 
       <div class="flex items-start space-x-2 sm:col-span-6">
-        <div class="flex items-center">
-          <%= form.label "Privacy" %>
-        </div>
 
         <div class="flex space-x-2 items-center">
           <%= form.radio_button :private, false, label: "Acceso público", hint: "Todo el mundo con el enlace verá este artículo." %> 

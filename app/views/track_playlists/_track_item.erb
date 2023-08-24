@@ -7,9 +7,9 @@
       <%= link_to track_playlist_path(playlist, track_id: track.id),
           "data-method": "delete",
           "data-turbo-method": "delete",
-          "data-confirm": "Are you sure?",
+          "data-confirm": t("sure"),
           class: "button" do %>
-        delete
+        <%= t("playlist.remove_from_playlist") %>
       <% end %>
     </div>
 
@@ -18,7 +18,7 @@
     <%= form_for playlist.track_playlists.new(track: track) do |f|%>
       <%= f.hidden_field :track_id %>
       <%= f.hidden_field :playlist_id %>
-      <%= f.submit %>
+      <%= f.submit(t("playlists.add_to_playlists")) %>
     <% end %>
   <% end %>
 </div>

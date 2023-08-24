@@ -5,14 +5,14 @@
 
 
       <nav class="flex space-x-4 mb-10" aria-label="Tabs" data-controller="tabs">
-        <%= link_to "Add to playlist", new_playlist_path(track_id: @track.id, tab: "add-to-playlist"), class: "bg-brand-100 text-brand-700 px-3 py-2 font-medium text-sm rounded-md" %>
-        <%= link_to "Create a playlist", new_playlist_path(track_id: @track.id), class: "text-brand-500 hover:text-brand-700 px-3 py-2 font-medium text-sm rounded-md" %>
+        <%= link_to t("playlist.add_to_playlist"), new_playlist_path(track_id: @track.id, tab: "add-to-playlist"), class: @tab == "add-to-playlist" ? "tab-active" : "tab-default" %>
+        <%= link_to t("playlist.create"), new_playlist_path(track_id: @track.id), class: @tab != "add-to-playlist" ? "tab-active" : "tab-default" %>
       </nav>
 
       <% if @tab == "add-to-playlist" %>
         <section id="add-to-tab" class="tab-pane py-4 block">
           <h2 class="mx-0 mt-0 mb-4 font-sans text-base font-bold leading-none">
-            Añadir a la lista
+            <%= t("playlists.add_to_playlist" )%>
           </h2>
 
           <div class="sm:col-span-6">
