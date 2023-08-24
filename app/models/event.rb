@@ -8,7 +8,9 @@ class Event < ApplicationRecord
   has_many :event_tickets
   has_many :purchases, as: :purchasable
   has_many :purchased_items, through: :purchases
-  has_many :paid_purchased_items, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
+  has_many :paid_purchased_items, -> {
+    where(state: "paid")
+  }, through: :purchases, class_name: "PurchasedItem", source: :purchased_items
   has_many :purchased_event_tickets, -> {
     where(purchased_items: {purchased_item_type: "EventTicket"})
   }, through: :purchased_items, source: :purchased_item, source_type: "EventTicket"
@@ -121,7 +123,7 @@ class Event < ApplicationRecord
   end
 
   def tickets_sold
-    paid_purchased_items.where(state: "paid").size
+    paid_purchased_items.size
   end
 
   def has_transbank?
