@@ -16,7 +16,7 @@ class Dante::Renderer
     when "heading"
       level = begin
         node[:attrs][:level]
-      rescue StandardError
+      rescue
         2
       end
       tag = "h#{level}"

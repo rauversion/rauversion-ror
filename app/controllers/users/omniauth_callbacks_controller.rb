@@ -17,9 +17,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   # GET|POST /users/auth/twitter/callback
-   def failure
-  #   super
-   end
+  def failure
+    #   super
+  end
 
   # protected
 
@@ -28,68 +28,67 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super(scope)
   # end
 
-  prepend_before_action :require_no_authentication, :only => [ :new, :create ]
-  skip_before_action :verify_authenticity_token #, only: [:create]
+  prepend_before_action :require_no_authentication, only: [:new, :create]
+  skip_before_action :verify_authenticity_token # , only: [:create]
 
   def passthru
     callback_handler
-    #render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    # render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
     # Or alternatively,
     # raise ActionController::RoutingError.new('Not Found')
   end
 
   def twitter
     logger.info("Callback Linked")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback
   end
-  
+
   def instagram
     logger.info("Callback Instagr")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback
   end
-  
+
   def soundcloud
     logger.info("Callback SoundCloud")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback
   end
-  
+
   def zoom
     logger.info("Callback Zoom")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback_handler
   end
-  
+
   def stripe_connect
     logger.info("Callback stripe")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback_handler
   end
 
   def discord
     logger.info("Callback stripe")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback_handler
   end
 
   def twitch
     logger.info("Callback twitch")
-    #logger.info(session.to_json)
+    # logger.info(session.to_json)
     callback_handler
   end
-  
-  
+
   private
 
   def callback_handler
-    auth = request.env['omniauth.auth']
-    #logger.info(request.env['omniauth.auth'].to_json)
-    provider = auth['provider']
-    #logger.info("#{provider}, #{auth['uid']}, #{current_user.to_json}")
+    auth = request.env["omniauth.auth"]
+    # logger.info(request.env['omniauth.auth'].to_json)
+    provider = auth["provider"]
+    # logger.info("#{provider}, #{auth['uid']}, #{current_user.to_json}")
     user = User.find_by_identity_for(provider, auth, current_user)
-    
+
     if user.present?
       flash.now[:notice] = "We are synchronizing your #{provider} data, it may take a while"
       redirect_to user_setting_path(user.username, :integrations) if user_signed_in?
@@ -99,7 +98,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
 
     else
-      session['devise.omniauth_data'] = auth.except('extra')
+      session["devise.omniauth_data"] = auth.except("extra")
       redirect_to(new_user_registration_url)
     end
   end

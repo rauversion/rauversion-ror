@@ -1,13 +1,12 @@
 class EventPurchasesController < ApplicationController
-
   before_action :authenticate_user!
-  
+
   def new
     @event = Event.friendly.find(params[:event_id])
-    
+
     # When a customer purchases a ticket for an event:
     customer = current_user
-    #ticket = EventTicket.find_by(id: ticket_id)
+    # ticket = EventTicket.find_by(id: ticket_id)
 
     @tickets = @event.available_tickets(Time.zone.now)
 
@@ -15,12 +14,12 @@ class EventPurchasesController < ApplicationController
     @purchase.virtual_purchased = @tickets.map do |aa|
       VirtualPurchasedItem.new({resource: aa, quantity: 1})
     end
-    #if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
+    # if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
     #  purchase = Purchase.create(customer: customer, purchased_item: ticket)
-      # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
-    #else
-      # Handle the case where the ticket is not valid for purchase.
-    #end
+    # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
+    # else
+    # Handle the case where the ticket is not valid for purchase.
+    # end
   end
 
   def show
@@ -30,9 +29,8 @@ class EventPurchasesController < ApplicationController
   end
 
   def create
-
     @event = Event.public_events.friendly.find(params[:event_id])
-    
+
     # When a customer purchases a ticket for an event:
     customer = current_user
 
@@ -47,12 +45,12 @@ class EventPurchasesController < ApplicationController
 
     #########
 
-    #if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
+    # if Purchase.is_ticket_valid?(ticket, current_user, desired_quantity)
     #  purchase = Purchase.create(customer: customer, purchased_item: ticket)
-      # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
-    #else
-      # Handle the case where the ticket is not valid for purchase.
-    #end
+    # Add any additional logic related to the purchase (e.g., updating ticket quantity, calculating total_amount, etc.).
+    # else
+    # Handle the case where the ticket is not valid for purchase.
+    # end
   end
 
   def success
@@ -73,7 +71,6 @@ class EventPurchasesController < ApplicationController
     render "show"
   end
 
-
   def handle_stripe_session
     # @purchase.errors.add(:base, "hahahaha")
     account = @event.user.oauth_credentials.find_by(provider: "stripe_connect")
@@ -83,7 +80,7 @@ class EventPurchasesController < ApplicationController
       @purchase.store_items
       @purchase.save
 
-      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k,v|
+      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k, v|
         ticket = EventTicket.find(k)
         {
           "quantity" => v,
@@ -96,12 +93,12 @@ class EventPurchasesController < ApplicationController
             }
           }
         }
-      end 
+      end
 
       puts line_items
 
       @session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
+        payment_method_types: ["card"],
         line_items: line_items,
         payment_intent_data: {
           application_fee_amount: fee_amount
@@ -112,7 +109,7 @@ class EventPurchasesController < ApplicationController
         customer_email: current_user.email,
         mode: "payment",
         success_url: success_event_event_purchase_url(@event, @purchase), # Replace with your success URL
-        cancel_url:  failure_event_event_purchase_url(@event, @purchase)   # Replace with your cancel URL
+        cancel_url: failure_event_event_purchase_url(@event, @purchase)   # Replace with your cancel URL
       )
 
       @purchase.update(
@@ -126,33 +123,33 @@ class EventPurchasesController < ApplicationController
 
   def handle_tbk_session
     ### TRANSBANK ###
-    commerce_code = ENV['TBK_MALL_ID']
-    api_key = ENV['TBK_API_KEY']
+    commerce_code = ENV["TBK_MALL_ID"]
+    api_key = ENV["TBK_API_KEY"]
 
     @tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(
       commerce_code,
       api_key,
-      :integration)
+      :integration
+    )
 
     @ctrl = "webpay_plus_mall"
-    
-    ActiveRecord::Base.transaction do
 
+    ActiveRecord::Base.transaction do
       @purchase.store_items
       @purchase.save
 
-      # cancel_url:  failure_event_event_purchase_url(@event, @purchase) 
-      
-      @details =[
+      # cancel_url:  failure_event_event_purchase_url(@event, @purchase)
+
+      @details = [
         {
-          "amount"=>"1000",
-          "commerce_code"=>::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD1,
-          "buy_order"=>"childBuyOrder1_#{rand(1000)}"
+          "amount" => "1000",
+          "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD1,
+          "buy_order" => "childBuyOrder1_#{rand(1000)}"
         },
         {
-          "amount"=>"2000",
-          "commerce_code"=>::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD2,
-          "buy_order"=>"childBuyOrder2_#{rand(1000)}"
+          "amount" => "2000",
+          "commerce_code" => ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_CHILD2,
+          "buy_order" => "childBuyOrder2_#{rand(1000)}"
         }
       ]
 
@@ -165,11 +162,10 @@ class EventPurchasesController < ApplicationController
       )
 
       @return_url = success_event_event_purchase_url(@event, @purchase, provider: "tbk", enc: @purchase.signed_id)
-      
+
       @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
 
       @payment_url = "#{@resp["url"]}?token_ws=#{@resp["token"]}"
     end
-    
   end
 end

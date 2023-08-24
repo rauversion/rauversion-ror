@@ -1,5 +1,4 @@
 class EventRecordingsController < ApplicationController
-
   before_action :authenticate_user!
 
   def new

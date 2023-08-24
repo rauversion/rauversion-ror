@@ -11,11 +11,10 @@ module RauversionRor
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.exceptions_app = self.routes
-
+    config.exceptions_app = routes
 
     config.hosts << "chaskiq.sa.ngrok.io"
-    config.hosts << ENV['HOST']
+    config.hosts << ENV["HOST"]
 
     config.hosts << "www.example.com" if Rails.env.test?
 

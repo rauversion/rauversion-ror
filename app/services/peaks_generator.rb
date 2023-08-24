@@ -6,7 +6,7 @@ class PeaksGenerator
   end
 
   def run
-    case ENV['PEAKS_PROCESSOR']
+    case ENV["PEAKS_PROCESSOR"]
     when "audiowaveform"
       run_audiowaveform
     else
@@ -22,12 +22,12 @@ class PeaksGenerator
 
     puts "pixels_per_second: #{pixels_per_second}"
 
-    output = %x(#{audiowaveform_path} -i #{@file} --input-format mp3 --pixels-per-second #{pixels_per_second} -b 8 --output-format json -)
+    output = `#{audiowaveform_path} -i #{@file} --input-format mp3 --pixels-per-second #{pixels_per_second} -b 8 --output-format json -`
 
     puts output
 
     result = JSON.parse(output)
-    data = result['data']
+    data = result["data"]
 
     normalize(data)
   rescue JSON::ParserError => e
@@ -42,14 +42,18 @@ class PeaksGenerator
     cmd = "#{ffprobe_path} -v error -f lavfi -i amovie=#{@file},asetnsamples=n=#{pixels_per_frame}:p=0,astats=metadata=1:reset=1 -show_entries frame_tags=lavfi.astats.Overall.Peak_level -of json"
 
     puts cmd
-    output = %x(#{cmd})
+    output = `#{cmd}`
 
     result = JSON.parse(output)
     frames = result["frames"]
 
     frames.map do |x|
       peak_level = x.dig("tags", "lavfi.astats.Overall.Peak_level")
-      Float(peak_level) rescue nil
+      begin
+        Float(peak_level)
+      rescue
+        nil
+      end
     end.compact.then(&method(:normalize))
   rescue JSON::ParserError => e
     puts "Error parsing JSON: #{e.message}"

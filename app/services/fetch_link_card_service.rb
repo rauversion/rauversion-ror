@@ -20,7 +20,7 @@ class FetchLinkCardService < BaseService
     # TODO: add a TTL here
     return card if card.persisted?
 
-    res = http_client.head(url, ssl: { verify_mode: OpenSSL::SSL::VERIFY_NONE })
+    res = http_client.head(url, ssl: {verify_mode: OpenSSL::SSL::VERIFY_NONE})
 
     return if res.code != 200 || res.mime_type != "text/html"
 
@@ -32,11 +32,11 @@ class FetchLinkCardService < BaseService
   end
 
   def http_client(options = {})
-    timeout = { write: 10, connect: 10, read: 10 }.merge(options)
+    timeout = {write: 10, connect: 10, read: 10}.merge(options)
 
     HTTP.headers(user_agent: user_agent)
-        .timeout(timeout)
-        .follow
+      .timeout(timeout)
+      .follow
   end
 
   private
@@ -49,9 +49,9 @@ class FetchLinkCardService < BaseService
     if status.local?
       urls = status.text.match(URL_PATTERN).to_a.map { |uri| Addressable::URI.parse(uri).normalize }
     else
-      html  = Nokogiri::HTML(status.text)
+      html = Nokogiri::HTML(status.text)
       links = html.css("a")
-      urls  = links.map do |a|
+      urls = links.map do |a|
         Addressable::URI.parse(a["href"]).normalize unless skip_link?(a)
       end.compact
     end
@@ -65,27 +65,27 @@ class FetchLinkCardService < BaseService
 
   def attempt_oembed(card, url)
     response = OEmbed::Providers.get(url)
-    card.type          = response.type
-    card.title         = response.respond_to?(:title)         ? response.title         : ""
-    card.author_name   = response.respond_to?(:author_name)   ? response.author_name   : ""
-    card.author_url    = response.respond_to?(:author_url)    ? response.author_url    : ""
-    #card.provider_name = response.respond_to?(:provider_name) ? response.provider_name : ""
-    #card.provider_url  = response.respond_to?(:provider_url)  ? response.provider_url  : ""
-    #card.width         = 0
-    #card.height        = 0
+    card.type = response.type
+    card.title = response.respond_to?(:title) ? response.title : ""
+    card.author_name = response.respond_to?(:author_name) ? response.author_name : ""
+    card.author_url = response.respond_to?(:author_url) ? response.author_url : ""
+    # card.provider_name = response.respond_to?(:provider_name) ? response.provider_name : ""
+    # card.provider_url  = response.respond_to?(:provider_url)  ? response.provider_url  : ""
+    # card.width         = 0
+    # card.height        = 0
 
     if response.respond_to?(:thumbnail_url)
       image = begin
         download_image(URI.parse(response.thumbnail_url))
-      rescue StandardError
+      rescue
         nil
       end
       card.image.attach(image) if image.present?
     end
     # card.url    = response.url
-    #card.width  = response.width.presence  || 0
-    #card.height = response.height.presence || 0
-    card.html   = response.try(:html)
+    # card.width  = response.width.presence  || 0
+    # card.height = response.height.presence || 0
+    card.html = response.try(:html)
     # case card.type
     card.save
     card
@@ -100,14 +100,14 @@ class FetchLinkCardService < BaseService
 
     page = Nokogiri::HTML(response.to_s)
 
-    card.type             = :link
-    card.title            = meta_property(page, "og:title") || page.at_xpath("//title").content
-    card.description      = meta_property(page, "og:description") || meta_property(page, "description")
+    card.type = :link
+    card.title = meta_property(page, "og:title") || page.at_xpath("//title").content
+    card.description = meta_property(page, "og:description") || meta_property(page, "description")
 
     if meta_property(page, "og:image")
       image = begin
         download_image(meta_property(page, "og:image"))
-      rescue StandardError
+      rescue
         nil
       end
       card.image.attach(image) if image.present?

@@ -1,5 +1,5 @@
-require_relative "../lib/constraints/username_route_contrainer.rb"
-require 'sidekiq/web'
+require_relative "../lib/constraints/username_route_contrainer"
+require "sidekiq/web"
 
 Rails.application.routes.draw do
   # devise_for :users
@@ -27,14 +27,12 @@ Rails.application.routes.draw do
   get "/500" => "errors#fatal"
   post "webhooks/:provider", to: "webhooks#create", as: :webhooks
 
-
   resource :player, controller: "player"
 
-  scope path: '/api' do
-    scope path: '/v1' do
-      resources :direct_uploads, only: [:create], controller: 'api/v1/direct_uploads'
-      resources :audio_direct_uploads, only: [:create], controller: 'api/v1/audio_direct_uploads'
-
+  scope path: "/api" do
+    scope path: "/v1" do
+      resources :direct_uploads, only: [:create], controller: "api/v1/direct_uploads"
+      resources :audio_direct_uploads, only: [:create], controller: "api/v1/audio_direct_uploads"
     end
   end
 
@@ -53,8 +51,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
-    :registrations => "users/registrations",
-    :sessions => 'users/sessions',
+    registrations: "users/registrations",
+    sessions: "users/sessions"
     # :invitations => 'users/invitations'
   }
 
@@ -64,12 +62,11 @@ Rails.application.routes.draw do
 
   get "/events/:id/livestream", to: "event_streaming_services#show", as: :event_livestream
 
-  resources :events do 
+  resources :events do
     collection do
       get :mine
     end
     member do
-
     end
 
     resources :event_hosts
@@ -94,7 +91,7 @@ Rails.application.routes.draw do
     resource :embed, only: :show
     resource :sharer, controller: "sharer"
     member do
-      get :private , to: "tracks#private_access"
+      get :private, to: "tracks#private_access"
     end
     resources :track_purchases do
       member do
@@ -115,9 +112,9 @@ Rails.application.routes.draw do
   resources :track_playlists
 
   authenticate :user, lambda { |u| u.is_admin? } do
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => "/sidekiq"
   end
-  
+
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
     resources :users, path: "" do

@@ -5,7 +5,7 @@ class StreamingProviders::Restream
   attr_accessor :player_url, :app_id, :name
 
   validates :player_url, presence: true
-  validates :app_id, length: { minimum: 4 }
+  validates :app_id, length: {minimum: 4}
 
   def name
     "restream"

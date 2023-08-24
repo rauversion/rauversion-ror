@@ -1,11 +1,8 @@
-
-
 class StreamingProviders::Service
-
-  SECRET = 'abcd'.freeze
+  SECRET = "abcd".freeze
 
   def self.webhook_url(id, service)
-    message = { event_id: id, type: service }
+    message = {event_id: id, type: service}
     key = ActiveSupport::MessageVerifier.new(SECRET).generate(message)
     Rails.application.routes.url_helpers.event_webhook_url(id: key)
   end
@@ -27,23 +24,20 @@ class StreamingProviders::Service
 
   def self.find_module_by_type(type)
     case type
-    when 'jitsi'
+    when "jitsi"
       StreamingProviders::Jitsi
-    when 'whereby'
+    when "whereby"
       StreamingProviders::Whereby
-    when 'mux'
+    when "mux"
       StreamingProviders::Mux
-    when 'zoom'
+    when "zoom"
       StreamingProviders::Zoom
-    when 'restream'
+    when "restream"
       StreamingProviders::Restream
-    when 'twitch'
+    when "twitch"
       StreamingProviders::Twitch
-    when 'stream_yard'
+    when "stream_yard"
       StreamingProviders::StreamYard
-    else
-      nil
     end
   end
 end
-

@@ -16,7 +16,7 @@ class Playlist < ApplicationRecord
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
 
   scope :latests, -> { order("id desc") }
-  scope :published, -> { where(:private => false)}
+  scope :published, -> { where(private: false) }
 
   store_accessor :metadata, :buy_link, :string
   store_accessor :metadata, :buy_link_title, :string
@@ -31,23 +31,23 @@ class Playlist < ApplicationRecord
   store_accessor :metadata, :copyright, :string
   store_accessor :metadata, :price, :decimal
   store_accessor :metadata, :name_your_price, :boolean
-  
+
   def cover_url(size = nil)
     url = case size
-      when :medium
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    when :medium
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
 
-      when :large
-        self.cover.variant(resize_to_limit: [500, 500]) #&.processed&.url
+    when :large
+      cover.variant(resize_to_limit: [500, 500]) # &.processed&.url
 
-      when :small
-        self.cover.variant(resize_to_limit: [50, 50]) #&.processed&.url
+    when :small
+      cover.variant(resize_to_limit: [50, 50]) # &.processed&.url
 
-      else
-        self.cover.variant(resize_to_limit: [200, 200]) #&.processed&.url
+    else
+      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
     end
 
-    url ? url : "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
+    url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
   def album?
@@ -56,10 +56,10 @@ class Playlist < ApplicationRecord
   end
 
   def self.list_playlists_by_user_with_track(track_id, user_id)
-    Playlist.select('playlists.*, COUNT(track_playlists.track_id) as track_count')
-                  .left_outer_joins(:track_playlists)
-                  .where(user_id: user_id, track_playlists: { track_id: [nil, track_id] })
-                  .group('playlists.id')
+    Playlist.select("playlists.*, COUNT(track_playlists.track_id) as track_count")
+      .left_outer_joins(:track_playlists)
+      .where(user_id: user_id, track_playlists: {track_id: [nil, track_id]})
+      .group("playlists.id")
   end
 
   def iframe_code_string(url)
@@ -72,5 +72,4 @@ class Playlist < ApplicationRecord
       </div>
     HTML
   end
-
 end

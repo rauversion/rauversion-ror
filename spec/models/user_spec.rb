@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
   # Validation tests
@@ -47,7 +47,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-
   describe "#is_creator?" do
     it "returns true if the user is an artist" do
       artist_user = FactoryBot.create(:user, username: "artist", role: "artist")
@@ -69,5 +68,4 @@ RSpec.describe User, type: :model do
       expect(user.is_creator?).to be false
     end
   end
-
 end

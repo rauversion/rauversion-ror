@@ -18,8 +18,8 @@ class TrackingEventsController < ApplicationController
       country: country,
       city: city,
       ua: ua,
-      lang: request.headers['HTTP_LANG'] || "en",
-      referer: request.headers['HTTP_REFERER'],
+      lang: request.headers["HTTP_LANG"] || "en",
+      referer: request.headers["HTTP_REFERER"],
       utm_medium: params[:utm_medium],
       utm_source: params[:utm_source],
       utm_campaign: params[:utm_campaign],
@@ -49,7 +49,6 @@ class TrackingEventsController < ApplicationController
 
     render json: options, status: :ok
   end
-
 
   private
 

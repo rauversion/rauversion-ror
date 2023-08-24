@@ -1,4 +1,3 @@
-
 class OembedController < ApplicationController
   include CorsHeaders
   before_action :cors_preflight_check

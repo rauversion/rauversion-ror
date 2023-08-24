@@ -1,5 +1,4 @@
 class TrackPlaylistsController < ApplicationController
-
   before_action :authenticate_user!
 
   def create
@@ -18,5 +17,4 @@ class TrackPlaylistsController < ApplicationController
   def build_params
     params.require(:track_playlist).permit(:id, :track_id, :playlist_id)
   end
-  
 end

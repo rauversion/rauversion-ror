@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :track do
-    sequence(:title) {|n| "title-#{n}" }
+    sequence(:title) { |n| "title-#{n}" }
     private { false }
     caption { "MyString" }
     user { nil }

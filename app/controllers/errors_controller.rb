@@ -1,7 +1,6 @@
 class ErrorsController < ApplicationController
   layout "errors"
 
-
   def not_found
     render "404"
   end
@@ -13,5 +12,4 @@ class ErrorsController < ApplicationController
   def not_allowed
     render "422"
   end
-
 end

@@ -1,17 +1,16 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Purchase, type: :model do
   it { belong_to(:user) }
   it { have_many(:purchased_items) }
   it { belong_to(:purchasable) }
 
-
-  describe 'purchasing tickets' do
+  describe "purchasing tickets" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:event) { FactoryBot.create(:event, user: user) }
 
-    it 'validates qty of tickets' do
-      ticket = FactoryBot.create(:event_ticket, event: event, qty: 5, min_tickets_per_order: 2 )
+    it "validates qty of tickets" do
+      ticket = FactoryBot.create(:event_ticket, event: event, qty: 5, min_tickets_per_order: 2)
       purchase = user.purchases.new(purchasable: event)
       purchase.virtual_purchased = event.event_tickets.map do |aa|
         VirtualPurchasedItem.new({resource: aa, quantity: 6})
@@ -21,12 +20,12 @@ RSpec.describe Purchase, type: :model do
 
       purchase.store_items
       purchase.save
-      
+
       expect(purchase).to_not be_persisted
     end
 
-    it 'validates min_tickets_per_order of tickets' do
-      ticket = FactoryBot.create(:event_ticket, event: event, qty: 100, min_tickets_per_order: 2 )
+    it "validates min_tickets_per_order of tickets" do
+      ticket = FactoryBot.create(:event_ticket, event: event, qty: 100, min_tickets_per_order: 2)
       purchase = user.purchases.new(purchasable: event)
       purchase.virtual_purchased = event.event_tickets.map do |aa|
         VirtualPurchasedItem.new({resource: aa, quantity: 6})
@@ -36,12 +35,12 @@ RSpec.describe Purchase, type: :model do
 
       purchase.store_items
       purchase.save
-      
+
       expect(purchase).to_not be_persisted
     end
 
-    it 'validates max_tickets_per_order of tickets' do
-      ticket = FactoryBot.create(:event_ticket, event: event, qty: 100, max_tickets_per_order: 2 )
+    it "validates max_tickets_per_order of tickets" do
+      ticket = FactoryBot.create(:event_ticket, event: event, qty: 100, max_tickets_per_order: 2)
       purchase = user.purchases.new(purchasable: event)
       purchase.virtual_purchased = event.event_tickets.map do |aa|
         VirtualPurchasedItem.new({resource: aa, quantity: 6})

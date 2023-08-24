@@ -1,31 +1,29 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe EventHost, type: :model do
-
-  describe 'associations' do
+  describe "associations" do
     it { should belong_to(:event) }
     it { should belong_to(:user) }
   end
 
-  describe '#invite_user' do
+  describe "#invite_user" do
     let(:user) { FactoryBot.create(:user) }
-    let(:event) { FactoryBot.create(:event, user: user ) }
+    let(:event) { FactoryBot.create(:event, user: user) }
     let(:event_host) { FactoryBot.build(:event_host, event: event) }
 
-    #before do
+    # before do
     #  allow(DeviseInvitable::Mailer).to receive_message_chain(:invitation_instructions, :deliver_later)
-    #end
+    # end
 
     before do
       allow_any_instance_of(DeviseInvitable::Mailer).to receive_message_chain(:invitation_instructions, :deliver_later)
     end
 
-    it 'sends an invitation email' do
+    it "sends an invitation email" do
       event_host.email = "foo@bar.com"
-      expect_any_instance_of(DeviseInvitable::Mailer).to receive(:invitation_instructions) #.with(user, any_args)
+      expect_any_instance_of(DeviseInvitable::Mailer).to receive(:invitation_instructions) # .with(user, any_args)
       event_host.invite_user
       event_host.save
     end
   end
 end
-

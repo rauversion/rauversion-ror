@@ -1,20 +1,22 @@
-
-require 'sequel'
+require "sequel"
 
 # Example for PostgreSQL
-DB = Sequel.connect(
-  adapter: :postgres,
-  user: ENV["PHX_DB_USER"],
-  password: ENV["PHX_DB_PASS"],
-  host: ENV["PHX_DB_HOST"],
-  port: 25061,
-  database: ENV["PHX_DB_DB"],
-  sslmode: "require"
-) rescue nil
-
+DB = begin
+  Sequel.connect(
+    adapter: :postgres,
+    user: ENV["PHX_DB_USER"],
+    password: ENV["PHX_DB_PASS"],
+    host: ENV["PHX_DB_HOST"],
+    port: 25061,
+    database: ENV["PHX_DB_DB"],
+    sslmode: "require"
+  )
+rescue
+  nil
+end
 
 def create_users
-  DB.fetch('SELECT * FROM users') do |row|
+  DB.fetch("SELECT * FROM users") do |row|
     u = User.create(
       id: row[:id],
       email: row[:email],
@@ -35,7 +37,7 @@ def create_users
 end
 
 def create_oauth_credentials
-  DB.fetch('SELECT * FROM oauth_credentials') do |row|
+  DB.fetch("SELECT * FROM oauth_credentials") do |row|
     o = OauthCredential.create(
       id: row[:id],
       uid: row[:uid],
@@ -49,7 +51,7 @@ def create_oauth_credentials
 end
 
 def create_follows
-  DB.fetch('SELECT * FROM user_follows') do |row|
+  DB.fetch("SELECT * FROM user_follows") do |row|
     u = User.find(row[:follower_id])
     u.follow!(User.find(row[:following_id]))
   end
@@ -60,32 +62,32 @@ def parse_array(str)
   cleaned_str = str[1..-2]
 
   # Split the string by commas that are not inside quotes
-  parsed_array = cleaned_str.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/).map do |item|
+  parsed_array = cleaned_str.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map do |item|
     # Remove quotes from items
-    item.gsub(/\"/, '').strip
+    item.delete('"').strip
   end
 end
 
 def create_tracks
   DB.fetch("SELECT * FROM tracks") do |row|
     t = Track.create(
-      id: row[:id], 
-      title: row[:title], 
-      description: row[:description], 
-      private: row[:private], 
-      slug: row[:slug], 	
-      caption: row[:caption], 
-      notification_settings: row[:notification_settings] ? JSON.parse(row[:notification_settings]) : nil, 
-      metadata: row[:metadata] ? JSON.parse(row[:metadata]) : nil, 
+      id: row[:id],
+      title: row[:title],
+      description: row[:description],
+      private: row[:private],
+      slug: row[:slug],
+      caption: row[:caption],
+      notification_settings: row[:notification_settings] ? JSON.parse(row[:notification_settings]) : nil,
+      metadata: row[:metadata] ? JSON.parse(row[:metadata]) : nil,
       user_id: row[:user_id],
-      created_at: row[:inserted_at],     
-      updated_at: row[:updated_at],      
-      likes_count: row[:likes_count],     
-      reposts_count: row[:reposts_count],   
-      state: row[:state],           
+      created_at: row[:inserted_at],
+      updated_at: row[:updated_at],
+      likes_count: row[:likes_count],
+      reposts_count: row[:reposts_count],
+      state: row[:state],
       tags: row[:tags] ? parse_array(row[:tags]) : []
     )
-    
+
     puts t.errors.full_messages
   end
 end
@@ -93,36 +95,35 @@ end
 def create_playlists
   DB.fetch("select * from playlists") do |row|
     t = Playlist.create(
-      id: row[:id],               	
-      slug: row[:slug],               
-      description: row[:description],        
-      title: row[:title],              
-      metadata: row[:metadata] ? JSON.parse(row[:metadata]) : {},           
-      user_id: row[:user_id],            
-      created_at: row[:inserted_at],        
-      updated_at: row[:updated_at],         
-      private: row[:private],            
-      playlist_type: row[:playlist_type],      
-      genre: row[:genre],              
-      release_date: row[:release_date],       
-      likes_count: row[:likes_count],        
-      custom_genre: row[:custom_genre],       
-      tags: row[:tags] ? parse_array(row[:tags]) : []           
+      id: row[:id],
+      slug: row[:slug],
+      description: row[:description],
+      title: row[:title],
+      metadata: row[:metadata] ? JSON.parse(row[:metadata]) : {},
+      user_id: row[:user_id],
+      created_at: row[:inserted_at],
+      updated_at: row[:updated_at],
+      private: row[:private],
+      playlist_type: row[:playlist_type],
+      genre: row[:genre],
+      release_date: row[:release_date],
+      likes_count: row[:likes_count],
+      custom_genre: row[:custom_genre],
+      tags: row[:tags] ? parse_array(row[:tags]) : []
     )
-    puts t.errors.full_messages                   
+    puts t.errors.full_messages
   end
 end
 
 def track_likes
   DB.fetch("select * from track_likes") do |row|
-
     t = Like.create({
-      id: row[:id],                     	
+      id: row[:id],
       liker_type: "User",
       liker_id: row[:user_id],
       likeable_type: "Track",
-      likeable_id: row[:track_id], 
-      created_at: row[:inserted_at],    
+      likeable_id: row[:track_id],
+      created_at: row[:inserted_at]
     })
   end
 end
@@ -131,11 +132,11 @@ def track_playlists
   DB.fetch("select * from track_playlists") do |row|
     t = TrackPlaylist.create(
       {
-        id: row[:id],       	       
-        track_id: row[:track_id],       	  
-        playlist_id: row[:playlist_id],       	
-        created_at: row[:inserted_at],       	
-        updated_at: row[:updated_at],       	
+        id: row[:id],
+        track_id: row[:track_id],
+        playlist_id: row[:playlist_id],
+        created_at: row[:inserted_at],
+        updated_at: row[:updated_at]
       }
     )
     t.errors.full_messages
@@ -145,17 +146,17 @@ end
 def track_comments
   DB.fetch("select * from track_comments") do |row|
     t = Comment.create({
-      id: row[:id],           	
-      body: row[:body],           
-      # track_minute: row[:track_minute],   
-      # state: row[:state],          
-      user_id: row[:user_id],        
-      commentable_id: row[:track_id], 
-      commentable_type: "Track",     
-      created_at: row[:inserted_at],    
-      updated_at: row[:updated_at]  
+      id: row[:id],
+      body: row[:body],
+      # track_minute: row[:track_minute],
+      # state: row[:state],
+      user_id: row[:user_id],
+      commentable_id: row[:track_id],
+      commentable_type: "Track",
+      created_at: row[:inserted_at],
+      updated_at: row[:updated_at]
     })
-    puts t.errors.full_messages 
+    puts t.errors.full_messages
   end
 end
 
@@ -175,17 +176,17 @@ end
 def create_posts
   DB.fetch("select * from posts") do |row|
     t = Post.create({
-      id: row[:id],         	
-      title: row[:title],        
-      body: JSON.parse(row[:body]),         
-      settings: row[:settings] ? JSON.parse(row[:settings]) : {},     
-      private: row[:private],      
-      excerpt: row[:excerpt],      
-      slug: row[:slug],         
-      state: row[:state],        
-      user_id: row[:user_id],      
-      created_at: row[:inserted_at],  
-      updated_at: row[:updated_at],   
+      id: row[:id],
+      title: row[:title],
+      body: JSON.parse(row[:body]),
+      settings: row[:settings] ? JSON.parse(row[:settings]) : {},
+      private: row[:private],
+      excerpt: row[:excerpt],
+      slug: row[:slug],
+      state: row[:state],
+      user_id: row[:user_id],
+      created_at: row[:inserted_at],
+      updated_at: row[:updated_at],
       category_id: row[:category_id]
     })
   end
@@ -194,20 +195,20 @@ end
 def create_categories
   DB.fetch("select * from categories") do |row|
     t = Category.create({
-      id: row[:id],      	
-      name: row[:name],     
-      slug: row[:slug],     
+      id: row[:id],
+      name: row[:name],
+      slug: row[:slug],
       created_at: row[:inserted_at],
-      updated_at: row[:updated_at],
+      updated_at: row[:updated_at]
     })
-    puts t.errors.full_messages 
+    puts t.errors.full_messages
   end
 end
 
 def create_events
   DB.fetch("select * from events") do |row|
     schedule_settings = row[:scheduling_settings] ? JSON.parse(row[:scheduling_settings]) : []
-    
+
     schedule_settings = schedule_settings.map do |item|
       {
         name: item["name"],
@@ -227,53 +228,54 @@ def create_events
     end
 
     streaming_service = row[:streaming_service] ? JSON.parse(row[:streaming_service]) : {}
-    
-    streaming_service.merge!(
-      {
-        type: streaming_service["__type__"]
-      }
-    ) unless streaming_service.empty?
-    
+
+    unless streaming_service.empty?
+      streaming_service.merge!(
+        {
+          type: streaming_service["__type__"]
+        }
+      )
+    end
+
     t = Event.create({
-      id: row[:id],                
-      title: row[:title],                
-      description: row[:description],          
-      slug: row[:slug],                 
-      state: row[:state],                
-      timezone: row[:timezone],             
-      event_start: row[:event_start],          
-      event_ends: row[:event_ends],           
-      private: row[:private],              
-      online: row[:online],               
-      location: row[:location],             
-      street: row[:street],               
-      street_number: row[:street_number],        
-      lat: row[:lat],                  
-      lng: row[:lng],                  
-      venue: row[:venue],                
-      country: row[:country],              
-      city: row[:city],                 
-      province: row[:province],             
-      postal: row[:postal],               
-      age_requirement: row[:age_requirement],      
-      event_capacity: row[:event_capacity],       
-      event_capacity_limit: row[:event_capacity_limit], 
-      eticket: row[:eticket],                  	
-      will_call: row[:will_call],                  
-      order_form: row[:order_form],                 
-      widget_button: row[:widget_button],             
-      event_short_link: row[:event_short_link],           
-      tax_rates_settings: row[:tax_rates_settings],        
-      attendee_list_settings: row[:attendee_list_settings],     
-      event_schedules_attributes: schedule_settings,        
-      event_settings: row[:event_settings] ? JSON.parse(row[:event_settings]) : nil,            
-      tickets: row[:tickets],                  
-      user_id: row[:user_id],                  	
-      created_at: row[:inserted_at],                
-      updated_at: row[:updated_at],                
+      id: row[:id],
+      title: row[:title],
+      description: row[:description],
+      slug: row[:slug],
+      state: row[:state],
+      timezone: row[:timezone],
+      event_start: row[:event_start],
+      event_ends: row[:event_ends],
+      private: row[:private],
+      online: row[:online],
+      location: row[:location],
+      street: row[:street],
+      street_number: row[:street_number],
+      lat: row[:lat],
+      lng: row[:lng],
+      venue: row[:venue],
+      country: row[:country],
+      city: row[:city],
+      province: row[:province],
+      postal: row[:postal],
+      age_requirement: row[:age_requirement],
+      event_capacity: row[:event_capacity],
+      event_capacity_limit: row[:event_capacity_limit],
+      eticket: row[:eticket],
+      will_call: row[:will_call],
+      order_form: row[:order_form],
+      widget_button: row[:widget_button],
+      event_short_link: row[:event_short_link],
+      tax_rates_settings: row[:tax_rates_settings],
+      attendee_list_settings: row[:attendee_list_settings],
+      event_schedules_attributes: schedule_settings,
+      event_settings: row[:event_settings] ? JSON.parse(row[:event_settings]) : nil,
+      tickets: row[:tickets],
+      user_id: row[:user_id],
+      created_at: row[:inserted_at],
+      updated_at: row[:updated_at],
       streaming_service: streaming_service
     })
-
   end
 end
 
@@ -297,18 +299,18 @@ end
 def event_tickets
   DB.fetch("select * from event_tickets") do |row|
     t = EventTicket.create({
-      id: row[:id],                              
-      title: row[:title],                         
-      price: row[:price],                          
-      early_bird_price: row[:early_bird_price],   
-      standard_price: row[:standard_price],       
-      qty: row[:qty],                       
-      selling_start: row[:selling_start],         
-      selling_end: row[:selling_end],         
+      id: row[:id],
+      title: row[:title],
+      price: row[:price],
+      early_bird_price: row[:early_bird_price],
+      standard_price: row[:standard_price],
+      qty: row[:qty],
+      selling_start: row[:selling_start],
+      selling_end: row[:selling_end],
       short_description: row[:short_description],
-      settings: JSON.parse(row[:settings]),      
-      event_id: row[:event_id],     
-      created_at: row[:inserted_at],     
+      settings: JSON.parse(row[:settings]),
+      event_id: row[:event_id],
+      created_at: row[:inserted_at],
       updated_at: row[:updated_at]
     })
     puts t.errors.full_messages
@@ -349,16 +351,16 @@ def listening_events
       utm_term: row[:utm_term],
       browser_name: row[:browser_name],
       browser_version: row[:browser_version],
-      modern: row[:modern], 
+      modern: row[:modern],
       platform: row[:platform],
       device_type: row[:device_type],
       bot: row[:bot],
-      search_engine: row[:search_engine],              
+      search_engine: row[:search_engine],
       resource_profile_id: row[:resource_profile_id],
-      user_id: row[:user_id],                          
-      track_id: row[:track_id],                        
-      playlist_id: row[:playlist_id],                  
-      created_at: row[:inserted_at],                    
+      user_id: row[:user_id],
+      track_id: row[:track_id],
+      playlist_id: row[:playlist_id],
+      created_at: row[:inserted_at],
       updated_at: row[:updated_at]
     })
     puts t.errors.full_messages
@@ -378,7 +380,7 @@ def preview_cards
       html: row[:html],
       image: row[:image],
       created_at: row[:inserted_at],
-      updated_at: row[:updated_at],
+      updated_at: row[:updated_at]
     })
     puts t.errors.full_messages
   end
@@ -413,7 +415,7 @@ def create_blobs
         service_name: row[:service_name],
         byte_size: row[:byte_size],
         checksum: row[:checksum],
-        created_at: row[:created_at],
+        created_at: row[:created_at]
       }]
     )
   end
@@ -437,7 +439,6 @@ def create_attachments
 end
 
 namespace :importer do
-
   task load: :environment do
     # create_users
     # create_oauth_credentials
@@ -460,25 +461,22 @@ namespace :importer do
 
     # create_blobs
     # create_attachments
-
   end
 
-
   task checksums: :environment do
-
     ActiveStorage::Blob.where("content_type LIKE ?", "image/%").where("id >= ?", 438).find_each do |b|
       puts "processing #{b.id}"
-      path = Rails.root.join('tmp/kk', b.key)
+      path = Rails.root.join("tmp/kk", b.key)
 
       begin
         b.download do |chunk|
-          File.open(path, 'ab') { |file| file.write(chunk) }
+          File.open(path, "ab") { |file| file.write(chunk) }
         end
 
         b.checksum = b.send(:compute_checksum_in_chunks, File.open(path))
         b.save
 
-        File.delete(path) 
+        File.delete(path)
         puts "processed #{b.id}"
       rescue => e
         puts "Fails #{b.id}"
@@ -486,6 +484,3 @@ namespace :importer do
     end
   end
 end
-
-
-

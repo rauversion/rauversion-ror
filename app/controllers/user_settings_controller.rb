@@ -1,5 +1,4 @@
 class UserSettingsController < ApplicationController
-
   before_action :authenticate_user!
 
   def show
@@ -27,7 +26,6 @@ class UserSettingsController < ApplicationController
     params.require(:user).permit(
       :username, :last_name, :first_name, :bio, :avatar, :country, :city,
       :email, :current_password,
-
       :new_follower_email,
       :new_follower_app,
       :repost_of_your_post_email,
@@ -42,11 +40,7 @@ class UserSettingsController < ApplicationController
       :new_message_email,
       :new_message_app,
       :like_and_plays_on_your_post_email,
-
-
       :tbk_commerce_code, :pst_enabled, :tbk_test_mode
-
     )
   end
-
 end

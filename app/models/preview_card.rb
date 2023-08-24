@@ -7,7 +7,7 @@ class PreviewCard < ApplicationRecord
 
   self.inheritance_column = false
 
-  enum type: { link: 0, photo: 1, video: 2, rich: 3 }
+  enum type: {link: 0, photo: 1, video: 2, rich: 3}
 
   # mount_uploader :image, PreviewUploader
   has_one_attached :image
@@ -23,7 +23,7 @@ class PreviewCard < ApplicationRecord
 
   def images
     image_url = image.attached? ? url_for(image) : nil
-    [{ url: image_url }]
+    [{url: image_url}]
   end
 
   def provider_url
@@ -31,11 +31,11 @@ class PreviewCard < ApplicationRecord
   end
 
   def media
-    { html: html }
+    {html: html}
   end
 
   def as_oembed_json(_opts = {})
     as_json(only: %i[url title description html],
-            methods: %i[provider_url images media])
+      methods: %i[provider_url images media])
   end
 end

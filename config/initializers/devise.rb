@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-require_relative "../../lib/omniauth/strategies/stripe.rb"
-require_relative "../../lib/omniauth/strategies/zoom.rb"
+
+require_relative "../../lib/omniauth/strategies/stripe"
+require_relative "../../lib/omniauth/strategies/zoom"
 
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
@@ -26,8 +27,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = ENV.fetch('EMAIL_ACCOUNT', "changeme@at-env.com")
-
+  config.mailer_sender = ENV.fetch("EMAIL_ACCOUNT", "changeme@at-env.com")
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -39,7 +39,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -326,12 +326,12 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # require "omniauth-github"
-  config.omniauth :zoom, ENV['ZOOM_CLIENT_ID'], ENV['ZOOM_CLIENT_SECRET'], :scope=>"read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
+  config.omniauth :zoom, ENV["ZOOM_CLIENT_ID"], ENV["ZOOM_CLIENT_SECRET"], scope: "read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
   # config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], :scope=>"read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
-  config.omniauth :twitter,  ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_CLIENT_SECRET'], scope: "tweet.read users.read offline.access"
-  config.omniauth :discord,  ENV['DISCORD_CLIENT_ID'], ENV['DISCORD_CLIENT_SECRET'], scope: "email identify"
-  config.omniauth :twitch,  ENV['TWITCH_CLIENT_ID'], ENV['TWITCH_CLIENT_SECRET'], scope: "channel:manage:broadcast channel:manage:videos user:read:email channel:read:stream_key"
-  config.omniauth :stripe_connect,  ENV['STRIPE_CLIENT_ID'], ENV['STRIPE_CLIENT_SECRET'], scope: "read_write"
+  config.omniauth :twitter, ENV["TWITTER_CLIENT_ID"], ENV["TWITTER_CLIENT_SECRET"], scope: "tweet.read users.read offline.access"
+  config.omniauth :discord, ENV["DISCORD_CLIENT_ID"], ENV["DISCORD_CLIENT_SECRET"], scope: "email identify"
+  config.omniauth :twitch, ENV["TWITCH_CLIENT_ID"], ENV["TWITCH_CLIENT_SECRET"], scope: "channel:manage:broadcast channel:manage:videos user:read:email channel:read:stream_key"
+  config.omniauth :stripe_connect, ENV["STRIPE_CLIENT_ID"], ENV["STRIPE_CLIENT_SECRET"], scope: "read_write"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

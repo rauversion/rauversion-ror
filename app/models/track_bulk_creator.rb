@@ -16,13 +16,13 @@ class TrackBulkCreator
 
   def tracks_attributes_objects=(attributes)
     array = attributes.keys.map { |o| attributes[o] }
-    self.tracks_attributes = array #.map { |o| Track.new(o) }
+    self.tracks_attributes = array # .map { |o| Track.new(o) }
     # array.map{|o| ScheduleRecord.new(o) }
   end
 
   def save
     if !valid?
-      puts self.errors.full_messages
+      puts errors.full_messages
       return false
     end
     tracks.each(&:save!)
@@ -38,7 +38,7 @@ class TrackBulkCreator
       t = Track.new(attributes)
       t.title = blob.filename.to_s
       t.user = user
-      t.private = self.private
+      t.private = private
       t
     end
   end

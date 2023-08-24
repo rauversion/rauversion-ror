@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-
   before_action do
-    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
-    #ActiveStorage::Current.url_options = { protocol: "http://", host: "localhost", port: "3000" }
+    ActiveStorage::Current.url_options = {protocol: request.protocol, host: request.host, port: request.port}
+    # ActiveStorage::Current.url_options = { protocol: "http://", host: "localhost", port: "3000" }
   end
 
   before_action :set_locale
@@ -27,5 +26,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, error: "not allowed"
     end
   end
-  
 end

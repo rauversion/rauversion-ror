@@ -1,20 +1,19 @@
 class PlayerController < ApplicationController
-
   def update
     @tracks = Track.where(id: params[:player][:ids])
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
   end
 
   def show
     id = params[:id]
     @track = Track.friendly.find(id)
-    #@next_track = next_track(@track.id)
-    #@prev_track = previous(@track.id)
+    # @next_track = next_track(@track.id)
+    # @prev_track = previous(@track.id)
 
-    if params[:t] 
+    if params[:t]
       render turbo_stream: [
-        
+
         turbo_stream.update(
           "track-info-wrapper",
           partial: "track_info",
@@ -26,13 +25,13 @@ class PlayerController < ApplicationController
 
   def next_track(id)
     Track.where("id > ?", id).order(id: :asc).first
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
   end
 
   def previous(id)
     Track.where("id < ?", id).order(id: :desc).first
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
   end
 end

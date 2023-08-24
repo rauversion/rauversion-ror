@@ -1,7 +1,6 @@
 class EventStreamingServicesController < ApplicationController
-
   before_action :authenticate_user!
-  
+
   def show
     @event = current_user.events.find_signed(params[:id])
     @provider = @event.streaming_service["name"]

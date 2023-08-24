@@ -1,5 +1,4 @@
 class TrackPurchasesController < ApplicationController
-
   before_action :authenticate_user!
 
   def new
@@ -20,15 +19,15 @@ class TrackPurchasesController < ApplicationController
     price = @track.price
     price_param = build_params[:price].to_f
     if @track.name_your_price? && price_param && price_param > @track.price
-      price = price_param 
+      price = price_param
     end
 
-    @purchase = current_user.purchases.new(purchasable: @track, price: price )
+    @purchase = current_user.purchases.new(purchasable: @track, price: price)
 
-    @purchase.virtual_purchased = [ 
+    @purchase.virtual_purchased = [
       VirtualPurchasedItem.new({resource: @track, quantity: 1})
     ]
-  
+
     handle_stripe_session
   end
 
@@ -41,7 +40,7 @@ class TrackPurchasesController < ApplicationController
       @purchase.store_items
       @purchase.save
 
-      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k,v|
+      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k, v|
         {
           "quantity" => 1,
           "price_data" => {
@@ -53,7 +52,7 @@ class TrackPurchasesController < ApplicationController
             }
           }
         }
-      end 
+      end
 
       puts line_items
 
@@ -61,21 +60,23 @@ class TrackPurchasesController < ApplicationController
 
       payment_intent_data = {}
 
-      payment_intent_data = {
-        application_fee_amount: fee_amount
-        # "transfer_data"=> %{
-        #  "destination"=> c.uid
-        # }
-      } if account
+      if account
+        payment_intent_data = {
+          application_fee_amount: fee_amount
+          # "transfer_data"=> %{
+          #  "destination"=> c.uid
+          # }
+        }
+      end
 
       @session = Stripe::Checkout::Session.create(
-        payment_method_types: ['card'],
+        payment_method_types: ["card"],
         line_items: line_items,
         payment_intent_data: payment_intent_data,
         customer_email: current_user.email,
         mode: "payment",
         success_url: success_track_track_purchase_url(@track, @purchase), # Replace with your success URL
-        cancel_url:  failure_track_track_purchase_url(@track, @purchase)   # Replace with your cancel URL
+        cancel_url: failure_track_track_purchase_url(@track, @purchase)   # Replace with your cancel URL
       )
 
       @purchase.update(
