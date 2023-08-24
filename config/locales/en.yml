@@ -11,6 +11,7 @@ en:
   likes: Likes
   sure: Are you sure?
   more: More
+  save: Save
 
   menu:
     music: Music
@@ -73,7 +74,7 @@ en:
     edit: Edit Event
     create: Create Event
 
-    published: Your event is published
+    published: Published Events
     unpublished: Your event has not been published
     unpublish: Unpublish Event
     publish: Publish Event

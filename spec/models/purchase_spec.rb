@@ -25,7 +25,7 @@ RSpec.describe Purchase, type: :model do
     end
 
     it "validates min_tickets_per_order of tickets" do
-      ticket = FactoryBot.create(:event_ticket, event: event, qty: 100, min_tickets_per_order: 2)
+      ticket = FactoryBot.create(:event_ticket, event: event, qty: 5, min_tickets_per_order: 2)
       purchase = user.purchases.new(purchasable: event)
       purchase.virtual_purchased = event.event_tickets.map do |aa|
         VirtualPurchasedItem.new({resource: aa, quantity: 6})
@@ -46,7 +46,7 @@ RSpec.describe Purchase, type: :model do
         VirtualPurchasedItem.new({resource: aa, quantity: 6})
       end
       expect(purchase).to_not be_valid
-      expect(purchase.errors.full_messages.join(" ")).to include("Insufficient quantity ")
+      expect(purchase.errors.full_messages.join(" ")).to include("allows a maximum of 2")
 
       purchase.store_items
       purchase.save

@@ -15,6 +15,8 @@
         </a>
       </div>
 
+      
+
       <p class="text-sm text-gray-600">Order placed 
         <time datetime="2021-03-22" class="font-medium text-gray-900">
           <%= l @purchase.created_at, format: :long %>
@@ -38,7 +40,11 @@
             <div class="px-4 py-6 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
               <div class="sm:flex lg:col-span-7">
                 <div class="aspect-h-1 aspect-w-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-40 sm:w-40">
-                  <%= image_tag item.qr , class: "h-full w-full object-cover object-center sm:h-full sm:w-full" %>
+                  <% if item.paid? %>
+                    <%= image_tag item.qr , class: "h-full w-full object-cover object-center sm:h-full sm:w-full" %>
+                  <% else %>
+                    <%= item.state %>
+                  <% end %>
                 </div>
 
                 <div class="mt-6 sm:ml-6 sm:mt-0">

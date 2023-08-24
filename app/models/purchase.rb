@@ -7,6 +7,17 @@ class Purchase < ApplicationRecord
 
   validate :validate_purchased_items
 
+  include AASM
+
+  aasm column: :state do
+    state :pending, initial: true
+    state :paid
+
+    event :confirm do
+      transitions from: :pending, to: :paid
+    end
+  end
+
   def virtual_purchased
     @virtual_purchased || []
   end
@@ -38,7 +49,7 @@ class Purchase < ApplicationRecord
     end
 
     # Check if the ticket quantity is sufficient for purchase
-    if purchased_item.quantity <= ticket.qty
+    if purchased_item.quantity >= ticket.qty
       errors.add(:base, "Insufficient quantity for Ticket ID #{ticket.id}. Available: #{ticket.qty}. Requested: #{purchased_item.quantity}.")
     end
 
@@ -79,5 +90,22 @@ class Purchase < ApplicationRecord
 
   def is_downloadable?
     state == "paid" or state == "free_access"
+  end
+
+  def calculate_fee(total, ccy = "usd")
+    t = total.to_f * app_fee() / 100.0
+  
+    case ccy
+    when "usd"
+      t
+    when "clp"
+      t.round
+    else
+      t
+    end
+  end
+
+  def app_fee
+    ENV['PLATFORM_EVENTS_FEE'].to_i
   end
 end

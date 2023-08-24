@@ -2,7 +2,7 @@
   <div class="space-y-2">
     <% if form.object.new_record? %>
       <%= form.text_field :email, hint: t("event_hosts.email_hint") %>
-      <%= form.submit t("Save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+      <%= form.submit t("save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
 
     <% else %>
 
@@ -40,7 +40,7 @@
         </div>
 
         <div class="sm:col-span-6 flex justify-end space-x-2">
-          <%= form.submit gettext("Save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+          <%= form.submit t("save"), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
         </div>
       </div>
     <% end %>
