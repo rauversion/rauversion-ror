@@ -1,6 +1,6 @@
 class TracksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :private_access]
-
+  before_action :check_activated_account, only: [:new, :create, :update, :delete]
   def index
     @tracks = Track.published.order("id desc")
       .with_attached_cover
@@ -112,6 +112,10 @@ class TracksController < ApplicationController
       :copyright, :attribution, :noncommercial, :copies,
       tags: []
     )
+  end
+
+  def check_activated_account
+    redirect_to( root_path, notice: t("not_activated_account")) and return unless current_user.is_creator?
   end
 
   def track_bulk_params
