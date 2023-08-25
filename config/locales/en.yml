@@ -12,6 +12,7 @@ en:
   sure: Are you sure?
   more: More
   save: Save
+  not_activated_account: Access denied, not activated account.
 
   menu:
     music: Music
