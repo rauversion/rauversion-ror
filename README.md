@@ -6,6 +6,8 @@
 
 [![CI](https://github.com/rauversion/rauversion-ror/actions/workflows/ruby.yml/badge.svg)](https://github.com/rauversion/rauversion-ror/actions/workflows/ruby.yml)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/29736b742904813c7fec/maintainability)](https://codeclimate.com/github/rauversion/rauversion-ror/maintainability)
+
 Rauversion is an open source music sharing platform.
 
 Rauversion is built on Ruby on Rails.
