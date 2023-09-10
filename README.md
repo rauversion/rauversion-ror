@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/11976/174422926-b392a1f5-bd6a-4bd2-b6c8-8d41dad6711d.png)
 
-[![.github/workflows/ci.yml](https://github.com/rauversion/rauversion-ror/actions/workflows/ci.yml/badge.svg)](https://github.com/rauversion/rauversion-ror/actions/workflows/ci.yml)
+[![CI](https://github.com/rauversion/rauversion-ror/actions/workflows/ruby.yml/badge.svg)](https://github.com/rauversion/rauversion-ror/actions/workflows/ruby.yml)
 
 Rauversion is an open source music sharing platform.
 
@@ -15,13 +15,13 @@ Rauversion is built on Ruby on Rails.
  + Account system with different providers, Twitter, Discord, Twitch.
  + Roles to open or closed communities.
 ### Music publishing:
-  + Audio processing to format mp3 and audio analisis to draw audio peaks.
+  + Audio processing to format mp3 and audio analysis to draw audio peaks.
   + Audio player, embeddable, with chunk range loading processing to save bandwidth.
-  + Music publishing preferences, downloadable, private, attribution settings, like cretive commons , all right reserved.
-  + Uploads for tracks, albums and playlists with their meta information.
-  + Multi upload provider local or aws, other providers could be inmplemented.
+  + Music publishing preferences, downloadable, private, attribution settings, like creative commons, all rights reserved.
+  + Uploads for tracks, albums, and playlists with their meta information.
+  + Multi-upload provider local or AWS, other providers could be implemented.
   + Sellable tracks & albums with Stripe, for connected accounts or main account.
-  + Tagging tracks, playlist & albums.
+  + Tagging tracks, playlists & albums.
 ### Music Listening:
   + Follow artists
   + Make playlists & reposts
@@ -31,15 +31,15 @@ Rauversion is built on Ruby on Rails.
   + Event scheduling
   + Host & managers
   + Ticketing service with QR validation
-  + Sell event tickets via stripe or transbank (Chile).
-  + Use Stripe connect to ease the payouts.
-  + Streaming services via Twitch, Zoom, Whereby, Mux and Stream Yard.
+  + Sell event tickets via Stripe or transbank (Chile).
+  + Use Stripe Connect to ease the payouts.
+  + Streaming services via Twitch, Zoom, Whereby, Mux, and Stream Yard.
   + Attendees event details.
   + Public page with ticket checkout for paid or free tickets.
 
 ### Publishing magazine:
-  + Articles managment publishing: Draft, Public, Listed and partially public.
-  + Showcase articles in homepage.
+  + Articles management publishing: Draft, Public, Listed and partially public.
+  + Showcase articles on the homepage.
   + Text editor based on [Dante3](https://dante-editor.dev)
   + Cover image.
   + Article Categories.
