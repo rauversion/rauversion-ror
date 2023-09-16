@@ -2,6 +2,16 @@ require "rails_helper"
 
 RSpec.describe "Users", type: :request do
   describe "omniauth" do
+    before(:each) do
+      OmniAuth.config.test_mode = true
+    end
+
+    after(:each) do
+      OmniAuth.config.test_mode = false
+      OmniAuth.config.mock_auth[:twitter] = nil
+      OmniAuth.config.mock_auth[:discord] = nil
+    end
+
     let(:user) { FactoryBot.create(:user) }
 
     it "should sign in with twitter" do
