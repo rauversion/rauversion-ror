@@ -15,7 +15,7 @@ RSpec.describe "Users", type: :request do
       expect(flash[:notice]).to include("We are synchronizing your twitter data")
     end
 
-    it "should sign in with instagram" do
+    it "should sign in with discord" do
       omni_params = oauth2_mock(:discord)
       user.oauth_credentials.create(provider: omni_params.provider, uid: omni_params.uid)
 
