@@ -1,7 +1,29 @@
 require "rails_helper"
 
 RSpec.describe "Users", type: :request do
-  describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+  describe "omniauth" do
+    let(:user) { FactoryBot.create(:user) }
+
+    it "should sign in with twitter" do
+      omni_params = oauth2_mock(:twitter)
+      user.oauth_credentials.create(provider: omni_params.provider, uid: omni_params.uid)
+
+      expect {
+        post user_twitter_omniauth_callback_url, env: {"omniauth.auth": omni_params}
+      }.to change(User, :count).by(0)
+      expect(response).to redirect_to(new_user_session_path)
+      expect(flash[:notice]).to include("We are synchronizing your twitter data")
+    end
+
+    it "should sign in with instagram" do
+      omni_params = oauth2_mock(:discord)
+      user.oauth_credentials.create(provider: omni_params.provider, uid: omni_params.uid)
+
+      expect {
+        post user_discord_omniauth_callback_url, env: {"omniauth.auth": omni_params}
+      }.to change(User, :count).by(0)
+      expect(response).to redirect_to(new_user_session_path)
+      expect(flash[:notice]).to include("We are synchronizing your discord data")
+    end
   end
 end
