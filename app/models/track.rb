@@ -187,6 +187,20 @@ class Track < ApplicationRecord
     update_peaks
   end
 
+  def process_with_mp3
+
+    temp_file = Tempfile.new(["audio", ".mp3"], binmode: true)
+
+    # Download the blob to the temp file in chunks
+    mp3_audio.download do |chunk|
+      temp_file.write(chunk)
+    end
+
+    temp_file.rewind
+
+    update_peaks
+  end
+
   def update_mp3(temp_file = nil)
     if temp_file.nil?
       # Create a temp file

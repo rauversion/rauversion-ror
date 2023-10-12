@@ -65,12 +65,11 @@ class PeaksGenerator
   end
 
   def normalize(input)
-    min, max = input.minmax
-    new_min, new_max = [-1.0, 1.0]
+    # Find the maximum absolute value in the array
+    max_abs_value = input.map(&:abs).max.to_f
 
-    input.map do |x|
-      new_min + ((x - min) / (max - min)) * (new_max - new_min)
-    end.map { |x| x.round(3) }
+    # Normalize each value in the inputay
+    input.map { |val| val / max_abs_value }
   end
 
   def ffprobe_path
