@@ -115,16 +115,16 @@ class User < ApplicationRecord
   def profile_header_url(size)
     url = case size
     when :medium
-      profile_header.variant(resize_to_fill: [200, 200])&.processed&.url
+      profile_header.variant(resize_to_fill: [600, 200])&.processed&.url
 
     when :large
-      profile_header.variant(resize_to_fill: [500, 500])&.processed&.url
+      profile_header.variant(resize_to_fill: [1200, 500])&.processed&.url
 
     when :small
-      profile_header.variant(resize_to_fill: [50, 50])&.processed&.url
+      profile_header.variant(resize_to_fill: [300, 100])&.processed&.url
 
     else
-      profile_header.variant(resize_to_fill: [200, 200])&.processed&.url
+      profile_header.variant(resize_to_fill: [300, 100])&.processed&.url
     end
 
     url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"

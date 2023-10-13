@@ -39,6 +39,7 @@ class UserSettingsController < ApplicationController
       :suggested_content_app,
       :new_message_email,
       :new_message_app,
+      :profile_header,
       :like_and_plays_on_your_post_email,
       :tbk_commerce_code, :pst_enabled, :tbk_test_mode
     )
