@@ -1,15 +1,31 @@
 class ErrorsController < ApplicationController
-  layout "errors"
 
   def not_found
-    render "404"
+    respond_to do |format|
+      format.text { render "404", layout: "errors" }
+      format.html { render "404", layout: "errors" }
+      format.json { render json: { error: "Not Found", status: 404 } }
+      format.text { render plain: "Not Found", status: 404 }
+      format.xml  { render xml: { error: "Not Found", status: 404 }.to_xml }
+ 
+    end
   end
 
   def fatal
-    render "500"
+    respond_to do |format|
+      format.html { render "500", layout: "errors" }
+      format.json { render json: { error: "Internal Server Error", status: 500 } }
+      format.text { render plain: "Internal Server Error", status: 500 }
+      format.xml  { render xml: { error: "Internal Server Error", status: 500 }.to_xml }
+    end
   end
 
   def not_allowed
-    render "422"
+    respond_to do |format|
+      format.html { render "422", layout: "errors" }
+      format.json { render json: { error: "Not Allowed", status: 422 } }
+      format.text { render plain: "Not Allowed", status: 422 }
+      format.xml  { render xml: { error: "Not Allowed", status: 422 }.to_xml }
+     end
   end
 end
