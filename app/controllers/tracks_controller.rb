@@ -93,7 +93,7 @@ class TracksController < ApplicationController
       }
     )
 
-    @oembed_json = private_oembed_track_url(track_id: @track, format: :json)
+    @oembed_json = oembed_show_url(track_id: @track, format: :json)
   end
 
   def track_params
