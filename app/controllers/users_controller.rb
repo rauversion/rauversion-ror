@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     get_tracks
+    get_meta_tags
     @as = :track
     @section = "tracks/track_item"
   end
@@ -57,6 +58,16 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_meta_tags
+    set_meta_tags(
+      # keywords: @user.tags.join(", "),
+      # url: Routes.articles_show_url(socket, :show, track.id),
+      title: "#{@user.username} on Rauversion",
+      description: "Stream #{@user.username} on Rauversion.",
+      image: @user.avatar_url(:small)
+    )
+  end
 
   def get_tracks
     # @collection = @user.tracks.page(params[:page]).per(2)
