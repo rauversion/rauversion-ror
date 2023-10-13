@@ -72,6 +72,21 @@
     margin-bottom: 0px;
   }
 
+  .post-wrapper .graf--layoutInsetLeft, .post-wrapper .graf--layoutOutsetLeft {
+      float: left;
+      margin-right: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+
+  .post-wrapper .graf--layoutOutsetLeft {
+      width: 75%;
+  }
+
+  .post-wrapper .graf--layoutOutsetLeft {
+      margin-left: -160px;
+  }
+
   .aaa {
     @apply bg-white;
   }
