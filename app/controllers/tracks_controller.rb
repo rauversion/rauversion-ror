@@ -80,7 +80,7 @@ class TracksController < ApplicationController
       # url: Routes.articles_show_url(socket, :show, track.id),
       title: "#{@track.title} on Rauversion",
       description: "Stream #{@track.title} by #{@track.user.username} on Rauversion.",
-      image: @track.cover_url(:small),
+      image: @track&.cover_url(:small)&.url,
       "twitter:player": track_embed_url(@track),
       twitter: {
         card: "player",
