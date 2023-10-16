@@ -111,7 +111,7 @@
       data-field=""
       data-controller="medium-zoom"
     >
-      <%= serialized_to_html(@post.body.with_indifferent_access).html_safe %>
+      <%= serialized_to_html(@post.body.with_indifferent_access)&.html_safe %>
       
     </div>
   </div>
