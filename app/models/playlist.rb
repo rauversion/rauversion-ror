@@ -35,16 +35,16 @@ class Playlist < ApplicationRecord
   def cover_url(size = nil)
     url = case size
     when :medium
-      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
+      cover.variant(resize_to_limit: [200, 200])&.processed&.url
 
     when :large
-      cover.variant(resize_to_limit: [500, 500]) # &.processed&.url
+      cover.variant(resize_to_limit: [500, 500])&.processed&.url
 
     when :small
-      cover.variant(resize_to_limit: [50, 50]) # &.processed&.url
+      cover.variant(resize_to_limit: [50, 50])&.processed&.url
 
     else
-      cover.variant(resize_to_limit: [200, 200]) # &.processed&.url
+      cover.variant(resize_to_limit: [200, 200])&.processed&.url
     end
 
     url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
