@@ -1,0 +1,13 @@
+<section aria-labelledby="collections-heading" class="bg-gray-100 dark:bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 lg:pb-32 lg:pt-6 pt-4">
+      <div class="max-w-2xl mx-auto lg:max-w-none">
+        <h2 id="collections-users" class="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
+          Artists you should know
+        </h2>
+
+        <div class="mt-6 space-x-2 lg:space-y-0 grid-cols-3 grid lg:grid-cols-6 lg:gap-x-6 lg:gap-y-6">
+          <%= render partial: "users/row", collection: @artists, as: :user %>
+        </div>
+      </div>
+    </div>
+  </section>

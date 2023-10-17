@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get "/become/:id", to: "application#become"
 
+  get "/artists", to: "users#index"
+  
   get "/embed/:track_id", to: "embeds#show"
   get "/oembed/:track_id", to: "embeds#oembed_show", as: :oembed_show
   get "/oembed/:track_id/private", to: "embeds#oembed_private_show", as: :private_oembed_track
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
       resources :audio_direct_uploads, only: [:create], controller: "api/v1/audio_direct_uploads"
     end
   end
+
 
   resources :articles do
     member do

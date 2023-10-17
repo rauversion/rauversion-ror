@@ -1,0 +1,17 @@
+<div class="group relative">
+  <%= link_to user_path(user.username) do %>
+    <div class="relative bg-white rounded-full overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 lg:aspect-w-1 lg:aspect-h-1">
+      <%= image_tag(user.avatar_url(:medium),
+        class: "w-full h-full object-center object-cover"
+      ) %>
+    </div>
+
+    <h3 class="hidden mt-6 text-sm text-gray-500 dark:text-gray-300">
+      <span class="absolute inset-0"></span>
+      <%= user.username %>
+    </h3>
+    <p class="mt-3 text-base font-semibold text-gray-900 dark:text-gray-100 text-center truncate">
+      <%= user.username %>
+    </p>
+  <% end %>
+</div>

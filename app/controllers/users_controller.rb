@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
-  before_action :find_user
-  before_action :check_user_role
+  before_action :find_user, except: [:index]
+  before_action :check_user_role, except: [:index]
+
+  def index
+    @artists = User.where(role: "artist")
+    .where.not(username: nil)
+    .with_attached_avatar
+    .order("id desc")
+    .page(params[:page]).per(params[:per])
+  end
 
   def show
     get_tracks
