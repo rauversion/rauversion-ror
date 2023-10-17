@@ -112,7 +112,7 @@ class UsersController < ApplicationController
 
   def get_tracks
     # @collection = @user.tracks.page(params[:page]).per(2)
-    @collection = if current_user
+    @collection = if current_user && @user.id == current_user&.id 
       User.track_preloaded_by_user(current_user&.id)
         .where(user_id: @user.id)
         .with_attached_cover
