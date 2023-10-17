@@ -62,10 +62,14 @@
                   </td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 dark:text-gray-200 dark:bg-gray-900 divide-x space-x-2">
                     <%= link_to t('Edit'), edit_article_path(post), class: 'text-brand-600 hover:text-brand-900' %>
+                    
+                    <%= link_to t('Preview'), preview_article_path(post.signed_id), class: 'text-brand-600 hover:text-brand-900 pl-2' %>
 
                     <% if post.slug %>
                       <%= link_to t('articles.view'), article_path(post.slug), class: 'text-brand-600 hover:text-brand-900 pl-2' %>
                     <% end %>
+
+
                   </td>
                 </tr>
               <% end %>

@@ -37,6 +37,11 @@ class ArticlesController < ApplicationController
     )
   end
 
+  def preview
+    @post = Post.find_signed(params[:id])
+    render "show"
+  end
+
   def create
     @article = current_user.posts.create(body: params[:post][:body])
     redirect_to edit_article_path(@article), status: :see_other

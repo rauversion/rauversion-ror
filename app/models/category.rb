@@ -99,19 +99,14 @@ module Category::Genres
           "Eurodance",
           "Italo Disco",
           "Hi-NRG",
-          "Europop"
-        ]
-      },
-      {
-        "genre": "Electronic Dance Music",
-        "subgenres": [
-        "House",
-        "Techno",
-        "Drum and Bass",
-        "Dubstep",
-        "Ambient",
-        "Trance",
-        "Footwork",
+          "Europop",
+          "House",
+          "Techno",
+          "Drum and Bass",
+          "Dubstep",
+          "Ambient",
+          "Trance",
+          "Footwork"
         ]
       },
       {
@@ -256,8 +251,8 @@ module Category::Genres
         ]
       },
       {
-        "genre": "Latin Electronica",
-        "subgenres": [
+        "genre" => "Latin Electronica",
+        "subgenres" => [
           "Latin House",
           "Reggaeton",
           "Moombahton",

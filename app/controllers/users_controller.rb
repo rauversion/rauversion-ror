@@ -54,7 +54,6 @@ class UsersController < ApplicationController
       .page(params[:page]).per(5)
     @as = :playlist
     @section = "playlists/playlist_item"
-    binding.pry
     render "show"
   end
 

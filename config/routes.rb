@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   end
 
   resources :articles do
+    member do
+      get :preview
+    end
     collection do
       get :mine
     end

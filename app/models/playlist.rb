@@ -69,9 +69,16 @@ class Playlist < ApplicationRecord
   end
 
   def self.list_playlists_by_user_with_track(track_id, user_id)
-    Playlist.select("playlists.*, COUNT(track_playlists.track_id) as track_count")
+    #Playlist.select("playlists.*, COUNT(track_playlists.track_id) as track_count")
+    #  .left_outer_joins(:track_playlists)
+    #  .where(user_id: user_id, track_playlists: {track_id: [nil, track_id]})
+    #  .group("playlists.id")
+
+
+    Playlist
+      .select("playlists.*, SUM(CASE WHEN track_playlists.track_id = #{track_id} THEN 1 ELSE 0 END) as track_count")
       .left_outer_joins(:track_playlists)
-      .where(user_id: user_id, track_playlists: {track_id: [nil, track_id]})
+      .where(user_id: user_id)
       .group("playlists.id")
   end
 
