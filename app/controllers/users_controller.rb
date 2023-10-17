@@ -31,12 +31,40 @@ class UsersController < ApplicationController
     @title = "Playlists"
     @section = "playlists"
     @collection = @user.playlists
-      .where.not(playlist_type: ["album", "ep"])
-      .where(user_id: @user.id)
-      .with_attached_cover
-      .includes(user: {avatar_attachment: :blob})
-      .includes(tracks: {cover_attachment: :blob})
-      .page(params[:page]).per(5)
+    .where.not(playlist_type: ["album", "ep"])
+    .with_attached_cover
+    .includes(user: {avatar_attachment: :blob})
+    .includes(tracks: {cover_attachment: :blob})
+
+    if current_user.blank? || current_user != @user
+      @collection = @collection.where(private: false)
+    end
+
+    @collection = @collection.references(:tracks)
+    .page(params[:page])
+
+    #@collection = @collection
+    #.where(
+    #  playlists: {user_id: @user.id}, 
+    #  tracks: {user_id: @user.id}
+    #) if current_user.present?
+
+    #.or(
+    #  @user.playlists
+    #  .where(
+    #    playlists: {private: true}, 
+    #    tracks: {private: true, user_id: @user.id}
+    #  )
+    #)
+    #.or(
+    #  @user.playlists
+    #  .where.not(
+    #    playlists: {user_id: @user.id}, 
+    #    tracks: {user_id: @user.id}
+    #  )
+    #  .where(tracks: {private: true})
+    #)
+      
     @as = :playlist
     @section = "playlists/playlist_item"
     render "show"
@@ -59,7 +87,12 @@ class UsersController < ApplicationController
       .with_attached_cover
       .includes(user: {avatar_attachment: :blob})
       .includes(tracks: {cover_attachment: :blob})
-      .page(params[:page]).per(5)
+
+    if current_user.blank? || current_user != @user
+      @collection = @collection.where(private: false)
+    end
+
+    @collection = @collection.page(params[:page]).per(5)
     @as = :playlist
     @section = "playlists/playlist_item"
     render "show"
