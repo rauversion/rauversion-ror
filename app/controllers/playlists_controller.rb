@@ -66,7 +66,7 @@ class PlaylistsController < ApplicationController
     @playlist = current_user.playlists.friendly.find(params[:id])
 
     if !params[:nonpersist] && @playlist.update(playlist_params)
-      flash[:now] = "successfully created"
+      flash[:now] = "successfully updated"
     end
 
     if params[:nonpersist]

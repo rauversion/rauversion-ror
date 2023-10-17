@@ -163,7 +163,7 @@
       
               <%= render "sharer/share_button", resource: @playlist %>
 
-              <%= render "likes/like_button", resource: @playlist, button_class: liked?(@track) ? "button-active" : "button" %>
+              <%= render "likes/like_button", resource: @playlist, button_class: liked?(@playlist) ? "button-active" : "button" %>
 
 
               <% if user_signed_in? && @playlist.user_id == current_user.id %>
@@ -279,7 +279,7 @@
       -->
       
 
-      <div class="sm:text-xl text-sm container mx-auto px-4 my-4 prose dark:prose-invert prose-lg ">
+      <div class="whitespace-pre-line sm:text-xl text-sm container mx-auto px-4 my-4 prose dark:prose-invert prose-lg ">
         <!--<.tag_list_for playlist={@playlist} />-->
         <%= auto_link sanitize(@playlist.description, auto_link: true) %>
       </div>
