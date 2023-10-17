@@ -3,11 +3,11 @@ class Playlist < ApplicationRecord
   class Types
     def self.plain
       [
-        "Playlist",
-        "Album",
-        "EP",
-        "Single",
-        "Compilation"
+        "playlist",
+        "album",
+        "ep",
+        "single",
+        "compilation"
       ]
     end
   end
