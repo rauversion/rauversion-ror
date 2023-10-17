@@ -167,9 +167,7 @@
         <% end %>
 
         <div class="mt-6 space-x-2 lg:space-y-0 grid-cols-3 grid lg:grid-cols-6 lg:gap-x-6 lg:gap-y-6">
-          <% @artists.each do |user| %>
-            <%= render partial: "users/row", collection: @artists, as: :user %>
-          <% end %>
+          <%= render partial: "users/row", collection: @artists, as: :user %>
         </div>
       </div>
     </div>
