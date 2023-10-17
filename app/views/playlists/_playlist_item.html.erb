@@ -1,24 +1,55 @@
     <div
       class="my-2 p-2 border-- rounded-md shadow-xs mx-3 dark:bg-gray-900"
     >
+
+
       <div class="flex space-x-3">
         <div class="w-48">
           <%= image_tag(playlist.cover_url(:medium),
             class: "object-center object-cover group-hover:opacity-75"
           ) %>
         </div>
+
         <div class="flex-grow">
           <div class="flex flex-col">
-            <div class="space-y-2">
-              <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
-                <%= link_to playlist.title, playlist_path(playlist), "data-turbo-frame": "_top" %>
+            <div class="space-y-2 flex flex-col">
 
-                <% if playlist.album? && playlist.release_date.present? %>
-                  <span class="text-xs dark:text-gray-400 font-thin">
-                    <%= gettext("Album") %> <%= l(playlist.release_date, format: :short) %>
-                  </span>
+              <div class="flex justify-between">
+                <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
+                  <%= link_to playlist.title, playlist_path(playlist), "data-turbo-frame": "_top" %>
+
+                  <% if playlist.album? && playlist.release_date.present? %>
+                    <span class="text-xs dark:text-gray-400 font-thin">
+                      <%= gettext("Album") %> <%= l(playlist.release_date, format: :short) %>
+                    </span>
+                  <% end %>
+                </h3>
+
+                <% if playlist.private %>
+                  <div class="mr-2">
+                    <div class="bg-brand-500 text-white text-xs p-1 rounded-md inline-flex space-x-1 items-center">
+                      <svg
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                      >
+                        <path
+                          d="M5.5 7h4V6h-4v1zm4.5.5v3h1v-3h-1zM9.5 11h-4v1h4v-1zM5 10.5v-3H4v3h1zm.5.5a.5.5 0 01-.5-.5H4A1.5 1.5 0 005.5 12v-1zm4.5-.5a.5.5 0 01-.5.5v1a1.5 1.5 0 001.5-1.5h-1zM9.5 7a.5.5 0 01.5.5h1A1.5 1.5 0 009.5 6v1zm-4-1A1.5 1.5 0 004 7.5h1a.5.5 0 01.5-.5V6zm.5.5v-1H5v1h1zm3-1v1h1v-1H9zM7.5 4A1.5 1.5 0 019 5.5h1A2.5 2.5 0 007.5 3v1zM6 5.5A1.5 1.5 0 017.5 4V3A2.5 2.5 0 005 5.5h1z"
+                          fill="currentColor"
+                        >
+                        </path>
+                      </svg>
+                      <span><%= t("tracks.private") %></span>
+                    </div>
+                  </div>
                 <% end %>
-              </h3>
+              </div>
+
+
+
+
               <ul
                 role="list"
                 phx-hook="PlaylistComponent"
@@ -125,13 +156,15 @@
                 current_user={@current_user}
               >-->
                 <button
-                  class="underline text-sm dark:bg-black dark:border-gray-200 dark:hover:bg-gray-700 border-black rounded-sm border px-3 mt-2"
+                  class="my-2 underline text-sm dark:bg-green-700 dark:border-green-500 dark:hover:bg-green-800 border-black rounded-sm border px-3 mt-2"
                 >
                   <%= gettext("Buy Digital Album") %>
                 </button>
 
                 <span>
+                  <span class="font-bold">
                   <%= number_to_currency(playlist.price, precision: 2) %>
+                  </span>
                   <span class="text-gray-700 dark:text-gray-300">
                     USD
                   </span>
