@@ -26,7 +26,7 @@
 
             <div class="sm:col-span-4">
               <%= form.label :playlist_type %>
-              <%= form.select :playlist_type, Category::Genres.plain, label: "Playlist type" %>
+              <%= form.select :playlist_type, Playlist::Types.plain, label: "Playlist type" %>
             </div>
 
             <div class="sm:col-span-2">

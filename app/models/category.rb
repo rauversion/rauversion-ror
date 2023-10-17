@@ -33,7 +33,14 @@ class Category < ApplicationRecord
       "Trance",
       "Trap",
       "Triphop",
-      "World"
+      "World",
+      "UwUaracha",
+      "Trap",
+      "Latin Tecno",
+      "Latin Core",
+      "Dark Disco",
+      "FootWork",
+      ""
     ]
   end
 
@@ -96,6 +103,18 @@ module Category::Genres
         ]
       },
       {
+        "genre": "Electronic Dance Music",
+        "subgenres": [
+        "House",
+        "Techno",
+        "Drum and Bass",
+        "Dubstep",
+        "Ambient",
+        "Trance",
+        "Footwork",
+        ]
+      },
+      {
         "genre" => "Drum & Bass",
         "subgenres" => [
           "Jungle",
@@ -142,7 +161,8 @@ module Category::Genres
           "Minimal Techno",
           "Schranz",
           "Hard Techno",
-          "Trance Techno"
+          "Trance Techno",
+          "Dark Disco"
         ]
       },
       {
@@ -154,6 +174,7 @@ module Category::Genres
           "Hard Trance",
           "Progressive Trance",
           "Uplifting Trance"
+          
         ]
       },
       {
@@ -232,6 +253,22 @@ module Category::Genres
           "Math Metal",
           "Post-Metal",
           "Sludge Metal"
+        ]
+      },
+      {
+        "genre": "Latin Electronica",
+        "subgenres": [
+          "Latin House",
+          "Reggaeton",
+          "Moombahton",
+          "Cumbiaton",
+          "UwUaracha",
+          "Tribal Guarachero (or 3Ball)",
+          "Electrocumbia",
+          "Latin Trap",
+          "Digital Cumbia",
+          "Bachata Electronica",
+          "Latin Trance or Latin Progressive House"
         ]
       }
     ]

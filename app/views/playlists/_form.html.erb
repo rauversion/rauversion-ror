@@ -11,9 +11,19 @@
           <%= form.text_field :title, label: gettext("Playlist title") %>
         </div>
       </div>
+
+      <div class="sm:col-span-4">
+        <%= form.label :playlist_type %>
+        <%= form.select :playlist_type, Playlist::Types.plain, label: "Playlist type" %>
+      </div>
     
-      <div class="flex items-center">
-        <%= form.label "Privacy" %>
+
+      <div class="sm:col-span-4">
+
+        <div class="flex items-center">
+          <%= form.label "Privacy" %>
+        </div>
+
       </div>
 
       <div class="flex items-start space-x-2 sm:col-span-6">

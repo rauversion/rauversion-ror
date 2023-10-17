@@ -1,4 +1,17 @@
 class Playlist < ApplicationRecord
+
+  class Types
+    def self.plain
+      [
+        "Playlist",
+        "Album",
+        "EP",
+        "Single",
+        "Compilation"
+      ]
+    end
+  end
+
   extend FriendlyId
   friendly_id :title, use: :slugged
 
