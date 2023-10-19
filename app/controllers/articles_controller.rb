@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
         creator: "@rauversion",
         title: @post.title,
         description: @post.excerpt.truncate(120, separator: ' '),
-        image: @post&.cover_url(:medium)
+        "image:src": @post&.cover_url(:medium)
       }
     )
   end
