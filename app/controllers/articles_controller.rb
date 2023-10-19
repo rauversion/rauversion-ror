@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
         site: "rauversion.com",
         creator: "@rauversion",
         title: @post.title,
-        description: @post.excerpt,
+        description: @post.excerpt.truncate(120, separator: ' '),
         image: @post&.cover_url(:medium)
       }
     )
