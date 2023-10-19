@@ -91,17 +91,19 @@ class Track < ApplicationRecord
   def cover_url(size = nil)
     url = case size
     when :medium
-      Rails.application.routes.url_helpers.rails_storage_proxy_url cover.variant(resize_to_limit: [200, 200])
+      cover.variant(resize_to_limit: [200, 200])
 
     when :large
-      Rails.application.routes.url_helpers.rails_storage_proxy_url cover.variant(resize_to_limit: [500, 500])
+      cover.variant(resize_to_limit: [500, 500])
 
     when :small
-      Rails.application.routes.url_helpers.rails_storage_proxy_url cover.variant(resize_to_limit: [50, 50])
+      cover.variant(resize_to_limit: [50, 50])
 
     else
-      Rails.application.routes.url_helpers.rails_storage_proxy_url cover.variant(resize_to_limit: [200, 200])
+      cover.variant(resize_to_limit: [200, 200])
     end
+
+    return Rails.application.routes.url_helpers.rails_storage_proxy_url(url) if url.present?
 
     url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
