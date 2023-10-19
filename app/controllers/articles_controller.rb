@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
       # url: Routes.articles_show_url(socket, :show, post.id),
       title: "#{@post.title} on Rauversion",
       description: "Read #{@post.title} by #{@post.user.username} on Rauversion.",
-      image: @post&.cover_url(:small),
+      image: @post&.cover_url(:medium),
     )
   end
 
