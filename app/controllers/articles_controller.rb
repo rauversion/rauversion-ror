@@ -35,6 +35,12 @@ class ArticlesController < ApplicationController
       description: "Read #{@post.title} by #{@post.user.username} on Rauversion.",
       image: @post&.cover_url(:medium),
 
+      og: {
+        title: @post.title,
+        description: @post.excerpt,
+        image: @post&.cover_url(:medium)        
+      },
+
       twitter: {
         card: "summary",
         site: "rauversion.com",
