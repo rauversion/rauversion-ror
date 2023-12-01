@@ -82,6 +82,12 @@ class Playlist < ApplicationRecord
       .group("playlists.id")
   end
 
+  def ordered_tracks
+   
+    tracks.joins(:track_playlists).select('tracks.*, track_playlists.position').distinct.order('track_playlists.position')
+
+  end
+
   def iframe_code_string(url)
     <<-HTML
       <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="#{url}">
