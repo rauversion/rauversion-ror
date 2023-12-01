@@ -12,6 +12,16 @@ GIT
       ruby-openai (~> 4.2)
 
 GIT
+  remote: https://github.com/hotwired/turbo-rails.git
+  revision: 4eb4e928e30be8cd537af8073f98b80ddea4a578
+  branch: main
+  specs:
+    turbo-rails (2.0.0.pre.beta.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
+
+GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: 81589709e88db1ec2537faee3a7f4a43c7d9aac1
   branch: main
@@ -544,10 +554,6 @@ GEM
     timeout (0.4.0)
     transbank-sdk (3.0.2)
       json (~> 2.0)
-    turbo-rails (1.4.0)
-      actionpack (>= 6.0.0)
-      activejob (>= 6.0.0)
-      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -644,7 +650,7 @@ DEPENDENCIES
   store_attribute (~> 1.0)
   stripe (~> 8.6)
   transbank-sdk (~> 3.0)
-  turbo-rails
+  turbo-rails!
   tzinfo-data
   web-console
   webdrivers
