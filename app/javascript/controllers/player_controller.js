@@ -232,7 +232,16 @@ export default class extends Controller {
   async nextSong() {
     this.hasHalfwayEventFired = false;
     const c = this.getNextTrackIndex()
-    const aa = document.querySelector(`#sidebar-track-${ c }`)
+    let aa = document.querySelector(`#sidebar-track-${ c }`)
+
+    if (!aa) {
+      window.store.setState({playlist: []});
+
+      document.querySelector(`div[data-controller=track-detector]`)
+      .trackDetector.detect()
+
+      
+    }
     const response = await get(aa.dataset.url, { 
       responseKind: "turbo-stream", 
     })

@@ -5,7 +5,11 @@ export default class extends Controller {
   static targets = ["track"]
 
   connect() {
-    console.log("TRACK DETECTOR")
+    this.detect()
+  }
+
+  detect(){
+    console.log("TRACK DETECTOR", this.trackTargets)
     const newIds = this.trackTargets.map((track) => track.dataset.trackId)
     const playlist = new Set([...store.getState().playlist, ...newIds])
     store.setState({ playlist: Array.from(playlist) })
