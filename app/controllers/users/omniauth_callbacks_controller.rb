@@ -39,21 +39,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter
-    logger.info("Callback Linked")
+    logger.info("Callback Twitter")
     # logger.info(session.to_json)
-    callback
+    callback_handler
   end
 
   def instagram
-    logger.info("Callback Instagr")
+    logger.info("Callback Instagram")
     # logger.info(session.to_json)
-    callback
+    callback_handler
   end
 
   def soundcloud
     logger.info("Callback SoundCloud")
     # logger.info(session.to_json)
-    callback
+    callback_handler
   end
 
   def zoom
@@ -63,19 +63,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def stripe_connect
-    logger.info("Callback stripe")
+    logger.info("Callback Stripe")
     # logger.info(session.to_json)
     callback_handler
   end
 
   def discord
-    logger.info("Callback stripe")
+    logger.info("Callback Discord")
     # logger.info(session.to_json)
     callback_handler
   end
 
   def twitch
-    logger.info("Callback twitch")
+    logger.info("Callback Twitch")
     # logger.info(session.to_json)
     callback_handler
   end
