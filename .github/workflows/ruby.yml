@@ -4,7 +4,7 @@ name: CI
 on:
   push:
     branches_ignore:
-      - 'l10n_master2'
+      - "l10n_master2"
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -23,10 +23,9 @@ jobs:
           --health-retries 5
       redis:
         image: redis
-        ports: ['6379:6379']
+        ports: ["6379:6379"]
         options: --entrypoint redis-server
 
-    
     env:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
       REDIS_URL: redis://localhost:6379/0
@@ -36,13 +35,13 @@ jobs:
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
-          # ruby-version: 2.7.2 # no need with ruby-version file
+          ruby-version: 3.3.2 # no need with ruby-version file
           bundler-cache: true
 
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Build and precompile
         run: |
@@ -54,4 +53,3 @@ jobs:
       - name: Build and run tests
         run: |
           bundle exec rspec ./spec
-
