@@ -19,6 +19,12 @@ class User < ApplicationRecord
   has_many :hosted_events, through: :event_hosts
   has_many :purchases
   has_many :comments
+
+  
+  has_many :connected_accounts, foreign_key: :parent_id
+
+  has_many :child_accounts, through: :connected_accounts, source: :user
+
   has_one_attached :profile_header
   has_one_attached :avatar
 
@@ -141,7 +147,66 @@ class User < ApplicationRecord
       .where(tracks: {user_id: id})
   end
 
+
+  def active_connected_accounts(user)
+    ConnectedAccount.where(parent_id: user.id, state: 'active').includes(:user)
+  end
+
+  def is_child_of?(child_user_id)
+    ConnectedAccount.exists?(parent_id: self.id, state: 'active', user_id: child_user_id)
+  end
+
   # def password_required?
   #  false
   # end
+end
+
+
+
+class ExistingArtist
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+  include ActiveModel::Validations
+
+  attribute :username, :string
+  attribute :ticket_id, :integer
+  attribute :email, :string # Assuming you intend to use it given the validate_email function
+
+  validates :username, presence: true
+  validates :ticket_id, presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 160 }
+
+  # Custom validation method if you have additional logic
+  # validate :custom_validation_method
+
+  private
+
+  # Example custom validation method
+  # def custom_validation_method
+  #   errors.add(:base, "Custom validation error message") if some_condition
+  # end
+end
+
+
+class NewArtist
+  include ActiveModel::Model
+  include ActiveModel::Validations
+  include ActiveModel::Attributes
+
+  attribute :username, :string
+  attribute :genre, :string
+  attribute :hidden, :string
+
+  validates :username, presence: true
+  validate :validate_email
+
+  def validate_email
+    # Similar assumption about the `email` attribute
+    if email.present? && !email.match?(/\A[^\s]+@[^\s]+\z/)
+      errors.add(:email, "must have the @ sign and no spaces")
+    end
+    if email.length > 160
+      errors.add(:email, "is too long (maximum is 160 characters)")
+    end
+  end
 end

@@ -100,6 +100,17 @@
 
       </div>
 
+
+      <div class="flex items-center px-2 lg:px-0">
+        <% if user_id = session[:parent_user] %>
+          <% if user = Accounts.get_user!(user_id) %>
+            <%= link_to onbehalf_parent_path(username: user.username), class: "fixed p-2 text-xs bg-black hover:bg-white hover:text-black left-[-1px] border top-[45px] z-[200]" do %>
+              <span> ← </span> back to <br><%= user.username %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
       <div class="flex items-center lg:hidden">
         <button
           type="button"
@@ -181,6 +192,8 @@
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                     <%= t("menu.my_music") %>
                   <% end %>
+
+                  <%= current_user.label? ? "MY LABEL" : "SOY SUER" %>
                   <% # = live_redirect gettext("My Merch"), to: "/merch/mine", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" %>
                 <% end %>
 

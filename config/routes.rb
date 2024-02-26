@@ -121,10 +121,16 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
   end
 
+  get "/onbehalf/parent/:username", to: "label_auth#back"
+  get "/onbehalf/:username", to: "label_auth#add"
+  
+  resources :account_connections
+
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
     resources :users, path: "" do
       resource :insights
+      resources :artists, controller: "label_artists"
       resources :settings, param: :section, controller: "user_settings"
       resources :invitations, controller: "user_invitations"
       resources :integrations, controller: "user_integrations"
