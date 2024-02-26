@@ -5,9 +5,9 @@ class UsersController < ApplicationController
   def index
     @artists = User.where(role: "artist")
     .where.not(username: nil)
-    .with_attached_avatar
-    .order("id desc")
-    .page(params[:page]).per(params[:per])
+    #.with_attached_avatar
+    #.order("id desc")
+    .page(params[:page]).per(5)
   end
 
   def show

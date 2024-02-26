@@ -13,10 +13,10 @@ GIT
 
 GIT
   remote: https://github.com/hotwired/turbo-rails.git
-  revision: 4eb4e928e30be8cd537af8073f98b80ddea4a578
+  revision: e8dd34a11b588978534ce9b8f8e0822f2c6e3f2a
   branch: main
   specs:
-    turbo-rails (2.0.0.pre.beta.1)
+    turbo-rails (2.0.4)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -206,7 +206,7 @@ GEM
     chunky_png (1.4.0)
     coderay (1.1.3)
     colorize (0.8.1)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.2.0)
@@ -254,8 +254,8 @@ GEM
       activerecord (>= 4.0.0)
     front_matter_parser (1.0.1)
     geocoder (1.8.2)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     groupdate (6.3.0)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -312,7 +312,7 @@ GEM
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    loofah (2.21.3)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -330,7 +330,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.19.0)
+    minitest (5.22.2)
     mrsk (0.15.1)
       activesupport (>= 7.0)
       bcrypt_pbkdf (~> 1.0)
@@ -356,9 +356,9 @@ GEM
       net-protocol
     net-ssh (7.2.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4-arm64-darwin)
+    nokogiri (1.16.2-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-linux)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     oauth (1.1.0)
       oauth-tty (~> 1.0, >= 1.0.1)
@@ -408,8 +408,8 @@ GEM
       nio4r (~> 2.0)
     qdrant-ruby (0.9.3)
       faraday (>= 2.0.1, < 3)
-    racc (1.7.1)
-    rack (2.2.8)
+    racc (1.7.3)
+    rack (2.2.8.1)
     rack-protection (3.0.6)
       rack
     rack-test (2.1.0)
@@ -447,7 +447,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.1.0)
     redcarpet (2.3.0)
     redis (5.0.6)
       redis-client (>= 0.9.0)
@@ -548,7 +548,7 @@ GEM
     store_attribute (1.1.1)
       activerecord (>= 6.0)
     stripe (8.6.0)
-    thor (1.2.2)
+    thor (1.3.0)
     tiktoken_ruby (0.0.5-arm64-darwin)
     tiktoken_ruby (0.0.5-x86_64-linux)
     timeout (0.4.0)

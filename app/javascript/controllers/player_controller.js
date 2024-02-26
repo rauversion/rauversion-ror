@@ -235,10 +235,12 @@ export default class extends Controller {
     let aa = document.querySelector(`#sidebar-track-${ c }`)
 
     if (!aa) {
-      window.store.setState({playlist: []});
-
-      document.querySelector(`div[data-controller=track-detector]`)
-      .trackDetector.detect()
+     
+      const otherController = this.application.getControllerForElementAndIdentifier(
+        document.getElementById("track-detector"), 'track-detector'
+      )
+      otherController.detect()
+  
 
       
     }

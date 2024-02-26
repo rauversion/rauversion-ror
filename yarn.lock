@@ -470,20 +470,18 @@
   resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.2.1.tgz#e3de23623b0c52c247aba4cd5d530d257008676b"
   integrity sha512-HGlzDcf9vv/EQrMJ5ZG6VWNs8Z/xMN+1o2OhV1gKiSG6CqZt5MCBB1gRg5ILiN3U0jEAxuDTNPRfBcnZBDmupQ==
 
-"@hotwired/turbo-rails@8.0.0-beta.1":
-  version "8.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.0-beta.1.tgz#7d5bd2843caa5d8d224eb36f22078311163128bd"
-  integrity sha512-x9G95vehf5LR4yYGvhD4z6wBMbmAVi0V87FTfenrmXPru4SfOVDsCwdEINBWsLqOvCgRPQD9eY2nGyDfZlsukg==
+"@hotwired/turbo-rails@8.0.3":
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.3.tgz#e60375f4eea4b30ec0cd6d7e3fdb3d6349a2b57b"
+  integrity sha512-n5B9HdFsNiGJfXFAriCArmvFZyznIh/OriB5ZVAWz4Fsi4oLkpgmJNw5pibBAM7NMQQGN6cfKa/nhZT4LWcqbQ==
   dependencies:
-    "@hotwired/turbo" "^8.0.0-beta.1"
+    "@hotwired/turbo" "^8.0.3"
     "@rails/actioncable" "^7.0"
 
-"@hotwired/turbo@8.0.0-beta.1", "@hotwired/turbo@^8.0.0-beta.1":
-  version "8.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.0-beta.1.tgz#35a7086c4c959445db059ea4a9b9af85cdafa616"
-  integrity sha512-g66YmO/Oa+EThB3KkNDhrM9mFnNyRn6tqgwGiBHh4Vf+d3XjCznuWSG2o2e2cO/RlddVRtCwvBSMuG6sYQWX+g==
-  dependencies:
-    idiomorph "https://github.com/basecamp/idiomorph#rollout-build"
+"@hotwired/turbo@8.0.3", "@hotwired/turbo@^8.0.3":
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.3.tgz#338e07278f4b3c76921328d3c92dbc4831c209d0"
+  integrity sha512-qLgp7d6JaegKjMToTJahosrFxV3odfSbiekispQ3soOzE5jnU+iEMWlRvYRe/jvy5Q+JWoywtf9j3RD4ikVjIg==
 
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
@@ -1158,10 +1156,10 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
 
-dante3@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/dante3/-/dante3-1.2.8.tgz#aab8b855fc04064433cbc60c76a69485b2a898f3"
-  integrity sha512-I4MzfQXC3+p9kMJmc/eVVjAVhX6Vub4h9rWCGTf16ltS9nTgZ22pPmIivA7h7n6PRYRD5TKZgqOK4X/96IWhjA==
+dante3@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/dante3/-/dante3-1.3.3.tgz#155868736b1f074278ca47f0219e51e2eb534319"
+  integrity sha512-DKjbBxgFAiIb+F1YyUT2vQDFsH3vAYdE0MgssLNFwVBa4wtBzgYI2zPygBmBVs//8KtbIqXbhFX2M3/bdvlS+Q==
   dependencies:
     "@tiptap/extension-code" "^2.0.3"
     "@tiptap/extension-code-block-lowlight" "^2.0.3"
@@ -1442,10 +1440,6 @@ hotkeys-js@>=3:
   version "3.11.2"
   resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.11.2.tgz#c7893a01a1faa96db621bdd5c9baa1b4b0c7d3c0"
   integrity sha512-hLuR+wtvrVrVFHku5cud44cPXQf5ke+96TonRaGzlNSt22rh2LH65avLYFNsc+QpzMuOEQG/IxJT5mEop99rvg==
-
-"idiomorph@git+https://github.com/basecamp/idiomorph.git#rollout-build":
-  version "0.0.8"
-  resolved "git+https://github.com/basecamp/idiomorph.git#e906820368e4c9c52489a3336b8c3826b1bf6de5"
 
 import-fresh@^3.2.1:
   version "3.3.0"
