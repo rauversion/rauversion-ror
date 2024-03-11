@@ -1,0 +1,33 @@
+<%= render "shared/modal" do %>
+<div>
+  <p>Please specify an account to add.</p>
+  Artist URL http://<%= Rails.application.credentials.rauversion[:domain] %>/jjj
+
+  ,
+  Add via
+  Password
+  Request access from the artist
+  Hide artist
+  You can hide and unhide artists later, too.
+  <div>
+    <%= form_with model: @changeset, url: save_hosts_managers_path, method: :post, local: true, id: "hosts-managers-form", data: { target: "myself", action: "validate->save" } do |f| %>
+      <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+        <%= t("New user") %>
+      </h2>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <%= f.text_field :username, class: "sm:col-span-6" %>
+
+        <%= f.text_field :first_name, class: "sm:col-span-6" %>
+
+        <%= f.text_field :last_name, class: "sm:col-span-6" %>
+
+        <div class="sm:col-span-6 flex justify-end space-x-2">
+          <%= f.submit t("Save"), data: { disable_with: t("Saving...") }, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% end %>

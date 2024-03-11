@@ -1,0 +1,2 @@
+class LabelArtistsController < ApplicationController
+end

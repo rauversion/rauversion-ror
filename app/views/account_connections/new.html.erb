@@ -1,0 +1,29 @@
+<!-- app/views/account_connect/new.html.erb -->
+
+<% if params[:kind] %>
+
+  <% if params[:kind] == "new" %>
+    <%= render "new_user" %>
+  <% elsif params[:kind] == "existing" %>
+    <%= render "existing" %>
+  <% end %>
+
+<% else %>
+
+<div data-controller="account-connect" class="mx-auto md:w-2/4">
+  <div class="relative mx-auto mt-16 grid w-full max-w-container grid-cols-1 px-4 sm:mt-20 sm:px-6 lg:px-8 xl:mt-32">
+    <div class="relative z-10 p-4 space-y-8">
+      <div class="space-x-4 flex justify-center">
+        <!-- Trigger Stimulus actions -->
+        <%= link_to "New Artist", new_account_connection_path(kind: "new"), data: {turbo_frame: "modal"} %>
+        <%= link_to "Existing Artist", new_account_connection_path(kind: "existing"), data: {turbo_frame: "modal"} %>
+      </div>
+      <!-- Dynamic content updated via Stimulus and ActionCable -->
+      <%= turbo_frame_tag "dynamic-content" do %>
+        <!-- Updated content goes here -->
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% end %>
