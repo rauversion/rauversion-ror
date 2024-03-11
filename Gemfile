@@ -144,7 +144,7 @@ gem "meta-tags", "~> 2.18"
 
 gem "http", "~> 5.1"
 
-gem "ruby-oembed", "~> 0.16.1"
+gem "ruby-oembed", github: "basecamp/ruby-oembed", branch: "fix-spotify-redirects" #"~> 0.16.1"
 
 gem "sidekiq", "~> 7.1"
 gem "sidekiq-grouping"

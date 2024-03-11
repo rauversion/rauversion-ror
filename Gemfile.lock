@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/basecamp/ruby-oembed.git
+  revision: 90611d1bd1ce56c06517037a9b0f71a55ee7280f
+  branch: fix-spotify-redirects
+  specs:
+    ruby-oembed (0.16.1)
+
+GIT
   remote: https://github.com/chaskiq/plain.git
   revision: c775ad400d207f0a8d972bbae4da1360919fa9a5
   branch: documents
@@ -479,7 +486,6 @@ GEM
     rubocop-performance (1.18.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    ruby-oembed (0.16.1)
     ruby-openai (4.3.2)
       faraday (>= 1)
       faraday-multipart (>= 1)
@@ -631,7 +637,7 @@ DEPENDENCIES
   rspec-mocks!
   rspec-rails!
   rspec-support!
-  ruby-oembed (~> 0.16.1)
+  ruby-oembed!
   ruby-openai (~> 4.2)
   rubyzip (~> 2.3)
   selenium-webdriver
