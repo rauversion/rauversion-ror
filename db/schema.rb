@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_13_021115) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_13_044139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -159,7 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_021115) do
     t.jsonb "event_settings"
     t.jsonb "tickets"
     t.bigint "user_id", null: false
-    t.jsonb "streaming_service"
+    t.jsonb "streaming_service", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
@@ -362,6 +362,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_021115) do
     t.index ["event_schedule_id"], name: "index_schedule_schedulings_on_event_schedule_id"
   end
 
+  create_table "spotlights", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "spotlightable_type", null: false
+    t.bigint "spotlightable_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spotlightable_type", "spotlightable_id"], name: "index_spotlights_on_spotlightable"
+    t.index ["user_id"], name: "index_spotlights_on_user_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string "title"
     t.decimal "price"
@@ -497,6 +508,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_021115) do
   add_foreign_key "reposts", "tracks"
   add_foreign_key "reposts", "users"
   add_foreign_key "schedule_schedulings", "event_schedules"
+  add_foreign_key "spotlights", "users"
   add_foreign_key "tickets", "events"
   add_foreign_key "track_comments", "tracks"
   add_foreign_key "track_comments", "users"

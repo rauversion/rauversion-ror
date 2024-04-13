@@ -1,0 +1,85 @@
+<%= turbo_frame_tag "spotlight-frame" do %>
+  <div class="border-b border-subtle mb-4">
+    <% if @edit %>
+      <%= form_for @form, url: spotlight_path , html: {} do |f| %>
+        <div class="flex justify-between items-center">
+          <h1 class="font-bold text-lg">Spotlights (3/5)</h1>
+
+
+          <div class="flex space-x-2">
+            <%= link_to edit_spotlight_path, class: "button-sm-outline" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+              </svg>
+              <span>Cancel</span>
+            <% end %>
+
+            <%= f.submit "Save", class: "button-sm-outline" %>
+          </div>
+          
+        </div>
+
+          <%= combobox_tag :state, 
+          current_user.tracks.map{|o| [o.title, o.id]},
+          input: { name: "form_models_spotlight_form[state]" },
+          placeholder: "Select a track or Playlist from your profile", 
+          name: "form_models_spotlight_form[term]" do |c| %>
+
+            <% c.customize_hidden_field class: "custom-class--hidden_field", 
+              data: { controller: "input-listener" } , 
+              name: "form_models_spotlight_form[state]"
+            %>
+          
+          <% end %>
+
+          <div data-controller="sortable" data-handle=".cursor-move">
+            <%= f.fields_for :items, f.object.items do |item| %>
+              <div data-sortable-target="item" data-id="<%= item.object.id %>">
+                <% if item.object.present? %>
+
+                  <div class="mr-2 cursor-move">
+                    <%= heroicon("arrows-up-down") %>
+                  </div>
+
+                  <%= item.hidden_field :id %> 
+                  <%= item.hidden_field :spotlightable_type %>
+                  <%= item.hidden_field :spotlightable_id %>
+                  <%= item.hidden_field :position %>
+                  <%= render "tracks/track_item", track: Track.find(item.object.spotlightable_id) %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+      <% end %>
+    <% else %>
+      <% if @user.id == current_user.id %>
+        <div class="flex justify-between items-center">
+          <h1 class="font-bold text-lg">Spotlights (3/5)</h1>
+
+          <%= link_to edit_spotlight_path, class: "button-sm-outline" do %>
+            <%= heroicon :pencil, variant: "mini" %>
+            <span><%= t("tracks.edit spotlights") %></span>
+          <% end %>
+          
+        </div>
+
+        <p class="text-md text-subtle my-3">
+          Highlight your best tracks and playlists: put them in Spotlight so that your audience will find them first when they visit your profile.
+        </p>
+
+      <% end %>
+    <% end %>
+  </div>
+
+
+
+  <% if @user.present? %>
+    <% @user.spotlights.each do |item| %>
+      <%= render "tracks/track_item", track: item.spotlightable %>
+    <% end %>
+  <% end %>
+  
+
+
+<% end %>

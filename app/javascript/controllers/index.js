@@ -35,6 +35,10 @@ import panel from "./panel_controller"
 import MediumZoom from "./medium_controller.js"
 import ScrollTo from './scroll_to_controller'
 import ToggleClass from './toggle_class_controller'
+import sortableController from './sortable_controller'
+import HwComboboxController from "@josefarias/hotwire_combobox"
+import submit_on_change_controller from "./submit_on_change_controller.js"
+import input_listener_controller from "./input_listener_controller.js"
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -72,4 +76,7 @@ application.register("medium-zoom", MediumZoom)
 application.register("scroll-to", ScrollTo)
 application.register("toggle-class", ToggleClass)
 application.register("player-sidebar", player_sidebar_controller)
-
+application.register("sortable", sortableController)
+application.register("submit-on-change", submit_on_change_controller)
+application.register("hw-combobox", HwComboboxController)
+application.register("input-listener", input_listener_controller)

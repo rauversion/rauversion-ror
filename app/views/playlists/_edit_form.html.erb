@@ -1,4 +1,4 @@
-<div class="space-y-8 divide-y divide-gray-200 dark:divide-gray-800 sm:space-y-5">
+<div class="space-y-8 divide-y divide-muted sm:space-y-5">
   <%= form_for @playlist, html: { data: {controller: "input-submitter" }} do |form| %>
     <nav class="flex space-x-4" aria-label="Tabs">
       <%= link_to "Basic Info", edit_playlist_path(@playlist, tab: "basic-info-tab"), class: "#{active_tab_link?(tab, "basic-info-tab" )} tab-link px-3 py-2 font-medium text-sm rounded-md" %>  

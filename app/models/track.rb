@@ -12,6 +12,9 @@ class Track < ApplicationRecord
   has_many :likes, as: :likeable
   has_many :comments, as: :commentable
   has_one :track_peak
+  has_many :spotlights, as: :spotlightable
+  # has_many :spotlighted_tracks, through: :spotlight_tracks
+
 
   has_one_attached :cover
   has_one_attached :audio

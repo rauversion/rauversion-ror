@@ -483,6 +483,11 @@
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.3.tgz#338e07278f4b3c76921328d3c92dbc4831c209d0"
   integrity sha512-qLgp7d6JaegKjMToTJahosrFxV3odfSbiekispQ3soOzE5jnU+iEMWlRvYRe/jvy5Q+JWoywtf9j3RD4ikVjIg==
 
+"@josefarias/hotwire_combobox@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@josefarias/hotwire_combobox/-/hotwire_combobox-0.2.1.tgz#a72fe1e8342c630399b907436329d7fa5cf02eca"
+  integrity sha512-oik0bMWgldvx2bto0pAaj3mQ5xd5VoqgH1zJXG97is7TPLgfAUqUtdW1qoqM8xhS/mGptTnpUw3mQ3lSkPAcWA==
+
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.3.tgz#7e02e6eb5df901aaedb08514203b096614024098"
@@ -2178,6 +2183,11 @@ semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
+
+sortablejs@^1.7.0:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.2.tgz#4e9f7bda4718bd1838add9f1866ec77169149809"
+  integrity sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==
 
 source-map-js@^1.0.2:
   version "1.0.2"
