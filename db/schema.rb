@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_01_040118) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_13_021115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_040118) do
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "connected_accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "state"
+    t.bigint "parent_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_connected_accounts_on_parent_id"
+    t.index ["user_id"], name: "index_connected_accounts_on_user_id"
   end
 
   create_table "event_hosts", force: :cascade do |t|
@@ -379,6 +389,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_040118) do
     t.index ["user_id"], name: "index_track_comments_on_user_id"
   end
 
+  create_table "track_peaks", force: :cascade do |t|
+    t.bigint "track_id", null: false
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_track_peaks_on_track_id"
+  end
+
   create_table "track_playlists", force: :cascade do |t|
     t.bigint "track_id", null: false
     t.datetime "created_at", null: false
@@ -461,6 +479,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_040118) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "connected_accounts", "users"
+  add_foreign_key "connected_accounts", "users", column: "parent_id"
   add_foreign_key "event_hosts", "events"
   add_foreign_key "event_hosts", "users"
   add_foreign_key "event_recordings", "events"
@@ -480,6 +500,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_040118) do
   add_foreign_key "tickets", "events"
   add_foreign_key "track_comments", "tracks"
   add_foreign_key "track_comments", "users"
+  add_foreign_key "track_peaks", "tracks"
   add_foreign_key "track_playlists", "playlists"
   add_foreign_key "track_playlists", "tracks"
   add_foreign_key "tracks", "users"
