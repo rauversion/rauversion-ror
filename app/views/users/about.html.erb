@@ -41,7 +41,7 @@
 
     <div class="sm:max-w-lg py-5">
       <h1 class="text-4xl font-bold tracking-tight text-default sm:text-6xl">
-        <%= @user.username %>
+        <%= link_to @user.username, user_path(@user.username)  %>
       </h1>
       <p class="text-muted">
         <%= @user.country %>, <%= @user.city %>
@@ -53,11 +53,14 @@
 
   </div>
 
-  <div class="flex justify-end">
-    <%= link_to new_photo_path, class: "button-sm-outline", data: {turbo_frame: "modal"} do %>
-      New Image
-    <% end %>
-  </div>
+  <% if @user.id == current_user&.id %>
+    <div class="flex justify-start">
+      <%= link_to new_photo_path, class: "button-sm-outline", data: {turbo_frame: "modal"} do %>
+        <%= heroicon :plus %>
+        New Image
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
     <% current_user.photos.each do |image| %>
