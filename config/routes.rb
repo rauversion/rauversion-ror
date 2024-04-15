@@ -107,12 +107,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :spotlight
   resources :playlists do
     resources :comments
     resource :embed, only: :show
     resource :likes
     resource :reposts
     resource :sharer, controller: "sharer"
+    member do
+      post :sort
+    end
   end
 
   resources :track_playlists

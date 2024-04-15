@@ -42,7 +42,6 @@ class Category < ApplicationRecord
       "FootWork",
       "IDM",
       "Downtempo"
-      ""
     ]
   end
 

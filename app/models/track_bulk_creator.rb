@@ -36,7 +36,7 @@ class TrackBulkCreator
     @tracks ||= tracks_attributes.map do |attributes|
       blob = ActiveStorage::Blob.find_signed(attributes[:audio])
       t = Track.new(attributes)
-      t.title = blob.filename.to_s
+      t.title = File.basename(blob.filename, File.extname(blob.filename)) 
       t.user = user
       t.private = private
       t

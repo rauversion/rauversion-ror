@@ -87,6 +87,8 @@ es:
     confirm: "¿Estás seguro que deseas eliminar esto?"
 
   tracks:
+    spotlight: "Destacados"
+    spotlights: "Destacados %{msg}"
     recent: Pistas recientes
     new_track: Nueva pista
     private: Privado

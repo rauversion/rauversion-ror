@@ -1,4 +1,4 @@
-<div class="flex flex-col sm:flex-row border-0 border-r-0- border-l-0- mx-2 rounded-lg dark:bg-gray-900 dark:border-gray-800 rounded-md- shadow-sm sm:shadow-md my-2" 
+<div class="flex flex-col sm:flex-row border-0 border-r-0- border-l-0- mx-2 rounded-lg bg-muted rounded-md- shadow-sm sm:shadow-md my-2" 
     id="<%= "track-item-#{track.id}" %>">
   <div class="w-full sm:w-44 mb-4 flex-shrink-0 sm:mb-0 sm:mr-4-- px-4- sm:px-0">
     <div class="group relative aspect-w-1 aspect-h-1 sm:rounded-none rounded-md-- bg-gray-100 dark:bg-gray-900 overflow-hidden">
@@ -133,7 +133,7 @@
             From: "transform opacity-100 scale-100"
             To: "transform opacity-0 scale-95"
         -->
-        <div class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-900 rounded-md bg-white dark:bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" data-dropdown-target="menu" classsss="hidden transition transform origin-top-right absolute right-0" data-transition-enter-from="opacity-0 scale-95" data-transition-enter-to="opacity-100 scale-100" data-transition-leave-from="opacity-100 scale-100" data-transition-leave-to="opacity-0 scale-95">
+        <div class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-900 rounded-md bg-default shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" data-dropdown-target="menu" classsss="hidden transition transform origin-top-right absolute right-0" data-transition-enter-from="opacity-0 scale-95" data-transition-enter-to="opacity-100 scale-100" data-transition-leave-from="opacity-100 scale-100" data-transition-leave-to="opacity-0 scale-95">
           <div class="py-1" role="none">
             
             <% if user_signed_in? && track.user_id == current_user.id %>

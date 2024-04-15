@@ -142,6 +142,13 @@ RSpec.describe Track, type: :model do
 
       expect(peaks).to eq([1, 2, 3, 4, 5])
     end
+
+    it "processes the audio peaks update" do
+      track.update(peaks: [1,4,4,4])
+      expect(track.peaks).to be == [1,4,4,4]
+      track.update(peaks: [1,2,3,4])
+      expect(track.peaks).to be == [1,2,3,4]
+    end
   end
 
   describe "#process_mp3" do

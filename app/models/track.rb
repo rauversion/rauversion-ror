@@ -11,6 +11,10 @@ class Track < ApplicationRecord
   has_many :purchased_items, as: :purchased_item
   has_many :likes, as: :likeable
   has_many :comments, as: :commentable
+  has_one :track_peak
+  has_many :spotlights, as: :spotlightable
+  # has_many :spotlighted_tracks, through: :spotlight_tracks
+
 
   has_one_attached :cover
   has_one_attached :audio
@@ -36,7 +40,7 @@ class Track < ApplicationRecord
   # store_attribute :metadata, :colors, :json, default: ["red", "blue"]
   # store_attribute :metadata, :data, :datetime, default: -> { Time.now }
 
-  store_attribute :metadata, :peaks, :json, default: []
+  # store_attribute :metadata, :peaks, :json, default: []
   store_attribute :metadata, :contains_music, :boolean
   store_attribute :metadata, :artist, :string
   store_attribute :metadata, :publisher, :string
@@ -85,6 +89,18 @@ class Track < ApplicationRecord
 
     event :sleep do
       transitions from: :running, to: :sleeping
+    end
+  end
+
+  def peaks
+    self.track_peak&.data || []
+  end
+
+  def peaks=(peaks)
+    if self.track_peak.blank?
+      self.build_track_peak(data: peaks) 
+    else
+      self.track_peak.update(data: peaks) 
     end
   end
 
