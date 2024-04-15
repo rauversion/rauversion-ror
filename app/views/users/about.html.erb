@@ -63,7 +63,7 @@
   <% end %>
 
   <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
-    <% current_user.photos.each do |image| %>
+    <% @user.photos.each do |image| %>
       <div>
         <%= image_tag image.image.variant(resize_to_fill: [350, 250]) , class: "h-auto max-w-full rounded-lg" %>
       </div>
