@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :reposted_tracks, through: :reposts, source: :track
   has_many :track_comments
   has_many :posts
+  has_many :photos
   has_many :listening_events
   has_many :invitations, class_name: to_s, as: :invited_by
   has_many :oauth_credentials
@@ -49,6 +50,8 @@ class User < ApplicationRecord
   store_attribute :settings, :pst_enabled, :boolean
   store_attribute :settings, :tbk_commerce_code, :string
   store_attribute :settings, :tbk_test_mode, :boolean
+
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   scope :artists, -> { where(role: "artist").where.not(username: nil) }
   # Ex:- scope :active, -> {where(:active => true)}

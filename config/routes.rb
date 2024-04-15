@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :photos
   resource :spotlight
   resources :playlists do
     resources :comments
@@ -142,6 +143,7 @@ Rails.application.routes.draw do
       get "/playlists", to: "users#playlists"
       get "/reposts", to: "users#reposts"
       get "/albums", to: "users#albums"
+      get "/about", to: "users#about"
     end
   end
 

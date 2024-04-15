@@ -100,6 +100,12 @@ class UsersController < ApplicationController
     render "show"
   end
 
+  def about
+    @title = "Albums"
+    @section = "albums"
+    render "about"
+  end
+
   private
 
   def get_meta_tags

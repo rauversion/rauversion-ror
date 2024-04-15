@@ -1,0 +1,15 @@
+
+<%= turbo_frame_tag "modal" do %>
+
+  <%= render "shared/modal" do %>
+    <%= form_for current_user, url: photo_path(current_user.id), data: {turbo_frame: "_top"} do |form| %>
+      <h1 class="text-2xl my-2">Upload a Image</h1>
+      <%= form.fields_for :photos, Photo.new do |f| %>
+        <div class="space-y-2">
+          <%= f.file_field :image %>
+          <%= f.submit %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

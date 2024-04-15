@@ -295,9 +295,9 @@ class Track < ApplicationRecord
       .order("count DESC")
   end
 
-  def self.series_by_month(profile_id)
+  def self.series_by_month(profile_id, range: 12)
     ListeningEvent.where(resource_profile_id: profile_id)
-      .group_by_month(:created_at, range: 12.months.ago.midnight..Time.now).count
+      .group_by_month(:created_at, range: range.months.ago.midnight..Time.now).count
       .map { |k, v|
       {count: v, day: k}
     }

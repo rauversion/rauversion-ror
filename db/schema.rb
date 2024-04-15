@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_13_044139) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_15_033320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -242,6 +242,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_044139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_oauth_credentials_on_user_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "description"
+    t.string "tags", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "plain_conversations", force: :cascade do |t|
@@ -499,6 +508,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_044139) do
   add_foreign_key "event_tickets", "events"
   add_foreign_key "events", "users"
   add_foreign_key "oauth_credentials", "users"
+  add_foreign_key "photos", "users"
   add_foreign_key "plain_messages", "plain_conversations"
   add_foreign_key "playlists", "users"
   add_foreign_key "posts", "categories"
