@@ -129,7 +129,9 @@
           </div>
         </div>
       </div>
-      <p class="font-normal text-sm text-subtle mb-2"> <%= @user.bio %> </p>
+      <p class="font-normal text-sm text-subtle mb-2 text-ellipsis overflow-hidden h-56">
+        <%= @user.bio %> 
+      </p>
 
       <div class="flex justify-end">
         <%= link_to "more", "/#{@user.username}/about", class: "mr-2 btn-xs outline rounded-sm p-1" %>
