@@ -2,9 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
+  :root {
+    /* background */
+
+    --rau-bg-emphasis: #e5e7eb;
+    --rau-bg: white;
+    --rau-bg-subtle: #f3f4f6;
+    --rau-bg-muted: #f9fafb;
+    --rau-bg-inverted: #111827;
+
+    /* background -> components*/
+    --rau-bg-info: #dee9fc;
+    --rau-bg-success: #e2fbe8;
+    --rau-bg-attention: #fceed8;
+    --rau-bg-error: #f9e3e2;
+    --rau-bg-dark-error: #752522;
+
+    /* Borders */
+    --rau-border-emphasis: #9ca3af;
+    --rau-border: #d1d5db;
+    --rau-border-subtle: #e5e7eb;
+    --rau-border-muted: #f3f4f6;
+    --rau-border-error: #aa2e26;
+
+    /* Content/Text */
+    --rau-text-emphasis: #111827;
+    --rau-text: #374151;
+    --rau-text-subtle: #6b7280;
+    --rau-text-muted: #9ca3af;
+    --rau-text-inverted: white;
+
+    /* Content/Text -> components */
+    --rau-text-info: #253985;
+    --rau-text-success: #285231;
+    --rau-text-attention: #73321b;
+    --rau-text-error: #752522;
+
+    /* Brand shinanigans
+      -> These will be computed for the users theme at runtime.
+    */
+    --rau-brand: #002c63;
+    --rau-brand-emphasis: #002c63;
+    --rau-brand-text: white;
+  }
+  :root .dark {
+    /* background */
+
+    --rau-bg-emphasis: #2b2b2b;
+    --rau-bg: #101010;
+    --rau-bg-subtle: #2b2b2b;
+    --rau-bg-muted: #1c1c1c;
+    --rau-bg-inverted: #f3f4f6;
+
+    /* background -> components*/
+    --rau-bg-info: #263fa9;
+    --rau-bg-success: #306339;
+    --rau-bg-attention: #8e3b1f;
+    --rau-bg-error: #8c2822;
+    --rau-bg-dark-error: #752522;
+
+    /* Borders */
+    --rau-border-emphasis: #575757;
+    --rau-border: #444444;
+    --rau-border-subtle: #2b2b2b;
+    --rau-border-muted: #1c1c1c;
+    --rau-border-error: #aa2e26;
+
+    /* Content/Text */
+    --rau-text-emphasis: #f3f4f6;
+    --rau-text: #d6d6d6;
+    --rau-text-subtle: #757575;
+    --rau-text-muted: #575757;
+    --rau-text-inverted: #101010;
+
+    /* Content/Text -> components */
+    --rau-text-info: #dee9fc;
+    --rau-text-success: #e2fbe8;
+    --rau-text-attention: #fceed8;
+    --rau-text-error: #f9e3e2;
+
+    /* Brand shenanigans
+      -> These will be computed for the users theme at runtime.
+    */
+
+    --rau-brand: #002c63;
+    --rau-brand-emphasis: #002c63;
+    --rau-brand-text: white;
+  }
 
   .post-wrapper .aspectRatioPlaceholder {
     margin: 0px auto;
@@ -22,7 +107,10 @@
 
   .post-wrapper .imageCaption {
     text-align: center;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
     letter-spacing: 0px;
     font-weight: 400;
     font-size: 13px;
@@ -39,7 +127,10 @@
     border-style: solid;
     border-width: 1px;
     box-sizing: border-box;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
     font-size: 12px;
     font-style: normal;
     font-weight: 300;
@@ -72,19 +163,20 @@
     margin-bottom: 0px;
   }
 
-  .post-wrapper .graf--layoutInsetLeft, .post-wrapper .graf--layoutOutsetLeft {
-      float: left;
-      margin-right: 30px;
-      padding-top: 10px;
-      padding-bottom: 10px;
+  .post-wrapper .graf--layoutInsetLeft,
+  .post-wrapper .graf--layoutOutsetLeft {
+    float: left;
+    margin-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .post-wrapper .graf--layoutOutsetLeft {
-      width: 75%;
+    width: 75%;
   }
 
   .post-wrapper .graf--layoutOutsetLeft {
-      margin-left: -160px;
+    margin-left: -160px;
   }
 
   .aaa {
@@ -92,10 +184,11 @@
   }
 
   textarea {
-    @apply block w-full rounded-md border-0 py-1.5 dark:bg-gray-900 dark:text-gray-100 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6
+    @apply block w-full rounded-md border-0 py-1.5 dark:bg-gray-900 dark:text-gray-100 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
-  .select, select {
+  .select,
+  select {
     @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
@@ -103,15 +196,18 @@
     @apply block text-sm font-medium text-gray-700 dark:text-gray-300 sm:mt-px sm:pt-2;
   }
 
-  input[type=number]{
+  input[type="number"] {
     @apply block w-full rounded-md border-0 px-3 pl-3 dark:bg-gray-900 dark:text-gray-100 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
-  input[type=date], input[type=datetime-local]{
+  input[type="date"],
+  input[type="datetime-local"] {
     @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
-  input[type=text], input[type=email], input[type=password]{
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
     @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
@@ -123,7 +219,8 @@
     @apply block text-gray-700 dark:text-white text-sm font-bold mb-1;
   }
 
-  input[type="submit"], .brand-button {
+  input[type="submit"],
+  .brand-button {
     @apply cursor-pointer rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
   }
 
@@ -164,12 +261,9 @@
     @apply text-neutral-600 dark:text-neutral-200;
   }
 
-
   .button {
     @apply space-x-1 inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-900 shadow-sm text-xs font-medium rounded text-gray-700 bg-white dark:text-gray-300 dark:bg-black  hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-indigo-900;
   }
-
-
 
   .button-active {
     @apply space-x-1 inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-900 shadow-sm text-xs font-medium rounded text-gray-700 bg-white dark:text-brand-300 dark:bg-black  hover:bg-brand-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-brand-900;
@@ -185,6 +279,10 @@
 
   .button-large-outline {
     @apply inline-flex justify-between dark:border-2 dark:border-white rounded-lg py-3 px-5 bg-black text-white block font-medium;
+  }
+
+  .button-sm-outline {
+    @apply inline-flex items-center justify-between dark:border-2 dark:border-white rounded-lg py-2 px-2 bg-black text-white block font-medium text-sm;
   }
 
   .player-button {
@@ -212,7 +310,6 @@
     @apply relative hover:bg-gray-800 p-2 rounded-md smooth-color;
   }
 
-
   .tab-active {
     @apply border-brand-500 text-brand-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium;
   }
@@ -221,4 +318,19 @@
     @apply border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium;
   }
 
+  /* COMBOBOX */
+
+  .hw-combobox__main__wrapper {
+    @apply sm:w-[35rem] rounded-full w-80;
+  }
+  .hw-combobox__handle {
+    @apply right-3;
+  }
+  .hw-combobox__listbox {
+    @apply rounded-2xl bg-subtle;
+  }
+
+  .hw-combobox__option {
+    @apply p-2 border-b border-muted hover:bg-emphasis;
+  }
 }

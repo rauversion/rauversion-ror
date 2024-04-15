@@ -90,4 +90,19 @@ class PlaylistsController < ApplicationController
       ]
     )
   end
+
+  def sort
+    @tab = params[:tab] || "tracks-tab"
+    @playlist = current_user.playlists.friendly.find(params[:id])
+    id = params.dig("section", "id")
+    position = params.dig("section", "position")
+
+    collection = @playlist.track_playlists.find(id)
+    collection.insert_at(position + 1)
+
+    flash[:now] = "successfully updated"
+
+    render "update"
+
+  end
 end

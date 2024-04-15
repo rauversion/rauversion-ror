@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :check_user_role, except: [:index]
 
   def index
+    @title = "Tracks"
     @artists = User.where(role: "artist")
     .where.not(username: nil)
     #.with_attached_avatar
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @title = "Tracks"
     get_tracks
     get_meta_tags
     @as = :track
