@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def tracks
     get_tracks
+    @title = "Tracks"
     # @collection = @user.tracks.page(params[:page]).per(5)
     @as = :track
     @title = "Tracks"
