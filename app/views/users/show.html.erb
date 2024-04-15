@@ -59,7 +59,9 @@
     <div class="space-y-6 lg:col-start-1 lg:col-span-2">
       <section class="">
 
-        <%= render "spotlights/form" %>
+        <% if @title == "Tracks" %>
+          <%= render "spotlights/form" %>
+        <% end %>
 
 
         <div class="border-r-2--">
