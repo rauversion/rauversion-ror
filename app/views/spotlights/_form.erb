@@ -3,7 +3,9 @@
     <% if @edit %>
       <%= form_for @form, url: spotlight_path , html: {} do |f| %>
         <div class="flex justify-between items-center">
-          <h1 class="font-bold text-lg">Spotlights (<%= @form.items.size %>/<%= @form.max %>)</h1>
+          <h1 class="font-bold text-lg">
+            <%= t("tracks.spotlights", msg: ("#{@form.items.size}/#{@form.max}")) %> 
+          </h1>
 
 
           <div class="flex space-x-2">
@@ -64,7 +66,7 @@
                   <%= item.hidden_field :id %> 
                   <%= item.hidden_field :spotlightable_type %>
                   <%= item.hidden_field :spotlightable_id %>
-                  <%= item.hidden_field :position %>
+                  <%= item.hidden_field :position , data: {sortable_target: "position" } %>
                   <%= render "tracks/track_item", track: Track.find(item.object.spotlightable_id) %>
                 <% end %>
               </div>
@@ -73,7 +75,7 @@
 
       <% end %>
     <% else %>
-      <% if @user.id == current_user.id %>
+      <% if @user.id == current_user&.id %>
         <div class="flex justify-between items-center">
           <h1 class="font-bold text-lg">Spotlight</h1>
 
@@ -95,7 +97,11 @@
 
 
   <% if @user.present? %>
-    <% @user.spotlights.each do |item| %>
+    <div class="px-4 py-5 sm:px-6">
+      <h1 class="font-bold text-4xl"><%= t("tracks.spotlight") %></h1>
+    </div>
+
+    <% @user.spotlights.order("position").each do |item| %>
       <%= render "tracks/track_item", track: item.spotlightable %>
     <% end %>
   <% end %>

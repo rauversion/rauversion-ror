@@ -56,7 +56,7 @@ export default class extends Controller {
     //	parentSectionId = e.item.parents(e.item.dataset.lookFor).dataset.id
     //}
 
-    const event = new CustomEvent('sortable:end', { detail: 'eventData' });
+    const event = new CustomEvent('sortable:refresh', { detail: 'eventData' });
     document.dispatchEvent(event);
 
     this.sendData(
@@ -78,9 +78,10 @@ export default class extends Controller {
   }
 
   refresh() {
-    if (!this.hasItemTargets) return;
+    if (!this.hasItemTarget) return;
+    
     this.itemTargets.forEach((item, index) => {
-      const positionInput = item.querySelector('.position');
+      const positionInput = item.querySelector('[data-sortable-target="position"]');
       if (positionInput) {
         positionInput.value = index + 1; // The position is 1-indexed
       }

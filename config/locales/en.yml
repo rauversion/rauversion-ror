@@ -89,6 +89,8 @@ en:
     confirm: "Are you sure you want to delete this?"
 
   tracks:
+    spotlight: "Spotlight"
+    spotlights: "Spotlights %{msg}"
     recent: Recent Tracks
     new_track: New track
     private: Private
