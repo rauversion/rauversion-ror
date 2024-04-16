@@ -1,13 +1,13 @@
-<div class="sm:h-64 h-24 bg-black sticky top-0 z-40 sm:relative">
+<div class="sm:h-64 h-24 bg-default sticky top-0 z-40 sm:relative">
   <div class="flex justify-between bg-cover bg-center" style="background-image: url('<%= image_url(@user.profile_header_url(:large)) %>')">
     <div class="flex">
       <div class="m-4">
         <%= image_tag @user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
       </div>
-      <div class="text-white sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
-        <p class="sm:text-3xl text-lg font-extrabold bg-black p-1 inline-block"> <%= @user.username %> </p>
-        <p class="sm:text-lg text-xs font-light bg-black p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
-        <p class="sm:text-lg text-xs font-light bg-black p-1 inline-block"> <%= @user.country %> <%= @user.city %> </p>
+      <div class="text-default sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
+        <p class="sm:text-3xl text-lg font-extrabold bg-default p-1 inline-block"> <%= @user.username %> </p>
+        <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
+        <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.country %> <%= @user.city %> </p>
       </div>
     </div>
     <div class="hidden">bjkkjk</div>
@@ -15,7 +15,7 @@
 </div>
 
 
-<div class="relative dark:bg-black">
+<div class="relative dark:bg-default">
   <div class="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true"></div>
   <div class="z-20 sticky top-0">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">

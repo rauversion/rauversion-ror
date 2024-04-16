@@ -26,8 +26,8 @@
 
   </head>
 
-  <body class="dark bg-default font-sans antialiased text-default"
-     data-controller="track-detector">
+  <body class="bg-default font-sans antialiased text-default"
+     data-controller="track-detector dark-mode">
     <%= render "shared/user_menu" %>
 
     <%= yield %>
@@ -42,6 +42,8 @@
     </div>
 
     <%= turbo_frame_tag "modal" %>
+    <%= render "shared/turbo_delete_modal" %>
+
 
     <% 
     # live_render(@conn, RauversionWeb.TrackLive.Player,

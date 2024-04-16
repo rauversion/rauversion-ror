@@ -39,6 +39,7 @@ import sortableController from './sortable_controller'
 import HwComboboxController from "@josefarias/hotwire_combobox"
 import submit_on_change_controller from "./submit_on_change_controller.js"
 import input_listener_controller from "./input_listener_controller.js"
+import dark_mode_controller from "./dark_mode_controller.js"
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -80,3 +81,4 @@ application.register("sortable", sortableController)
 application.register("submit-on-change", submit_on_change_controller)
 application.register("hw-combobox", HwComboboxController)
 application.register("input-listener", input_listener_controller)
+application.register("dark-mode", dark_mode_controller)

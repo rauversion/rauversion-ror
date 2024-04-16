@@ -75,7 +75,7 @@
     ]
 %>
 
-<div class="flex-1 flex xl:overflow-hidden">
+<div class="flex-1 flex xl:overflow-hidden border-b border-subtle">
   <!-- Secondary sidebar -->
   <nav aria-label="Sections" class="hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col">
     <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-gray-200 dark:border-gray-800 flex items-center justify-between">
@@ -96,7 +96,7 @@
     </div>
   </nav>
   <!-- Main content -->
-  <div class="flex-1 xl:overflow-y-auto bg-black">
+  <div class="flex-1 xl:overflow-y-auto bg-muted border-l border-subtle">
     <% #= @section %>
     <%= turbo_frame_tag "event_form" do %>
       <% if @section %>

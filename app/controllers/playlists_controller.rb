@@ -79,12 +79,14 @@ class PlaylistsController < ApplicationController
 
   def playlist_params
     params.require(:playlist).permit(
+      :id,
       :title, :description, :private, :price,
       :playlist_type, :release_date, :cover,
       :record_label, :buy_link,
       :copyright,
       :attribution, :noncommercial, :non_derivative_works, :copies,
       track_playlists_attributes: [
+        :id,
         :_destroy,
         :track_id
       ]

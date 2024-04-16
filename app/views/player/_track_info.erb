@@ -37,7 +37,7 @@
       <div class="flex-grow w-0-- leading-6">
       
         <%= link_to track.user.username, user_path(track.user.username),
-          class: "flex items-center w-full h-4 text-xs cursor-pointer truncate text-gray-200 focus:text-black hover:text-gray-300",
+          class: "flex items-center w-full h-4 text-xs cursor-pointer truncate text-muted focus:text-black hover:text-sublte",
           title: track.title,
           "data-turbo-frame": "_top"
         %> 
@@ -45,7 +45,7 @@
         <div class="flex items-center w-full h-4 text-zinc-800">
           <%= link_to user_path(track.user.username), 
             "data-turbo-frame": "_top",
-            class: "text-xs cursor-pointer truncate text-gray-200 focus:text-black hover:text-gray-200" do %>
+            class: "text-xs cursor-pointer truncate text-muted focus:text-black hover:text-subtle" do %>
             <span class="sr-only">Current track: <%= track.title %></span>
             <span aria-hidden="true" class="whitespace-nowrap"><%= track.title %></span>
           <% end %>

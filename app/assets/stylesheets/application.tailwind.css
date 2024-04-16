@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .ProseMirror {
+    @apply text-default;
+  }
   :root {
     /* background */
 
@@ -287,10 +290,11 @@
 
   .player-button {
     @apply relative inline-flex items-center px-2 py-2
-          rounded-full text-black
-          bg-white text-sm font-medium
+          rounded-full text-default
+          bg-default text-sm font-medium
           smooth-grow
-          focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-700 focus:border-gray-400;
+          border
+          focus:z-10 focus:outline-none focus:ring-1 focus:ring-muted focus:border-subtle;
   }
 
   .no-scrollbar {
