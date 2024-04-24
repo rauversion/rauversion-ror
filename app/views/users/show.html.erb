@@ -75,7 +75,7 @@
           <%= render "spotlights/form" %>
 
           <% if @user.posts.published.any? %>
-            <%= render "article_side", articles: @user.posts.published %>
+            <%= render "article_side", articles: @user.posts.published.limit(3) %>
           <% end %>
 
         <% end %>
