@@ -1,49 +1,49 @@
-<div class="bg-white py-24 sm:py-32">
+<div class="bg-default py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="text-3xl font-bold tracking-tight text-default sm:text-4xl">
         <%= @user.first_name.humanize %> <%= @user.last_name.humanize %>'s Blog
       </h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">
+      <p class="mt-2 text-lg leading-8 text-muted">
         <%= link_to user_path(@user.username), class: "flex items-center text-sm font-semibold leading-6 text-brand-600" do %>
         <%= heroicon("chevron-left", variant: :mini)%>
         back to <%= @user.username %> music
         <% end %>
       </p>
 
-      <div class="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
+      <div class="mt-10 space-y-16 border-t border-subtle pt-10 sm:mt-16 sm:pt-16">
 
         <% @articles.each do |article| %>
           <article class="flex max-w-xl flex-col items-start justify-between">
             <div class="flex items-center gap-x-4 text-xs">
-              <time datetime="<%= l(article.created_at) %>" class="text-gray-500">
+              <time datetime="<%= l(article.created_at) %>" class="text-subtle">
                 <%= l(article.created_at, format: :short) %>
               </time>
-              <!--<a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+              <!--<a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-muted hover:bg-gray-100">
                 Marketing
               </a>-->
             </div>
             <div class="group relative">
-              <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+              <h3 class="mt-3 text-lg font-semibold leading-6 text-default group-hover:text-muted">
                 <%= link_to article_path(article) do %>
                   <span class="absolute inset-0"></span>
                   <%= article.title %>
                 <% end %>
               </h3>
-              <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+              <p class="mt-5 line-clamp-3 text-sm leading-6 text-muted">
                 <%= article.excerpt %>
               </p>
             </div>
             <div class="relative mt-8 flex items-center gap-x-4">
               <%= image_tag article.user.avatar_url(:small), class: "h-10 w-10 rounded-full bg-gray-50" %>
               <div class="text-sm leading-6">
-                <p class="font-semibold text-gray-900">
+                <p class="font-semibold text-default">
                   <a href="#">
                     <span class="absolute inset-0"></span>
                     <%= article.user.username %>
                   </a>
                 </p>
-                <!--<p class="text-gray-600">Co-Founder / CTO</p>-->
+                <!--<p class="text-muted">Co-Founder / CTO</p>-->
               </div>
             </div>
           </article>
