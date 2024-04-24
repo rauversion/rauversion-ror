@@ -94,6 +94,23 @@
     --rau-brand-text: white;
   }
 
+  .flash-error-bg,
+  .flash-alert-bg {
+    @apply bg-red-600;
+  }
+
+  .flash-error-text,
+  .flash-alert-text {
+    @apply text-red-100;
+  }
+
+  .flash-notice-bg {
+    @apply bg-green-600;
+  }
+  .flash-notice-text {
+    @apply text-green-100;
+  }
+
   .post-wrapper .aspectRatioPlaceholder {
     margin: 0px auto;
     position: relative;

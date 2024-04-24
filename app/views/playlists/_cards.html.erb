@@ -1,0 +1,61 @@
+
+<div class="flex justify-between items-center">
+  <div class="py-4">
+    <% Category.playlist_types.each do |item| %>
+      <%= link_to user_playlists_filter_path(@user.username, kind: item),
+        data: { turbo_frame: "playlist-cards" }, 
+        class: "bg-muted text-sm inline-flex 
+          hover:cursor-pointer 
+          items-center rounded-full 
+          hover:bg-emphasis
+          px-3 py-1 font-medium" do %>
+        <%= item.humanize %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= link_to user_playlists_path(@user.username), class: "text-sm font-semibold leading-6 text-brand-600"  do %>
+    See all <span aria-hidden="true">→</span>
+  <% end %>
+</div>
+
+<h2 class="text-md font-medium text-gray-500">Albums</h2>
+
+<ul role="list"
+  class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+  <% # pink purple yellow green %>
+  <% @playlists.each do |playlist| %>
+    <li class="col-span-1 flex rounded-md shadow-sm">
+      <div class="flex w-16 flex-shrink-0 items-center justify-center bg-pink-600 rounded-l-md text-sm font-medium text-default">
+        <%= image_tag(playlist.cover_url(:medium),
+          class: "object-center object-cover group-hover:opacity-75"
+        ) %>
+      </div>
+      <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-muted bg-default">
+        <div class="flex-1 truncate px-4 py-2 text-sm">
+          <%= link_to playlist_path(playlist), 
+            data: {turbo_frame: "_top"},
+            class: "font-medium text-muted hover:text-emphasis" do %>
+            <%= playlist.title %>
+          <% end %>
+          <p class="text-gray-500">
+            <%= playlist&.release_date&.year%> ·
+            <%= playlist.tracks.size %> Tracks
+          </p>
+        </div>
+        <!--<div class="flex-shrink-0 pr-2">
+          <button type="button" 
+            class="inline-flex h-8 w-8 items-center
+            justify-center rounded-full bg-transparent
+            text-default hover:text-emphasis
+            hover:bg-brand-700
+            focus:outline-none focus:ring-2 focus:ring-indigo-500 
+            focus:ring-offset-2">
+            <span class="sr-only">Open options</span>
+            <%= heroicon("play", variant: :mini) %>
+          </button>
+        </div>-->
+      </div>
+    </li>
+  <% end %>
+</ul>

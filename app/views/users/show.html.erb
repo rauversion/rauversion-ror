@@ -1,11 +1,11 @@
-<div class="sm:h-64 h-24 bg-default sticky top-0 z-40 sm:relative">
+<div class="sm:h-56 h-20 bg-default sticky top-0 z-40 sm:relative">
   <div class="flex justify-between bg-cover bg-center" style="background-image: url('<%= image_url(@user.profile_header_url(:large)) %>')">
     <div class="flex">
       <div class="m-4">
         <%= image_tag @user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
       </div>
       <div class="text-default sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
-        <p class="sm:text-3xl text-lg font-extrabold bg-default p-1 inline-block"> <%= @user.username %> </p>
+        <p class="sm:text-3xl text-sm font-extrabold bg-default p-1 inline-block mt-2"> <%= @user.username %> </p>
         <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
         <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.country %> <%= @user.city %> </p>
       </div>
@@ -22,15 +22,18 @@
       <div class="hidden md:flex-1 md:flex md:items-center md:justify-between">
         <nav class="flex space-x-10">
           <% menu = [
-            {to: "", name: "all"},
+            {to: user_path(@user.username), name: "All"},
             {to: user_tracks_path(@user.username), name: t("profile.tracks") },
             {to: user_playlists_path(@user.username), name: t("profile.playlists") },
             {to: user_albums_path(@user.username), name: t("profile.albums") },
             {to: user_reposts_path(@user.username), name: t("profile.reposts") },
+            {to: user_articles_path(@user.username), name: t("profile.articles"), hidden: !@user.is_admin? },
           ]%>
 
           <% menu.each do |item| %>
-            <%= link_to item[:name], item[:to], class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
+            <% unless item[:hidden]%>
+              <%= link_to item[:name], item[:to], class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
+            <% end %>
           <% end %>
           <!--
           <a href="#" ,="" class="text-base font-medium border-b border-b-4 text-gray-800 hover:text-gray-900 border-brand-500 dark:text-gray-200 dark:hover:text-gray-100 dark:border-brand-300 " data-cy="profile-menu-#{name}" id="profile-menu-#{name}" to="/michelson">All </a>
@@ -59,10 +62,23 @@
     <div class="space-y-6 lg:col-start-1 lg:col-span-2">
       <section class="">
 
-        <% if @title == "Tracks" %>
-          <%= render "spotlights/form" %>
-        <% end %>
+        <% if @title == "All" %>
 
+          <div class="m-2 mb-4">
+
+            <%= turbo_frame_tag "playlist-cards", src: user_playlists_filter_path(@user.username) do %>
+              loading....
+            <% end %>
+
+          </div>
+      
+          <%= render "spotlights/form" %>
+
+          <% if @user.posts.published.any? %>
+            <%= render "article_side", articles: @user.posts.published %>
+          <% end %>
+
+        <% end %>
 
         <div class="border-r-2--">
           <div class="px-4 py-5 sm:px-6">
@@ -136,6 +152,7 @@
       <div class="flex justify-end">
         <%= link_to "more", "/#{@user.username}/about", class: "mr-2 btn-xs outline rounded-sm p-1" %>
       </div>
+
       <!--
       <section aria-labelledby="who-to-follow-heading">
         <section aria-labelledby="who-to-follow-heading">

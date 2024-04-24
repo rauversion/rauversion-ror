@@ -113,6 +113,10 @@ class User < ApplicationRecord
       .where("reposts.user_id =?", id)
   end
 
+  def is_publisher?
+    is_admin?
+  end
+
   def is_admin?
     role == "admin"
   end

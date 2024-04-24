@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "playlist-cards" do %>
+  <% unless @render_empty %>
+    <%= render "playlists/cards" %>
+  <% end %>
+<% end %>
