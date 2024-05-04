@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  get "/searchables", to: "users#index", as: :searchable_users
+
   # resource :oembed, controller: 'oembed', only: :show
 
   get "/oembed/", to: "oembed#show", as: :oembed
@@ -129,7 +131,11 @@ Rails.application.routes.draw do
   get "/onbehalf/parent/:username", to: "label_auth#back"
   get "/onbehalf/:username", to: "label_auth#add"
   
-  resources :account_connections
+  resources :account_connections do
+    collection do
+      get :user_search
+    end
+  end
 
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block

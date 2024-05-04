@@ -4,11 +4,14 @@ class UsersController < ApplicationController
 
   def index
     @title = "Tracks"
-    @artists = User.where(role: "artist")
-    .where.not(username: nil)
+    @artists = User.where(role: "artist").where.not(username: nil)
+    q = params[:q]
+    if q.present?
+      @artists = @artists.where("username ILIKE :q OR email ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: "%#{q}%")
+    end
     #.with_attached_avatar
     #.order("id desc")
-    .page(params[:page]).per(5)
+    @artists = @artists.page(params[:page]).per(5)
   end
 
   def show

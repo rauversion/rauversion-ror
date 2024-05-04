@@ -346,16 +346,16 @@
   /* COMBOBOX */
 
   .hw-combobox__main__wrapper {
-    @apply sm:w-[35rem] rounded-full w-80;
+    @apply sm:w-full rounded-full w-80;
   }
   .hw-combobox__handle {
     @apply right-3;
   }
   .hw-combobox__listbox {
-    @apply rounded-2xl bg-subtle;
+    @apply rounded-2xl bg-subtle overflow-auto h-48;
   }
 
-  .hw-combobox__option {
+  .hw-combobox__listbox .hw-combobox__option {
     @apply p-2 border-b border-muted hover:bg-emphasis;
   }
 }

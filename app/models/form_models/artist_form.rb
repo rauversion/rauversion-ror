@@ -42,6 +42,7 @@ class FormModels::ArtistForm
       role: "artist",
       password_confirametion: password
     )
+    user.activate!
 
     ConnectedAccount.attach_account(inviter: inviter , invited_user: user) if user
 

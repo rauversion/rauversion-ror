@@ -18,7 +18,7 @@ gem "puma", "~> 5.0"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 
-gem "hotwire_combobox"
+gem "hotwire_combobox", github: "josefarias/hotwire_combobox", branch: "main"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails", github: "hotwired/turbo-rails", branch: "main"

@@ -165,6 +165,27 @@ class User < ApplicationRecord
     ConnectedAccount.exists?(parent_id: self.id, state: 'active', user_id: child_user_id)
   end
 
+  def to_combobox_display
+    self.username
+  end
+
+  def find_artists_excluding_children(q = nil)
+    # Get IDs of all child accounts for the current user
+    child_account_ids = self.child_accounts.pluck(:id)
+  
+    # Base query adjusted to exclude child account IDs
+    artists = User.where(role: "artist")
+                  .where.not(username: nil)
+                  .where.not(id: child_account_ids)
+  
+    # Apply search filter if 'q' is provided
+    if q.present?
+      artists = artists.where("username ILIKE :q OR email ILIKE :q", q: "%#{q}%")
+    end
+  
+    artists
+  end
+
   # def password_required?
   #  false
   # end
