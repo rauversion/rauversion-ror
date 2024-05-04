@@ -5,7 +5,7 @@
     <select
       id="tabs"
       name="tabs"
-      class="block w-full focus:ring-brand-500 focus:border-brand-500 border-gray-300 rounded-md"
+      class="block w-full focus:ring-brand-500 focus:border-brand-500 border-muted rounded-md"
     >
       <option>Likes</option>
       <option>Followers</option>
@@ -36,13 +36,13 @@
   </div>
 
   <div class="hidden sm:block">
-    <div class="border-b border-gray-200">
+    <div class="border-b border-emphasis">
       <nav class="-mb-px flex" aria-label="Tabs">
-        <!-- Current: "border-brand-500 text-brand-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-        <%= link_to t("profile.likes"), "#", class: "border-transparent dark:text-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
-        <%= link_to t("profile.followings"), user_followers_path(@user.username), class: "border-transparent dark:text-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
-        <%= link_to t("profile.followers"), user_followees_path(@user.username), class: "border-transparent dark:text-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
-        <%= link_to t("profile.comments"), "#", class: "border-transparent dark:text-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
+        <!-- Current: "border-brand-500 text-brand-600", Default: "border-transparent text-gray-500 hover:text-muted hover:border-muted" -->
+        <%= link_to t("profile.likes"), "#", class: "border-transparent dark:text-emphasis text-muted hover:text-muted hover:border-muted w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
+        <%= link_to t("profile.followings"), user_followers_path(@user.username), class: "border-transparent dark:text-emphasis text-muted hover:text-muted hover:border-muted w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
+        <%= link_to t("profile.followers"), user_followees_path(@user.username), class: "border-transparent dark:text-emphasis text-muted hover:text-muted hover:border-muted w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
+        <%= link_to t("profile.comments"), "#", class: "border-transparent dark:text-emphasis text-muted hover:text-muted hover:border-muted w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm" %>
 
       </nav>
     </div>

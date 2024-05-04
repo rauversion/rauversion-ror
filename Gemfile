@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.6"
+gem "rails", "~> 7.0.7"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -17,6 +17,8 @@ gem "puma", "~> 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
+
+gem "hotwire_combobox"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails", github: "hotwired/turbo-rails", branch: "main"
@@ -61,6 +63,8 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+gem "acts_as_list", "~> 0.9.19"
+gem "rails_heroicon"
 gem "aasm", "~> 5.2"
 gem "acts-as-taggable-on", "~> 9.0"
 gem "aws-sdk-rails"
@@ -144,7 +148,7 @@ gem "meta-tags", "~> 2.18"
 
 gem "http", "~> 5.1"
 
-gem "ruby-oembed", "~> 0.16.1"
+gem "ruby-oembed", github: "basecamp/ruby-oembed", branch: "fix-spotify-redirects" #"~> 0.16.1"
 
 gem "sidekiq", "~> 7.1"
 gem "sidekiq-grouping"

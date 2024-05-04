@@ -58,7 +58,10 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.posts.create(body: params[:post][:body])
+    @article = current_user.posts.create(
+      body: params[:post][:body],
+      title: params[:post][:title]
+    )
     redirect_to edit_article_path(@article), status: :see_other
   end
 

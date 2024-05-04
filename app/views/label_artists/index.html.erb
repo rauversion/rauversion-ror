@@ -1,39 +1,24 @@
  <div class="">
   <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
     
-          <%= link_to "new artist", new_account_connection_path %>
-      <%= link_to "existing artist", new_account_connection_path %>
-      
+    <% # link_to "existing artist", new_account_connection_path %>
+
     <div class="md:flex md:items-center md:justify-between">
       <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
         Artists
       </h2>
 
-      <!--<a
-        href="#"
-        class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block"
-      >
-        Shop the collection <span aria-hidden="true"> →</span>
-      </a>-->
-      <% if current_user.id == @profile&.id %>
-        <%= link_to "/accounts/connnect",  class: "inline-flex justify-between dark:border-2 dark:border-white rounded-lg py-3 px-5 bg-black text-white block font-medium" do %>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
-          </svg>
-          <span>Add artist</span>
+
+      <% if current_user.id == @label&.id %>
+        <%= link_to new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>
+          <%= heroicon("plus") %>
+          <span>New account Connection</span>
         <% end %>
       <% end %>
     </div>
 
     <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-      <% current_user.child_accounts.each do |artist| %>
+      <% @label.child_accounts.each do |artist| %>
         <div class="group relative">
           <div class="h-56 lg:h-72-- xl:h-80-- w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
             <%= image_tag(artist.avatar.url, class: "h-full w-full object-cover object-center") %>

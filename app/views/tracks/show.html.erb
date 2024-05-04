@@ -25,7 +25,7 @@
     <!-- Profile header -->
     <div>
       <div class="flex flex-col sm:flex-row mb-6">
-        <div class="flex-grow items-center text-white">
+        <div class="flex-grow items-center text-default">
           <% if @track.processed? %>
             <%= image_tag @track.cover_url(:medium), class: "hidden h-32 w-full object-cover lg:h-48" %>
 
@@ -102,7 +102,7 @@
                   <%= link_to @track.title, track_path(@track) %>
                 </h4>
 
-                <h5 class="text-sm font-">
+                <h5 class="text-sm font- text-brand-default">
                   <%= link_to @track.user.username, user_path(@track.user.username) %>
                 </h5>
               </div>

@@ -121,20 +121,25 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def radio_button(method, value, options = {})
-    info = @template.label_tag(
-      tr(options[:label] || method), nil,
-      class: "block font-bold text-md leading-5 text-gray-900 dark:text-white pt-0"
-    ) +
-      field_details(method, object, options)
+    options.merge!(class: "form-radio mr-2 h-4 w-4 text-indigo-600 transition duration-150 ease-in-out") unless options.has_key?(:class)
 
-    options[:class] = "self-start mt-1 mr-1 h-4 w-4 text-brand-600 transition duration-150 ease-in-out"
-    @template.tag.div(class: "flex items-center") do
-      @template.radio_button(
-        @object_name, method, value, objectify_options(options)
-      ) + @template.tag.div(class: "flex-col items-center") { info }
+    label_content = if options[:label] == false
+                      ""
+                    else
+                      @template.label_tag(
+                        tr(options[:label] || method), nil,
+                        class: "block text-sm leading-5 text-muted"
+                      )
+                    end
+
+    @template.tag.div(class: "inline-flex items-center #{options[:wrapper_class]}") do
+      super + label_content +
+        @template.tag.div(class: "text-sm font-normal leading-5 text-muted") do
+          field_details(method, object, options)
+        end
     end
   end
-
+  
   def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
     info = @template.label_tag(
       tr(options[:label] || method), nil,

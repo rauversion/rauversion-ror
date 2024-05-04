@@ -3,6 +3,7 @@
 
 const colors = require('tailwindcss/colors');
 
+const subtleColor = "#E5E7EB";
 
 module.exports = {
   darkMode: 'class',
@@ -24,6 +25,18 @@ module.exports = {
         //gray: grayColors,
       },
       colors: {
+
+        emphasis: "var(--rau-bg-emphasis)",
+        default: "var(--rau-bg, white)",
+        subtle: "var(--rau-bg-subtle)",
+        muted: "var(--rau-bg-muted)",
+        inverted: "var(--rau-bg-inverted)",
+        info: "var(--rau-bg-info)",
+        success: "var(--rau-bg-success)",
+        attention: "var(--rau-bg-attention)",
+        error: "var(--rau-bg-error)",
+        darkerror: "var(--rau-bg-dark-error)",
+        
         transparent: 'transparent',
         current: 'currentColor',
         black: colors.black,
@@ -34,6 +47,7 @@ module.exports = {
         green: colors.emerald,
         yellow: colors.amber,
         brand: {
+          default: "var(--rau-brand)",
           /*50: "#faf5ff",
           100: "#f3e8ff",
           200: "#e9d5ff",
@@ -77,7 +91,28 @@ module.exports = {
           900: "#831843",
           950: "#500724"
         }
-      }
+      },
+
+      borderColor: {
+        emphasis: "var(--rau-border-emphasis, #9CA3AF)",
+        default: "var(--rau-border, #D1D5DB)",
+        subtle: `var(--rau-border-subtle, ${subtleColor})`,
+        muted: "var(--rau-border-muted, #F3F4F6)",
+        booker: `var(--rau-border-booker, ${subtleColor})`,
+        error: "var(--rau-border-error, #AA2E26)",
+      },
+      textColor: {
+        emphasis: "var(--rau-text-emphasis, #111827)",
+        default: "var(--rau-text, #374151)",
+        subtle: "var(--rau-text-subtle, #6B7280)",
+        muted: "var(--rau-text-muted, #9CA3AF)",
+        inverted: "var(--rau-text-inverted, white)",
+        info: "var(--rau-text-info, #253985)",
+        success: "var(--rau-text-success, #285231)",
+        attention: "var(--rau-text-attention, #73321B)",
+        error: "var(--rau-text-error, #752522)",
+        //brand: "var(--rau-brand-text,'white')",
+      },
     }
   },
   plugins: [

@@ -68,6 +68,10 @@ class Event < ApplicationRecord
     end
   end
 
+  def streaming_service
+    self[:streaming_service] || {}
+  end
+
   def available_tickets(argument)
     event_tickets
       .where("selling_start <= ?", argument)

@@ -1,7 +1,7 @@
 <%= link_to track_path(track), 
   "data-turbo-frame": "_top",
-  class: "w-64 md:w-48 group space-y-2 p-2 hover:bg-gray-800 rounded-md" do %>
-  <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 dark:bg-gray-900 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+  class: "w-64 md:w-48 group space-y-2 p-2 hover:bg-subtle rounded-md" do %>
+  <div class="w-full aspect-w-1 aspect-h-1 bg-muted dark:bg-subtle rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
     <div
       data-controller="play-button" 
       data-track-detector-target="track"
@@ -12,7 +12,7 @@
       <button 
         data-action="click->play-button#play"
         data-play-button-target="button" 
-        class="smooth-grow flex justify-center items-center w-24 h-24 rounded-full bg-black border-4 border-brand-100 focus:outline-none">
+        class="smooth-grow flex justify-center items-center w-24 h-24 rounded-full bg-default border-4 border-brand-100 focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
         </svg>

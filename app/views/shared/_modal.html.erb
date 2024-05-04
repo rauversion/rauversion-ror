@@ -1,3 +1,5 @@
+<%= turbo_frame_tag "modal" do %>
+
 <div 
   data-turbo-cache="false"
   class="relative z-[100]" 
@@ -28,9 +30,9 @@
           From: "opacity-100 translate-y-0 sm:scale-100"
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
-      <div class="relative transform overflow-hidden rounded-lg bg-black border-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-        <div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-          <button type="button" data-action="click->modal#close" class="rounded-md bg-black text-gray-400 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2" @click="open = false">
+      <div class="relative transform overflow-hidden rounded-lg bg-default border-default px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 text-default">
+        <div class="absolute right-0 top-0 hidden-- pr-4 pt-4 sm:block">
+          <button type="button" data-action="click->modal#close" class="rounded-md bg-default text-muted hover:text-subtle focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
             <span class="sr-only">Close</span>
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -65,3 +67,4 @@
     </div>
   </div>
 </div>
+<% end %>

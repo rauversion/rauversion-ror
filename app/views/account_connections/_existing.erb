@@ -1,47 +1,57 @@
-<%= render "shared/modal" do %>
 
-  <div class="space-y-4">
-    <% unless @selected_artist %>
-      <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
-        <%= t("existing_artist") %>
-      </h2>
-      <p class="text-md">Please search for an existing artist.</p>
-      <%= form_with url: search_artists_path, method: :get, local: true do |form| %>
-        <div class="mt-1 flex rounded-md shadow-sm md:col-span-6">
-          <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 dark:border-gray-700 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
-            <%= t("search_artist") %>/
-          </span>
-          <%= form.text_field :search, data: { action: "change->artist#search" }, autocomplete: "off", class: "autofill:!bg-yellow-200 dark:bg-gray-900 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 flex-1 block w-full min-w-0 border-blue-gray-300 rounded-none rounded-r-md shadow-sm placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm" %>
-        </div>
-      <% end %>
-      <% @collection.each do |artist| %>
-        <div class="dark:bg-gray-900 bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">
-            <%= artist.username %>
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-            <%= button_to 'Select', select_artist_path(artist_id: artist.id), method: :post, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200" %>
-          </dd>
-        </div>
-      <% end %>
-    <% end %>
-    <% if @selected_artist %>
-      <div class="space-y-4">
-        <p class="text-xl font-bold">
-          <%= t("%{name} is selected", name: @selected_artist.username) %>
-        </p>
-        <p class="text-md">
-          <%= t("Please confirm in order to send the connect invitation request to the artist.") %>
-        </p>
-        <div class="flex items-center space-x-4">
-          <%= button_to 'Send connect request', confirm_artist_path, method: :post, class: "w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
-          <%= button_to 'Cancel', cancel_artist_path, method: :post, class: "btn btn-secondary" %>
-        </div>
-        <% if @errors %>
-          <p class="text-red-600"><%= @errors %></p>
-        <% end %>
+<div class="space-y-4">
+  <% unless @selected_artist %>
+    <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+      <%= t("existing_artist") %>
+    </h2>
+    <p class="text-md">Please search for an existing artist.</p>
+    <%= form_with url: "search_artists_path", method: :get, local: true do |form| %>
+      <div class="mt-1 flex rounded-md shadow-sm md:col-span-6">
+        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 dark:border-gray-700 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
+          <%= t("search_artist") %>/
+        </span>
+        <%= text_field_tag :search, "", data: { action: "change->artist#search" },
+          autocomplete: "off", class: "autofill:!bg-yellow-200 
+          dark:bg-gray-900 appearance-none
+          border-l-0 
+          block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 
+          flex-1 block w-full min-w-0 border-blue-gray-300 
+          rounded-none rounded-r-md shadow-sm 
+          placeholder-gray-400 
+          dark:placeholder-gray-600 
+          focus:outline-none focus:ring-brand-500 focus:border-brand-500 
+          sm:text-sm" %>
       </div>
     <% end %>
-  </div>
+    <% @collection.each do |artist| %>
+      <div class="dark:bg-gray-900 bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          <%= artist.username %>
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <%= button_to 'Select', select_artist_path(artist_id: artist.id), method: :post, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200" %>
+        </dd>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @selected_artist %>
+    <div class="space-y-4">
+      <p class="text-xl font-bold">
+        <%= t("%{name} is selected", name: @selected_artist.username) %>
+      </p>
+      <p class="text-md">
+        <%= t("Please confirm in order to send the connect invitation request to the artist.") %>
+      </p>
+      <div class="flex items-center space-x-4">
+        <%= button_to 'Send connect request', confirm_artist_path, method: :post, class: "w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+        <%= button_to 'Cancel', cancel_artist_path, method: :post, class: "btn btn-secondary" %>
+      </div>
+      <% if @errors %>
+        <p class="text-red-600"><%= @errors %></p>
+      <% end %>
+    </div>
+  <% end %>
 
-<% end %>
+  <%= link_to "back", new_account_connection_path, data: {turbo_frame: "modal"} %>
+
+</div>

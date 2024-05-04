@@ -79,15 +79,32 @@ class PlaylistsController < ApplicationController
 
   def playlist_params
     params.require(:playlist).permit(
+      :id,
       :title, :description, :private, :price,
       :playlist_type, :release_date, :cover,
       :record_label, :buy_link,
       :copyright,
       :attribution, :noncommercial, :non_derivative_works, :copies,
       track_playlists_attributes: [
+        :id,
         :_destroy,
         :track_id
       ]
     )
+  end
+
+  def sort
+    @tab = params[:tab] || "tracks-tab"
+    @playlist = current_user.playlists.friendly.find(params[:id])
+    id = params.dig("section", "id")
+    position = params.dig("section", "position")
+
+    collection = @playlist.track_playlists.find(id)
+    collection.insert_at(position)
+
+    flash[:now] = "successfully updated"
+
+    render "update"
+
   end
 end

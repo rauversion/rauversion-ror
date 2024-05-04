@@ -1,0 +1,79 @@
+
+
+<div class="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+  
+  <div class="flex space-x-5">
+
+
+    <div>
+      <div class="space-y-2 my-6">
+        <div class="p-2">
+          <div class="text-4xl font-extrabold"><%= @user.followers(User).size %></div>
+          <div class="text-muted">Followers</div>
+        </div>
+
+        <div class="p-2">
+          <div class="text-4xl font-extrabold"><%= Track.series_by_month(@user.id, range: 1).first[:count] %></div>
+          <div class="text-sm text-muted">Monthly Listeners</div>
+        </div>
+
+
+        <% Track.top_countries(@user.id).each do |location|%>
+          <div class="p-2">
+            <div class="text-xl font-bold"><%= location&.country %></div>
+            <div class="text-sm text-muted"> <%= location.count %> listeners</div>
+          </div>
+        <% end %>
+        
+        <!--
+        <div class="DVWIV41y6daOMjQKR8Zj">
+          <a rel="noopener noreferrer" target="_blank" href="https://instagram.com/xxx/" class="muHL0_3HjlqTZDoapgc9">
+            <svg data-encore-id="icon" role="img" aria-hidden="true" class="Svg-sc-ytk21e-0 bneLcE oORVTPvg6eTQflVKKgw8" viewBox="0 0 24 24">
+              <path d="M12 3.803c2.67 0 2.986.01 4.041.059.975.044 1.504.207 1.857.344.435.16.828.416 1.151.748.332.323.588.716.748 1.151.137.353.3.882.345 1.857.047 1.055.058 1.37.058 4.041 0 2.67-.01 2.986-.058 4.041-.045.975-.208 1.505-.345 1.857A3.315 3.315 0 0 1 17.9 19.8c-.352.137-.882.3-1.856.344-1.055.048-1.371.058-4.041.058-2.67 0-2.987-.01-4.041-.058-.975-.044-1.505-.207-1.857-.344a3.096 3.096 0 0 1-1.151-.748 3.096 3.096 0 0 1-.749-1.151c-.137-.353-.3-.883-.344-1.857-.048-1.055-.058-1.371-.058-4.041 0-2.67.01-2.987.058-4.041.045-.975.207-1.505.344-1.857a3.08 3.08 0 0 1 .749-1.151 3.096 3.096 0 0 1 1.15-.749c.353-.137.883-.3 1.858-.344 1.054-.048 1.37-.058 4.04-.058H12zM12.002 2c-2.716 0-3.057.012-4.124.06-1.066.05-1.793.22-2.428.466A4.91 4.91 0 0 0 3.678 3.68a4.91 4.91 0 0 0-1.153 1.772c-.247.635-.416 1.363-.465 2.427C2.012 8.943 2 9.286 2 12.002c0 2.715.012 3.056.06 4.123.05 1.066.218 1.791.465 2.426a4.909 4.909 0 0 0 1.153 1.772c.5.508 1.105.902 1.772 1.153.635.248 1.363.417 2.428.465 1.064.049 1.407.06 4.123.06s3.056-.01 4.123-.06c1.067-.049 1.79-.217 2.426-.465a5.111 5.111 0 0 0 2.925-2.925c.247-.635.416-1.363.465-2.427.048-1.064.06-1.407.06-4.123s-.012-3.057-.06-4.123c-.05-1.067-.218-1.791-.465-2.426a4.902 4.902 0 0 0-1.153-1.771 4.91 4.91 0 0 0-1.772-1.155c-.635-.247-1.363-.416-2.428-.464-1.064-.048-1.406-.06-4.122-.06L12.002 2z"></path>
+              <path d="M12 6.867a5.135 5.135 0 1 0 0 10.27 5.135 5.135 0 0 0 0-10.27zm0 8.47a3.334 3.334 0 1 1 0-6.67 3.334 3.334 0 0 1 0 6.67zm5.338-7.473a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4z"></path>
+            </svg>
+            <span class="text-sm text-muted">Instagram</span>
+          </a>
+        </div>
+        -->
+      </div>
+    </div>
+
+    <div class="sm:max-w-lg py-5">
+      <h1 class="text-4xl font-bold tracking-tight text-default sm:text-6xl">
+        <%= link_to @user.username, user_path(@user.username)  %>
+      </h1>
+      <p class="text-muted">
+        <%= @user.country %>, <%= @user.city %>
+      </p>
+      <p class="mt-4 text-xl text-subtle">
+        <%= @user.bio %>
+      </p>
+    </div>
+
+  </div>
+
+  <% if @user.id == current_user&.id %>
+    <div class="flex justify-start">
+      <%= link_to new_photo_path, class: "button-sm-outline", data: {turbo_frame: "modal"} do %>
+        <%= heroicon :plus %>
+        New Image
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
+    <% @user.photos.each do |image| %>
+      <div>
+        <%= link_to photo_path(image, user_id: @user.id), 
+          data: {turbo_frame: "modal"},
+          class: "h-auto max-w-full rounded-lg" do %>
+          <%= image_tag image.image.variant(resize_to_fill: [350, 250]) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+
+</div>
+

@@ -40,7 +40,8 @@ class Category < ApplicationRecord
       "Latin Core",
       "Dark Disco",
       "FootWork",
-      ""
+      "IDM",
+      "Downtempo"
     ]
   end
 

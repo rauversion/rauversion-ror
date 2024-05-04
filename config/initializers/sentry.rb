@@ -1,4 +1,4 @@
-if ENV["SENTRY_DSN"]
+if ENV["SENTRY_DSN"] && Rails.env.production?
 
   Sentry.init do |config|
     config.dsn = ENV["SENTRY_DSN"]

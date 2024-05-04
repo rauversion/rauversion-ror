@@ -37,20 +37,22 @@ class PeaksGenerator
 
   def run_ffprobe
     puts "processing #{@file}"
-
+  
     pixels_per_frame = @duration * 75
     cmd = "#{ffprobe_path} -v error -f lavfi -i amovie=#{@file},asetnsamples=n=#{pixels_per_frame}:p=0,astats=metadata=1:reset=1 -show_entries frame_tags=lavfi.astats.Overall.Peak_level -of json"
-
+  
     puts cmd
     output = `#{cmd}`
-
+  
     result = JSON.parse(output)
     frames = result["frames"]
-
+  
     frames.map do |x|
-      peak_level = x.dig("tags", "lavfi.astats.Overall.Peak_level")
+      peak_level_db = x.dig("tags", "lavfi.astats.Overall.Peak_level")
       begin
-        Float(peak_level)
+        # Convert dB to linear scale
+        peak_level_linear = 10 ** (Float(peak_level_db) / 20)
+        peak_level_linear
       rescue
         nil
       end

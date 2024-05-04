@@ -17,9 +17,9 @@ module ApplicationHelper
 
   def item_class(action, kind)
     if action == kind
-      "dark:bg-black dark:text-gray-100 bg-gray-50 bg-opacity-50 flex p-6 border-b border-gray-gray-200 dark:border-gray-800"
+      "bg-default bg-opacity-50 flex p-6 border-b border-subtle"
     else
-      "dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-50 hover:bg-opacity-50 flex p-6 border-b border-blue-gray-200 dark:border-gray-800"
+      "hover:bg-subtle hover:bg-opacity-50 flex p-6 border-b border-subtle"
     end
   end
 
@@ -41,11 +41,11 @@ module ApplicationHelper
 
   def serialized_to_html(serialized_content)
     Dante::Renderer.new(raw: serialized_content.with_indifferent_access).render
-  rescue => e
-    Rails.logger.error(e)
-    Bugsnag.notify(e) if defined?(Bugsnag)
-    Sentry.capture_exception(e) if defined?(Sentry)
-    nil
+  #rescue => e
+   # Rails.logger.error(e)
+   # Bugsnag.notify(e) if defined?(Bugsnag)
+   # Sentry.capture_exception(e) if defined?(Sentry)
+   # nil
   end
 
   def event_status_label(event)

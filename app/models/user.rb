@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :reposted_tracks, through: :reposts, source: :track
   has_many :track_comments
   has_many :posts
+  has_many :photos
   has_many :listening_events
   has_many :invitations, class_name: to_s, as: :invited_by
   has_many :oauth_credentials
@@ -25,6 +26,8 @@ class User < ApplicationRecord
 
   has_many :child_accounts, through: :connected_accounts, source: :user
 
+  has_many :spotlights, autosave: true
+  # has_many :spotlighted_tracks, through: :spotlight_tracks, source: :spotlight_tracks
   has_one_attached :profile_header
   has_one_attached :avatar
 
@@ -53,6 +56,8 @@ class User < ApplicationRecord
   store_attribute :settings, :pst_enabled, :boolean
   store_attribute :settings, :tbk_commerce_code, :string
   store_attribute :settings, :tbk_test_mode, :boolean
+
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   scope :artists, -> { where(role: "artist").where.not(username: nil) }
   # Ex:- scope :active, -> {where(:active => true)}
@@ -112,6 +117,10 @@ class User < ApplicationRecord
     User.track_preloaded_by_user(id)
       .joins(:reposts)
       .where("reposts.user_id =?", id)
+  end
+
+  def is_publisher?
+    is_admin?
   end
 
   def is_admin?

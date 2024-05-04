@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :check_user_role, except: [:index]
 
   def index
+    @title = "Tracks"
     @artists = User.where(role: "artist")
     .where.not(username: nil)
     #.with_attached_avatar
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @title = "All"
     get_tracks
     get_meta_tags
     @as = :track
@@ -25,6 +27,28 @@ class UsersController < ApplicationController
     @section = "tracks/track_item"
 
     paginated_render
+  end
+
+  def playlists_filter
+
+    @kind = params[:kind].present? ? params[:kind].split(",") : Category.playlist_types
+    
+    @playlists = @user.playlists
+      .where(playlist_type: @kind)
+      .where(user_id: @user.id)
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .includes(tracks: {cover_attachment: :blob})
+
+    if current_user.blank? || current_user != @user
+      @playlists = @playlists.where(private: false)
+    end
+
+    @render_empty = true if params[:kind].blank? && @playlists.empty?
+
+    @playlists = @playlists.page(params[:page]).per(5)
+
+    render "playlist_cards"
   end
 
   def playlists
@@ -96,6 +120,17 @@ class UsersController < ApplicationController
     @as = :playlist
     @section = "playlists/playlist_item"
     render "show"
+  end
+
+  def about
+    @title = "Albums"
+    @section = "albums"
+    render "about"
+  end
+
+  def articles
+    @articles = @user.posts.order("id desc").page(params[:page]).per(10)
+    render "articles"
   end
 
   private

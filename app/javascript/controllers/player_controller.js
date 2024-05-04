@@ -132,7 +132,7 @@ export default class extends Controller {
       autoplay: true,
       waveColor: 'grey',
       //progressColor: 'tomato',
-      progressColor: 'white',
+      progressColor: '#ddd',
       height: 45,
       barWidth: 2,
       barGap: 3,
