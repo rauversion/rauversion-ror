@@ -14,35 +14,25 @@
 
       <p>Please specify an account to add.</p>
         
-      <%= f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
+      <% # f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
 
+      <div class="sm:col-span-3 flex space-x-2">
+        <%= f.text_field :first_name %>
+        <%= f.text_field :last_name %>
+      </div>
+      
+      <div class="flex items-center pt-4">
+        <span>http://</span>
+          <%= f.text_field :username, label: false %>
+        <span>.rauversion.com</span>
+      </div>
 
       <div class="sm:col-span-3">
-        <%= f.text_field :email,
-          hint: gettext("Email")
-        %>
+        <%= f.text_field :email, hint: gettext("Email") %>
       </div>
 
-      <p class="text-default text-md py-4">Add via</p>
-
-      <div class="space-y-2">
-        
-        <div class="flex space-x-2 items-center">
-          <%= f.radio_button :request_access, :request, label: "Request access from the artist" %> 
-        </div>
-
-        <div class="flex items-center">
-          <%= f.radio_button :request_access, :password, label: false %> 
-          <div class="w-3/4">
-            <%= f.password_field :password, label: false  %> 
-          </div>
-        </div>
-
-      </div>
-
-
-      <div class="flex space-x-2 items-center mt-4">
-        <%= f.check_box :hide, label: "Hide artist", hint: "You can hide and unhide artists later, too." %>
+      <div class="sm:col-span-3">
+        <%= f.file_field :avatar %>
       </div>
 
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">

@@ -11,13 +11,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   get "/searchables", to: "users#index", as: :searchable_users
-
   # resource :oembed, controller: 'oembed', only: :show
-
   get "/oembed/", to: "oembed#show", as: :oembed
-
   get "/become/:id", to: "application#become"
-
   get "/artists", to: "users#index"
   
   get "/embed/:track_id", to: "embeds#show"
@@ -39,7 +35,6 @@ Rails.application.routes.draw do
       resources :audio_direct_uploads, only: [:create], controller: "api/v1/audio_direct_uploads"
     end
   end
-
 
   resources :articles do
     member do
@@ -134,6 +129,7 @@ Rails.application.routes.draw do
   resources :account_connections do
     collection do
       get :user_search
+      get :impersonate
     end
   end
 

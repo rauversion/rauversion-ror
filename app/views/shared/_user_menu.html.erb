@@ -1,3 +1,5 @@
+
+
 <nav class="border-b-muted border-b" aria-label="Global" data-controller="dropdown">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 text-default">
     <div class="flex justify-between h-16">
@@ -193,6 +195,10 @@
                     <%= t("menu.my_music") %>
                   <% end %>
 
+                  AAAAAA  <%= session[:parent_user_session] %>
+
+                  <%= link_to "back to parent", impersonate_account_connections_path %>
+
                   <%= current_user.label? ? "MY LABEL" : "SOY SUER" %>
                   <% # = live_redirect gettext("My Merch"), to: "/merch/mine", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" %>
                 <% end %>
@@ -293,6 +299,8 @@
     </div>
     <div class="pt-4 pb-3 border-t border-gray-500">
       <div class="flex items-center px-4">
+
+        
         <% if current_user %>
           <div class="flex-shrink-0">
             <% # image_tag(Rauversion.Accounts.avatar_url(current_user, :small), class: "h-10 w-10 rounded-full" %>

@@ -1,3 +1,5 @@
+ <% admin = current_user.id == @label&.id %>
+ 
  <div class="">
   <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
     
@@ -8,8 +10,7 @@
         Artists
       </h2>
 
-
-      <% if current_user.id == @label&.id %>
+      <% if admin %>
         <%= link_to new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>
           <%= heroicon("plus") %>
           <span>New account Connection</span>
@@ -18,17 +19,36 @@
     </div>
 
     <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+      
       <% @label.child_accounts.each do |artist| %>
-        <div class="group relative">
-          <div class="h-56 lg:h-72-- xl:h-80-- w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
-            <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
+        <div>
+          <div class="group relative">
+            <div class="h-56 lg:h-72-- xl:h-80-- w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+              <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
+            </div>
+
+            <h3 class="mt-4 text-sm text-gray-700 dark:text-gray-300">
+              <%= link_to user_path(artist.username) do %>
+                <span class="absolute- inset-0"></span> <%= artist.username %>
+              <% end %>
+            </h3>
           </div>
 
-          <h3 class="mt-4 text-sm text-gray-700 dark:text-gray-300">
-            <%= link_to user_path(artist.username) do %>
-              <span class="absolute inset-0"></span> <%= artist.username %>
-            <% end %>
-          </h3>
+          <% if admin %>
+            <div class="flex justify-end space-x-2 mb-2">
+
+              <%= link_to impersonate_account_connections_path(username: artist.username) do %>
+                <span class="absolute- inset-0"></span> Impersonate
+              <% end %>
+
+              <%= link_to edit_account_connection_path(artist.id) do %>
+                <span class="absolute- inset-0"></span> Edit
+              <% end %>
+              <%= link_to account_connection_path(artist.id), data: {turbo_method: :destroy, turbo_confirm: "sure?"} do %>
+                <span class="absolute- inset-0"></span> Remove
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

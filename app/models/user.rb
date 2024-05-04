@@ -176,6 +176,7 @@ class User < ApplicationRecord
     # Base query adjusted to exclude child account IDs
     artists = User.where(role: "artist")
                   .where.not(username: nil)
+                  #.where.not(label: true)
                   .where.not(id: child_account_ids)
   
     # Apply search filter if 'q' is provided

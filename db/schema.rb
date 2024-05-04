@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_26_032451) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_04_192625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_26_032451) do
     t.bigint "parent_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password"
     t.index ["parent_id"], name: "index_connected_accounts_on_parent_id"
     t.index ["user_id"], name: "index_connected_accounts_on_user_id"
   end

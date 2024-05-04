@@ -16,8 +16,8 @@ class ConnectedAccount < ApplicationRecord
     inviter.connected_accounts.create(user_id: invited_user.id)
   end
 
-  def self.attach_new_account(inviter: , user_params:)
+  def self.attach_new_account(inviter: , user_params:, state: "pending")
     user = User.create(user_params)
-    self.attach_account(inviter: inviter , invited_user: user)
+    self.attach_account(inviter: inviter , invited_user: user, state: state)
   end
 end
