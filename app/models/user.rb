@@ -65,7 +65,7 @@ class User < ApplicationRecord
     true
   end
 
-  def avatar_url(size)
+  def avatar_url(size = :medium)
     url = case size
     when :medium
       avatar.variant(resize_to_fill: [200, 200]) # &.processed&.url

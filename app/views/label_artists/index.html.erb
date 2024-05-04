@@ -21,7 +21,7 @@
       <% @label.child_accounts.each do |artist| %>
         <div class="group relative">
           <div class="h-56 lg:h-72-- xl:h-80-- w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
-            <%= image_tag(artist.avatar.url, class: "h-full w-full object-cover object-center") %>
+            <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
           </div>
 
           <h3 class="mt-4 text-sm text-gray-700 dark:text-gray-300">

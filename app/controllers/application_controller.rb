@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  helper_method :flash_stream
+
+  def flash_stream
+    turbo_stream.replace("flash", partial: "shared/flash", locals: { flash: flash })
+  end
+
   def set_locale
     if params[:locale].present?
       cookies[:locale] = params[:locale]

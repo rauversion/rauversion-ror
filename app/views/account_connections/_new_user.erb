@@ -2,28 +2,37 @@
 <div>
 
   <div>
-    <%= form_with model: FormModels::LabelNewUser.new, 
-      url: account_connections_path(), local: true do |f| %>
+    <%= form_with model: @user, 
+      url: account_connections_path(kind: "new"), local: true do |f| %>
       
       <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
         <%= t("New user") %>
       </h2>
 
+      <%= f.object.errors.full_messages %>
+
 
       <p>Please specify an account to add.</p>
         
       <%= f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
-        
+
+
+      <div class="sm:col-span-3">
+        <%= f.text_field :email,
+          hint: gettext("Email")
+        %>
+      </div>
+
       <p class="text-default text-md py-4">Add via</p>
 
       <div class="space-y-2">
         
         <div class="flex space-x-2 items-center">
-          <%= f.radio_button :add_via, :request, label: "Request access from the artist" %> 
+          <%= f.radio_button :request_access, :request, label: "Request access from the artist" %> 
         </div>
 
         <div class="flex items-center">
-          <%= f.radio_button :add_via, :password, label: false %> 
+          <%= f.radio_button :request_access, :password, label: false %> 
           <div class="w-3/4">
             <%= f.password_field :password, label: false  %> 
           </div>

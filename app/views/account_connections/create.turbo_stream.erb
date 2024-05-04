@@ -1,0 +1,21 @@
+<% if !@created %>
+  <%= turbo_stream.replace("modal") do %>
+    <%= render "shared/modal" do %>
+      <% if params[:kind] %>
+        <% if params[:kind] == "new" %>
+          <%= render "new_user" %>
+        <% elsif params[:kind] == "existing" %>
+          <%= render "existing" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update("modal") do %>
+    <%= render "shared/modal" do %>
+      user invited
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= flash_stream %>
