@@ -74,6 +74,7 @@ class AccountConnectionsController < ApplicationController
     else
       if session[:parent_user].present?
         user = User.find(session[:parent_user])
+        session[:parent_user] = nil
         flash[:notice] = "signed as #{user.username}"
         sign_in(:user, user)
         redirect_to user_path(user.username)

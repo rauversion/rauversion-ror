@@ -352,7 +352,7 @@
     @apply right-3;
   }
   .hw-combobox__listbox {
-    @apply rounded-2xl bg-subtle overflow-auto h-48 absolute w-full;
+    @apply rounded-2xl bg-subtle overflow-auto h-48 absolute w-full z-[500];
   }
 
   .hw-combobox__listbox .hw-combobox__option {
