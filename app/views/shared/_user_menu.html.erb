@@ -1,4 +1,12 @@
 
+<% if session[:parent_user_session] %>
+  <nav class="border-b-muted border-b bg-purple-600 text-white flex justify-center py-1">
+    <span class="text-xs">
+      Acting on behalf of <%= current_user.username %>
+      <%= link_to "back to parent", impersonate_account_connections_path, class: "text-link" %>
+    </span>
+  </nav>
+<% end %>
 
 <nav class="border-b-muted border-b" aria-label="Global" data-controller="dropdown">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 text-default">
@@ -102,17 +110,6 @@
 
       </div>
 
-
-      <div class="flex items-center px-2 lg:px-0">
-        <% if user_id = session[:parent_user] %>
-          <% if user = Accounts.get_user!(user_id) %>
-            <%= link_to onbehalf_parent_path(username: user.username), class: "fixed p-2 text-xs bg-black hover:bg-white hover:text-black left-[-1px] border top-[45px] z-[200]" do %>
-              <span> ← </span> back to <br><%= user.username %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-
       <div class="flex items-center lg:hidden">
         <button
           type="button"
@@ -192,14 +189,9 @@
                 <% if current_user.is_creator? %>
                   <%= link_to user_path(current_user.username),
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
-                    <%= t("menu.my_music") %>
+                    <%= current_user.label ? t("menu.my_label") : t("menu.my_music") %>
                   <% end %>
 
-                  AAAAAA  <%= session[:parent_user_session] %>
-
-                  <%= link_to "back to parent", impersonate_account_connections_path %>
-
-                  <%= current_user.label? ? "MY LABEL" : "SOY SUER" %>
                   <% # = live_redirect gettext("My Merch"), to: "/merch/mine", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" %>
                 <% end %>
 
