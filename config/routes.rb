@@ -133,6 +133,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :labels
+
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
     resources :users, path: "" do

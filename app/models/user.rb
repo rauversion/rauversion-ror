@@ -87,7 +87,7 @@ class User < ApplicationRecord
     # Track.left_outer_joins(:reposts, :likes)
     # .where("reposts.user_id = :id OR likes.liker_id = :id OR reposts.user_id IS NULL OR likes.liker_id IS NULL", id: id)
     # .includes(:audio_blob, :cover_blob, user: :avatar_attachment)
-
+    user = User.find(id)
     tracks = Track.arel_table
     users = User.arel_table
     reposts_alias = Repost.arel_table.alias("r")
@@ -107,10 +107,43 @@ class User < ApplicationRecord
       .and(likes_alias[:liker_type].eq("User")))
       .join_sources
 
-    result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
-      .joins(reposts_join, likes_join)
-      .select("tracks.*, r.id as repost_id, l.id as like_id")
-      .references(:r, :l)
+    if !user.label
+      result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
+        .joins(reposts_join, likes_join)
+        .select("tracks.*, r.id as repost_id, l.id as like_id")
+        .references(:r, :l)
+      return result
+    else
+
+      # Gather child account IDs
+      child_ids = User.find(id).child_accounts.pluck(:id)
+
+      # Adjust where clause to include tracks from child accounts
+      result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
+                    .joins(reposts_join, likes_join)
+                    .where(tracks[:user_id].eq(id).or(tracks[:user_id].in(child_ids)))
+                    .select("tracks.*, r.id as repost_id, l.id as like_id")
+                    .references(:r, :l)
+    end
+
+  end
+
+  def self.track_preloaded_by_user_n(id)
+    user = User.find(id)
+    tracks = Track.arel_table
+    users = User.arel_table
+
+    if !user.label
+      result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
+      return result
+    else
+      # Gather child account IDs
+      child_ids = User.find(id).child_accounts.pluck(:id)
+      # Adjust where clause to include tracks from child accounts
+      result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
+                    .where(tracks[:user_id].eq(id).or(tracks[:user_id].in(child_ids)))
+    end
+
   end
 
   def reposts_preloaded

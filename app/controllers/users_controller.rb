@@ -20,6 +20,8 @@ class UsersController < ApplicationController
     get_meta_tags
     @as = :track
     @section = "tracks/track_item"
+
+    # render @user.label ? "labels/show" : "show"
   end
 
   def tracks
@@ -28,7 +30,6 @@ class UsersController < ApplicationController
     @as = :track
     @title = "Tracks"
     @section = "tracks/track_item"
-
     paginated_render
   end
 
@@ -152,13 +153,14 @@ class UsersController < ApplicationController
     # @collection = @user.tracks.page(params[:page]).per(2)
     @collection = if current_user && @user.id == current_user&.id 
       User.track_preloaded_by_user(current_user&.id)
-        .where(user_id: @user.id)
+        #.where(user_id: @user.id)
         .with_attached_cover
         .includes(user: {avatar_attachment: :blob})
         .order("id desc")
         .page(params[:page]).per(6)
     else
-      @user.tracks.published
+      User.track_preloaded_by_user_n(@user&.id)
+        #@user.tracks.published
         .with_attached_cover
         .includes(user: {avatar_attachment: :blob})
         .order("id desc").page(params[:page]).per(6)
