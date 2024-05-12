@@ -43,7 +43,7 @@ class PlaylistsController < ApplicationController
 
   def edit
     @tab = params[:tab] || "basic-info-tab"
-    @playlist = current_user.playlists.friendly.find(params[:id])
+    @playlist = find_playlist
     @playlist.enable_label = @playlist.label_id.present?
   end
 
@@ -66,7 +66,7 @@ class PlaylistsController < ApplicationController
 
   def update
     @tab = params[:tab] || "basic-info-tab"
-    @playlist = current_user.playlists.friendly.find(params[:id])
+    @playlist = find_playlist
 
     @playlist.assign_attributes(playlist_params)
 
@@ -114,5 +114,11 @@ class PlaylistsController < ApplicationController
 
     render "update"
 
+  end
+
+  def find_playlist
+    Playlist
+      .where(user_id: current_user.id).or(Playlist.where(label_id: current_user.id))
+      .friendly.find(params[:id])
   end
 end

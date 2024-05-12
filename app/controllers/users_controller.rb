@@ -59,7 +59,8 @@ class UsersController < ApplicationController
   def playlists
     @title = "Playlists"
     @section = "playlists"
-    @collection = @user.playlists
+    @collection = Playlist
+    .where(user_id: @user.id).or(Playlist.where(label_id: @user.id))
     .where.not(playlist_type: ["album", "ep"])
     .with_attached_cover
     .includes(user: {avatar_attachment: :blob})
@@ -69,33 +70,9 @@ class UsersController < ApplicationController
       @collection = @collection.where(private: false)
     end
 
-    @collection.or(Playlist.where(label_id: @user.id)) if @user.label?
-
     @collection = @collection.references(:tracks)
     .page(params[:page])
 
-    #@collection = @collection
-    #.where(
-    #  playlists: {user_id: @user.id}, 
-    #  tracks: {user_id: @user.id}
-    #) if current_user.present?
-
-    #.or(
-    #  @user.playlists
-    #  .where(
-    #    playlists: {private: true}, 
-    #    tracks: {private: true, user_id: @user.id}
-    #  )
-    #)
-    #.or(
-    #  @user.playlists
-    #  .where.not(
-    #    playlists: {user_id: @user.id}, 
-    #    tracks: {user_id: @user.id}
-    #  )
-    #  .where(tracks: {private: true})
-    #)
-      
     @as = :playlist
     @section = "playlists/playlist_item"
     render "show"
@@ -112,9 +89,9 @@ class UsersController < ApplicationController
   def albums
     @title = "Albums"
     @section = "albums"
-    @collection = @user.playlists
+    @collection = Playlist
+      .where(user_id: @user.id).or(Playlist.where(label_id: @user.id))
       .where(playlist_type: ["album", "ep"])
-      .where(user_id: @user.id)
       .with_attached_cover
       .includes(user: {avatar_attachment: :blob})
       .includes(tracks: {cover_attachment: :blob})
