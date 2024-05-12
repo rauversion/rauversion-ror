@@ -3,7 +3,7 @@
     <%= @playlist.errors.to_json %>
     <%= render "form" %>
   <% else %>
-    <h3 class="text-2xl p-4"><%= @playlist.type %> Created</h3>
+    <h3 class="text-2xl p-4"><%= @playlist.playlist_type %> Created</h3>
       <div class="p-4 border border-gray-800">
         <%= link_to "Go to playlist", playlist_path(@playlist), "data-turbo-frame": "_top" %>
       </div>

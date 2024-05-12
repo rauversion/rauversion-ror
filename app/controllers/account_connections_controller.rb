@@ -67,6 +67,7 @@ class AccountConnectionsController < ApplicationController
       user = User.find_by(username: params[:username])
       if current_user.child_accounts.find(user.id)
         session[:parent_user] = current_user.id
+        Current.label_user = current_user
         flash[:notice] = "signed as #{user.username}"
         sign_in(:user, user)
         redirect_to user_path(user.username)
@@ -75,6 +76,7 @@ class AccountConnectionsController < ApplicationController
       if session[:parent_user].present?
         user = User.find(session[:parent_user])
         session[:parent_user] = nil
+        Current.label_user = nil
         flash[:notice] = "signed as #{user.username}"
         sign_in(:user, user)
         redirect_to user_path(user.username)

@@ -1,12 +1,12 @@
 
-<% if session[:parent_user] %>
+<% if label_user %>
   <nav class="border-b-muted border-b bg-purple-600 text-white flex justify-center py-1">
     <span class="text-xs">
-      Acting on behalf of <span class="font-bold hover:underline">
-        <%= current_user.username %>
+        Acting on behalf of <span class="font-bold hover:underline">
+        <%= link_to current_user.username, user_path(current_user.username) %>
       </span>
       <span class="font-bold underline">
-        <%= link_to "back #{User.find(session[:parent_user]).username} label", impersonate_account_connections_path, class: "text-link" %>
+        <%= link_to "back #{label_user.username} label", impersonate_account_connections_path, class: "text-link" %>
       </span>
     </span>
   </nav>

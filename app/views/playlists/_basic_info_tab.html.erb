@@ -9,6 +9,12 @@
               <%= form.text_field :title %>
             </div>
 
+            <% if impersonating?(@playlist.user) %>
+              <div class="sm:col-span-6">
+                <%= form.check_box :enable_label, hint: "Associate this playlist to the label" %>
+              </div>
+            <% end %>
+
             <div class="sm:col-span-6">
               <%= form.text_area :description %>
             </div>

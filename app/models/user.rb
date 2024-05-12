@@ -83,11 +83,11 @@ class User < ApplicationRecord
     url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
 
-  def self.track_preloaded_by_user(id)
+  def self.track_preloaded_by_user(current_user_id:, user: )
     # Track.left_outer_joins(:reposts, :likes)
     # .where("reposts.user_id = :id OR likes.liker_id = :id OR reposts.user_id IS NULL OR likes.liker_id IS NULL", id: id)
     # .includes(:audio_blob, :cover_blob, user: :avatar_attachment)
-    user = User.find(id)
+    # user = User.find(id)
     tracks = Track.arel_table
     users = User.arel_table
     reposts_alias = Repost.arel_table.alias("r")
@@ -96,60 +96,58 @@ class User < ApplicationRecord
     reposts_join = tracks
       .join(reposts_alias, Arel::Nodes::OuterJoin)
       .on(reposts_alias[:track_id].eq(tracks[:id])
-      .and(reposts_alias[:user_id].eq(id)))
+      .and(reposts_alias[:user_id].eq(current_user_id)))
       .join_sources
 
     likes_join = tracks
       .join(likes_alias, Arel::Nodes::OuterJoin)
       .on(likes_alias[:likeable_id].eq(tracks[:id])
       .and(likes_alias[:likeable_type].eq("Track"))
-      .and(likes_alias[:liker_id].eq(id))
+      .and(likes_alias[:liker_id].eq(current_user_id))
       .and(likes_alias[:liker_type].eq("User")))
       .join_sources
 
     if !user.label
       result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
         .joins(reposts_join, likes_join)
+        .where(tracks[:user_id].eq(user.id))
         .select("tracks.*, r.id as repost_id, l.id as like_id")
         .references(:r, :l)
       return result
     else
 
       # Gather child account IDs
-      child_ids = User.find(id).child_accounts.pluck(:id)
+      # child_ids = User.find(id).child_accounts.pluck(:id)
 
       # Adjust where clause to include tracks from child accounts
       result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
                     .joins(reposts_join, likes_join)
-                    .where(tracks[:user_id].eq(id).or(tracks[:user_id].in(child_ids)))
+                    .where(tracks[:user_id].eq(user.id).or(tracks[:label_id].in(user.id)))
                     .select("tracks.*, r.id as repost_id, l.id as like_id")
                     .references(:r, :l)
     end
 
   end
 
-  def self.track_preloaded_by_user_n(id)
-    user = User.find(id)
+  def self.track_preloaded_by_user_n(user:)
     tracks = Track.arel_table
     users = User.arel_table
 
     if !user.label
       result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
+      .where(tracks[:user_id].in(user.id))
       return result
     else
       # Gather child account IDs
-      child_ids = User.find(id).child_accounts.pluck(:id)
       # Adjust where clause to include tracks from child accounts
       result = Track.includes(:audio_blob, :cover_blob, user: :avatar_attachment)
-                    .where(tracks[:user_id].eq(id).or(tracks[:user_id].in(child_ids)))
+      .where(tracks[:user_id].in(user.id).or(tracks[:label_id].in(user.id)))
     end
 
   end
 
   def reposts_preloaded
-    User.track_preloaded_by_user(id)
-      .joins(:reposts)
-      .where("reposts.user_id =?", id)
+    User.track_preloaded_by_user(id).joins(:reposts).where("reposts.user_id =?", id)
   end
 
   def is_publisher?
@@ -223,54 +221,4 @@ class User < ApplicationRecord
   # def password_required?
   #  false
   # end
-end
-
-
-
-class ExistingArtist
-  include ActiveModel::Model
-  include ActiveModel::Attributes
-  include ActiveModel::Validations
-
-  attribute :username, :string
-  attribute :ticket_id, :integer
-  attribute :email, :string # Assuming you intend to use it given the validate_email function
-
-  validates :username, presence: true
-  validates :ticket_id, presence: true
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 160 }
-
-  # Custom validation method if you have additional logic
-  # validate :custom_validation_method
-
-  private
-
-  # Example custom validation method
-  # def custom_validation_method
-  #   errors.add(:base, "Custom validation error message") if some_condition
-  # end
-end
-
-
-class NewArtist
-  include ActiveModel::Model
-  include ActiveModel::Validations
-  include ActiveModel::Attributes
-
-  attribute :username, :string
-  attribute :genre, :string
-  attribute :hidden, :string
-
-  validates :username, presence: true
-  validate :validate_email
-
-  def validate_email
-    # Similar assumption about the `email` attribute
-    if email.present? && !email.match?(/\A[^\s]+@[^\s]+\z/)
-      errors.add(:email, "must have the @ sign and no spaces")
-    end
-    if email.length > 160
-      errors.add(:email, "is too long (maximum is 160 characters)")
-    end
-  end
 end

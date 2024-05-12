@@ -131,6 +131,10 @@ Rails.application.routes.draw do
       get :user_search
       get :impersonate
     end
+    member do
+      get :approve
+      post :approve
+    end
   end
 
   resources :labels

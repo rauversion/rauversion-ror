@@ -22,11 +22,11 @@
       <div class="hidden md:flex-1 md:flex md:items-center md:justify-between">
         <nav class="flex space-x-10">
           <% menu = [
-            {to: user_path(@user.username), name: "All"},
+            #{to: user_path(@user.username), name: "All"},
             {to: user_tracks_path(@user.username), name: t("profile.tracks") },
             {to: user_playlists_path(@user.username), name: t("profile.playlists") },
             {to: user_albums_path(@user.username), name: t("profile.albums") },
-            {to: user_reposts_path(@user.username), name: t("profile.reposts") },
+            #{to: user_reposts_path(@user.username), name: t("profile.reposts") },
             {to: user_articles_path(@user.username), name: t("profile.articles"), hidden: !@user.is_admin? },
           ]%>
 
@@ -164,40 +164,6 @@
       <div class="flex justify-end">
         <%= link_to "more", "/#{@user.username}/about", class: "mr-2 btn-xs outline rounded-sm p-1" %>
       </div>
-
-
-      
-      <div class="overflow-auto no-scrollbar relative" data-scroll-target="scrollContainer">
-        <div class="grid grid-cols-1- grid-flow-col grid-rows-1- sm:gap-x-1 md:grid-cols-4- md:gap-y-0- lg:gap-x-2">
-          <% @user.photos.each do |image| %>
-            <div class="w-64 m-4">
-              <%= link_to photo_path(image, user_id: @user.id), 
-                data: {turbo_frame: "modal"},
-                class: "h-auto max-w-full rounded-lg" do %>
-
-                <div class="card bg-gray-100 m-auto w-full h-32 mt-5 rounded-md" style="background-image: url(<%= image.image.variant(resize_to_fill: [350, 250]).url %>);
-                  background-position: center;
-                  background-repeat: no-repeat; background-size: cover;">
-                  <div class="flex flex-row items-end h-full w-full">
-                    <!--
-                    <div class="flex flex-col w-full pb-3 pt-10 px-3 bg-gradient-to-t from-black text-gray-200">
-                      <a href="https://vadb.org/artworks/46867" data-turbo-frame="_top" class="text-base font-bold leading-5 uppercase"> Amo cada parte de tu cuerpo 2001 </a>
-                      <a href="https://vadb.org/artworks/46867" data-turbo-frame="_top" class="text-base font-bold leading-5 uppercase">
-                        <div class="inline-flex items-center">
-                          <span class="capitalize font-base text-xs my-1 mr-1"> Coco González Lohse </span>
-                        </div>
-                      </a>
-                    </div>
-                    -->
-                  </div>
-                </div>
-
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
 
       <!--
       <section aria-labelledby="who-to-follow-heading">

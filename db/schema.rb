@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_04_192625) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_06_041324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -286,6 +286,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_04_192625) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tags", default: [], array: true
+    t.integer "label_id"
+    t.index ["label_id"], name: "index_playlists_on_label_id"
     t.index ["slug"], name: "index_playlists_on_slug"
     t.index ["tags"], name: "index_playlists_on_tags", using: :gin
     t.index ["user_id"], name: "index_playlists_on_user_id"
@@ -444,6 +446,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_04_192625) do
     t.text "description"
     t.string "genre"
     t.string "tags", default: [], array: true
+    t.integer "label_id"
+    t.index ["label_id"], name: "index_tracks_on_label_id"
     t.index ["slug"], name: "index_tracks_on_slug"
     t.index ["tags"], name: "index_tracks_on_tags", using: :gin
     t.index ["user_id"], name: "index_tracks_on_user_id"

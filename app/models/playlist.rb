@@ -16,17 +16,28 @@ class Playlist < ApplicationRecord
   friendly_id :title, use: :slugged
 
   belongs_to :user
+  belongs_to :label, class_name: "User", optional: true
+
   has_many :track_playlists
   has_many :tracks, through: :track_playlists
   has_many :listening_events
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
+
   has_one_attached :cover
   has_one_attached :zip
 
   acts_as_likeable
 
   accepts_nested_attributes_for :track_playlists, allow_destroy: true
+
+  belongs_to :label, class_name: "User", optional: true
+  attr_accessor :enable_label
+  before_save :check_label
+
+  def check_label
+   self.label_id = Current.label_user.id if enable_label && Current.label_user 
+  end
 
   scope :latests, -> { order("id desc") }
   scope :published, -> { where(private: false) }

@@ -44,6 +44,7 @@ class PlaylistsController < ApplicationController
   def edit
     @tab = params[:tab] || "basic-info-tab"
     @playlist = current_user.playlists.friendly.find(params[:id])
+    @playlist.enable_label = @playlist.label_id.present?
   end
 
   def new
@@ -56,8 +57,10 @@ class PlaylistsController < ApplicationController
   def create
     @tab = params[:tab] || "basic-info-tab"
     @playlist = current_user.playlists.create(playlist_params)
-    if @playlist.errors.blank?
-      flash[:now] = "successfully created"
+    if @playlist
+      flash.now[:notice] = "successfully created"
+    else
+      flash.now[:error] = "error in creating"
     end
   end
 
@@ -65,10 +68,14 @@ class PlaylistsController < ApplicationController
     @tab = params[:tab] || "basic-info-tab"
     @playlist = current_user.playlists.friendly.find(params[:id])
 
-    if !params[:nonpersist] && @playlist.update(playlist_params)
-      flash[:now] = "successfully updated"
-    end
+    @playlist.assign_attributes(playlist_params)
 
+    if !params[:nonpersist] && @playlist.save
+      flash.now[:notice] = "successfully updated"
+    else
+      flash.now[:error] = "error updating playlist"
+    end
+  
     if params[:nonpersist]
       @playlist.assign_attributes(playlist_params)
     end
@@ -83,6 +90,7 @@ class PlaylistsController < ApplicationController
       :title, :description, :private, :price,
       :playlist_type, :release_date, :cover,
       :record_label, :buy_link,
+      :enable_label,
       :copyright,
       :attribution, :noncommercial, :non_derivative_works, :copies,
       track_playlists_attributes: [
