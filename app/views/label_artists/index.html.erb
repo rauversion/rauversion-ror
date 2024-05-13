@@ -6,9 +6,19 @@
     <% # link_to "existing artist", new_account_connection_path %>
 
     <div class="md:flex md:items-center md:justify-between">
-      <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
-        Artists
-      </h2>
+
+      <div class="flex-col">
+        <h1 class="text-xl tracking-tight text-brand-600">
+          <%= link_to  user_path(@label.username), class: "flex space-x-2 items-center py-2" do %>
+            <%= heroicon("chevron-left") %>
+            <span><%= @label.username %></span>
+          <% end %>
+        </h1>
+
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
+          Artists
+        </h2>
+      </div>
 
       <% if admin %>
         <%= link_to new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>

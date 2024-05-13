@@ -31,6 +31,7 @@ class AccountConnectionsController < ApplicationController
       @user = FormModels::ArtistForm.new(resource_params)
       @user.is_new = params[:kind] == "new"
       @user.inviter = current_user
+
       unless @user.username.present?
         @user.username = User.find_by(id: @user.search)&.username if @user.search.present?
         @user.inviter = current_user
@@ -55,7 +56,10 @@ class AccountConnectionsController < ApplicationController
     if params[:commit] == "Send connect request"
       user = User.find(params[:user][:id])
       connected_account = ConnectedAccount.attach_account(inviter: current_user , invited_user: user) if user
+      
       if connected_account
+        ConnectedAccountMailer.invitation_email(connected_account).deliver_now
+
         @created = true
       end
       return
@@ -86,5 +90,10 @@ class AccountConnectionsController < ApplicationController
 
   def update
 
+  end
+
+  def approve
+    @connection_account = ConnectedAccount.find_signed(params[:id])
+    render json: @connected_account
   end
 end

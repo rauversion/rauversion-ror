@@ -60,6 +60,11 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :photos, allow_destroy: true
 
   scope :artists, -> { where(role: "artist").where.not(username: nil) }
+  
+  
+  def full_name
+    [first_name, last_name].compact.join(" ")
+  end
   # Ex:- scope :active, -> {where(:active => true)}
   def has_invitations_left?
     true

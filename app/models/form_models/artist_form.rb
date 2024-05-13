@@ -49,17 +49,21 @@ class FormModels::ArtistForm
       password: password, 
       email: email,
       role: "artist",
+      first_name: first_name,
+      last_name: last_name,
       password_confirmation: password
     )
     user.confirm
 
-    ConnectedAccount.attach_account(inviter: inviter , invited_user: user) if user
+    if user
+      connected_account = ConnectedAccount.attach_account(inviter: inviter , invited_user: user) 
 
-    if !user
+       ConnectedAccountMailer.new_account_notification_to_label(connected_account).deliver_now
+
+      user
+    else
       error.add(:base, "user not created!")
     end
-
-    user
   end
 
   # Send an invitation to the existing user

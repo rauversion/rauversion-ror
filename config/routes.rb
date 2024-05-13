@@ -159,6 +159,8 @@ Rails.application.routes.draw do
       get "/reposts", to: "users#reposts"
       get "/albums", to: "users#albums"
       get "/about", to: "users#about"
+      get "/label_artists", to: "users#artists", as: :label_artists
+
       get "/articles", to: "users#articles"
     end
   end

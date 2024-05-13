@@ -78,6 +78,19 @@ class UsersController < ApplicationController
     render "show"
   end
 
+  def artists
+    @label = User.where(role: ["artist", "admin"], label: true).find_by(username: params[:user_id])
+    @collection = @label.child_accounts.page(params[:page]).per(5) #    connected_accounts.page(params[:page]).per(5)
+    @as = :artist
+    @section = "label_artists/artist"
+    @title = "Artists"
+    @cta_url = new_account_connection_path
+    @cta_label = "New account connection"
+    @collection_class = "mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8"
+    @admin = current_user && current_user.id == @label&.id
+    render "show"
+  end
+
   def reposts
     @title = "Reposts"
     @collection = @user.reposts_preloaded.page(params[:page]).per(5)
