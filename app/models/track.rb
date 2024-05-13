@@ -15,6 +15,13 @@ class Track < ApplicationRecord
   has_many :spotlights, as: :spotlightable
   # has_many :spotlighted_tracks, through: :spotlight_tracks
 
+  belongs_to :label, class_name: "User", optional: true
+  attr_accessor :enable_label
+  before_save :check_label
+
+  def check_label
+   self.label_id = Current.label_user.id if enable_label && Current.label_user 
+  end
 
   has_one_attached :cover
   has_one_attached :audio

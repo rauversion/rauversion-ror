@@ -1,0 +1,2 @@
+module LabelAuthHelper
+end

@@ -47,6 +47,7 @@ module.exports = {
         green: colors.emerald,
         yellow: colors.amber,
         brand: {
+          default: "var(--rau-brand)",
           /*50: "#faf5ff",
           100: "#f3e8ff",
           200: "#e9d5ff",

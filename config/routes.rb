@@ -10,12 +10,10 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  get "/searchables", to: "users#index", as: :searchable_users
   # resource :oembed, controller: 'oembed', only: :show
-
   get "/oembed/", to: "oembed#show", as: :oembed
-
   get "/become/:id", to: "application#become"
-
   get "/artists", to: "users#index"
   
   get "/embed/:track_id", to: "embeds#show"
@@ -37,7 +35,6 @@ Rails.application.routes.draw do
       resources :audio_direct_uploads, only: [:create], controller: "api/v1/audio_direct_uploads"
     end
   end
-
 
   resources :articles do
     member do
@@ -126,10 +123,27 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
   end
 
+  get "/onbehalf/parent/:username", to: "label_auth#back"
+  get "/onbehalf/:username", to: "label_auth#add"
+  
+  resources :account_connections do
+    collection do
+      get :user_search
+      get :impersonate
+    end
+    member do
+      get :approve
+      post :approve
+    end
+  end
+
+  resources :labels
+
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block
     resources :users, path: "" do
       resource :insights
+      resources :artists, controller: "label_artists"
       resources :settings, param: :section, controller: "user_settings"
       resources :invitations, controller: "user_invitations"
       resources :integrations, controller: "user_integrations"
@@ -145,6 +159,8 @@ Rails.application.routes.draw do
       get "/reposts", to: "users#reposts"
       get "/albums", to: "users#albums"
       get "/about", to: "users#about"
+      get "/label_artists", to: "users#artists", as: :label_artists
+
       get "/articles", to: "users#articles"
     end
   end

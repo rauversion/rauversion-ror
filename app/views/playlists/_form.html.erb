@@ -12,10 +12,19 @@
         </div>
       </div>
 
+
+      <% if impersonating?(@playlist.user) %>
+        <div class="sm:col-span-6">
+          <%= form.check_box :enable_label, hint: "Associate this playlist to the label" %>
+        </div>
+      <% end %>
+
       <div class="sm:col-span-4">
         <%= form.label :playlist_type %>
         <%= form.select :playlist_type, Playlist::Types.plain, label: "Playlist type" %>
       </div>
+
+
     
 
       <div class="sm:col-span-4">
@@ -31,6 +40,7 @@
         <div class="flex space-x-2 items-center">
           <%= form.radio_button :private, false, label: "Acceso público", hint: "Todo el mundo con el enlace verá este artículo." %> 
         </div>
+
         <div class="flex space-x-2 items-center">
           <%= form.radio_button :private, true, label: "Miembros privados al artículo", hint: "Sólo los miembros de este artículo podrían acceder." %>
         </div>

@@ -4,11 +4,14 @@ class UsersController < ApplicationController
 
   def index
     @title = "Tracks"
-    @artists = User.where(role: "artist")
-    .where.not(username: nil)
+    @artists = User.where(role: "artist").where.not(username: nil)
+    q = params[:q]
+    if q.present?
+      @artists = @artists.where("username ILIKE :q OR email ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: "%#{q}%")
+    end
     #.with_attached_avatar
     #.order("id desc")
-    .page(params[:page]).per(5)
+    @artists = @artists.page(params[:page]).per(5)
   end
 
   def show
@@ -17,6 +20,8 @@ class UsersController < ApplicationController
     get_meta_tags
     @as = :track
     @section = "tracks/track_item"
+
+    # render @user.label ? "labels/show" : "show"
   end
 
   def tracks
@@ -25,7 +30,6 @@ class UsersController < ApplicationController
     @as = :track
     @title = "Tracks"
     @section = "tracks/track_item"
-
     paginated_render
   end
 
@@ -33,9 +37,10 @@ class UsersController < ApplicationController
 
     @kind = params[:kind].present? ? params[:kind].split(",") : Category.playlist_types
     
-    @playlists = @user.playlists
+    @playlists = Playlist
       .where(playlist_type: @kind)
-      .where(user_id: @user.id)
+      .where(user_id: @user.id).or(Playlist.where(label_id: @user.id))
+      .where(private: false)
       .with_attached_cover
       .includes(user: {avatar_attachment: :blob})
       .includes(tracks: {cover_attachment: :blob})
@@ -54,7 +59,8 @@ class UsersController < ApplicationController
   def playlists
     @title = "Playlists"
     @section = "playlists"
-    @collection = @user.playlists
+    @collection = Playlist
+    .where(user_id: @user.id).or(Playlist.where(label_id: @user.id))
     .where.not(playlist_type: ["album", "ep"])
     .with_attached_cover
     .includes(user: {avatar_attachment: :blob})
@@ -67,30 +73,21 @@ class UsersController < ApplicationController
     @collection = @collection.references(:tracks)
     .page(params[:page])
 
-    #@collection = @collection
-    #.where(
-    #  playlists: {user_id: @user.id}, 
-    #  tracks: {user_id: @user.id}
-    #) if current_user.present?
-
-    #.or(
-    #  @user.playlists
-    #  .where(
-    #    playlists: {private: true}, 
-    #    tracks: {private: true, user_id: @user.id}
-    #  )
-    #)
-    #.or(
-    #  @user.playlists
-    #  .where.not(
-    #    playlists: {user_id: @user.id}, 
-    #    tracks: {user_id: @user.id}
-    #  )
-    #  .where(tracks: {private: true})
-    #)
-      
     @as = :playlist
     @section = "playlists/playlist_item"
+    render "show"
+  end
+
+  def artists
+    @label = User.where(role: ["artist", "admin"], label: true).find_by(username: params[:user_id])
+    @collection = @label.child_accounts.page(params[:page]).per(5) #    connected_accounts.page(params[:page]).per(5)
+    @as = :artist
+    @section = "label_artists/artist"
+    @title = "Artists"
+    @cta_url = new_account_connection_path
+    @cta_label = "New account connection"
+    @collection_class = "mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8"
+    @admin = current_user && current_user.id == @label&.id
     render "show"
   end
 
@@ -105,9 +102,9 @@ class UsersController < ApplicationController
   def albums
     @title = "Albums"
     @section = "albums"
-    @collection = @user.playlists
+    @collection = Playlist
+      .where(user_id: @user.id).or(Playlist.where(label_id: @user.id))
       .where(playlist_type: ["album", "ep"])
-      .where(user_id: @user.id)
       .with_attached_cover
       .includes(user: {avatar_attachment: :blob})
       .includes(tracks: {cover_attachment: :blob})
@@ -148,18 +145,18 @@ class UsersController < ApplicationController
   def get_tracks
     # @collection = @user.tracks.page(params[:page]).per(2)
     @collection = if current_user && @user.id == current_user&.id 
-      User.track_preloaded_by_user(current_user&.id)
-        .where(user_id: @user.id)
-        .with_attached_cover
-        .includes(user: {avatar_attachment: :blob})
-        .order("id desc")
-        .page(params[:page]).per(6)
+      User.track_preloaded_by_user(current_user_id: current_user&.id, user: @user )
+        #.where(user_id: @user.id)
     else
-      @user.tracks.published
-        .with_attached_cover
-        .includes(user: {avatar_attachment: :blob})
-        .order("id desc").page(params[:page]).per(6)
+      User.track_preloaded_by_user_n(user: @user)
+      #.where(user_id: @user.id)
+        #@user.tracks.published
     end
+
+    @collection = @collection
+      .with_attached_cover
+      .includes(user: {avatar_attachment: :blob})
+      .order("id desc").page(params[:page]).per(6)
   end
 
   def find_user

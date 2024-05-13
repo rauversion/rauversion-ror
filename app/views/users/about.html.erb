@@ -4,7 +4,6 @@
   
   <div class="flex space-x-5">
 
-
     <div>
       <div class="space-y-2 my-6">
         <div class="p-2">
@@ -41,9 +40,9 @@
 
     <div class="sm:max-w-lg py-5">
       <h1 class="text-4xl font-bold tracking-tight text-default sm:text-6xl">
-        <%= link_to @user.username, user_path(@user.username)  %>
+        <%= link_to @user.username, user_path(@user.username) , class: "text-brand-500 hover:underline" %>
       </h1>
-      <p class="text-muted">
+      <p class="text-muted py-4">
         <%= @user.country %>, <%= @user.city %>
       </p>
       <p class="mt-4 text-xl text-subtle">
@@ -65,7 +64,11 @@
   <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
     <% @user.photos.each do |image| %>
       <div>
-        <%= image_tag image.image.variant(resize_to_fill: [350, 250]) , class: "h-auto max-w-full rounded-lg" %>
+        <%= link_to photo_path(image, user_id: @user.id), 
+          data: {turbo_frame: "modal"},
+          class: "h-auto max-w-full rounded-lg" do %>
+          <%= image_tag image.image.variant(resize_to_fill: [350, 250]) %>
+        <% end %>
       </div>
     <% end %>
   </div>

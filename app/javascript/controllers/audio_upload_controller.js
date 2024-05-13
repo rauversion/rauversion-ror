@@ -148,7 +148,6 @@ export default class extends Controller {
     this.preventDefaults(e);
     let files = e.dataTransfer.files;
     this.inputTarget.files = files;
-    debugger
     this.uploadFile();
   }
 }
