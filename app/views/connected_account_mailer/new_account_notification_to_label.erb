@@ -1,0 +1,28 @@
+
+Dear <%= @label.username %>, <br/>
+
+We are excited to announce that a new artist account has been created on the your label, <%= @label.username%> on Rauversion. 
+<br>
+This addition underscores our commitment to nurturing a diverse and vibrant artistic community.
+
+<br/>
+Artist Details:
+<br/>
+
+<br/>
+Name: <%= @artist.full_name %>
+<br/>
+<!--Genre: [Artist’s Genre]-->
+Account Created On: <%= l @artist.created_at, format: :short %>
+<br/>
+Please ensure that the artist’s onboarding process is seamless and engaging. 
+For more information or to review their profile, please visit the link below:
+<br/>
+<%= user_url @artist.username %>
+<br/>
+Thank you for your cooperation and enthusiasm as we welcome our newest artist to the Label <%= @label.full_name%> family.
+
+<br/>
+Best regards,
+<br/>
+Rauversion Team

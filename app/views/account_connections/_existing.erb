@@ -23,8 +23,6 @@
         <%= t("Existing User") %>
       </h2>
 
-      <%= f.object.errors.full_messages %>
-
       <p class="text-md">Please search for an existing artist.</p>
 
       <% # f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
@@ -37,9 +35,9 @@
         <span>.rauversion.com</span>
       </div>
 
-      <p class="text-default text-md py-4 text-lg">Add via</p>
+      <p class="text-default text-md py-4 text-lg hidden">Add via</p>
 
-      <div class="space-y-2">
+      <div class="space-y-2 hidden">
         
         <div class="flex space-x-2 items-center">
           <%= f.radio_button :request_access, :request, label: "Request access from the artist" %> 
@@ -68,7 +66,5 @@
     <% end %>
 
   <% end %>
-
-  <%= link_to "back", new_account_connection_path, data: {turbo_frame: "modal"} %>
 
 </div>

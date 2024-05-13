@@ -33,7 +33,7 @@ class FormModels::ArtistForm
     return false unless valid?  # Ensure all validations pass before processing
 
     User.transaction do
-      if request_access
+      if !is_new
         send_invitation
       else
         create_user
@@ -56,7 +56,7 @@ class FormModels::ArtistForm
     user.confirm
 
     if user
-      connected_account = ConnectedAccount.attach_account(inviter: inviter , invited_user: user) 
+      connected_account = ConnectedAccount.attach_account(inviter: inviter , invited_user: user, state: "active") 
 
        ConnectedAccountMailer.new_account_notification_to_label(connected_account).deliver_now
 
@@ -68,20 +68,21 @@ class FormModels::ArtistForm
 
   # Send an invitation to the existing user
   def send_invitation
-    invited_user = User.invite!(
-      {
-        username: username, 
-        email: email,
-        role: "artist"
-      }, 
-      inviter
-    )
 
-    ConnectedAccount.attach_account(
-      inviter: inviter, 
-      invited_user: invited_user
-    ) if invited_user
+    invited_user = User.find_by(username: username)
+    
+    if !inviter.child_accounts.exists?(invited_user.id)
 
-    invited_user
+      connected_account = ConnectedAccount.attach_account(
+        inviter: inviter, 
+        invited_user: invited_user,
+        state: "pending"
+      ) if invited_user
+
+      ConnectedAccountMailer.invitation_email(connected_account).deliver_now
+      invited_user
+    else
+      nil
+    end
   end
 end

@@ -1,0 +1,35 @@
+<div>
+  <div class="group relative">
+    <%= link_to user_path(artist.username), data: {turbo_frame: "_top"} do %>
+      <div class="
+      h-56- lg:h-72-- xl:h-80-- 
+      w-full 
+      rounded-full
+       overflow-hidden
+       bg-gray-200 group-hover:opacity-75">
+        <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
+      </div>
+
+      <h3 class="my-2 text-md text-default">
+        <span class="absolute- inset-0"></span> <%= artist.full_name.present? ? artist.full_name : artist.username %>
+      </h3>
+    <% end %>
+
+
+    <% if @admin %>
+      <div class="relative justify-end space-x-2 mb-2 hidden group-hover:flex">
+
+        <div class="flex absolute space-x-2 top-[-66px] left-[4.5em] p-2 bg-emphasis rounded-lg">
+          <%= link_to impersonate_account_connections_path(username: artist.username), data: {turbo_frame: "_top"} do %>
+            <span class="absolute- inset-0"></span> Impersonate
+          <% end %>
+
+          <%= link_to account_connection_path(artist.id), data: {turbo_method: :destroy, turbo_confirm: "sure?"} do %>
+            <span class="absolute- inset-0"></span> Disconnect
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

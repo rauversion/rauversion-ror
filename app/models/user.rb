@@ -151,8 +151,11 @@ class User < ApplicationRecord
 
   end
 
-  def reposts_preloaded
-    User.track_preloaded_by_user(id).joins(:reposts).where("reposts.user_id =?", id)
+  def reposts_preloaded(current_user: nil)
+    tracks = current_user.blank? ?
+    User.track_preloaded_by_user_n(user: self) :
+    User.track_preloaded_by_user(current_user_id: current_user, user: self)
+    tracks.joins(:reposts).where("reposts.user_id =?", id)
   end
 
   def is_publisher?

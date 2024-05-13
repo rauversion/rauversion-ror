@@ -50,6 +50,9 @@ class AccountConnectionsController < ApplicationController
     if params[:commit] == "Select user"
       a = User.find(params[:search])
       @selected_artist = FormModels::ArtistForm.new(username: a.username)
+      if @selected_artist.valid?
+        @selected_artist
+      end
       return 
     end
 
@@ -93,7 +96,15 @@ class AccountConnectionsController < ApplicationController
   end
 
   def approve
-    @connection_account = ConnectedAccount.find_signed(params[:id])
-    render json: @connected_account
+    @connected_account = ConnectedAccount.find_signed(params[:id])
+    @label = @connected_account.parent
+    @artist = @connected_account.user
+    if request.get?
+      sign_in(:user, @artist)
+    elsif request.post?
+      flash[:notice] = "you are now part of #{@label.username}"
+      redirect_to user_path(@artist.username)
+    end
+
   end
 end

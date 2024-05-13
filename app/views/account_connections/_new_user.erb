@@ -9,9 +9,6 @@
         <%= t("New user") %>
       </h2>
 
-      <%= f.object.errors.full_messages %>
-
-
       <p>Please specify an account to add.</p>
         
       <% # f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
@@ -31,9 +28,9 @@
         <%= f.text_field :email, hint: gettext("Email") %>
       </div>
 
-      <div class="sm:col-span-3">
-        <%= f.file_field :avatar %>
-      </div>
+      <!--<div class="sm:col-span-3">
+        <% #= f.file_field :avatar %>
+      </div>-->
 
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6 flex justify-end space-x-2 items-center">

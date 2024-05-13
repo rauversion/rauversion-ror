@@ -1,0 +1,27 @@
+
+
+
+
+<div class="bg-default">
+  <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
+    <div class="relative isolate overflow-hidden bg-muted px-6 py-24 text-center shadow-2xl sm:rounded-3xl sm:px-16">
+      <h2 class="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-default sm:text-4xl">
+        Be part of <%= @label.username %> label.
+      </h2>
+      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
+        <%= @label.username %>, has extended an invitation to be part of their catalog.
+        If you are agree please click on accept button, if not, just ignore the message
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <%= button_to approve_account_connection_url(params[:id]), class: "button-sm-outline space-x-2" do %>
+          Get started
+        <% end %>
+
+        <a href="#" class="text-sm font-semibold leading-6 text-default">
+          Learn more <span aria-hidden="true">→</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>

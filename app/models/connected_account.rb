@@ -12,8 +12,8 @@ class ConnectedAccount < ApplicationRecord
     errors.add(:user_id, "is already connected to this parent") if exists && new_record? || persisted? && changed?
   end
 
-  def self.attach_account(inviter: , invited_user:)
-    inviter.connected_accounts.create(user_id: invited_user.id)
+  def self.attach_account(inviter: , invited_user:, state: "peding")
+    inviter.connected_accounts.create(user_id: invited_user.id, state: state)
   end
 
   def self.attach_new_account(inviter: , user_params:, state: "pending")
