@@ -154,7 +154,7 @@ gem "http", "~> 5.1"
 
 gem "ruby-oembed", github: "basecamp/ruby-oembed", branch: "fix-spotify-redirects" #"~> 0.16.1"
 
-gem "sidekiq", "~> 7.1"
+gem 'sidekiq', '~> 7.2.2'
 gem "sidekiq-grouping"
 gem "sidekiq-limit_fetch"
 
