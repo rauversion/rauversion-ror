@@ -129,6 +129,8 @@ group :test do
   gem "webdrivers"
   gem "shoulda-matchers", "~> 5.0"
   gem "faker"
+  gem "database_cleaner"
+  gem 'database_cleaner-active_record'
 end
 
 # Or, run against the main branch

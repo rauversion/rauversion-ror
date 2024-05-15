@@ -35,7 +35,7 @@ RSpec.describe Event, type: :model do
 
     describe ".published" do
       it "returns published events" do
-        expect(Event.upcoming_events).to eq([@event1, @event3])
+        expect(Event.upcoming_events.map(&:id)).to eq([@event1.id, @event3.id])
       end
     end
 
