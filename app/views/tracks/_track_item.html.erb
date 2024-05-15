@@ -51,11 +51,13 @@
         <div class="flex-grow  ml-2 flex items-center justify-between">
           <div class="">
             <h4 class="text-md font-bold">
-              <%= link_to track_path(track), "data-turbo-frame": "_top" do %>
+              <%= link_to track_path(track), "data-turbo-frame": "_top", class: "hover:underline" do %>
                 <%= track.title %>
               <% end %> 
             </h4>
-            <h5 class="text-sm font-"><%= track.user.username %> </h5>
+            <h5 class="text-sm font-">
+              <%= link_to track.user.username, user_path(track.user.username), data: {turbo_frame: "_top"}, class: "hover:underline" %>
+            </h5>
           </div>
 
           <% if track.private %>

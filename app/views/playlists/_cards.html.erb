@@ -14,7 +14,7 @@
     <% end %>
   </div>
 
-  <%= link_to user_playlists_path(@user.username), class: "text-sm font-semibold leading-6 text-brand-600"  do %>
+  <%= link_to user_playlists_path(@user.username), class: "text-sm font-semibold leading-6 text-brand-600", data: {turbo_frame: "_top"}  do %>
     See all <span aria-hidden="true">→</span>
   <% end %>
 </div>

@@ -1,0 +1,70 @@
+
+<div class="space-y-4">
+  <% if false %>
+    <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+      <%= t("existing_artist") %>
+    </h2>
+    <p class="text-md">Please search for an existing artist.</p>
+    <%= form_with url: account_connections_path(kind: :existing), local: true do |form| %>
+      <%= form.combobox :search, user_search_account_connections_path,
+        name_when_new: :search, mobile_at: "0px" 
+      %>
+      <div class="py-2 flex justify-end">
+        <%= form.submit "Select user" %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if true %>
+
+    <%= form_for @user, url: account_connections_path(kind: "existing"), method: :post do |f| %>
+      
+      <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
+        <%= t("Existing User") %>
+      </h2>
+
+      <p class="text-md">Please search for an existing artist.</p>
+
+      <% # f.text_field :username, label: "username", hint: "Artist URL http://#{ ENV["DOMAIN"] }/jjj" %>
+
+      <div class="flex items-center pt-4">
+        <span>http://</span>
+          <%= f.combobox :search, user_search_account_connections_path,
+            name_when_new: :search_1, mobile_at: "0px" 
+          %>
+        <span>.rauversion.com</span>
+      </div>
+
+      <p class="text-default text-md py-4 text-lg hidden">Add via</p>
+
+      <div class="space-y-2 hidden">
+        
+        <div class="flex space-x-2 items-center">
+          <%= f.radio_button :request_access, :request, label: "Request access from the artist" %> 
+        </div>
+
+        <div class="flex items-center">
+          <%= f.radio_button :request_access, :password, label: false %> 
+          <div class="w-3/4">
+            <%= f.password_field :password, label: false  %> 
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="flex space-x-2 items-center mt-4">
+        <%= f.check_box :hide, label: "Hide artist", hint: "You can hide and unhide artists later, too." %>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-6 flex justify-end space-x-2 items-center">
+          <%= link_to "back", new_account_connection_path, data: {turbo_frame: "modal"} %>
+          <%= f.submit "Save", data: { disable_with: "Saving..." }  %>
+        </div>
+      </div>
+    <% end %>
+
+  <% end %>
+
+</div>

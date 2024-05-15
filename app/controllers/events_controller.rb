@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.new(event_params)
     if @event.save
-      flash[:now] = "yes!"
+      flash.now[:notice] = "yes!"
       redirect_to edit_event_path(@event)
     end
   end
@@ -33,12 +33,12 @@ class EventsController < ApplicationController
 
     if params[:toggle_published].present?
       @event.toggle_published!
-      flash[:now] = "event #{@event.state}"
+      flash.now[:notice] = "event #{@event.state}"
       render "toggle_published" and return
     end
 
     if @event.update(event_params)
-      flash[:now] = "yes!"
+      flash.now[:notice] = "yes!"
       # redirect_to edit_event_path(@event, section: @section)
     end
   end

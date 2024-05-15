@@ -1,0 +1,24 @@
+<%= render "shared/modal" do %>
+  <div class="relative py-4">
+
+    <% if @prev_photo.present? %>
+      <div class="absolute top-1/2">
+        <%= link_to photo_path(@prev_photo, user_id: params[:user_id]), class: "border bg-emphasis rounded-full p-2 w-10 h-10 flex animate scaleX" do %>
+          <%= heroicon("chevron-left") %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @photo.image.present? %>
+      <%= image_tag @photo.image.variant(resize_to_fill: [1200, 1200]) %>
+    <% end %>
+
+    <% if @next_photo.present? %>
+      <div class="absolute top-1/2 right-0">
+        <%= link_to photo_path(@next_photo, user_id: params[:user_id]), class: "border bg-emphasis rounded-full p-2 w-10 h-10 flex animate scaleX" do %>
+          <%= heroicon("chevron-right") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

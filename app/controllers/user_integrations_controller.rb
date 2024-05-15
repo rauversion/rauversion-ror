@@ -5,7 +5,7 @@ class UserIntegrationsController < ApplicationController
     identity = current_user.identities.find(params[:id])
     if identity.destroy
       # user.update(role: "artist")
-      flash[:now] = "Integration removed"
+      flash.now[:notice] = "Integration removed"
     end
     @user = current_user
     @section = "integrations"

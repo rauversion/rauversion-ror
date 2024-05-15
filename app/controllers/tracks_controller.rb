@@ -23,6 +23,7 @@ class TracksController < ApplicationController
       audios = track_bulk_params["audio"].select { |o| o.is_a?(String) }.reject(&:empty?)
       # @track = current_user.tracks.new(track_params)
       @track_form.user = current_user
+      @track_form.private = track_bulk_params[:private]
       @track_form.tracks_attributes = audios.map { |o| {audio: o} }
       @track_form.step = "info"
     else
@@ -44,12 +45,16 @@ class TracksController < ApplicationController
   def update
     @track = current_user.tracks.friendly.find(params[:id])
     @tab = params[:track][:tab] || "basic-info-tab"
+    @track.assign_attributes(track_params)
     if params[:nonpersist]
-      @track.assign_attributes(track_params)
       @track.valid?
     else
-      flash.now[:notice] = "Track was successfully updated."
-      @track.update(track_params)
+      @track.label_id = label_user.id if !label_user.blank? && @track.enable_label
+      if @track.save
+        flash.now[:notice] = "Track was successfully updated."
+      else
+        flash.now[:error] = @track.errors.full_messages
+      end
     end
     # puts @track.errors.as_json
     @track.tab = @tab
@@ -103,6 +108,7 @@ class TracksController < ApplicationController
   def track_params
     params.require(:track).permit(
       :private,
+      :enable_label,
       :audio, :title, :step, :description,
       :tab, :genre, :contains_music, :artist, :publisher, :isrc,
       :composer, :release_title, :buy_link, :album_title,
@@ -124,7 +130,9 @@ class TracksController < ApplicationController
 
   def track_bulk_params
     params.require(:track_bulk_creator).permit(
-      :make_playlist, :private,
+      :make_playlist, 
+      :private,
+      :enable_label,
       :step,
       audio: [], tracks_attributes: [
         :audio, :cover, :title, :tags, :description

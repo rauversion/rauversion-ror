@@ -58,6 +58,12 @@
 
                 </div>
 
+                <% if impersonating?(@track.user) %>
+                  <div class="sm:col-span-6">
+                    <%= form.check_box :enable_label, hint: "Associate this Track to the label" %>
+                  </div>
+                <% end %>
+
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                   <%= form.label :tags %>
                   <div class="mt-1 sm:mt-0 sm:col-span-2">

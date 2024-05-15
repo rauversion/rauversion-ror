@@ -1,3 +1,17 @@
+
+<% if label_user %>
+  <nav class="border-b-muted border-b bg-purple-600 text-white flex justify-center py-1">
+    <span class="text-xs">
+        Acting on behalf of <span class="font-bold hover:underline">
+        <%= link_to current_user.username, user_path(current_user.username) %>
+      </span>
+      <span class="font-bold underline">
+        <%= link_to "back #{label_user.username} label", impersonate_account_connections_path, class: "text-link" %>
+      </span>
+    </span>
+  </nav>
+<% end %>
+
 <nav class="border-b-muted border-b" aria-label="Global" data-controller="dropdown">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 text-default">
     <div class="flex justify-between h-16">
@@ -66,6 +80,19 @@
       </div>
 
       <div class="flex items-center px-2 lg:px-0">
+
+
+      <%= link_to "#", class: "hidden sm:block text-brand-600 block- px-4 py-2 text-sm", data: {
+          action: 'click->dark-mode#toggle'
+        } do %>
+          <span class="hidden space-x-2 dark:flex items-center">
+            <%= heroicon "moon", variant: :mini %> 
+          </span>
+          <span class="dark:hidden flex space-x-2 items-center">
+            <%= heroicon "sun", variant: :mini  %>
+          </span>
+        <% end %>
+
         <%= link_to "/tracks/new",
             class: "inline-flex items-center justify-center space-x-1 rounded-md py-2 px-3 text-sm font-medium text-default hover:bg-brand-600" do %>
           <svg
@@ -179,8 +206,9 @@
                 <% if current_user.is_creator? %>
                   <%= link_to user_path(current_user.username),
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
-                    <%= t("menu.my_music") %>
+                    <%= current_user.label ? t("menu.my_label") : t("menu.my_music") %>
                   <% end %>
+
                   <% # = live_redirect gettext("My Merch"), to: "/merch/mine", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" %>
                 <% end %>
 
@@ -225,10 +253,6 @@
                   class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                   <%= t("menu.log_out") %>
                 <% end %>
-
-                <%= link_to "Toggle Theme", "#", class: "text-brand-600 block- px-4 py-2 text-sm", data: {
-                  action: 'click->dark-mode#toggle'
-                } %>
 
                 <div class="flex items-center space-x-2">
                   <%= link_to "English", url_for(locale: :en), class: "#{I18n.locale == :en ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300' } block- px-4 py-2 text-sm" %>
@@ -280,6 +304,8 @@
     </div>
     <div class="pt-4 pb-3 border-t border-gray-500">
       <div class="flex items-center px-4">
+
+        
         <% if current_user %>
           <div class="flex-shrink-0">
             <% # image_tag(Rauversion.Accounts.avatar_url(current_user, :small), class: "h-10 w-10 rounded-full" %>

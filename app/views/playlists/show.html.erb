@@ -112,7 +112,7 @@
                 </h4>
 
                 <% if @playlist.user.present? %>
-                  <h5 class="text-sm font-">
+                  <h5 class="text-sm font- text-brand-default">
                     <%= link_to @playlist.user.username, user_path(@playlist.user.username) %>
                   </h5>
                 <% end %>

@@ -35,9 +35,21 @@
               <%= link_to item[:name], item[:to], class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
             <% end %>
           <% end %>
-          <!--
-          <a href="#" ,="" class="text-base font-medium border-b border-b-4 text-gray-800 hover:text-gray-900 border-brand-500 dark:text-gray-200 dark:hover:text-gray-100 dark:border-brand-300 " data-cy="profile-menu-#{name}" id="profile-menu-#{name}" to="/michelson">All </a>
-          -->
+
+          <% if @user.label? %>
+            <%= link_to "Artists", user_label_artists_path(@user.username), class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
+          <% end %>
+
+          <% if current_user.present? %>
+            <div class="flex space-x-2 items-center">
+              <% if !@user.label? && @user.is_child_of?(current_user) %>
+                <%= link_to "Act on Behalf", 
+                  onbehalf_path(username: @user.username), 
+                  class: "inline-flex items-center px-4 py-2 border border-brand-300 shadow-sm text-base font-medium rounded-md text-brand-700 bg-white hover:bg-brand-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+              <% end %>
+            </div>
+          <% end %>
+
         </nav>
         <div class="flex items-center md:ml-12">
           <% if current_user && @user.id != current_user&.id %>
@@ -87,14 +99,13 @@
             <div class="flex justify-between items-center">
               <h1 class="font-bold text-4xl"><%= @title %></h1>
 
+              <% if @user.id == current_user&.id %>
+                <%= link_to @cta_url || new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>
+                  <%= heroicon("plus") %>
+                   <span><%= @cta_label || t("tracks.new_track") %></span>
+                <% end %>
+              <% end %>
 
-              <a href="/tracks/new" data-phx-link="redirect" data-phx-link-state="push" class="button-large-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <span><%= t("tracks.new_track") %></span>
-              </a>
-              
             </div>
           </div>
         </div>
@@ -106,7 +117,7 @@
             data-infinite-pagination-target="entries"
             data-turbo="true">
 
-            <%= turbo_frame_tag "paginated-list", class: 'flex flex-col-reverse' do %>
+            <%= turbo_frame_tag "paginated-list", class: "#{ @collection_class || "flex flex-col-reverse"}" do %>
               <%= render partial: @section, collection: @collection, as: @as %>
             <% end %>
 
@@ -152,6 +163,40 @@
       <div class="flex justify-end">
         <%= link_to "more", "/#{@user.username}/about", class: "mr-2 btn-xs outline rounded-sm p-1" %>
       </div>
+
+
+      
+      <div class="overflow-auto no-scrollbar relative" data-scroll-target="scrollContainer">
+        <div class="grid grid-cols-1- grid-flow-col grid-rows-1- sm:gap-x-1 md:grid-cols-4- md:gap-y-0- lg:gap-x-2">
+          <% @user.photos.each do |image| %>
+            <div class="w-64 m-4">
+              <%= link_to photo_path(image, user_id: @user.id), 
+                data: {turbo_frame: "modal"},
+                class: "h-auto max-w-full rounded-lg" do %>
+
+                <div class="card bg-gray-100 m-auto w-full h-32 mt-5 rounded-md" style="background-image: url(<%= image.image.variant(resize_to_fill: [350, 250]).url %>);
+                  background-position: center;
+                  background-repeat: no-repeat; background-size: cover;">
+                  <div class="flex flex-row items-end h-full w-full">
+                    <!--
+                    <div class="flex flex-col w-full pb-3 pt-10 px-3 bg-gradient-to-t from-black text-gray-200">
+                      <a href="https://vadb.org/artworks/46867" data-turbo-frame="_top" class="text-base font-bold leading-5 uppercase"> Amo cada parte de tu cuerpo 2001 </a>
+                      <a href="https://vadb.org/artworks/46867" data-turbo-frame="_top" class="text-base font-bold leading-5 uppercase">
+                        <div class="inline-flex items-center">
+                          <span class="capitalize font-base text-xs my-1 mr-1"> Coco González Lohse </span>
+                        </div>
+                      </a>
+                    </div>
+                    -->
+                  </div>
+                </div>
+
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
 
       <!--
       <section aria-labelledby="who-to-follow-heading">

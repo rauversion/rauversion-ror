@@ -11,7 +11,7 @@ class EventHostsController < ApplicationController
     @event_host = @event.event_hosts.new(event_host_params)
     @event_host.invite_user
     if @event_host.save
-      flash[:now] = "host created"
+      flash.now[:notice] = "host created"
     end
   end
 
@@ -24,7 +24,7 @@ class EventHostsController < ApplicationController
     @event = current_user.events.friendly.find(params[:event_id])
     @event_host = @event.event_hosts.find(params[:id])
     if @event_host.destroy
-      flash[:now] = "host removed"
+      flash.now[:notice] = "host removed"
     end
   end
 
@@ -32,7 +32,7 @@ class EventHostsController < ApplicationController
     @event = current_user.events.friendly.find(params[:event_id])
     @event_host = @event.event_hosts.find(params[:id])
     if @event_host.update(event_host_params)
-      flash[:now] = "host updated"
+      flash.now[:notice] = "host updated"
     end
   end
 

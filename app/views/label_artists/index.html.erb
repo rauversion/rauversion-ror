@@ -1,0 +1,73 @@
+ <% admin = current_user && current_user.id == @label&.id %>
+ 
+ <div class="">
+  <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    
+    <% # link_to "existing artist", new_account_connection_path %>
+
+    <div class="md:flex md:items-center md:justify-between">
+
+      <div class="flex-col">
+        <h1 class="text-xl tracking-tight text-brand-600">
+          <%= link_to  user_path(@label.username), class: "flex space-x-2 items-center py-2" do %>
+            <%= heroicon("chevron-left") %>
+            <span><%= @label.username %></span>
+          <% end %>
+        </h1>
+
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
+          Artists
+        </h2>
+      </div>
+
+      <% if admin %>
+        <%= link_to new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>
+          <%= heroicon("plus") %>
+          <span>New account Connection</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+      
+      <% @label.child_accounts.each do |artist| %>
+        <div>
+          <div class="group relative">
+            <%= link_to user_path(artist.username) do %>
+              <div class="h-56 lg:h-72-- xl:h-80-- w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+                <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
+              </div>
+
+              <h3 class="my-2 text-sm text-muted">
+                <span class="absolute- inset-0"></span> <%= artist.username %>
+              </h3>
+            <% end %>
+
+
+            <% if admin %>
+              <div class="relative justify-end space-x-2 mb-2 hidden group-hover:flex">
+
+                <div class="flex absolute space-x-2 top-[-66px] left-[4.5em]">
+                  <%= link_to impersonate_account_connections_path(username: artist.username) do %>
+                    <span class="absolute- inset-0"></span> Impersonate
+                  <% end %>
+
+                  <%= link_to account_connection_path(artist.id), data: {turbo_method: :destroy, turbo_confirm: "sure?"} do %>
+                    <span class="absolute- inset-0"></span> Disconnect
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8 text-sm md:hidden">
+      <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+        Shop the collection <span aria-hidden="true"> →</span>
+      </a>
+    </div>
+  </div>
+</div>

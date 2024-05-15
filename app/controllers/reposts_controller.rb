@@ -10,7 +10,7 @@ class RepostsController < ApplicationController
       @button_class = "button-active"
       @repost = current_user.reposts.create(track: @track)
       if @repost.errors.blank?
-        flash[:now] = "Reposted ok!"
+        flash.now[:notice] = "Reposted ok!"
       end
     end
   end
