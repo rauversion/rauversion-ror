@@ -81,7 +81,7 @@ RUN yarn install
 RUN NODE_OPTIONS="--max-old-space-size=2048" \
   RAILS_ENV=${APP_ENV} \
   DB_ADAPTER=nulldb \
-  SECRET_KEY_BASE=`bin/rake secret` \
+  SECRET_KEY_BASE=`bin/rails secret` \
   bundle exec rails assets:precompile --trace \
   && echo "done!"
 
