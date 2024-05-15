@@ -8,7 +8,7 @@ class UserInvitationsController < ApplicationController
         # user.update(role: "artist")
         current_user.decrement(:invitations_count)
         current_user.save
-        flash[:now] = "User invited"
+        flash.now[:notice] = "User invited"
       end
       @user = current_user
       @section = "invitations"

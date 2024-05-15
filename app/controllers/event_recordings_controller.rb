@@ -10,7 +10,7 @@ class EventRecordingsController < ApplicationController
     @event = current_user.events.friendly.find(params[:event_id])
     @event_recording = @event.event_recordings.new(event_recording_params)
     if @event_recording.save
-      flash[:now] = "recording created"
+      flash.now[:notice] = "recording created"
     end
   end
 
@@ -23,7 +23,7 @@ class EventRecordingsController < ApplicationController
     @event = current_user.events.friendly.find(params[:event_id])
     @event_recording = @event.event_recordings.find(params[:id])
     if @event_recording.destroy
-      flash[:now] = "recording removed"
+      flash.now[:notice] = "recording removed"
     end
   end
 
@@ -31,7 +31,7 @@ class EventRecordingsController < ApplicationController
     @event = current_user.events.friendly.find(params[:event_id])
     @event_recording = @event.event_recordings.find(params[:id])
     if @event_recording.update(event_recording_params)
-      flash[:now] = "recording updated"
+      flash.now[:notice] = "recording updated"
     end
   end
 

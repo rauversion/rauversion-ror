@@ -110,7 +110,7 @@ class PlaylistsController < ApplicationController
     collection = @playlist.track_playlists.find(id)
     collection.insert_at(position)
 
-    flash[:now] = "successfully updated"
+    flash.now[:notice] = "successfully updated"
 
     render "update"
 

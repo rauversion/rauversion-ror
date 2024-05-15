@@ -16,7 +16,7 @@ class UserSettingsController < ApplicationController
     @user = User.find_by(username: params[:user_id])
     @section = params[:section]
     if @user.update(user_attributes)
-      flash[:now] = "#{params[:section]} updated"
+      flash.now[:notice] = "#{params[:section]} updated"
     end
   end
 

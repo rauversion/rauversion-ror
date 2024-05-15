@@ -15,7 +15,7 @@ class UserFollowsController < ApplicationController
 
   def create
     @user = User.find_by(username: params[:user_id])
-    flash[:now] = if current_user.toggle_follow!(@user)
+    flash.now[:notice] = if current_user.toggle_follow!(@user)
       "Followed"
     else
       "Unfollowed"

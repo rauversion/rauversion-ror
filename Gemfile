@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.7"
+gem "rails", "~> 7.1.3.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -13,7 +13,8 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma"
+# gem "falcon"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -66,7 +67,8 @@ gem "image_processing", "~> 1.2"
 gem "acts_as_list", "~> 0.9.19"
 gem "rails_heroicon"
 gem "aasm", "~> 5.2"
-gem "acts-as-taggable-on", "~> 9.0"
+gem "acts-as-taggable-on", github: "mbleigh/acts-as-taggable-on" # branch: "support_rails_7-1"
+
 gem "aws-sdk-rails"
 gem "aws-sdk-s3", "~> 1.48"
 gem "friendly_id", "~> 5.4"
@@ -144,7 +146,7 @@ gem "transbank-sdk", "~> 3.0"
 gem "stripe", "~> 8.6"
 gem "mercadopago", "~> 2.3"
 
-gem "meta-tags", "~> 2.18"
+gem "meta-tags", github: "kpumuk/meta-tags", branch: :main
 
 gem "http", "~> 5.1"
 

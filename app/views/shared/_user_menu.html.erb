@@ -80,6 +80,19 @@
       </div>
 
       <div class="flex items-center px-2 lg:px-0">
+
+
+      <%= link_to "#", class: "hidden sm:block text-brand-600 block- px-4 py-2 text-sm", data: {
+          action: 'click->dark-mode#toggle'
+        } do %>
+          <span class="hidden space-x-2 dark:flex items-center">
+            <%= heroicon "moon", variant: :mini %> 
+          </span>
+          <span class="dark:hidden flex space-x-2 items-center">
+            <%= heroicon "sun", variant: :mini  %>
+          </span>
+        <% end %>
+
         <%= link_to "/tracks/new",
             class: "inline-flex items-center justify-center space-x-1 rounded-md py-2 px-3 text-sm font-medium text-default hover:bg-brand-600" do %>
           <svg
@@ -240,10 +253,6 @@
                   class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                   <%= t("menu.log_out") %>
                 <% end %>
-
-                <%= link_to "Toggle Theme", "#", class: "text-brand-600 block- px-4 py-2 text-sm", data: {
-                  action: 'click->dark-mode#toggle'
-                } %>
 
                 <div class="flex items-center space-x-2">
                   <%= link_to "English", url_for(locale: :en), class: "#{I18n.locale == :en ? 'text-brand-600' : 'text-gray-700 dark:text-gray-300' } block- px-4 py-2 text-sm" %>

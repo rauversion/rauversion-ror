@@ -36,6 +36,9 @@ class User < ApplicationRecord
   acts_as_liker
   acts_as_mentionable
 
+
+  normalizes :username, with: -> username { username.parameterize }
+
   include User::OmniAuthExtension
 
   store_attribute :notification_settings, :new_follower_email, :boolean
