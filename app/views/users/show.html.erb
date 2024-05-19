@@ -5,8 +5,14 @@
         <%= image_tag @user.avatar_url(:medium), class: "sm:w-48 sm:h-48 w-16 h-16 rounded-full" %>
       </div>
       <div class="text-default sm:mt-6 space-y-1 sm:space-y-2 flex flex-col justify-start items-start">
-        <p class="sm:text-3xl text-sm font-extrabold bg-default p-1 inline-block mt-2"> <%= @user.username %> </p>
-        <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
+        <p class="sm:text-3xl text-sm font-extrabold bg-default p-1 inline-block mt-2"> 
+          <%= @user.hide_username_from_profile ? "#{@user.first_name} #{@user.last_name}" : @user.username %> 
+        </p>
+
+
+        <% if !@user.hide_username_from_profile %>
+          <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.first_name %> <%= @user.last_name%> </p>
+        <% end %>
         <p class="sm:text-lg text-xs font-light bg-default p-1 inline-block"> <%= @user.country %> <%= @user.city %> </p>
       </div>
     </div>

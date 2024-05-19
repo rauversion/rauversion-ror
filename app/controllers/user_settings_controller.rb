@@ -24,7 +24,13 @@ class UserSettingsController < ApplicationController
 
   def user_attributes
     params.require(:user).permit(
-      :username, :last_name, :first_name, :bio, :avatar, :country, :city,
+      :username,
+      :hide_username_from_profile,
+      :last_name, 
+      :first_name, 
+      :bio, :avatar, 
+      :country, 
+      :city,
       :email, :current_password,
       :new_follower_email,
       :new_follower_app,

@@ -39,6 +39,8 @@ class User < ApplicationRecord
 
   normalizes :username, with: -> username { username.parameterize }
 
+  validates_presence_of :username, on: :update, message: "can't be blank"
+
   include User::OmniAuthExtension
 
   store_attribute :notification_settings, :new_follower_email, :boolean
@@ -56,6 +58,7 @@ class User < ApplicationRecord
   store_attribute :notification_settings, :new_message_app, :boolean
   store_attribute :notification_settings, :like_and_plays_on_your_post_email, :boolean
 
+  store_attribute :settings, :hide_username_from_profile, :boolean
   store_attribute :settings, :pst_enabled, :boolean
   store_attribute :settings, :tbk_commerce_code, :string
   store_attribute :settings, :tbk_test_mode, :boolean

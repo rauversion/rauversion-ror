@@ -17,12 +17,15 @@
       <div class="sm:col-span-6">
         <%= form.label gettext("Username") %>
       
-        <div class="mt-1 flex rounded-md shadow-sm">
+        <div class="my-1 flex rounded-md shadow-sm">
           <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
             <%= ENV['APP_NAME'] %>
           </span>
           <%= form.text_field :username, label: false %>
         </div>
+
+        <%= form.check_box :hide_username_from_profile, label: "Hide username from profile page" %>
+
       </div>
 
       <div class="sm:col-span-3">
