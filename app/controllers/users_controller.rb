@@ -148,7 +148,7 @@ class UsersController < ApplicationController
       User.track_preloaded_by_user(current_user_id: current_user&.id, user: @user )
         #.where(user_id: @user.id)
     else
-      User.track_preloaded_by_user_n(user: @user)
+      User.track_preloaded_by_user_n(user: @user).where(private: [nil, false])
       #.where(user_id: @user.id)
         #@user.tracks.published
     end

@@ -106,9 +106,21 @@
               <h1 class="font-bold text-4xl"><%= @title %></h1>
 
               <% if @user.id == current_user&.id %>
-                <%= link_to @cta_url || new_account_connection_path, class: "button-sm-outline space-x-2",  data: {turbo_frame: "modal"}  do %>
-                  <%= heroicon("plus") %>
-                   <span><%= @cta_label || t("tracks.new_track") %></span>
+
+                <% if !@cta_url %>
+                  <%= link_to new_track_path, class: "button-sm-outline space-x-2" do %>
+                    <%= heroicon("plus") %>
+                    <span><%= t("tracks.new_track") %></span>
+                  <% end %>
+
+                <% else %>
+
+                  <%= link_to @cta_url, class: "button-sm-outline space-x-2",  
+                    data: {turbo_frame: "modal"}  do %>
+                    <%= heroicon("plus") %>
+                    <span><%= @cta_label  %></span>
+                  <% end %>
+
                 <% end %>
               <% end %>
 

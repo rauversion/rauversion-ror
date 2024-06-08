@@ -9,10 +9,10 @@ class Track < ApplicationRecord
   has_many :listening_events
   has_many :reposts
   has_many :purchased_items, as: :purchased_item
-  has_many :likes, as: :likeable
-  has_many :comments, as: :commentable
-  has_one :track_peak
-  has_many :spotlights, as: :spotlightable
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_one :track_peak, dependent: :destroy
+  has_many :spotlights, as: :spotlightable, dependent: :destroy
   # has_many :spotlighted_tracks, through: :spotlight_tracks
 
   belongs_to :label, class_name: "User", optional: true
