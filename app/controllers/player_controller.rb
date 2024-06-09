@@ -7,7 +7,7 @@ class PlayerController < ApplicationController
 
   def show
     id = params[:id]
-    @track = Track.friendly.find_by(id: id)
+    @track = Track.friendly.find(id)
 
     render status: :ok and return if @track.blank? 
     # @next_track = next_track(@track.id)
