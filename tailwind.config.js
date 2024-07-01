@@ -20,6 +20,12 @@ module.exports = {
     },
     extend: {
 
+      spacing: {
+        18: '4.5rem',
+        112: '28rem',
+        120: '30rem',
+      },
+
       colorsDisabled: {
         cyan: '#9cdbff',
         //gray: grayColors,

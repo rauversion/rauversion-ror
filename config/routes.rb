@@ -104,6 +104,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :podcasts
   resources :photos
   resource :spotlight
   resources :playlists do

@@ -52,13 +52,75 @@
     </div>
   <% end %>
 
-  <%= render "articles/article_highlights",
-    posts: Post.published
-    .with_attached_cover
-    .includes(user: { avatar_attachment: :blob })
-    .order("id desc").limit(3)
+
+
+
+<div class="bg-gray-100 min-h-screen-">
+  <div class="container- mx-auto- px-4- py-8- flex md:flex-row flex-col">
+    <!-- Main Feature Section -->
+    
+    <% 
+      Post.published
+        .with_attached_cover
+        .includes(user: { avatar_attachment: :blob })
+        .order("id desc").limit(1).each do |post|
+    %>
+    
+      <div class="flex-grow bg-pink-600 text-white p-4- rounded-lg- mb-4- relative h-screen md:h-auto">
+        <%= image_tag(post.cover_url(:large), class: "absolute inset-0 w-full h-full object-cover opacity-50 hover:opacity-100 rounded-lg transition ease-in-out delay-150") %>
+        <div class="relative- z-10 flex flex-col md:flex-row items-center md:items-start absolute bottom-0">
+          <%= link_to article_path(post) do %>
+            <div class="w-full md:w-2/3 p-4">
+              <h1 class="text-4xl font-bold mb-4"><%= post.title %></h1>
+              <p class="text-lg mb-4 hidden">...</p>
+              <!--<a href="#" class="bg-white text-purple-600 font-semibold py-2 px-4 rounded-lg">
+                Read more
+              </a>-->
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+
+    <!-- Smaller Feature Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-0 md:w-2/5 w-full">
+
+      <!-- Feature 1 -->
+      <% Post.published
+        .with_attached_cover
+        .includes(user: { avatar_attachment: :blob })
+        .order("id desc").limit(3).offset(1).each do |post| %>
+        <div class="bg-white shadow-md rounded-lg- overflow-hidden relative">
+
+          <%= image_tag(post.cover_url(:large),
+            class: "w-full h-48 object-cover grayscale filter"
+          ) %>
+    
+          <div class="p-4 absolute bottom-0">
+            <h2 class="text-xl font-bold mb-2 bg-default p-1">
+             <%= link_to post.title, article_path(post) %>
+            </h2>
+            <p class="text-muted font-bold">
+              <%= t("articles.by") %> <%= link_to post.user.username, user_path(post.user.username), class: "link" %> · <%= l post.created_at, format: :long_with_day %>.
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+  <%
+  ## render "articles/article_highlights",
+  #  posts: Post.published
+  #  .with_attached_cover
+  #  .includes(user: { avatar_attachment: :blob })
+  #  .order("id desc").limit(3)
   %>
-  
+
+
   <!-- Trending products -->
   <section aria-labelledby="trending-heading" class="bg-default">
     
@@ -96,20 +158,17 @@
 
   </section>
 
-
   <%= render "home/playlist_section", 
     playlist_type: ["ep", "album"], 
     limit: 10,
     title: "EP & Album Releases"
   %>
 
-
   <%= render "home/playlist_section", 
     playlist_type: ["playlist"], 
     limit: 10,
     title: "Playlists"
   %>
-
 
   <section aria-labelledby="collections-heading" class="bg-gray-100 dark:bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 lg:pb-32 lg:pt-6 pt-4">

@@ -27,6 +27,8 @@ class Dante::Renderer
       create_element("p", "graf graf--p", traverse_nodes(node[:content]))
     when "bulletList"
       create_element("ul", "graf graf--ul", traverse_nodes(node[:content]))
+    when "orderedList"
+      create_element("ol", "graf graf--ol", traverse_nodes(node[:content]))
     when "listItem"
       create_element("li", "graf graf--li", traverse_nodes(node[:content]))
     when "codeBlock"
