@@ -155,6 +155,8 @@ Rails.application.routes.draw do
       resources :follows, controller: "user_follows", only: [
         :index, :create, :destroy
       ]
+
+      resource :podcast, controller: "podcasts"
       get "followers", to: "user_follows#followers"
       get "followees", to: "user_follows#followees"
       get "/tracks", to: "users#tracks"
@@ -169,5 +171,5 @@ Rails.application.routes.draw do
     end
   end
 
-  mount Plain::Engine => "/plain"
+  # mount Plain::Engine => "/plain"
 end

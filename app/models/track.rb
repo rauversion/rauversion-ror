@@ -335,4 +335,11 @@ class Track < ApplicationRecord
     tag = tag.downcase
     includes(:user).where("? = ANY (tags)", tag)
   end
+
+  def podcast_summarizer
+    file_path = ActiveStorage::Blob.service.path_for(mp3_audio.key)
+    summarizer = AudioSummarizer.new(file_path)
+    transcription = summarizer.summarize
+    self.update(description: transcription)
+  end
 end

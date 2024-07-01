@@ -1,3 +1,5 @@
+=begin
+
 Plain.configure do |config|
   config.paths = [
     Rails.root.join("app/models"),
@@ -29,3 +31,6 @@ Plain.configure do |config|
     )
   )
 end
+
+
+=end

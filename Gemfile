@@ -91,12 +91,12 @@ gem "omniauth-discord"
 gem "omniauth-twitch"
 gem "dotenv-rails", groups: [:development, :test]
 
-gem "ruby-openai", "~> 4.2"
+gem "ruby-openai", "~> 7.1"
 gem "qdrant-ruby", "~> 0.9.2"
 # gem "pgvector", "~> 0.2"
 
 # gem "plain-rails", path: "/Users/michelson/Documents/rubyonrails/plain"
-gem "plain-rails", github: "chaskiq/plain", branch: "documents" # path: "/Users/michelson/Documents/rubyonrails/plain"
+# gem "plain-rails", github: "chaskiq/plain", branch: "documents" # path: "/Users/michelson/Documents/rubyonrails/plain"
 # gem "plain-rails", "0.1.2" #, path: "/Users/michelson/Documents/rubyonrails/plain"
 
 # sentry

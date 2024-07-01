@@ -1,0 +1,13 @@
+<div class="container mx-auto">
+
+  <%= form_for @info, url: user_podcast_path(@user.username) do |f| %>
+
+    <%= f.text_field :title %>
+    <%= f.text_area :about %>
+    <%= f.text_area :description %>
+
+    <%= f.submit %>
+
+  <% end %>
+
+</div>
