@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :hosted_events, through: :event_hosts
   has_many :purchases
   has_many :comments
+  has_one :podcaster_info
 
   
   has_many :connected_accounts, foreign_key: :parent_id

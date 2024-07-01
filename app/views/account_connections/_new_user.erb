@@ -3,7 +3,7 @@
 
   <div>
     <%= form_with model: @user, 
-      url: account_connections_path(kind: "new"), local: true do |f| %>
+      url: account_connections_path(kind: "new"), local: true, data: {turbo_frame: "_top"} do |f| %>
       
       <h2 class="mx-0 mt-0 mb-4 font-sans text-2xl font-bold leading-none">
         <%= t("New user") %>

@@ -80,7 +80,7 @@ class UsersController < ApplicationController
 
   def artists
     @label = User.where(role: ["artist", "admin"], label: true).find_by(username: params[:user_id])
-    @collection = @label.child_accounts.page(params[:page]).per(5) #    connected_accounts.page(params[:page]).per(5)
+    @collection = @label.child_accounts.page(params[:page]).per(50) #    connected_accounts.page(params[:page]).per(5)
     @as = :artist
     @section = "label_artists/artist"
     @title = "Artists"

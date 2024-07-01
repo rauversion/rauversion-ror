@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_06_041324) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_30_223934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -293,6 +293,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_06_041324) do
     t.index ["user_id"], name: "index_playlists_on_user_id"
   end
 
+  create_table "podcaster_infos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "description"
+    t.text "title"
+    t.text "about"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_podcaster_infos_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.jsonb "body"
@@ -516,6 +526,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_06_041324) do
   add_foreign_key "photos", "users"
   add_foreign_key "plain_messages", "plain_conversations"
   add_foreign_key "playlists", "users"
+  add_foreign_key "podcaster_infos", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
   add_foreign_key "purchased_items", "purchases"

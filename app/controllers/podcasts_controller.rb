@@ -1,0 +1,2 @@
+class PodcastsController < ApplicationController
+end
