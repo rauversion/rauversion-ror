@@ -16,12 +16,15 @@ Rails.application.routes.draw do
   get "/become/:id", to: "application#become"
   get "/artists", to: "users#index"
   
-  get "/embed/:track_id", to: "embeds#show"
   get "/oembed/:track_id", to: "embeds#oembed_show", as: :oembed_show
   get "/oembed/:track_id/private", to: "embeds#oembed_private_show", as: :private_oembed_track
+  get "/oembed/sets/:playlist_id", to: "embeds#oembed_show", as: :oembed_playlist_show
+  get "/oembed/sets/:playlist_id/private", to: "embeds#oembed_private_show", as: :private_oembed_playlist
+
+  get "/embed/:track_id", to: "embeds#show"
   get "/embed/:track_id/private", to: "embeds#private_track", as: :private_embed
-  get "/embed/sets/:playlist_id", to: "embeds#show_playlist"
-  get "/embed/sets/:playlist_id/private", to: "embeds#private_playlist"
+  get "/embed/sets/:playlist_id", to: "embeds#show_playlist", as: :playlist_embed
+  get "/embed/sets/:playlist_id/private", to: "embeds#private_playlist", as: :playlist_private_embed
 
   get "/404" => "errors#not_found"
   get "/500" => "errors#fatal"

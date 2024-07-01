@@ -30,10 +30,15 @@ class EmbedsController < ApplicationController
   end
 
   def oembed_show
-    @track = Track.friendly.find(params[:track_id])
-    return render status: 404, plain: "This track is private or not found" unless @track
-
-    render json: data_for_oembed_track(@track)
+    if params[:track_id]
+      @track = Track.friendly.find(params[:track_id])
+      return render status: 404, plain: "This track is private or not found" unless @track
+      render json: data_for_oembed_track(@track)
+    else
+      @playlist = Playlist.friendly.find(params[:playlist_id])
+      return render status: 404, plain: "This playlist is private or not found" unless @playlist
+      render json: data_for_oembed_playlist(@playlist)
+    end
   end
 
   def oembed_private_show
@@ -78,6 +83,24 @@ class EmbedsController < ApplicationController
       html: track.iframe_code_string(url),
       author_name: track.user.username,
       author_url: user_url(track.user)
+    }
+  end
+
+  def data_for_oembed_playlist(playlist)
+    url = "#{playlist_private_embed_url(playlist.signed_id)}"
+    {
+      version: 1,
+      type: "rich",
+      provider_name: "Rauversion",
+      provider_url: root_url,
+      height: 450,
+      width: "100%",
+      title: "#{playlist.title} by #{playlist.user.username}",
+      description: playlist.description,
+      thumbnail_url: playlist.cover_url(:medium),
+      html: playlist.iframe_code_string(url),
+      author_name: playlist.user.username,
+      author_url: user_url(playlist.user)
     }
   end
 end

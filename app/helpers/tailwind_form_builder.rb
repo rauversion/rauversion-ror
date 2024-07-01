@@ -116,8 +116,8 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
 
   def div_radio_button(method, tag_value, options = {})
     @template.tag.div(@template.radio_button(
-      @object_name, method, tag_value, objectify_options(options)
-    ))
+                        @object_name, method, tag_value, objectify_options(options)
+                      ))
   end
 
   def radio_button(method, value, options = {})
@@ -139,19 +139,25 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
         end
     end
   end
-  
-  def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-    info = @template.label_tag(
-      tr(options[:label] || method), nil,
-      class: "block font-bold text-md leading-5 text-gray-900 dark:text-white pt-0"
-    ) +
-      field_details(method, object, options)
 
-    options[:class] = "self-start mt-1 mr-1 form-checkbox h-4 w-4 text-brand-600 transition duration-150 ease-in-out"
+  def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+    # Conditionally build the label if options[:label] is not false
+    info = ""
+    unless options[:label] == false
+      info = @template.label_tag(
+        tr(options[:label] || method), nil,
+        class: "block text-gray-500 dark:text-white text-sm font-normal"
+      ) + field_details(method, object, options)
+    end
+
+    # Merge in default class unless a specific class has been provided in options
+    options.merge!(class: "self-center mt-1-- mr-2 form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out") unless options.key?(:class)
+
+    # Create the checkbox and, conditionally, its label
     @template.tag.div(class: "flex items-center") do
       @template.check_box(
         @object_name, method, objectify_options(options), checked_value, unchecked_value
-      ) + @template.tag.div(class: "flex-col items-center") { info }
+      ) + (info.present? ? @template.tag.div(class: "flex-col items-center") { info } : "".html_safe)
     end
   end
 

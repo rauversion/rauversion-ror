@@ -1,1 +1,199 @@
-yay!
+
+
+
+  <article class="db-default">
+    <!-- Profile header -->
+    <div>
+ 
+      <div class="flex flex-col sm:flex-row mb-6">
+        
+        <div class="w-1/4 hidden sm:block">
+          <div class="group relative aspect-w-1 aspect-h-1 rounded-md- bg-gray-100 overflow-hidden">
+            <%= image_tag @playlist.cover_url(:large),
+              class: "object-center object-cover group-hover:opacity-75"
+            %>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+          <div class="flex">
+
+          </div>
+          <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+            <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+              <h1 class="text-2xl font-bold text-gray-900  dark:text-gray-100 truncate">
+
+                <%= link_to user_path(@playlist.user.username) do %>
+                  <%= @playlist.user.username %>
+                <% end %>
+
+              </h1>
+            </div>
+            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+      
+              <%= render "sharer/share_button", resource: @playlist %>
+
+              <%= render "likes/like_button", resource: @playlist, button_class: liked?(@playlist) ? "button-active" : "button" %>
+
+
+              <% if user_signed_in? && @playlist.user_id == current_user.id %>
+                <%= link_to edit_playlist_path(@playlist), class: "button",
+                  "data-turbo-frame": "modal" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                  </svg>
+                  <span><%= t("playlists.edit") %></span>
+                <% end %>
+              
+
+                <div data-turbo="true">
+                  <%= turbo_frame_tag "playlist-#{@playlist.id}-delete" do %>
+                    <%= button_to playlist_path(@playlist), 
+                      method: :delete, 
+                      data: {confirm: t("delete.confirm"), turbo_method: :delete, turbo_confirm: t("delete.confirm")},
+                      class: "button" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span><%= t("playlists.delete") %></span>
+                    <% end %>
+                  <% end %>
+                </div>
+
+              <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="mt-6 sm:mt-2 2xl:mt-5">
+      <div class="mx-2 flex space-x-2 items-start">
+        <div class="h-32 w-32">
+          <%= image_tag @playlist.user.avatar_url(:small), class: "rounded-full object-center object-cover group-hover:opacity-75" %>
+        </div>
+        <div class="flex-grow">
+          <div class="my-2 border dark:border-gray-800 shadow-xs mx-3 dark:bg-gray-900 rounded-md">
+            <div class="flex space-x-3">
+              <div class="flex-grow">
+                <div class="flex flex-col">
+                  <div class="space-y-2">
+                    <ul role="list" class="divide-y divide-subtle">
+                      
+                      <% @playlist.ordered_tracks.each do |track| %>
+                        <li>
+                          <a 
+                            href="<%= player_path(id: track, t: true) %>"
+                            data-track-id="<%= track.id %>" 
+                            data-track-detector-target="track"
+                            class="block p-2 bg-muted hover:bg-default w-full text-left text-default">
+                            <div class="flex items-center space-x-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                              </svg>
+                              <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-subtle truncate"></p>
+                                <p> <%= track.title %> </p>
+                                <p></p>
+                                <p class="text-sm text-muted truncate">
+                                  <%= track.user.username %>
+                                </p>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                      <% end %>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
+      <div class="flex justify-end">
+        <%= link_to @playlist.buy_link_title || "Payment Link", 
+          @playlist.buy_link, 
+          target: :blank, 
+          class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+      </div>
+    </div>
+      <!--
+      <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
+        
+        <div id="xx-5">
+          <div class="text-2xl font-bold">
+            <button class="underline dark:border-white border-black rounded-sm border-4 px-3" target="blank" phx-click="open-modal" phx-target="2"> Comprar álbum digital </button>
+            <span> $0.00 <span class="text-gray-700 dark:text-gray-300"> USD </span>
+            </span>
+            <span class="text-gray-700 dark:text-gray-300"> o más </span>
+          </div>
+        </div>
+
+        <div class="sm:text-xl text-sm container mx-auto my-4 flex flex-col space-y-4">
+          <h3 class="font-bold font-medium">Supporters</h3>
+          <div class="-space-x-4">
+            <a href="/xxxx" data-phx-link="redirect" data-phx-link-state="push">
+              <img class="relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNTgxIiwicHVycG9zZSI6bnVsbH0.lSA7cpcMmQhKxah4FF8lgkeoOUcKYIRR8IwJs7Dbxhc/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCIyMDB4MjAwXCJ9IiwicHVycG9zZSI6bnVsbH0.6eK0-2F79Tbc3XOJhTLe4owI_7qgf-ay0_FT3Jn-tg0/Foto-Mika-Martini-destacada[1].jpg">
+              <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> xxxx </h3>
+            </a>
+          </div>
+        </div>
+        
+        <div class="flex flex-col space-y-2">
+          <span>
+            <span class="font-bold">Fecha de lanzamiento del álbum:</span> 15 de marzo de 2023 </span>
+        </div>
+        <div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center"> Todos los derechos reservados </div>
+      </div>
+      -->
+      
+
+      <div class="whitespace-pre-line sm:text-xl text-sm container mx-auto px-4 my-4 prose dark:prose-invert prose-lg ">
+        <!--<.tag_list_for playlist={@playlist} />-->
+        <%= auto_link sanitize(@playlist.description, auto_link: true) %>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="sm:col-span-2">
+        <!-- comments here -->
+        <section aria-labelledby="activity-title" class="mt-8 xl:mt-10">
+          <div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-800">
+
+              <div class="pb-4">
+                <h2 id="activity-title" class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                  <%= t("profile.comments") %>
+                </h2>
+              </div>
+
+              <div class="pt-6">
+                <!-- Activity feed-->
+                <%= render "comments/comment_list", comments: @playlist.comments.limit(10)  %>
+                <% if user_signed_in? %>
+                  <%= render "comments/form", resource: @playlist, comment: current_user.comments.new(commentable: @playlist)  %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </article>
+</main>

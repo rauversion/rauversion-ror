@@ -16,29 +16,7 @@ class PlaylistsController < ApplicationController
     @playlist ||= Playlist.published.friendly.find(params[:id])
     @track = @playlist.tracks.first
 
-    metatags = {
-      title: @playlist.title,
-      description: @playlist.description,
-      keywords: "",
-      # url: Routes.articles_show_url(socket, :show, playlist.id),
-      title: "#{@playlist.title} on Rauversion",
-      description: "Stream #{@playlist.title} by #{@playlist.user.username} on Rauversion.",
-      image: @playlist.cover_url(:small),
-      "twitter:player": playlist_embed_url(@playlist)
-    }
-
-    metatags.merge!({
-      twitter: {
-        card: "player",
-        player: {
-          stream: @playlist.tracks&.first&.mp3_audio&.url,
-          "stream:content_type": "audio/mpeg",
-          width: 290,
-          height: 58
-        }
-      }
-    })
-    set_meta_tags(metatags)
+    get_meta_tags
   end
 
   def edit
@@ -89,7 +67,7 @@ class PlaylistsController < ApplicationController
       :id,
       :title, :description, :private, :price,
       :playlist_type, :release_date, :cover,
-      :record_label, :buy_link,
+      :record_label, :buy_link, :buy_link_title,
       :enable_label,
       :copyright,
       :attribution, :noncommercial, :non_derivative_works, :copies,
@@ -120,5 +98,35 @@ class PlaylistsController < ApplicationController
     Playlist
       .where(user_id: current_user.id).or(Playlist.where(label_id: current_user.id))
       .friendly.find(params[:id])
+  end
+
+
+  def get_meta_tags
+    @supporters = []
+    set_meta_tags(
+      # title: @track.title,
+      # description: @track.description,
+      keywords: @playlist.tags.join(", "),
+      # url: Routes.articles_show_url(socket, :show, track.id),
+      title: "#{@playlist.title} on Rauversion",
+      description: "Stream #{@playlist.title} by #{@playlist.user.username} on Rauversion.",
+      image: @playlist.cover_url(:small),
+      "twitter:player": playlist_embed_url(@playlist),
+      twitter: {
+        card: "player",
+        player: {
+          stream: @playlist&.tracks&.first&.mp3_audio&.url,
+          "stream:content_type": "audio/mpeg",
+          width: 290,
+          height: 58
+        }
+      }
+    )
+
+    @oembed_json = !@playlist.private? ?
+    oembed_playlist_show_url(playlist_id: @playlist, format: :json)
+      :  private_oembed_playlist_url(playlist_id: @playlist.signed_id, format: :json)
+
+
   end
 end
