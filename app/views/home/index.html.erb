@@ -72,7 +72,9 @@
           <%= link_to article_path(post) do %>
             <div class="w-full md:w-2/3 p-4">
               <h1 class="text-4xl font-bold mb-4"><%= post.title %></h1>
-              <p class="text-lg mb-4 hidden">...</p>
+              <p class="text-lg mb-4">
+                <%= t("articles.by") %> <%= link_to post.user.username, user_path(post.user.username), class: "link" %> · <%= l post.created_at, format: :long_with_day %>.
+              </p>
               <!--<a href="#" class="bg-white text-purple-600 font-semibold py-2 px-4 rounded-lg">
                 Read more
               </a>-->
