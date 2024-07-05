@@ -212,7 +212,7 @@
                   <% # = live_redirect gettext("My Merch"), to: "/merch/mine", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" %>
                 <% end %>
 
-                <% if current_user.is_admin? %>
+                <% if current_user.is_admin? || current_user.editor? %>
                   <%= link_to "/articles/mine",
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %> 
                     <%= t("menu.my_articles") %>

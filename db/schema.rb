@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_30_223934) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -160,7 +160,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_223934) do
     t.jsonb "event_settings"
     t.jsonb "tickets"
     t.bigint "user_id", null: false
-    t.jsonb "streaming_service"
+    t.jsonb "streaming_service", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
@@ -300,6 +300,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_223934) do
     t.text "about"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "settings"
+    t.boolean "highlight"
     t.index ["user_id"], name: "index_podcaster_infos_on_user_id"
   end
 
@@ -502,6 +504,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_223934) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.boolean "editor"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

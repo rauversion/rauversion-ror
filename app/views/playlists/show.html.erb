@@ -159,7 +159,7 @@
 
               </h1>
             </div>
-            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+            <div class="mt-6 flex items-center justify-stretch sm:flex-row space-y-0 sm:space-x-4">
       
               <%= render "sharer/share_button", resource: @playlist %>
 
@@ -203,7 +203,7 @@
 
     <div class="mt-6 sm:mt-2 2xl:mt-5">
       <div class="mx-2 flex space-x-2 items-start">
-        <div class="h-32 w-32">
+        <div class="hidden sm:block p-4">
           <%= image_tag @playlist.user.avatar_url(:small), class: "rounded-full object-center object-cover group-hover:opacity-75" %>
         </div>
         <div class="flex-grow">
@@ -248,14 +248,16 @@
       </div>
 
 
-    <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
-      <div class="flex justify-end">
-        <%= link_to @playlist.buy_link_title || "Payment Link", 
-          @playlist.buy_link, 
-          target: :blank, 
-          class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+    <% if @playlist.buy_link.present? %>
+      <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
+        <div class="flex justify-end">
+          <%= link_to @playlist.buy_link_title || "Payment Link", 
+            @playlist.buy_link, 
+            target: :blank, 
+            class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+        </div>
       </div>
-    </div>
+    <% end %>
       <!--
       <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
         
