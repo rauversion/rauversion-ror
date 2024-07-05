@@ -1,0 +1,32 @@
+<table class="min-w-full leading-normal">
+  <thead>
+    <tr>
+      <% resource.columns.each do |column| %>
+        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+          <%= sort_link(@q, column[:name], column[:options][:label] || column[:name].to_s.titleize, { class: "text-gray-600 hover:text-gray-900" }) %>
+        </th>
+      <% end %>
+      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% resources.each do |item| %>
+      <tr>
+        <% resource.columns.each do |column| %>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <% if column[:block] %>
+              <%= column[:block].call(item, self) %>
+            <% else %>
+              <%= item.send(column[:name]) %>
+            <% end %>
+          </td>
+        <% end %>
+        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <%= render 'admin/shared/actions', resource: resource, item: item %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

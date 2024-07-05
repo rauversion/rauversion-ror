@@ -36,5 +36,9 @@ class Post < ApplicationRecord
 
     url || "daniel-schludi-mbGxz7pt0jM-unsplash-sqr-s-bn.png"
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["body", "category_id", "created_at", "excerpt", "id", "id_value", "private", "settings", "slug", "state", "title", "updated_at", "user_id"]
+  end
   # Ex:- scope :active, -> {where(:active => true)}
 end

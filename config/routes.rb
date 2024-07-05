@@ -8,6 +8,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+
+  namespace :admin do
+    root to: 'dashboard#index'
+    resources :users
+    resources :categories
+    resources :posts
+    # Add more admin resources as needed
+  end
+
+
+
   root to: "home#index"
 
   get "/searchables", to: "users#index", as: :searchable_users

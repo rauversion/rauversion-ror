@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  enum role: { user: 'user', admin: 'admin', artist: 'artist' }
+  
   devise :invitable, :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable, :confirmable,
     :invitable, :omniauthable, :trackable, :lockable
@@ -231,6 +233,10 @@ class User < ApplicationRecord
     end
   
     artists
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["bio", "city", "confirmation_sent_at", "confirmation_token", "confirmed_at", "country", "created_at", "current_sign_in_at", "current_sign_in_ip", "editor", "email", "encrypted_password", "failed_attempts", "first_name", "id", "id_value", "invitation_accepted_at", "invitation_created_at", "invitation_limit", "invitation_sent_at", "invitation_token", "invitations_count", "invited_by_id", "invited_by_type", "label", "last_name", "last_sign_in_at", "last_sign_in_ip", "locked_at", "notification_settings", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "settings", "sign_in_count", "support_link", "unconfirmed_email", "unlock_token", "updated_at", "username"]
   end
 
   # def password_required?

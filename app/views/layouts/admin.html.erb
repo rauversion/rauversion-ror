@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Panel</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+  </head>
+
+  <body>
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-gray-800 text-white">
+        <div class="p-4">
+          <h1 class="text-2xl font-semibold">Admin Panel</h1>
+        </div>
+        <nav class="mt-4">
+          <%= link_to admin_root_path, class: "block py-2 px-4 hover:bg-gray-700" do %>
+            <span class="mr-2">📊</span> Dashboard
+          <% end %>
+
+          <% Admin::Config.resources.each do |k ,v| %>
+           <%= link_to [:admin, k], class: "block py-2 px-4 hover:bg-gray-700" do %>
+            <%= k %>
+            <% end %>
+          <% end %>
+          <!-- Add more links as needed -->
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="flex-1 overflow-x-hidden overflow-y-auto">
+        <div class="container mx-auto px-6 py-8">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+    <%= render "shared/turbo_delete_modal" %>
+
+  </body>
+</html>
