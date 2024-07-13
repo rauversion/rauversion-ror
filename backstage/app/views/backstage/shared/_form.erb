@@ -1,4 +1,4 @@
-<%= form_with(model: [:admin, resource], builder: Backstage::FormBuilder, local: true, class: "space-y-6") do |form| %>
+<%= form_with(model: [resource], builder: Backstage::FormBuilder, local: true, class: "space-y-6") do |form| %>
   <% if resource.errors.any? %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
       <strong class="font-bold">Error!</strong>

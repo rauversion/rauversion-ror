@@ -3,5 +3,5 @@
 <%= render 'backstage/shared/form', resource: @resource %>
 
 <div class="mt-6">
-  <%= link_to "Back to #{controller_name.titleize}", polymorphic_path([:admin, controller_name.classify.constantize]), class: "text-gray-600 hover:text-gray-900" %>
+  <%= link_to "Back to #{controller_name.titleize}", polymorphic_path([controller_name.classify.constantize]), class: "text-gray-600 hover:text-gray-900" %>
 </div>

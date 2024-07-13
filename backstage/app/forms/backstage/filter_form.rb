@@ -4,7 +4,7 @@ class Backstage::FilterForm
   include ActiveModel::Attributes
   # include ActiveModel::NestedAttributes
 
-  #attribute :scope, :string
+  attribute :scope, :string
   #attribute :filter_combine, :string, default: 'AND'
 
   #validates :scope, presence: true
@@ -42,16 +42,6 @@ class Backstage::FilterForm
   end
 
   private
-
-  def apply_scope(relation)
-    return relation if scope.blank?
-
-    if relation.respond_to?(scope)
-      relation.public_send(scope)
-    else
-      relation
-    end
-  end
 
   def apply_filters(relation)
     return relation if filter_items.empty?

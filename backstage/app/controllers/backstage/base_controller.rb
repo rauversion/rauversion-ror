@@ -1,21 +1,20 @@
 class Backstage::BaseController < ApplicationController
-  layout 'admin'
-  before_action :authenticate_admin!
+  layout 'backstage/admin'
+
+  before_action :authenticate_admin
+  helper_method :current_backstage_user
+
   before_action :set_resource_config
   helper_method :resource_class
   before_action :set_resource_scope
   before_action :set_filter_form
   helper_method :resource_class
-  before_action :set_resource, only: [:show, :edit, :update, :destroy]
-
-
-  def indexxx
-    @q = @resources.ransack(params[:q])
-    @resources = @q.result.page(params[:page])
-  end
+  before_action :set_resource, only: [:show, :edit, :update, :destroy, :custom_action]
+  # before_action :load_resource, only: [:show, :edit, :update, :destroy, :custom_action]
 
   def index
     @filter_form = Backstage::FilterForm.new(filter_params)
+    @filter_form.scope = params[:scope] if params[:scope].present?
     
     #ransack_params = build_ransack_params(@filter_form)
 
@@ -25,9 +24,9 @@ class Backstage::BaseController < ApplicationController
     
     @resources = apply_filters(resource_class, @filter_form.filter_items)
 
-    @resources = resource_class if @resources.blank?
+    @resources = resource_class if @resources.nil?
 
-    # @resources = @filter_form.apply_scope(@resources) if @filter_form.scope.present?
+    @resources = @filter_form.apply_scope(@resources) if @filter_form.scope.present?
     @resources = @resources.page(params[:page]).per(10) # Adjust per-page as needed
   end
 
@@ -45,7 +44,7 @@ class Backstage::BaseController < ApplicationController
     @resource = model_class.new(permitted_params)
 
     if @resource.save
-      redirect_to [:admin, @resource], notice: "#{model_class.name} was successfully created."
+      redirect_to [@resource], notice: "#{model_class.name} was successfully created."
     else
       render :new
     end
@@ -53,7 +52,7 @@ class Backstage::BaseController < ApplicationController
 
   def update
     if @resource.update(permitted_params)
-      redirect_to [:admin, @resource], notice: "#{model_class.name} was successfully updated."
+      redirect_to [@resource], notice: "#{model_class.name} was successfully updated."
     else
       Rails.logger.error(@resource.errors.full_messages)
       render :edit
@@ -62,12 +61,23 @@ class Backstage::BaseController < ApplicationController
 
   def destroy
     @resource.destroy
-    redirect_to [:admin, model_class], notice: "#{model_class.name} was successfully destroyed."
+    redirect_to [model_class], notice: "#{model_class.name} was successfully destroyed."
   end
 
   def add_filter
     @resource = Backstage::Config.resources[controller_name.to_sym]
     @index = @filter_form.filter_items.size + 1
+  end
+
+  def custom_action
+    action_name = params[:custom_action]
+    resource_config = Backstage::Config.resources[controller_name.to_sym]
+    action_config = resource_config.custom_actions.find { |a| a[:name].to_s == action_name.to_s }
+    if action_config
+      instance_exec(@resource, &action_config[:block])
+    else
+      render plain: "Custom action not found", status: :not_found
+    end
   end
 
   private
@@ -108,10 +118,6 @@ class Backstage::BaseController < ApplicationController
     else
       render template: "backstage/default/#{action_name}"
     end
-  end
-
-  def authenticate_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user&.is_admin?
   end
 
   def set_resource_config
@@ -160,15 +166,14 @@ class Backstage::BaseController < ApplicationController
     raise NotImplementedError, "Subclasses must define permitted_params"
   end
 
-
   def apply_filters(relation, filter_items)
     return relation if filter_items.blank?
   
     table = relation.arel_table
     conditions = filter_items.inject(nil) do |cond, item|
       next cond if item.field.blank? || item.operator.blank? #|| item.value.blank?
-  
       new_condition = build_arel_condition(table, item)
+
       if cond.nil?
         new_condition
       else
@@ -187,7 +192,10 @@ class Backstage::BaseController < ApplicationController
     when 'not_eq'
       column.not_eq(item.value)
     when 'matches'
-      column.matches("%#{item.value}%")
+      #Arel::Nodes::Matches.new(column, "%#{item.value}%", nil, true) # true for case-insensitive
+      #column.matches("%#{item.value}%") #.to_sql.gsub('LIKE', 'ILIKE')
+      column.lower.matches("%#{item.value.downcase}%")
+      #column.matches('%mich')
     when 'gt'
       column.gt(item.value)
     when 'lt'
@@ -196,9 +204,25 @@ class Backstage::BaseController < ApplicationController
       column.gteq(item.value)
     when 'lteq'
       column.lteq(item.value)
+    when 'start'
+      column.lower.matches("#{item.value.downcase}%")
+    when 'end'
+      column.lower.matches("%#{item.value.downcase}")
     else
       raise "Unsupported operator: #{item.operator}"
     end
+  end
+
+  def authenticate_admin
+    if Backstage::Config.authenticate_admin_block
+      instance_exec(&Backstage::Config.authenticate_admin_block)
+    else
+      raise Backstage::AuthenticationNotConfigured, "Please configure the authentication method for Backstage"
+    end
+  end
+
+  def current_backstage_user
+    send(Backstage::Config.current_user_method)
   end
   
 end

@@ -3,6 +3,18 @@ require "backstage/config"
 module BackstageConfig
 
   Backstage::Config.configure do
+
+    self.current_user_method = :current_user
+
+    # Configure admin authentication
+    authenticate_admin do
+      # Your authentication logic here
+      # You have access to controller methods and the current user
+      # For example:
+      redirect_to login_path unless current_backstage_user && current_backstage_user.admin?
+    end
+
+
     resource :users do
       column :id
       column :email
@@ -12,6 +24,7 @@ module BackstageConfig
 
       scope :all
       scope :admins, -> { where(role: 'admin') }
+      scope :artists
       scope :recent, -> { where('created_at > ?', 1.week.ago) }
 
       filter :email_cont, :string, label: 'Email contains'
@@ -31,6 +44,13 @@ module BackstageConfig
       action :view
       action :edit
       action :delete
+
+      custom_action :refund, label: 'Refund Invoice' do |invoice|
+        # Refund logic here
+        # invoice.refund!
+        redirect_to backstage.user_path(invoice), notice: 'Invoice refunded successfully'
+      end
+
     end
 
     resource :categories do
@@ -50,7 +70,7 @@ module BackstageConfig
       column :id
       column :title
       column :author do |post, view|
-        view.link_to post.user.full_name, view.admin_user_path(post.user)
+        view.link_to post.user.full_name, view.user_path(post.user)
       end
 
       scope :all

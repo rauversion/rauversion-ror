@@ -10,16 +10,19 @@ Rails.application.routes.draw do
 
   resources :terms_and_conditions, only: [:index, :show]
 
-  namespace :admin do
-    root to: 'dashboard#index'
-    resources :users do
-      post 'add_filter', on: :collection
-    end
-    resources :categories
-    resources :posts
-    resources :terms_and_conditions
-    # Add more admin resources as needed
-  end
+
+  mount Backstage::Engine => "/admin"
+
+  # namespace :admin do
+  #   root to: 'dashboard#index'
+  #   resources :users do
+  #     post 'add_filter', on: :collection
+  #   end
+  #   resources :categories
+  #   resources :posts
+  #   resources :terms_and_conditions
+  #   # Add more admin resources as needed
+  # end
 
 
   post 'product_cart/add/:product_id', to: 'product_cart#add', as: 'product_cart_add'

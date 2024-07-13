@@ -1,6 +1,10 @@
 module Backstage
   class Config
     class << self
+
+      attr_accessor :current_user_method
+      attr_reader :authenticate_admin_block
+
       def configure(&block)
         class_eval(&block)
       end
@@ -14,11 +18,28 @@ module Backstage
       def resources
         @resources ||= {}
       end
+
+      def current_user_method
+        @current_user_method || :current_user
+      end
+
+      def authenticate_admin(&block)
+        @authenticate_admin_block = block
+      end
+
+      def ensure_controller_exists(resource_name)
+        controller_name = "Backstage::#{resource_name.to_s.classify.pluralize}Controller"
+        unless Object.const_defined?(controller_name)
+          Rails::Generators.invoke("backstage:controller", [resource_name.to_s])
+        end
+      end
+      
     end
 
     class Resource
       attr_reader :name, :options, :columns, :filters, 
-      :actions, :form_fields, :scopes, :filterable_fields
+      :actions, :form_fields, :scopes, :filterable_fields, 
+      :custom_actions, :controller_name
 
       def initialize(name, options = {})
         @name = name
@@ -29,6 +50,9 @@ module Backstage
         @form_fields = []
         @scopes = []
         @filterable_fields = []
+        @custom_actions = []
+        @controller_name = options[:controller] || "backstage/#{name.to_s.pluralize}"
+        Backstage::Config.ensure_controller_exists(name)
       end
 
       def filterable_field(name, type, options = {})
@@ -57,6 +81,14 @@ module Backstage
 
       def action(name, options = {})
         @actions << { name: name, options: options }
+      end
+
+      def custom_action(name, options = {}, &block)
+        @custom_actions << {
+          name: name,
+          options: options,
+          block: block
+        }
       end
     end
   end
