@@ -1,0 +1,28 @@
+<div class="nested-fields border mt-6 p-4"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <div class="flex items-center space-x-2">
+    <div class="flex flex-col">
+      <%= form.label :country %>
+      <%= form.country_select :country, 
+        disabled: form.object.is_default?, 
+        priority_countries: ["CL", "AR", "PE", "BO", "CO", "MX", "US", "BR", "ES", "FR", "GR"],
+        except: %w[AS CX CC CU HM IR KP MH FM NF MP PW SD SY UM VI] 
+      %>
+    </div>
+    
+    <%= form.number_field :base_cost, step: 0.01, label: "USD for 1 unit"  %>
+    
+    <%= form.number_field :additional_cost, step: 0.01, hint:  "USD more per additional unit" %>
+  </div>
+
+  <% unless form.object.is_default? %>
+    <%= form.hidden_field :_destroy %>
+  <% end %>
+
+  <div class="my-3" data-nested-form-target="links">
+    <%= link_to "Remove", "#", 
+    class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+    data: { action: "click->nested-form#remove_association" } %>
+  </div>
+</div>

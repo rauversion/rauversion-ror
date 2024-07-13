@@ -1,0 +1,17 @@
+<div class="nested-fields border mt-6 p-4"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <div class="flex items-center space-x-2">
+    <%= form.text_field :name %>
+    <%= form.number_field :price, step: 0.01 %>
+    <%= form.number_field :stock_quantity %>
+    <%= form.hidden_field :_destroy %>
+  </div>
+
+
+  <div class="my-3" data-nested-form-target="links">
+    <%= link_to "Remove", "#", 
+    class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+    data: { action: "click->nested-form#remove_association" } %>
+  </div>
+</div>

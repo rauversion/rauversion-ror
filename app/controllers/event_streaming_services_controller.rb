@@ -5,7 +5,7 @@ class EventStreamingServicesController < ApplicationController
     @event = current_user.events.find_signed(params[:id])
     @provider = @event.streaming_service["name"]
     @service_klass = StreamingProviders::Service.find_module_by_type(@provider)
-    @service = @service_klass.new(@event.streaming_service)
+    @service = @service_klass&.new(@event.streaming_service)
   end
 
   def new

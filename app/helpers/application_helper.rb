@@ -1,6 +1,19 @@
 module ApplicationHelper
   ActionView::Base.default_form_builder = TailwindFormBuilder
 
+  def current_cart
+    ProductCart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    return if current_user.blank?
+    cart = ProductCart.create(user: current_user)
+    session[:cart_id] = cart.id
+    cart
+  end
+
+  def cart_item_count
+    current_cart&.product_cart_items&.sum(:quantity) || 0
+  end
+
   def gettext(text)
     text
   end

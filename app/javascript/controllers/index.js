@@ -40,12 +40,16 @@ import HwComboboxController from "@josefarias/hotwire_combobox"
 import submit_on_change_controller from "./submit_on_change_controller.js"
 import input_listener_controller from "./input_listener_controller.js"
 import dark_mode_controller from "./dark_mode_controller.js"
+import simple_editor_controller from "./simple_editor_controller.jsx"
+import filter_manager_controller from "./filter_manager_controller.js"
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
 application.debug = true
 // window.Stimulus   = application
 
+application.register("filter-manager", filter_manager_controller)
+application.register("simple-editor", simple_editor_controller)
 application.register("dropdown", Dropdown)
 application.register("audio", Audio)
 application.register("tabs", Tabs)

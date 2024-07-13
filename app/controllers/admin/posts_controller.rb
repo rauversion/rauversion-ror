@@ -1,5 +1,4 @@
-class Admin::PostsController < Admin::BaseController
-  include AdminControllerConcern
+class Admin::PostsController < Backstage::Rails::BaseController
 
   private
 

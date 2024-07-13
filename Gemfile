@@ -33,6 +33,8 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "country_select"
+
 # gem "tailwindcss-rails"
 
 # Use Redis adapter to run Action Cable in production
@@ -143,6 +145,7 @@ group :development, :test do
 end
 
 gem 'ransack'
+gem "paranoia"
 
 gem "rails_autolink", "~> 1.1"
 
@@ -166,3 +169,5 @@ gem "rubyzip", "~> 2.3"
 gem "sequel", "~> 5.71"
 
 gem "mrsk", "~> 0.15.1"
+
+gem 'backstage-rails', path: 'backstage-rails'

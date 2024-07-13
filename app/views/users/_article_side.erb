@@ -39,7 +39,7 @@
           <article class="py-12">
             <div class="group relative max-w-xl">
               <time datetime="<%= l article.created_at %>" class="block text-sm leading-6 text-muted">
-                <%= l article.created_at, format: :short %>
+                <%= l article.created_at, format: :long_with_day %>
               </time>
               <h2 class="mt-2 text-lg font-semibold text-default group-hover:text-muted">
                 <%= link_to article_path(article) do %>

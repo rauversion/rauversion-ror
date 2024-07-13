@@ -1,0 +1,46 @@
+<% item.product_purchase_items.joins(:product).where(products: { user_id: current_user.seller_account_ids }).each do |purchase_item| %>
+  <li>
+    <div class="flex items-center py-5 px-4 sm:py-6 sm:px-0">
+      <div class="flex min-w-0 flex-1 items-center">
+        <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+          <div class="flex space-x-2">
+            <% # image_tag item.product.cover_url(:small), class: "w-20 h-20 object-center object-cover group-hover:opacity-75" %>
+
+            <div>
+              <%= link_to product_show_sale_path(item), class: "text-link" do %>
+                <h3 class="text-2xl"><%= purchase_item.product.title %></h3>
+              <% end %>
+
+              <span>Created: <%= l(item.created_at, format: :short) %></span>
+            </div>
+          </div>
+
+          <div class="md:block">
+            <div>
+              <p class="text-sm text-gray-900 dark:text-gray-100">
+                <b>Purchased on:</b> <%= l(item.created_at, format: :short) %>
+                <br>
+                <b>Purchased by:</b> <%= item.user.email %>
+              </p>
+
+              <p class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"></path>
+                </svg>
+                <%= item.status %>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <%= link_to sale_path(item) do %>
+          <svg class="h-5 w-5 text-gray-400 group-hover:text-gray-700 hover:text-gray-300 dark:text-gray-300 dark:text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </li>
+<% end %>

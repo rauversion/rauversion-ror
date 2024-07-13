@@ -1,0 +1,15 @@
+<h1>Purchase #<%= @purchase.id %></h1>
+
+<p>Date: <%= l purchase.created_at, format: :long %></p>
+<p>Status: <%= @purchase.status.capitalize %></p>
+
+<h2>Items:</h2>
+<% @purchase.product_purchase_items.each do |item| %>
+  <div>
+    <h3><%= item.product.title %></h3>
+    <p>Quantity: <%= item.quantity %></p>
+    <p>Price: <%= number_to_currency(item.price) %></p>
+  </div>
+<% end %>
+
+<p>Total: <%= number_to_currency(@purchase.total_amount) %></p>

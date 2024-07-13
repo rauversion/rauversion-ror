@@ -1,0 +1,8 @@
+<h1>Terms and Conditions</h1>
+
+<%= terms_and_conditions_menu %>
+
+<% @terms.each do |term| %>
+  <h2><%= link_to term.title, terms_and_condition_path(term) %></h2>
+  <p>Category: <%= term.category %></p>
+<% end %>

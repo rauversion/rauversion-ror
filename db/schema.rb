@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_13_005658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -335,6 +335,133 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_cart_items", force: :cascade do |t|
+    t.bigint "product_cart_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_cart_id"], name: "index_product_cart_items_on_product_cart_id"
+    t.index ["product_id"], name: "index_product_cart_items_on_product_id"
+  end
+
+  create_table "product_carts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_product_carts_on_user_id"
+  end
+
+  create_table "product_images", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_images_on_product_id"
+  end
+
+  create_table "product_options", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name", null: false
+    t.integer "quantity"
+    t.string "sku", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_options_on_product_id"
+    t.index ["sku"], name: "index_product_options_on_sku", unique: true
+  end
+
+  create_table "product_purchase_items", force: :cascade do |t|
+    t.bigint "product_purchase_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "shipping_cost"
+    t.index ["product_id"], name: "index_product_purchase_items_on_product_id"
+    t.index ["product_purchase_id"], name: "index_product_purchase_items_on_product_purchase_id"
+  end
+
+  create_table "product_purchases", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "total_amount"
+    t.string "status"
+    t.string "stripe_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "shipping_address"
+    t.string "shipping_name"
+    t.string "phone"
+    t.decimal "shipping_cost"
+    t.string "tracking_code"
+    t.string "payment_intent_id"
+    t.string "shipping_status"
+    t.index ["shipping_status"], name: "index_product_purchases_on_shipping_status"
+    t.index ["user_id"], name: "index_product_purchases_on_user_id"
+  end
+
+  create_table "product_shippings", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "country"
+    t.decimal "base_cost", precision: 10, scale: 2
+    t.decimal "additional_cost", precision: 10, scale: 2
+    t.boolean "is_default", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_shippings_on_product_id"
+  end
+
+  create_table "product_variants", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.integer "stock_quantity"
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_variants_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.decimal "price"
+    t.integer "stock_quantity"
+    t.string "sku"
+    t.string "category"
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.bigint "playlist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "limited_edition", default: false
+    t.integer "limited_edition_count"
+    t.boolean "include_digital_album", default: false
+    t.string "visibility", default: "private"
+    t.boolean "name_your_price", default: false
+    t.integer "shipping_days"
+    t.date "shipping_begins_on"
+    t.decimal "shipping_within_country_price", precision: 10, scale: 2
+    t.decimal "shipping_worldwide_price", precision: 10, scale: 2
+    t.integer "quantity"
+    t.string "slug"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
+    t.index ["playlist_id"], name: "index_products_on_playlist_id"
+    t.index ["slug"], name: "index_products_on_slug"
+    t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "products_images", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_products_images_on_product_id"
+  end
+
   create_table "purchased_items", force: :cascade do |t|
     t.bigint "purchase_id", null: false
     t.string "purchased_item_type", null: false
@@ -395,6 +522,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
     t.datetime "updated_at", null: false
     t.index ["spotlightable_type", "spotlightable_id"], name: "index_spotlights_on_spotlightable"
     t.index ["user_id"], name: "index_spotlights_on_user_id"
+  end
+
+  create_table "terms_and_conditions", force: :cascade do |t|
+    t.string "title"
+    t.string "category"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -505,12 +640,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.boolean "editor"
+    t.boolean "seller"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["seller"], name: "index_users_on_seller"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
@@ -532,6 +669,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_131631) do
   add_foreign_key "podcaster_infos", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
+  add_foreign_key "product_cart_items", "product_carts"
+  add_foreign_key "product_cart_items", "products"
+  add_foreign_key "product_carts", "users"
+  add_foreign_key "product_images", "products"
+  add_foreign_key "product_options", "products"
+  add_foreign_key "product_purchase_items", "product_purchases"
+  add_foreign_key "product_purchase_items", "products"
+  add_foreign_key "product_purchases", "users"
+  add_foreign_key "product_shippings", "products"
+  add_foreign_key "product_variants", "products"
+  add_foreign_key "products", "playlists"
+  add_foreign_key "products", "users"
+  add_foreign_key "products_images", "products"
   add_foreign_key "purchased_items", "purchases"
   add_foreign_key "purchases", "users"
   add_foreign_key "reposts", "tracks"

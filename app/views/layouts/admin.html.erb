@@ -23,7 +23,7 @@
             <span class="mr-2">📊</span> Dashboard
           <% end %>
 
-          <% Admin::Config.resources.each do |k ,v| %>
+          <% Backstage::Rails::Config.resources.each do |k ,v| %>
            <%= link_to [:admin, k], class: "block py-2 px-4 hover:bg-gray-700" do %>
             <%= k %>
             <% end %>

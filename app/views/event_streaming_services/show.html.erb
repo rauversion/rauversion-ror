@@ -45,8 +45,10 @@
           <!--<img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100" alt="">
             <div class="absolute inset-0 bg-brand-500 mix-blend-multiply"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-brand-600 via-brand-600 opacity-90"></div>-->
-          <%= render @provider, event: @event %>
-          
+          <% if @provider.present? %>
+            <%= render @provider, event: @event %>
+          <% else %>
+        
           <div class="flex items-start space-x-3 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +65,11 @@
               />
             </svg>
             <span>
-              <%= gettext("no renderer avaiable") %>
+              <%= gettext("no renderer available") %>
             </span>
           </div>
+
+          <% end %>
 
         </div>
       </div>

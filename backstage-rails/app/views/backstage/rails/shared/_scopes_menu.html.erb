@@ -1,0 +1,11 @@
+<% if resource.scopes.any? %>
+  <div class="mb-4">
+    <nav class="flex space-x-4">
+      <% resource.scopes.each do |scope| %>
+        <%= link_to scope[:options][:label] || scope[:name].to_s.titleize,
+                    url_for(scope: scope[:name]),
+                    class: "px-3 py-2 rounded-md text-sm font-medium #{params[:scope] == scope[:name].to_s ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}" %>
+      <% end %>
+    </nav>
+  </div>
+<% end %>
