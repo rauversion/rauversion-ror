@@ -1,8 +1,0 @@
-
-<%= form_with(model: @filter_form, url: "") do |f| %>
-  <%= f.fields_for :filter_items, Backstage::Rails::FilterFormItem.new, :child_index => @index do |ff|  %>
-    <%= turbo_stream.append 'filterList' do %>
-      <%= render 'admin/shared/filter_item', f: ff, resource: @resource, index: ff.index %>
-    <% end %>
-  <% end %>
-<% end %>

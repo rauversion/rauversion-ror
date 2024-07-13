@@ -1,4 +1,4 @@
-class Admin::PostsController < Backstage::Rails::BaseController
+class Admin::PostsController < Backstage::BaseController
 
   private
 

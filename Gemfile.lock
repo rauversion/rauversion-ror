@@ -88,9 +88,9 @@ GIT
     rspec-support (3.13.0.pre)
 
 PATH
-  remote: backstage-rails
+  remote: backstage
   specs:
-    backstage-rails (0.1.0)
+    backstage (0.1.0)
       rails (>= 7.1.3.2)
 
 GEM
@@ -655,7 +655,7 @@ DEPENDENCIES
   acts_as_list (~> 0.9.19)
   aws-sdk-rails
   aws-sdk-s3 (~> 1.48)
-  backstage-rails!
+  backstage!
   bootsnap
   browser (~> 5.3)
   capybara

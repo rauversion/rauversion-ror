@@ -1,4 +1,4 @@
-class Admin::TermsAndConditionsController < Backstage::Rails::BaseController
+class Admin::TermsAndConditionsController < Backstage::BaseController
 
   private
 

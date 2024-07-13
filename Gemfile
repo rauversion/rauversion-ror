@@ -170,4 +170,5 @@ gem "sequel", "~> 5.71"
 
 gem "mrsk", "~> 0.15.1"
 
-gem 'backstage-rails', path: 'backstage-rails'
+# gem 'backstage-rails', path: 'backstage-rails'
+gem 'backstage', path: 'backstage'

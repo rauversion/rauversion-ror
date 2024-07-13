@@ -1,4 +1,4 @@
-class Admin::UsersController < Backstage::Rails::BaseController
+class Admin::UsersController < Backstage::BaseController
 
   private
 

@@ -1,4 +1,4 @@
-class Admin::CategoriesController < Backstage::Rails::BaseController
+class Admin::CategoriesController < Backstage::BaseController
 
   private
 
