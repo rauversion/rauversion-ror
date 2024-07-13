@@ -108,7 +108,6 @@ module Backstage
 end
 ```
 
-
 ## Authentication and Current User
 
 Backstage uses your application's authentication system. By default, it expects a `current_user` method to be available. You can customize the current user method and configure admin authentication in your Backstage configuration:
@@ -128,6 +127,7 @@ Backstage::Config.configure do
 
   # Resource configurations...
 end
+```
 
 ### Views
 

@@ -1,8 +1,11 @@
-# lib/generators/backstage/templates/controller.rb
 module Backstage
-  class TermsAndConditionsController < Backstage::BaseController
+  class DynamicController < BaseController
+    #class << self
+    #  attr_accessor :resource_config
+    #end
+
     def model_class
-      TermsAndCondition
+      Post
     end
   
     def permitted_params

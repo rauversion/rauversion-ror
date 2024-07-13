@@ -52,7 +52,7 @@ module Backstage
         @filterable_fields = []
         @custom_actions = []
         @controller_name = options[:controller] || "backstage/#{name.to_s.pluralize}"
-        Backstage::Config.ensure_controller_exists(name)
+        # Backstage::Config.ensure_controller_exists(name)
       end
 
       def filterable_field(name, type, options = {})
