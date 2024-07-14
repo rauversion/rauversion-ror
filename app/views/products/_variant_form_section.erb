@@ -1,0 +1,35 @@
+<div class="border p-4 my-4">
+  <h3 class="text-lg">Variants</h3>
+
+  <div data-controller="nested-form" class="py-2 sm:col-span-6">
+    <template data-nested-form-target="template">
+      <%= form.fields_for :product_variants, ProductVariant.new, child_index: 'NEW_RECORD' do |ff| %>
+        <%= render 'product_variants/variant_fields', form: ff %>
+      <% end %>
+    </template>
+
+    <div data-nested-form-target="wrap">
+      <%= form.fields_for :product_variants do |ff| %>
+        <%= render 'product_variants/variant_fields', form: ff %>
+      <% end %>
+    </div>
+
+    <div class="my-3" data-nested-form-target="links">
+      <%= link_to "Add new variant", "#", 
+      class: "inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500", 
+      data: { action: "click->nested-form#add_association" } %>
+    </div>
+  </div>
+
+  <!--<div>
+    <h3 class="text-lg font-medium text-gray-900">Options</h3>
+    <div id="product-options">
+      <%= form.fields_for :product_options do |option_form| %>
+        <%= render 'product_option_fields', f: option_form %>
+      <% end %>
+      <% # link_to_add_association 'Add another option', form, :product_options, class: "text-indigo-600 hover:text-indigo-900" %>
+    </div>
+
+  </div>-->
+
+</div>

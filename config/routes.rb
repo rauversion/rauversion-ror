@@ -8,6 +8,43 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  resources :terms_and_conditions, only: [:index, :show]
+
+
+  mount Backstage::Engine => "/admin"
+
+  #namespace :admin do
+  #  root to: 'dashboard#index'
+  #  resources :users do
+  #    post 'add_filter', on: :collection
+  #  end
+  #  resources :categories
+  #  resources :posts
+  #  resources :terms_and_conditions
+  #  # Add more admin resources as needed
+  #end
+
+
+  post 'product_cart/add/:product_id', to: 'product_cart#add', as: 'product_cart_add'
+  get 'product_cart', to: 'product_cart#show', as: 'product_cart'
+  delete 'product_cart/remove/:product_id', to: 'product_cart#remove', as: 'product_cart_remove'
+
+  resources :product_purchases, only: [:index, :show]
+
+  resources :products do
+    member do
+      post 'add_to_cart'
+    end
+  end
+
+  resources :product_checkout, only: [:create] do
+    collection do
+      get 'success'
+      get 'cancel'
+    end
+  end
+  
+
   root to: "home#index"
 
   get "/searchables", to: "users#index", as: :searchable_users
@@ -62,7 +99,12 @@ Rails.application.routes.draw do
     # :invitations => 'users/invitations'
   }
 
-  resources :sales
+  resources :sales do
+    member do
+      get :product_show
+      post :refund
+    end
+  end
 
   resources :event_webhooks
 
@@ -155,6 +197,8 @@ Rails.application.routes.draw do
       resources :follows, controller: "user_follows", only: [
         :index, :create, :destroy
       ]
+
+      resources :products
 
       resource :podcast, controller: "podcasts"
       get "followers", to: "user_follows#followers"

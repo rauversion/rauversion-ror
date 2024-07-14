@@ -1,0 +1,209 @@
+<% @purchases.each do |purchase| %>
+
+  <div class="bg-default">
+    <div class="mx-auto max-w-2xl pt-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <div class="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
+        
+        <div class="flex sm:items-baseline sm:space-x-4">
+          <h1 class="text-2xl font-bold tracking-tight text-default sm:text-3xl">
+            Order #<%= purchase.id %>
+          </h1>
+          <a href="#" class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block">
+            View invoice
+            <span aria-hidden="true"> &rarr;</span>
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-600">Order placed 
+          <time datetime="<%= l purchase.created_at, format: :long %>" class="font-medium text-default">
+            <%= l purchase.created_at, format: :long %>
+          </time>
+        </p>
+
+        <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:hidden">
+          View invoice
+          <span aria-hidden="true"> &rarr;</span>
+        </a>
+      </div>
+
+      <!-- Products -->
+      <div class="mt-6">
+        <h2 class="sr-only">Products purchased</h2>
+
+        <div class="space-y-8">
+          <div class="border-b border-t border-muted bg-default shadow-sm sm:rounded-lg sm:border">
+            <div class="px-4 py-6 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
+              <div class="sm:flex lg:col-span-7">
+
+                <% purchase.product_purchase_items.each do |item| %>
+
+                  <% if item.product.product_images&.first&.image&.present? %>
+                    <div class="aspect-h-1 aspect-w-1 w-full flex-shrink-0 overflow-hidden rounded-lg sm:aspect-none sm:h-40 sm:w-40">
+                      <%= image_tag item.product.product_images.first.image, class: "h-full w-full object-cover object-center sm:h-full sm:w-full" %>
+                    </div>
+                  <% end %>
+
+                  <div class="mt-6 sm:ml-6 sm:mt-0">
+                    <h3 class="text-base font-medium text-default">
+                      <%= link_to item&.product&.title, user_product_path(item.product&.user&.username, item&.product ) %>
+                    </h3>
+                    <p class="mt-2 text-sm font-medium text-default">
+                      Price: <%= number_to_currency(item.price) %>
+                    </p>
+                    <p class="mt-2 text-sm font-medium text-default">
+                      Shipping cost: <%= number_to_currency(item.shipping_cost) %>
+                    </p>
+                  </div>
+
+                <% end %>
+
+              </div>
+
+              <div class="mt-6 lg:col-span-5 lg:mt-0">
+                <dl class="grid grid-cols-2 gap-x-6 text-sm">
+                  <div>
+                    <dt class="font-medium text-default">Delivery address</dt>
+                    <dd class="mt-3 text-gray-500">
+
+                      <span class="block"><%= purchase.line1 %></span>
+                      <span class="block"><%= purchase.line2 %> <%= purchase.postal_code %></span>
+                      <span class="block"><%= purchase.city %>, <%= purchase.state %>, <%= purchase.country %></span>
+                    </dd>
+                  </div>
+
+                  <% if purchase.tracking_code %>
+                    <p>Tracking code: <%= purchase.tracking_code %></p>
+                  <% end %>
+
+                  <!--<div>
+                    <dt class="font-medium text-default">Shipping updates</dt>
+                    <dd class="mt-3 space-y-3 text-gray-500">
+                      <p>f•••@example.com</p>
+                      <p>1•••••••••40</p>
+                      <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Edit</button>
+                    </dd>
+                  </div>-->
+
+                </dl>
+              </div>
+            </div>
+
+            <div class="border-t border-muted px-4 py-6 sm:px-6 lg:p-8">
+              <h4 class="sr-only">Status</h4>
+
+              <!--<p class="text-sm font-medium text-default">Preparing to ship on 
+                <time datetime="2021-03-24">March 24, 2021</time>
+              </p>-->
+
+              <div class="mt-6" aria-hidden="true">
+
+                <div class="overflow-hidden rounded-full bg-gray-200">
+                  <div class="h-2 rounded-full bg-indigo-600" 
+                  style="width: <%= shipping_status_progress(purchase.shipping_status) %>%"></div>
+                </div>
+
+                <div class="mt-6 hidden grid-cols-4 text-sm font-medium text-gray-600 sm:grid">
+                  <% ProductPurchase.shipping_statuses.keys.each_with_index do |status, index| %>
+                    <div class="<%= shipping_status_class(status, purchase.shipping_status) %> <%= index == 0 ? "" : index == ProductPurchase.shipping_statuses.length - 1 ? "text-right" : "text-center" %>">
+                      <%= status.titleize %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              
+
+              <!--<div class="mt-6" aria-hidden="true">
+                <div class="overflow-hidden rounded-full bg-muted">
+                  <div class="h-2 rounded-full bg-indigo-600" style="width: calc((1 * 2 + 1) / 8 * 100%)"></div>
+                </div>
+                <div class="mt-6 hidden grid-cols-4 text-sm font-medium text-gray-600 sm:grid">
+                  <div class="text-indigo-600">Order placed</div>
+                  <div class="text-center text-indigo-600">Processing</div>
+                  <div class="text-center">Shipped</div>
+                  <div class="text-right">Delivered</div>
+                </div>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing -->
+      <div class="mt-16">
+        <h2 class="sr-only">Billing Summary</h2>
+
+        <div class="bg-default px-4 py-6 sm:rounded-lg sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
+          <!--
+          <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
+            <div>
+              <dt class="font-medium text-default">Billing address</dt>
+              <dd class="mt-3 text-muted">
+                <span class="block">Floyd Miles</span>
+                <span class="block">7363 Cynthia Pass</span>
+                <span class="block">Toronto, ON N3Y 4H8</span>
+              </dd>
+            </div>
+            <div>
+              <dt class="font-medium text-default">Payment information</dt>
+              <dd class="-ml-4 -mt-1 flex flex-wrap">
+                <div class="ml-4 mt-4 flex-shrink-0">
+                  <svg aria-hidden="true" width="36" height="24" viewBox="0 0 36 24" class="h-6 w-auto">
+                    <rect width="36" height="24" rx="4" fill="#224DBA" />
+                    <path d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z" fill="#fff" />
+                  </svg>
+                  <p class="sr-only">Visa</p>
+                </div>
+                <div class="ml-4 mt-4">
+                  <p class="text-default">Ending with 4242</p>
+                  <p class="text-gray-600">Expires 02 / 24</p>
+                </div>
+              </dd>
+            </div>
+          </dl>
+          -->
+
+          <dl class="mt-8 divide-y divide-muted text-sm lg:col-span-5 lg:mt-0">
+            <div class="flex items-center justify-between pb-4">
+              <dt class="text-gray-600">Subtotal</dt>
+              <dd class="font-medium text-default">
+                <%= number_to_currency(purchase.total_amount) %>
+              </dd>
+            </div>
+            <!--
+            <div class="flex items-center justify-between py-4">
+              <dt class="text-gray-600">Shipping</dt>
+              <dd class="font-medium text-default">$5</dd>
+            </div>
+            <div class="flex items-center justify-between py-4">
+              <dt class="text-gray-600">Tax</dt>
+              <dd class="font-medium text-default">$6.16</dd>
+            </div>
+            -->
+
+            <div class="flex items-center justify-between pt-4">
+              <dt class="font-medium text-default">Order total</dt>
+              <dd class="font-medium text-indigo-600">
+                <%= number_to_currency(purchase.total_amount) %>
+              </dd>
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+              <dt class="font-medium text-default">Status</dt>
+              <dd class="font-medium text-indigo-600">
+                 <%= purchase.status.capitalize %>
+              </dd>
+            </div>
+
+                          <%= link_to "View Details", product_purchase_path(purchase) %>
+
+
+          </dl>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+<% end %>

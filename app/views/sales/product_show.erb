@@ -1,0 +1,69 @@
+<!-- app/views/sales/product_show.html.erb -->
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+  <h1 class="text-3xl font-bold mb-6">Purchase Details</h1>
+
+  <div class="bg-muted shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-default">
+        <%= @product.title %>
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm text-muted">
+        Purchased by <%= @purchase.user.email %> on <%= l(@purchase.created_at, format: :long) %>
+      </p>
+    </div>
+    <div class="border-t border-emphasis px-4 py-5 sm:p-0">
+      <dl class="sm:divide-y sm:divide-emphasis">
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-muted">Quantity</dt>
+          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2"><%= @product_item.product_purchase_items.size %></dd>
+        </div>
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-muted">Price</dt>
+          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
+            <%= number_to_currency(@product_item.total_amount) %>
+          </dd>
+        </div>
+
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-muted">Payment Status</dt>
+          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
+            <%= @product_item.status %>
+          </dd>
+        </div>
+        <!--<div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-muted">Total</dt>
+          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
+            <% # number_to_currency(@product_item.price * @product_item.quantity) %>
+          </dd>
+        </div>
+        -->
+      </dl>
+    </div>
+  </div>
+
+  <% if @purchase.can_refund? && !@product_item.refunded? %>
+
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold mb-4">Update Purchase</h2>
+      <%= form_with(model: @purchase, url: sale_path(@purchase), local: true, class: "space-y-4", data: {turbo_frame: "_top"}) do |form| %>
+        <div>
+          <%= form.select :shipping_status, ProductPurchase.shipping_statuses.keys.map { |s| [s.titleize, s] }, {}, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-muted rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+        </div>
+
+        <div>
+          <%= form.text_field :tracking_code, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-muted rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+        </div>
+
+        <%= form.submit "Update Purchase", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-muted bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <% end %>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold mb-4">Refund</h2>
+      <%= button_to "Refund Product", refund_sale_path(@purchase, item_id: @product_item.id), 
+      method: :post,
+      data: { turbo_method: :post, turbo_confirm: "Are you sure you want to refund this product?", turbo_frame: "_top"}, 
+      class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+    </div>
+  <% end %>
+</div>

@@ -4,7 +4,7 @@
 
 @layer components {
   .ProseMirror {
-    @apply text-default;
+    @apply text-default focus:outline-none outline-none dark:prose-invert;
   }
   :root {
     /* background */

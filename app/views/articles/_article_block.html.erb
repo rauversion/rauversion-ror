@@ -13,7 +13,7 @@
     <% end %>
 
     <strong class="text-xs font-bold leading-relaxed tracking-widest uppercase">
-      <%= t("articles.by") %> <%= post.user.username %> · <%= l post.created_at, format: :short %>.
+      <%= t("articles.by") %> <%= post.user.username %> · <%= l post.created_at, format: :long_with_day %>.
     </strong>
 
     <p class="mt-4 text-sm tracking-wide text-ellipsis overflow-hidden h-10">

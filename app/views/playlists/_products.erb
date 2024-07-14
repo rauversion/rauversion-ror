@@ -1,0 +1,47 @@
+<% if @playlist.products.any? %>
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold mb-4">Available Products</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @playlist.products.each do |product| %>
+        <div class="bg-default border border-emphasis shadow-md rounded-lg overflow-hidden">
+          
+          <% if product.product_images.any? %>
+            <% product.product_images.each do |pi| %>
+              <%= image_tag pi.image, class: "w-full h-48 object-cover" %>
+            <% end %>
+          <% else %>
+            <div class="w-full h-48 bg-muted flex items-center justify-center">
+              <span class="text-muted">No image available</span>
+            </div>
+          <% end %>
+
+          <div class="p-4">
+
+            <%= link_to product.category, user_products_path(product.user.username), 
+              class: "bg-muted text-sm inline-flex hover:cursor-pointer items-center rounded-full  hover:bg-emphasis px-3 py-1 font-medium" 
+            %>
+            <h3 class="text-lg font-semibold mb-2">
+              <%= link_to product.title, user_product_path(product.user.username, product), class: "text-link" %>
+            </h3>
+            <p class="text-sm text-emphasis mb-2 truncate">
+              <%= truncate( strip_tags(product.description), length: 180 ) %>
+            </p>
+            <p class="text-lg font-bold mb-2">
+              <%= number_to_currency(product.price) %>
+              <% if product.name_your_price %>
+                <span class="text-sm font-normal text-muted">(or more)</span>
+              <% end %>
+            </p>
+
+            <% if product.stock_quantity.to_i > 0 %>
+              <%= button_to "Add to Cart", product_cart_add_path(product_id: product.id), method: :post, class: "w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
+            <% else %>
+              <button class="w-full bg-gray-300 text-emphasis font-bold py-2 px-4 rounded cursor-not-allowed" disabled>Sold Out</button>
+            <% end %>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

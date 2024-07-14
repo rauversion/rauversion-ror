@@ -1,0 +1,9 @@
+<h1>Thank you for your purchase, <%= @user.name %>!</h1>
+
+<p>Your order details:</p>
+
+<% @purchase.product_purchase_items.each do |item| %>
+  <p><%= item.product.title %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.price) %></p>
+<% end %>
+
+<p>Total: <%= number_to_currency(@purchase.total_amount) %></p>

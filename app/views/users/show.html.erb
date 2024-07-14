@@ -46,6 +46,11 @@
             <%= link_to "Artists", user_label_artists_path(@user.username), class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
           <% end %>
 
+
+          <% if @user.can_sell_products? %>
+            <%= link_to "Products/Merch", user_products_path(@user.username), class: "text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-100 dark:hover:text-gray-100"  %>
+          <% end %>
+
           <% if current_user.present? %>
             <div class="flex space-x-2 items-center">
               <% if !@user.label? && @user.is_child_of?(current_user) %>

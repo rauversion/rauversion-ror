@@ -1,0 +1,12 @@
+<!-- app/views/product_purchase_mailer/status_update.html.erb -->
+<h1>Your Order Status Has Been Updated</h1>
+
+<p>Dear <%= @user.full_name %>,</p>
+
+<p>The status of your order #<%= @purchase.id %> has been updated to: <%= @purchase.status.titleize %></p>
+
+<% if @purchase.tracking_code.present? %>
+  <p>Tracking Code: <%= @purchase.tracking_code %></p>
+<% end %>
+
+<p>Thank you for your purchase!</p>

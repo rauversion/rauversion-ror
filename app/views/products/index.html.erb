@@ -1,0 +1,36 @@
+<!-- app/views/products/index.html.erb -->
+
+<div class="bg-default">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="text-xl font-bold text-default">
+      <%= link_to user_path(@profile.username), class: "text-brand-600 flex items-center space-x-2" do %>
+        <%= heroicon("chevron-left") %>
+        <span><%= @profile.username %></span>
+      <% end %>
+       Products & Merch
+    </h2>
+
+    <!-- Search form -->
+    <div class="mt-6 mb-8">
+      <%= search_form_for @q, url: user_products_path(@profile.username), class: "flex items-center space-x-4" do |f| %>
+        <div class="flex-grow">
+          <%= f.search_field :title_cont, placeholder: "Search products...", class: "w-full px-4 py-2 rounded-md border-muted shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-emphasis" %>
+        </div>
+        <div>
+          <%= f.select :category_eq, options_for_select(Product.categories.keys.map { |c| [c.titleize, c] }, @q.category_eq), { include_blank: "All Categories" }, class: "block w-full pl-3 pr-10 py-2 text-base border-muted focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
+        </div>
+        <%= f.submit "Search", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <% end %>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+      <% @products.each do |product| %>
+        <%= render "product", product: product %>
+      <% end %>
+    </div>
+
+    <% if @products.blank? %>
+      <p class="p-4 text-muted">No Products found</p>
+    <% end %>
+  </div>
+</div>

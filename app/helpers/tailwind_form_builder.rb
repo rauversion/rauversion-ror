@@ -132,7 +132,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
                       )
                     end
 
-    @template.tag.div(class: "inline-flex items-center #{options[:wrapper_class]}") do
+    @template.tag.div(class: "inline-flex space-x-2 items-center #{options[:wrapper_class]}") do
       super + label_content +
         @template.tag.div(class: "text-sm font-normal leading-5 text-muted") do
           field_details(method, object, options)
@@ -146,7 +146,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     unless options[:label] == false
       info = @template.label_tag(
         tr(options[:label] || method), nil,
-        class: "block text-gray-500 dark:text-white text-sm font-normal"
+        class: "block text-gray-500 dark:text-white text-md font-bold pt-1"
       ) + field_details(method, object, options)
     end
 
@@ -154,7 +154,7 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     options.merge!(class: "self-center mt-1-- mr-2 form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out") unless options.key?(:class)
 
     # Create the checkbox and, conditionally, its label
-    @template.tag.div(class: "flex items-center") do
+    @template.tag.div(class: "flex items-center space-x-2") do
       @template.check_box(
         @object_name, method, objectify_options(options), checked_value, unchecked_value
       ) + (info.present? ? @template.tag.div(class: "flex-col items-center") { info } : "".html_safe)

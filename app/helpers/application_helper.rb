@@ -1,6 +1,19 @@
 module ApplicationHelper
   ActionView::Base.default_form_builder = TailwindFormBuilder
 
+  def current_cart
+    ProductCart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    return if current_user.blank?
+    cart = ProductCart.create(user: current_user)
+    session[:cart_id] = cart.id
+    cart
+  end
+
+  def cart_item_count
+    current_cart&.product_cart_items&.sum(:quantity) || 0
+  end
+
   def gettext(text)
     text
   end
@@ -496,5 +509,21 @@ module ApplicationHelper
       "no definition for #{definition[:type]}"
 
     end
+  end
+
+  def markdown(text)
+    return '' if text.blank?
+
+    renderer = Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true)
+    options = {
+      autolink: true,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      lax_html_blocks: true,
+      strikethrough: true,
+      superscript: true,
+      space_after_headers: true
+    }
+    Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
 end

@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  enum role: { user: 'user', admin: 'admin', artist: 'artist' }
+  
   devise :invitable, :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable, :confirmable,
     :invitable, :omniauthable, :trackable, :lockable
@@ -21,6 +23,9 @@ class User < ApplicationRecord
   has_many :purchases
   has_many :comments
   has_one :podcaster_info
+  has_many :products
+
+  has_many :product_purchases
 
   
   has_many :connected_accounts, foreign_key: :parent_id
@@ -195,11 +200,28 @@ class User < ApplicationRecord
     username.present? && role == "artist" || role == "admin"
   end
 
+  def seller_account_ids
+    if label?
+      [id] + child_accounts.pluck(:id)
+    else
+      [id]
+    end
+  end
+
+  def can_sell_products?
+    seller? || label? || admin?
+  end
+
   def user_sales_for(kind = "Track")
-    purchased_items = PurchasedItem.joins(
-      "INNER JOIN tracks ON purchased_items.purchased_item_id = tracks.id AND purchased_items.purchased_item_type = '#{kind}'"
-    )
-      .where(tracks: {user_id: id})
+    if kind == "Product"
+      ProductPurchase.for_seller(self)
+                                .order(created_at: :desc)
+    else
+      purchased_items = PurchasedItem.joins(
+        "INNER JOIN tracks ON purchased_items.purchased_item_id = tracks.id AND purchased_items.purchased_item_type = '#{kind}'"
+      )
+        .where(tracks: {user_id: id})
+    end
   end
 
 
@@ -231,6 +253,14 @@ class User < ApplicationRecord
     end
   
     artists
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["bio", "city", "confirmation_sent_at", "confirmation_token", "confirmed_at", "country", "created_at", "current_sign_in_at", "current_sign_in_ip", "editor", "email", "encrypted_password", "failed_attempts", "first_name", "id", "id_value", "invitation_accepted_at", "invitation_created_at", "invitation_limit", "invitation_sent_at", "invitation_token", "invitations_count", "invited_by_id", "invited_by_type", "label", "last_name", "last_sign_in_at", "last_sign_in_ip", "locked_at", "notification_settings", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "settings", "sign_in_count", "support_link", "unconfirmed_email", "unlock_token", "updated_at", "username"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["avatar_attachment", "avatar_blob", "child_accounts", "comments", "connected_accounts", "event_hosts", "events", "hosted_events", "identities", "invitations", "invited_by", "listening_events", "oauth_credentials", "photos", "playlists", "podcaster_info", "posts", "product_purchases", "products", "profile_header_attachment", "profile_header_blob", "purchases", "reposted_tracks", "reposts", "spotlights", "track_comments", "tracks"]
   end
 
   # def password_required?

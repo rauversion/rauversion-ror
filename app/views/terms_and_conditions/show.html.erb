@@ -1,0 +1,8 @@
+<h1><%= @term.title %></h1>
+<p>Category: <%= @term.category %></p>
+
+<div>
+  <%= simple_format(@term.content) %>
+</div>
+
+<%= link_to 'Back to Terms and Conditions', terms_and_conditions_path %>

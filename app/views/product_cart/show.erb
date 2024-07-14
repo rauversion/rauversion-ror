@@ -1,0 +1,30 @@
+<!-- app/views/product_cart/show.html.erb -->
+<div class="mx-auto w-3/4 py-4">
+  <h1 class="text-2xl font-bold mb-4">Your Cart</h1>
+
+  <% if @cart.product_cart_items.any? %>
+    <div class="space-y-4">
+      <% @cart.product_cart_items.each do |item| %>
+        <div class="flex items-center justify-between bg-default p-4 rounded-lg shadow border border-subtle">
+          <div>
+            <h3 class="font-semibold">
+              <%= link_to item.product.title, user_product_path(item.product.user.username, item.product), class: "text-link" %>
+            </h3>
+            <p>Quantity: <%= item.quantity %></p>
+            <p>Price: <%= number_to_currency(item.product.price) %></p>
+          </div>
+          <%= button_to "Remove", product_cart_remove_path(product_id: item.product.id), method: :delete, data: {turbo_method: :delete, turbo_confirm: "delete item?", turbo_frame: "_top"}, class: "bg-red-500 text-default px-4 py-2 rounded" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8">
+      <p class="text-xl font-bold">Total: <%= number_to_currency(@cart.total_price) %></p>
+      <%= form_tag product_checkout_index_path, method: :post, data: {turbo: false } do %>
+        <%= submit_tag "Proceed to Checkout", class: "mt-4 bg-muted text-default px-6 py-3 rounded-lg font-bold cursor-pointer" %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="p-4 rounded-sm bg-orange-200 text-black">Your cart is empty.</p>
+  <% end %>
+</div>

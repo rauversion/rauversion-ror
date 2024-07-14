@@ -23,6 +23,7 @@ class Playlist < ApplicationRecord
   has_many :listening_events
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
+  has_many :products
 
   has_one_attached :cover
   has_one_attached :zip
@@ -41,7 +42,7 @@ class Playlist < ApplicationRecord
 
   scope :latests, -> { order("id desc") }
   scope :published, -> { where(private: false) }
-
+  scope :albums, -> { where(playlist_type: "album") }
   store_accessor :metadata, :buy_link, :string
   store_accessor :metadata, :buy_link_title, :string
   store_accessor :metadata, :buy, :boolean

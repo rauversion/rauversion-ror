@@ -145,10 +145,8 @@
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex">
-
-
-
           </div>
+
           <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
               <h1 class="text-2xl font-bold text-gray-900  dark:text-gray-100 truncate">
@@ -159,12 +157,11 @@
 
               </h1>
             </div>
-            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+            <div class="mt-6 flex items-center justify-stretch sm:flex-row space-y-0 sm:space-x-4">
       
               <%= render "sharer/share_button", resource: @playlist %>
 
               <%= render "likes/like_button", resource: @playlist, button_class: liked?(@playlist) ? "button-active" : "button" %>
-
 
               <% if user_signed_in? && @playlist.user_id == current_user.id %>
                 <%= link_to edit_playlist_path(@playlist), class: "button",
@@ -175,7 +172,6 @@
                   <span><%= t("playlists.edit") %></span>
                 <% end %>
               
-
                 <div data-turbo="true">
                   <%= turbo_frame_tag "playlist-#{@playlist.id}-delete" do %>
                     <%= button_to playlist_path(@playlist), 
@@ -191,8 +187,6 @@
                 </div>
 
               <% end %>
-
-
             </div>
           </div>
         </div>
@@ -203,7 +197,7 @@
 
     <div class="mt-6 sm:mt-2 2xl:mt-5">
       <div class="mx-2 flex space-x-2 items-start">
-        <div class="h-32 w-32">
+        <div class="hidden sm:block p-4 w-1/4">
           <%= image_tag @playlist.user.avatar_url(:small), class: "rounded-full object-center object-cover group-hover:opacity-75" %>
         </div>
         <div class="flex-grow">
@@ -247,15 +241,17 @@
         </div>
       </div>
 
+      <% if @playlist.buy_link.present? %>
+        <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
+          <div class="flex justify-end">
+            <%= link_to @playlist.buy_link_title || "Payment Link", 
+              @playlist.buy_link, 
+              target: :blank, 
+              class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+          </div>
+        </div>
+      <% end %>
 
-    <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
-      <div class="flex justify-end">
-        <%= link_to @playlist.buy_link_title || "Payment Link", 
-          @playlist.buy_link, 
-          target: :blank, 
-          class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
-      </div>
-    </div>
       <!--
       <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
         
@@ -285,16 +281,17 @@
         <div class="text-sm text-gray-700 dark:text-gray-300 flex space-x-2 items-center"> Todos los derechos reservados </div>
       </div>
       -->
-      
 
+      <div class="mx-auto w-3/4">
+        <%= render "products" %>
+      </div>
+      
       <div class="whitespace-pre-line sm:text-xl text-sm container mx-auto px-4 my-4 prose dark:prose-invert prose-lg ">
         <!--<.tag_list_for playlist={@playlist} />-->
         <%= auto_link sanitize(@playlist.description, auto_link: true) %>
       </div>
 
     </div>
-
-
 
 
     <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
