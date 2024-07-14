@@ -119,9 +119,12 @@ export default class extends Controller {
     this.editor.commands.toggleItalic()
   }
 
-  toggleHeading(e){
-    e.preventDefault()
-    this.editor.commands.toggleHeading({ level: parseInt(e.currentTarget.dataset.level) })
+  toggleHeading(e) {
+    // Check if the event is from a click or a specific key press on the button
+    if (e.type === 'click') { // || (e.type === 'keydown' && e.key === 'Enter' && e.target.matches('[data-action="toggleHeading"]'))) {
+      e.preventDefault();
+      this.editor.commands.toggleHeading({ level: parseInt(e.currentTarget.dataset.level) });
+    }
   }
 
   toggleOrderedList(e){

@@ -39,10 +39,15 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.products.new(product_params)
 
+    if params[:changed_form]
+      render "create" and return
+    end
+
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'
     else
-      render :new, status: 422
+      render "create"
+      # render :new, status: 422
     end
   end
 
@@ -50,11 +55,19 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
+
+    @product.assign_attributes(product_params)
+    
+    if params[:changed_form]
+      render "update" and return
+    end
+
+    if @product.save
       redirect_to @product, notice: 'Product was successfully updated.'
     else
       Rails.logger.error("AAA #{@product.errors.full_messages}")
-      render :edit, status: 422
+      # render :edit, status: 422
+      render "update"
     end
   end
 
