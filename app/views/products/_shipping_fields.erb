@@ -1,4 +1,4 @@
-<div class="nested-fields border mt-6 p-4"
+<div class="nested-fields mt-6 p-4 bg-muted rounded-lg"
 	data-new-record="<%= form.object.new_record? %>">
 
   <div class="flex items-center space-x-2">
@@ -7,11 +7,17 @@
       <%= form.country_select :country, 
         disabled: form.object.is_default?, 
         priority_countries: ["CL", "AR", "PE", "BO", "CO", "MX", "US", "BR", "ES", "FR", "GR"],
-        except: %w[AS CX CC CU HM IR KP MH FM NF MP PW SD SY UM VI] 
+        except: %w[AS CX CC CU HM IR KP MH FM NF MP PW SD SY UM VI]
       %>
+
+      <div class="mt-1 text-xs text-gray-500 dark:text-gray-100">
+        <div class="text-gray-500 text-xs">
+          Shipping country
+        </div>
+      </div>
     </div>
     
-    <%= form.number_field :base_cost, step: 0.01, label: "USD for 1 unit"  %>
+    <%= form.number_field :base_cost, step: 0.01, label: "USD for 1 unit", hint: "Base cost"  %>
     
     <%= form.number_field :additional_cost, step: 0.01, hint:  "USD more per additional unit" %>
   </div>
