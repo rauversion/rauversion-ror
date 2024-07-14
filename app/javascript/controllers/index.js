@@ -42,6 +42,7 @@ import input_listener_controller from "./input_listener_controller.js"
 import dark_mode_controller from "./dark_mode_controller.js"
 import simple_editor_controller from "./simple_editor_controller.jsx"
 import filter_manager_controller from "./filter_manager_controller.js"
+import accordeon_controller from "./accordeon_controller.js"
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -86,3 +87,4 @@ application.register("submit-on-change", submit_on_change_controller)
 application.register("hw-combobox", HwComboboxController)
 application.register("input-listener", input_listener_controller)
 application.register("dark-mode", dark_mode_controller)
+application.register("accordeon", accordeon_controller)
