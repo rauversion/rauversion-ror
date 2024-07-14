@@ -16,7 +16,9 @@ class ProductCartController < ApplicationController
   def remove
     item = @cart.product_cart_items.find_by(product_id: params[:product_id])
     item.destroy if item
-    redirect_to( product_cart_path, notice: 'Item removed from cart')
+    @cart_items = @cart.product_cart_items.includes(:product)
+    render "destroy"
+    # redirect_to( product_cart_path, notice: 'Item removed from cart')
   end
 
   private
