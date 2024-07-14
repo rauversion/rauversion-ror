@@ -65,6 +65,9 @@ Backstage::Config.configure do
   end
 
   resource :posts do
+
+    controller :default
+    
     column :id
     column :title
     column :author do |post, view|
