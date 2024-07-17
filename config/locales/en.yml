@@ -131,6 +131,7 @@ en:
     add_to_playlists: Add to playlist
     create: Create a playlist
     remove_from_playlist: Remove from playlist
+    available_products: "Available products"
 
   users:
     sign_in: Sign in to your account

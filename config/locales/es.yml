@@ -129,6 +129,7 @@ es:
     add_to_playlists: Añadir a lista
     create: Crear una lista
     remove_from_playlist: Quitar de la lista
+    available_products: "Productos disponibles"
 
   users:
     sign_in: Iniciar sesión en tu cuenta
