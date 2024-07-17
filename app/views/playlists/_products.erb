@@ -6,9 +6,7 @@
         <div class="bg-default border border-emphasis shadow-md rounded-lg overflow-hidden">
           
           <% if product.product_images.any? %>
-            <% product.product_images.each do |pi| %>
-              <%= image_tag pi.image, class: "w-full h-48 object-cover" %>
-            <% end %>
+            <%= image_tag product.main_image.image, class: "w-full h-48 object-cover" %>
           <% else %>
             <div class="w-full h-48 bg-muted flex items-center justify-center">
               <span class="text-muted">No image available</span>

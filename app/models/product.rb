@@ -59,6 +59,10 @@ class Product < ApplicationRecord
     product_shippings.create(country: 'Rest of World', is_default: true)
   end
 
+  def main_image
+    product_images.first
+  end
+
   def available?
     active? && stock_quantity > 0
   end
