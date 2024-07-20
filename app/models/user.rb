@@ -42,8 +42,8 @@ class User < ApplicationRecord
   acts_as_liker
   acts_as_mentionable
 
-
   normalizes :username, with: -> username { username.parameterize }
+  validates :username, uniqueness: { message: "Username already exists" }
 
   validates_presence_of :username, on: :update, message: "can't be blank"
 

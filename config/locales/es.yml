@@ -133,7 +133,7 @@ es:
 
   users:
     sign_in: Iniciar sesión en tu cuenta
-    register: Registrar
+    register: Registrar nueva cuenta
     or: O continuar con
     follow: Seguir
     unfollow: Dejar de seguir
