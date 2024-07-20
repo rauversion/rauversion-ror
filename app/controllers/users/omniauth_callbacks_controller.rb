@@ -80,6 +80,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback_handler
   end
 
+  def google_oauth2
+    logger.info("Callback Google")
+    # logger.info(session.to_json)
+    callback_handler
+  end
+
   private
 
   def callback_handler

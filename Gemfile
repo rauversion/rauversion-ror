@@ -88,6 +88,7 @@ gem "omniauth", "~> 2.0"
 # gem 'omniauth-zoom'
 # gem "omniauth-github"
 gem "omniauth-twitter"
+gem "omniauth-google-oauth2"
 # gem 'omniauth-stripe'
 gem "omniauth-discord"
 gem "omniauth-twitch"

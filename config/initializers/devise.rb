@@ -326,9 +326,19 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # require "omniauth-github"
+
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], 
+  {
+    name: 'google_oauth2',
+    scope: 'email, profile',
+    prompt: 'select_account',
+    image_aspect_ratio: 'square',
+    image_size: 50,
+    strategy_class: OmniAuth::Strategies::GoogleOauth2
+  }
   config.omniauth :zoom, ENV["ZOOM_CLIENT_ID"], ENV["ZOOM_CLIENT_SECRET"], scope: "read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
   # config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], :scope=>"read_stream, user_groups, user_online_presence, user_photos, friends_photos, publish_stream, user_status, email"
-  config.omniauth :twitter, ENV["TWITTER_CLIENT_ID"], ENV["TWITTER_CLIENT_SECRET"], scope: "tweet.read users.read offline.access"
+  # config.omniauth :twitter, ENV["TWITTER_CLIENT_ID"], ENV["TWITTER_CLIENT_SECRET"], scope: "tweet.read users.read offline.access"
   config.omniauth :discord, ENV["DISCORD_CLIENT_ID"], ENV["DISCORD_CLIENT_SECRET"], scope: "email identify"
   config.omniauth :twitch, ENV["TWITCH_CLIENT_ID"], ENV["TWITCH_CLIENT_SECRET"], scope: "channel:manage:broadcast channel:manage:videos user:read:email channel:read:stream_key"
   config.omniauth :stripe_connect, ENV["STRIPE_CLIENT_ID"], ENV["STRIPE_CLIENT_SECRET"], scope: "read_write"

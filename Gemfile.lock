@@ -367,6 +367,7 @@ GEM
     method_source (1.1.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.7)
     minitest (5.24.1)
     mrsk (0.15.1)
       activesupport (>= 7.0)
@@ -396,11 +397,8 @@ GEM
       net-protocol
     net-ssh (7.2.0)
     nio4r (2.7.3)
-    nokogiri (1.16.6-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.6-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.6-x86_64-linux)
+    nokogiri (1.16.6)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth (1.1.0)
       oauth-tty (~> 1.0, >= 1.0.1)
@@ -422,6 +420,10 @@ GEM
     omniauth-discord (1.1.0)
       omniauth (~> 2.1.0)
       omniauth-oauth2
+    omniauth-google-oauth2 (0.8.0)
+      jwt (>= 2.0)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.6)
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
@@ -643,10 +645,7 @@ GEM
     zeitwerk (2.6.16)
 
 PLATFORMS
-  arm64-darwin-21
-  arm64-darwin-22
-  x86_64-darwin-23
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   aasm (~> 5.2)
@@ -684,6 +683,7 @@ DEPENDENCIES
   mrsk (~> 0.15.1)
   omniauth (~> 2.0)
   omniauth-discord
+  omniauth-google-oauth2
   omniauth-rails_csrf_protection
   omniauth-twitch
   omniauth-twitter

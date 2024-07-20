@@ -12,7 +12,6 @@ module User::OmniAuthExtension
     #
     def find_by_identity_for(provider, data, current_user)
       identity = OauthCredential.find_by(provider: provider, uid: data["uid"])
-
       if identity
         logger.info("UPDATE DATA! #{data.to_json}")
 
@@ -30,6 +29,17 @@ module User::OmniAuthExtension
           uid: data["uid"],
           token: data["credentials"]["token"],
           secret: data["credentials"]["secret"])
+        current_user
+      elsif !current_user
+        current_user = User.find_by(email: data["info"]["email"])
+        if current_user 
+          current_user.identities.create!(
+            provider: provider,
+            uid: data["uid"],
+            token: data["credentials"]["token"],
+            secret: data["credentials"]["secret"]
+          )
+        end
         current_user
       end
     end
