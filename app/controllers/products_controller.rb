@@ -1,7 +1,7 @@
 # app/controllers/products_controller.rb
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
 
   def index
@@ -17,6 +17,11 @@ class ProductsController < ApplicationController
   end
 
   def show
+
+    @profile = User.find_by(username: params[:user_id])
+
+    @product = @profile.products.friendly.find(params[:id])
+
     @product_variants = @product.product_variants
 
     
