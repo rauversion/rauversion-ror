@@ -6,6 +6,10 @@ class Product < ApplicationRecord
 
   belongs_to :user
   belongs_to :album, class_name: 'Playlist', optional: true, foreign_key: :playlist_id
+
+  belongs_to :coupon, optional: true
+
+  
   has_many :product_variants, dependent: :destroy
   has_many :product_options, dependent: :destroy
   has_many :product_images

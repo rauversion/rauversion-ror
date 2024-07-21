@@ -42,6 +42,8 @@
         <%= render "shared/simple_editor", form: form, field: :description %>
       </div>
 
+
+
       <div data-accordeon data-controller="accordeon" class="w-full rounded-lg mb-2.5 bg-subtle dark:bg-black">
         <%= render "section_header", title: "Photos" %>
         <div class="p-5 block pt-0" data-accordeon-target="panel">
@@ -51,6 +53,14 @@
           <div>
             <%= form.check_box :name_your_price, class: "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
             <span class="ml-2">Let fans pay more if they want</span>
+          </div>
+
+          <div class="field">
+            <%= form.label :coupon_id %>
+            <%= form.collection_select :coupon_id, current_user.coupons.active, :id, :code, { prompt: 'Select a coupon (optional)' }, class: 'form-control' %>
+            <p class="text-xs text-muted py-2">
+              Create coupons <%= link_to "here", user_coupons_path(current_user.username) , class: "text-link" %>
+            </p>
           </div>
 
           <div class="flex space-x-2 items-center">

@@ -1,14 +1,28 @@
 <!-- app/views/products/index.html.erb -->
 
+
+
 <div class="bg-default">
   <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-xl font-bold text-default">
-      <%= link_to user_path(@profile.username), class: "text-brand-600 flex items-center space-x-2" do %>
-        <%= heroicon("chevron-left") %>
-        <span><%= @profile.username %></span>
-      <% end %>
-       Products & Merch
-    </h2>
+    
+
+    <div class="mt-4 flex items-center justify-between">
+      <h2 class="text-xl font-bold text-default">
+        <%= link_to user_path(@profile.username), class: "text-brand-600 flex items-center space-x-2" do %>
+          <%= heroicon("chevron-left") %>
+          <span><%= @profile.username %></span>
+        <% end %>
+        Products & Merch
+      </h2>
+    </div>
+
+
+    <% if current_user == @profile %>
+      <nav class="-mb-px flex space-x-8 text-2xl items-center" aria-label="Tabs">
+        <%= link_to "Products", user_products_path(current_user.username), class: "tab-active" %>
+        <%= link_to "Coupons", user_coupons_path(current_user.username), class: "tab-products" %>
+      </nav>
+    <% end %>
 
     <!-- Search form -->
     <div class="mt-6 mb-8">

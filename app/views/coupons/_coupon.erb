@@ -1,0 +1,20 @@
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default sm:pl-0">
+    <%= coupon.code %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default sm:pl-0">
+    <%= coupon.discount_type.titleize %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default sm:pl-0">
+    <%= number_to_currency(coupon.discount_amount) %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default sm:pl-0">
+    <%= coupon.expires_at.strftime("%B %d, %Y at %I:%M %p") %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default sm:pl-0">
+    
+    <%= link_to 'View', user_coupon_path(current_user.username, coupon), class: 'btn btn-sm btn-info' %>
+    <%= link_to 'Edit', edit_user_coupon_path(current_user.username, coupon), class: 'btn btn-sm btn-warning' %>
+    <%= link_to 'Delete', user_coupon_path(current_user.username, coupon), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+  </td>
+</tr>

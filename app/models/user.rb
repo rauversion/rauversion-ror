@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :comments
   has_one :podcaster_info
   has_many :products
+  has_many :coupons
 
   has_many :product_purchases
 

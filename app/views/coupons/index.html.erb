@@ -1,0 +1,56 @@
+
+<div class="bg-default">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-bold text-default">
+        <%= link_to user_path(current_user.username), class: "text-brand-600 flex items-center space-x-2" do %>
+          <%= heroicon("chevron-left") %>
+          <%= current_user.username %>
+        <% end %>
+        Coupons
+      </h2>
+
+      <div class="mt-6 mb-8">
+        <%= link_to 'New Coupon', new_user_coupon_path(current_user.username), 
+          class: 'button-sm-outline' %>
+      </div>
+    </div>
+
+
+        
+    <% if current_user == @profile %>
+      <nav class="-mb-px flex space-x-8 text-2xl items-center" aria-label="Tabs">
+        <%= link_to "Products", user_products_path(current_user.username), class: "tab-default" %>
+        <%= link_to "Coupons", user_coupons_path(current_user.username), class: "tab-active" %>
+      </nav>
+    <% end %>
+
+
+    <div class="mt-4">
+      
+      <table class="min-w-full divide-y divide-subtle">
+        <thead>
+          <tr>
+            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default sm:pl-0">Code</th>
+            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default sm:pl-0">Discount Type</th>
+            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default sm:pl-0">Discount Amount</th>
+            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default sm:pl-0">Expires At</th>
+            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default sm:pl-0">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-muted">
+          <% @coupons.each do |coupon| %>
+            <%= render "coupon", coupon: coupon %>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <% if @coupons.blank? %>
+      <p class="p-4 text-muted">No coupons found</p>
+    <% end %>
+  </div>
+</div>

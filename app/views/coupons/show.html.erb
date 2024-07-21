@@ -1,0 +1,50 @@
+
+<div class="py-4 mx-auto max-w-lg">
+  <div class="px-4 sm:px-0">
+    <h3 class="text-base font-semibold leading-7 text-default">Coupon Information</h3>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= @coupon.code %> details.</p>
+  </div>
+  <div class="mt-6 border-t border-muted">
+    <dl class="divide-y divide-muted">
+      
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-default">Code</dt>
+        <dd class="mt-1 text-sm leading-6 text-muted sm:col-span-2 sm:mt-0">
+          <%= @coupon.code %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-default">Discount Type</dt>
+        <dd class="mt-1 text-sm leading-6 text-muted sm:col-span-2 sm:mt-0">
+          <%= @coupon.discount_type.titleize %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-default">Discount Amount</dt>
+        <dd class="mt-1 text-sm leading-6 text-muted sm:col-span-2 sm:mt-0">
+          <%= number_to_currency(@coupon.discount_amount) %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-default">Expires At</dt>
+        <dd class="mt-1 text-sm leading-6 text-muted sm:col-span-2 sm:mt-0">
+          <%= @coupon.expires_at.strftime("%B %d, %Y at %I:%M %p") %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-default">Status</dt>
+        <dd class="mt-1 text-sm leading-6 text-muted sm:col-span-2 sm:mt-0">
+          <%= @coupon.active? ? 'Active' : 'Expired' %>
+        </dd>
+      </div>
+
+      
+      <%= link_to 'Edit', edit_user_coupon_path(current_user.username, @coupon), class: 'btn btn-warning' %>
+      <%= link_to 'Back to Coupons', user_coupons_path(current_user.username), class: 'btn btn-secondary' %>
+    </dl>
+  </div>
+</div>

@@ -25,7 +25,7 @@ class ProductCheckoutController < ApplicationController
       product.product_shippings.pluck(:country)
     end.uniq
 
-    session = Stripe::Checkout::Session.create({
+    checkout_params = {
       payment_method_types: ['card'],
       line_items: cart_items,
       mode: 'payment',
@@ -45,7 +45,24 @@ class ProductCheckoutController < ApplicationController
         enabled: true
       },
       shipping_options: generate_shipping_options,
-    })
+    }
+
+    if params[:promo_code].present?
+      checkout_params.merge!({discounts: [{ coupon: params[:promo_code] }]}) 
+
+      @cart.product_cart_items.map(&:product).each do |product|
+        redirect_to( "/product_cart", notice: "Invalid promo code") and return if product.coupon&.code != params[:promo_code]
+      end
+    end
+
+    # allow_promotion_codes: @product&.coupon.exists?,  
+
+    begin
+    session = Stripe::Checkout::Session.create(checkout_params)
+    rescue Stripe::InvalidRequestError => e
+      redirect_to "/product_cart", notice: e 
+      return
+    end
 
     @purchase.update(stripe_session_id: session.id)
     redirect_to session.url, allow_other_host: true

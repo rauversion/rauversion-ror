@@ -20,6 +20,11 @@
     <div class="mt-8">
       <p class="text-xl font-bold">Total: <%= number_to_currency(@cart.total_price) %></p>
       <%= form_tag product_checkout_index_path, method: :post, data: {turbo: false } do %>
+        <div class="w-36">
+          <%= label_tag :promo_code %>
+          <%= text_field_tag :promo_code %>
+          <span class="text-sm text-muted">Apply Promo code</span>
+        </div>
         <%= submit_tag "Proceed to Checkout", class: "mt-4 bg-muted text-default px-6 py-3 rounded-lg font-bold cursor-pointer" %>
       <% end %>
     </div>

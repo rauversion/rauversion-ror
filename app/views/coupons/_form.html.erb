@@ -1,0 +1,18 @@
+<!-- app/views/coupons/_form.html.erb -->
+<%= form_with(model: coupon, url: coupon.new_record? ? user_coupons_path(current_user.username) : user_coupon_path(current_user.username, coupon), local: true, data: {turbo_frame: "_top"}) do |form| %>
+
+  <div class="field space-y-2">
+    <%= form.text_field :code, class: 'form-control' %>
+  
+    <%= form.label :discount_type %>
+    <%= form.select :discount_type, Coupon.discount_types.keys.map { |type| [type.titleize, type] }, {}, class: 'form-control' %>
+
+    <%= form.number_field :discount_amount, step: 0.01, class: 'form-control' %>
+
+    <%= form.label :expires_at %>
+    <%= form.datetime_local_field :expires_at, class: 'form-control' %>
+  
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

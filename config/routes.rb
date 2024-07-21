@@ -199,6 +199,7 @@ Rails.application.routes.draw do
       ]
 
       resources :products
+      resources :coupons
 
       resource :podcast, controller: "podcasts"
       get "followers", to: "user_follows#followers"

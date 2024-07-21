@@ -1,0 +1,10 @@
+<div class="space-y-2 mx-auto max-w-lg">
+
+  <h1 class="text-lg">Edit Coupon</h1>
+
+  <%= render 'form', coupon: @coupon %>
+
+  <%= link_to 'Show', user_coupon_path(current_user.username, @coupon), class: 'btn btn-info' %> |
+  <%= link_to 'Back to Coupons', user_coupons_path(current_user.username), class: 'btn btn-secondary' %>
+
+</div>
