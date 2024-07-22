@@ -123,6 +123,13 @@
   %>
 
 
+  <%= render "home/playlist_section_wide", 
+    playlist_type: ["ep", "album"], 
+    limit: 10,
+    title: "EP & Album Releases"
+  %>
+
+
   <!-- Trending products -->
   <section aria-labelledby="trending-heading" class="bg-default">
     
@@ -159,12 +166,6 @@
     </div>
 
   </section>
-
-  <%= render "home/playlist_section", 
-    playlist_type: ["ep", "album"], 
-    limit: 10,
-    title: "EP & Album Releases"
-  %>
 
   <%= render "home/playlist_section", 
     playlist_type: ["playlist"], 
