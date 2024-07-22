@@ -23,7 +23,8 @@
           <div class="relative">
             <div class="overflow-auto no-scrollbar relative" data-scroll-target="scrollContainer">
               <div class="grid grid-cols-1- grid-flow-col grid-rows-1- sm:gap-x-2 md:grid-cols-4- md:gap-y-0- lg:gap-x-8">
-                <% Playlist.published.latests.where(playlist_type: playlist_type).order("release_date desc, id desc").limit(limit).each do |playlist| %>
+                <% Playlist.published.latests.where(playlist_type: playlist_type)
+                  .order("editor_choice_position asc, release_date desc, id desc").limit(limit).each do |playlist| %>
                   <div class="w-64 m-4">
                     <%= link_to playlist_path(playlist) do %>
                       <div class="group group-hover relative">

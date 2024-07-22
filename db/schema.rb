@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_162149) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_053122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -300,6 +300,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_162149) do
     t.datetime "updated_at", null: false
     t.string "tags", default: [], array: true
     t.integer "label_id"
+    t.integer "editor_choice_position"
     t.index ["label_id"], name: "index_playlists_on_label_id"
     t.index ["slug"], name: "index_playlists_on_slug"
     t.index ["tags"], name: "index_playlists_on_tags", using: :gin

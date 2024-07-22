@@ -9,13 +9,15 @@
           </h2>
         </div>
 
-        <div class="relative mx-2">
+        <div class="relative mx-2 mt-2">
           <div class="overflow-auto no-scrollbar relative">
             
             <div class="container mx-auto p-4-">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 
-                <% Playlist.published.latests.where(playlist_type: playlist_type).order("release_date desc, id desc").limit(limit).each_with_index do |playlist, index| %>
+                <% Playlist.published.where(playlist_type: playlist_type)
+                  .order("editor_choice_position asc, release_date, id desc").limit(limit).each_with_index do |playlist, index| %>
+                 
                   <div class=" <%= index == 0 ? "col-span-1 sm:col-span-2 sm:row-span-2 bg-brand-600" : "bg-default" %> ">
                     <%= link_to playlist_path(playlist) do %>
                       <div class="relative">
@@ -25,8 +27,8 @@
                           ) %>
                         </div>
                         <div class="space-y-1 text-sm text-left mt-2 p-2">
-                          <h3 class="font-medium leading-none">
-                              <%= playlist.title %>
+                          <h3 class="<%= index == 0 ? "text-2xl font-bold" : "font-medium leading-none" %>">
+                            <%= playlist.title %>
                           </h3>
                           <p class="text-xs text-default dark:text-default/40">
                             <%= t(:by, name: playlist.user.username) %>
