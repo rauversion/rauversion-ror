@@ -128,7 +128,7 @@ export default class extends Controller {
 
     this._wave = WaveSurfer.create({
       container: this.playerTarget,
-      autoplay: false,
+      autoplay: true,
       waveColor: 'grey',
       //progressColor: 'tomato',
       progressColor: '#ddd',
