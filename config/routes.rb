@@ -149,7 +149,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :podcasts
   resources :photos
   resource :spotlight
   resources :playlists do
@@ -201,7 +200,12 @@ Rails.application.routes.draw do
       resources :products
       resources :coupons
 
-      resource :podcast, controller: "podcasts"
+      resources :podcasts, controller: "podcasts" do
+        collection do
+          get :about
+        end
+      end
+      get 'podcast/rss', to: 'podcast#rss', defaults: { format: 'rss' }, as: :rss_podcast
       get "followers", to: "user_follows#followers"
       get "followees", to: "user_follows#followees"
       get "/tracks", to: "users#tracks"

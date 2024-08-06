@@ -1,0 +1,42 @@
+<div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+  <h1 class="text-3xl font-extrabold text-blue-gray-900"><%= gettext("Podcast Account") %></h1>
+
+  <%= form_for user, url: user_setting_path(user.username, :podcast), class: "space-y-8 divide-y divide-gray-200 dark:divide-gray-800"  do |form| %>
+    <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+      <div class="sm:col-span-6">
+        <h2 class="text-xl font-medium text-blue-gray-900">
+          <%= gettext("Podcast account Information") %>
+        </h2>
+        <p class="mt-1 text-sm text-blue-gray-500">
+          <%= gettext("Podcaster information form.") %>
+        </p>
+      </div>
+
+      <%= form.fields_for :podcaster_info do |f| %>
+        <div class="flex flex-col space-y-2 w-full col-span-6">
+          <%= f.hidden_field :id %>
+          <%= f.text_field :title, placeholder: "Podcast Title", class: "mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+          <%= f.text_area :about, placeholder: "About the Podcast", rows: 3, class: "mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+          <%= f.text_area :description, placeholder: "Detailed Description", rows: 5, class: "mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+          <%= f.file_field :avatar, class: "mt-1 block w-full" %>
+
+          <h3 class="text-lg font-medium text-blue-gray-900 mt-6">Podcast Links</h3>
+
+          <%= f.url_field :spotify_url, placeholder: "Spotify URL" %>
+          <%= f.url_field :apple_podcasts_url, placeholder: "Apple Podcasts URL" %>
+          <%= f.url_field :google_podcasts_url, placeholder: "Google Podcasts URL" %>
+          <%= f.url_field :stitcher_url, placeholder: "Stitcher URL" %>
+          <%= f.url_field :overcast_url, placeholder: "Overcast URL" %>
+          <%= f.url_field :pocket_casts_url, placeholder: "Pocket Casts URL" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pt-8 flex justify-end space-x-2">
+      <%= form.submit gettext("Change Podcast information"),
+        class:
+          "bg-white py-2 px-4 border border-gray-300 dark:text-blue-gray-100 dark:bg-gray-900 rounded-md shadow-sm text-sm font-medium text-blue-gray-900 hover:bg-blue-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      %>
+    </div>
+  <% end %>
+</div>

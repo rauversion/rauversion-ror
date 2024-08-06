@@ -208,12 +208,12 @@
   }
 
   textarea {
-    @apply block w-full rounded-md border-0 py-1.5 dark:bg-gray-900 dark:text-gray-100 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 py-1.5 bg-muted text-default shadow-sm ring-1 ring-inset ring-subtle placeholder:text-subtle focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   .select,
   select {
-    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-default ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   label {
@@ -221,22 +221,23 @@
   }
 
   input[type="number"] {
-    @apply block w-full rounded-md border-0 px-3 pl-3 dark:bg-gray-900 dark:text-gray-100 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 py-1.5 bg-muted text-default shadow-sm ring-1 ring-inset ring-subtle placeholder:text-subtle focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   input[type="date"],
   input[type="datetime-local"] {
-    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 py-1.5 bg-muted text-default shadow-sm ring-1 ring-inset ring-subtle placeholder:text-subtle focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   input[type="text"],
+  input[type="url"],
   input[type="email"],
   input[type="password"] {
-    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 dark:bg-gray-900 dark:text-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 py-1.5 bg-muted text-default shadow-sm ring-1 ring-inset ring-subtle placeholder:text-subtle focus:ring-2 focus:ring-inset focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   select {
-    @apply shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-900 dark:text-gray-100;
+    @apply shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-muted rounded-md dark:bg-default;
   }
 
   label {

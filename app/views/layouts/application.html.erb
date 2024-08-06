@@ -28,7 +28,10 @@
 
   <body class="bg-default font-sans antialiased text-default dark"
      data-controller="track-detector dark-mode">
-    <%= render "shared/user_menu" %>
+    
+    <% if !@disable_user_menu %>
+      <%= render "shared/user_menu" %>
+    <% end %>
 
     <%= yield %>
 
@@ -68,7 +71,9 @@
       </script>
     <% end %>
 
+    <% unless @disable_footer %>
     <%= render("shared/footer", assigns) %>
+    <% end %>
 
     <% if ENV["GA_ID"] %>
       <!-- Google tag (gtag.js) -->

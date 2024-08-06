@@ -71,6 +71,7 @@ class User < ApplicationRecord
   store_attribute :settings, :tbk_test_mode, :boolean
 
   accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :podcaster_info, allow_destroy: true
 
   scope :artists, -> { where(role: "artist").where.not(username: nil) }
   

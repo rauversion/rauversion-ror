@@ -1,5 +1,6 @@
 class UserSettingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :disable_footer
 
   def show
     @section = params[:section] || "profile"
@@ -47,7 +48,11 @@ class UserSettingsController < ApplicationController
       :new_message_app,
       :profile_header,
       :like_and_plays_on_your_post_email,
-      :tbk_commerce_code, :pst_enabled, :tbk_test_mode
+      :tbk_commerce_code, :pst_enabled, :tbk_test_mode,
+      podcaster_info_attributes: [
+        :title, :about, :description, :avatar, :id,
+        :spotify_url, :apple_podcasts_url, :google_podcasts_url, :stitcher_url, :overcast_url, :pocket_casts_url
+      ]
     )
   end
 end

@@ -38,6 +38,16 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def url_field(attribute, options = {})
+    @template.content_tag :div, class: "w-full sm:w-full" do
+      [
+        options[:label].is_a?(FalseClass) ? @template.content_tag(:div) : @template.label_tag(tr(options[:label] || attribute), nil),
+        super(attribute, options.reverse_merge(class: "input")),
+        field_details(attribute, object, options)
+      ].join.html_safe
+    end
+  end
+
   def email_field(attribute, options = {})
     @template.content_tag :div, class: "w-full sm:w-full" do
       [

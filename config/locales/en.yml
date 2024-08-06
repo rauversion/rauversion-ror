@@ -12,6 +12,7 @@ en:
   sure: Are you sure?
   more: More
   save: Save
+  back: "Back"
   not_activated_account: Access denied, not activated account.
 
   menu:
@@ -226,3 +227,10 @@ en:
     formats:
       day: '%b %d'
       day_with_year: '%b %d %Y'
+  
+  podcast:
+    about: "About"
+    rss_feed: "RSS Feed"
+    episodes: "Episodes"
+    show_more: "Show More"
+    listen: Listen

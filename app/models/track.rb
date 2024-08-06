@@ -40,6 +40,8 @@ class Track < ApplicationRecord
   # scope :private, -> { where.not(:private => true)}
   scope :latests, -> { order("id desc") }
 
+  scope :podcasts, -> {where(podcast: true)}
+
   # store_attribute :metadata, :ratio, :integer, limit: 1
   # store_attribute :metadata, :login_at, :datetime
   # #store_attribute :metadata, :active, :boolean

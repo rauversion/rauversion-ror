@@ -13,6 +13,12 @@
       sub: t("user_settings.sub_email")
     },
     {
+      to: "settings/podcast",
+      namespace: :podcast,
+      title: t("user_settings.podcaster_info"),
+      sub: t("user_settings.sub_podcasts")
+    },
+    {
       to: "settings/security",
       namespace: :security,
       title: t("user_settings.title_security"),
@@ -41,19 +47,20 @@
       namespace: :invitations,
       title: t("user_settings.title_invitations"),
       sub: t("user_settings.sub_invitations")
-    },
-    {
-      to: "settings/labels",
-      namespace: :labels,
-      title: t("user_settings.labels"),
-      sub: t("user_settings.sub_labels")
     }
+    # {
+    #   to: "settings/labels",
+    #   namespace: :labels,
+    #   title: t("user_settings.labels"),
+    #   sub: t("user_settings.sub_labels")
+    # }
   ]
 %>
 
 <div class="flex-1 flex xl:overflow-hidden">
   <!-- Secondary sidebar -->
-  <nav aria-label="Sections" class="hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col">
+  <nav aria-label="Sections" 
+    class="h-[calc(100vh-132px)] overflow-auto hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col">
     <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-gray-200 dark:border-gray-800 flex items-center">
       <p class="text-lg font-medium text-gray-900 dark:text-gray-100">Settings</p>
     </div>
@@ -71,7 +78,7 @@
     </div>
   </nav>
   <!-- Main content -->
-  <div class="flex-1 xl:overflow-y-auto bg-default">
+  <div class="flex-1 xl:overflow-y-auto bg-default h-[calc(100vh-132px)]">
     <% #= @section %>
     
     <%= turbo_frame_tag "settings_form" do %>

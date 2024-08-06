@@ -44,4 +44,8 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, error: "not allowed"
     end
   end
+
+  def disable_footer
+    @disable_footer = true
+  end
 end

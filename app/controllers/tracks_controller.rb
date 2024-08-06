@@ -119,6 +119,7 @@ class TracksController < ApplicationController
       :display_comments, :display_stats, :include_in_rss,
       :offline_listening, :enable_app_playblack,
       :cover,
+      :podcast,
       :copyright, :attribution, :noncommercial, :copies,
       tags: []
     )

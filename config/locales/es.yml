@@ -11,6 +11,7 @@ es:
   sure: ¿Estás seguro?
   more: Más
   save: Guardar
+  back: "Volver"
 
   menu:
     music: Música
@@ -154,6 +155,7 @@ es:
     sub_transbank: Gestionar tu comercio transbank (solo Chile).
     title_invitations: Invitaciones
     sub_invitations: Invitar otros artistas a tu cuenta.
+    podcast_info: Podcast Info
 
   purchases:
     title: Compras

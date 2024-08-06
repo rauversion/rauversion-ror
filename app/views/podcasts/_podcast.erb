@@ -3,26 +3,90 @@
     <div class="lg:max-w-4xl">
       <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:px-0">
         <div class="flex flex-col items-start">
+          
           <h2 id="episode-<%= track.id %>" class="mt-2 text-lg font-bold text-default">
-            <%= link_to track.title, "#" %>
+            <%= link_to track.title, user_podcast_path(@user.username, track), data: {turbo_frame: "_top"} %>
           </h2>
-          <time datetime="2022-02-24T00:00:00.000Z" class="order-first font-mono text-sm leading-7 text-muted">
-            February 23, 2022
+
+          <time datetime="<%= track.created_at %>" class="order-first font-mono text-sm leading-7 text-muted">
+            <%= l track.created_at, format: :long_with_day %>
           </time>
 
-          <p class="mt-1 text-base leading-7 text-subtle">
-            <%= truncate track.description, length: 400 %>
-          </p>
+          <% if !local_assigns[:expanded] %>
+            <p class="mt-1 text-base leading-7 text-subtle">
+              <%= truncate track.description, length: 400 %>
+            </p>
+          <% else %>
+            <p class="mt-1 text-base leading-7 text-subtle">
+              <%= track.description %>
+            </p>
+          <% end %>
           
-          <div class="mt-4 flex items-center gap-4">
-            <button type="button" aria-label="Play episode 5: Bill Lumbergh" class="flex items-center gap-x-3 text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900">
+          <div class="mt-4 flex items-center gap-4" data-controller="trackplayer" 
+            data-controller="trackplayer" 
+            data-trackplayer-height-value="70" 
+            data-trackplayer-id-value="<%= track.id %>"
+            data-trackplayer-url-value="<%= track.mp3_audio.url %>"
+            data-trackplayer-url-link-value="<%= player_path(id: track, t: true) %>"
+            data-trackplayer-peaks-value="<%= track.peaks || "[]" %>">
+
+            <button type="button" 
+              data-action="trackplayer#play" 
+              data-trackplayer-target="play" 
+              data-url="<%= player_url(id: track, t: true) %>"
+              class="player-button">
+              <span class="sr-only">Jugar</span>
+              <svg data-trackplayer-target="playicon" 
+                style="display:none" 
+                viewBox="0 0 15 15" class="h-6 w-6" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="15" height="15">
+                <path d="M5.5 3v9m4-9v9" stroke="currentColor"></path>
+              </svg>
+              <svg data-trackplayer-target="pauseicon" 
+                viewBox="0 0 15 15" 
+                class="h-6 w-6" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="15" height="15">
+                <path d="M4.5 12.5v-10l7 5-7 5z" stroke="currentColor" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+
+
+            <button type="button" data-action="trackplayer#pause" data-trackplayer-target="pause" class="hidden -ml-px relative inline-flex items-center px-2 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+              <span class="sr-only">Siguiente</span>
+              <svg viewBox="0 0 15 15" class="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
+                <path d="M11.5 3.5h-8v8h8v-8z" stroke="currentColor"></path>
+              </svg>
+            </button>
+
+            <!--
+            <button type="button" 
+              data-action="trackplayer#play" 
+              data-trackplayer-target="play"
+              data-url="<%= player_path(id: track, t: true) %>" 
+              aria-label="Play episode: <%= track.title %>" 
+              class="flex items-center gap-x-3 text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900">
               <svg aria-hidden="true" viewBox="0 0 10 10" class="h-2.5 w-2.5 fill-current">
                 <path d="M8.25 4.567a.5.5 0 0 1 0 .866l-7.5 4.33A.5.5 0 0 1 0 9.33V.67A.5.5 0 0 1 .75.237l7.5 4.33Z"></path>
               </svg>
               <span aria-hidden="true">Listen</span>
             </button>
+            -->
+
             <span aria-hidden="true" class="text-sm font-bold text-slate-400">/</span>
-            <a class="flex items-center text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900" aria-label="Show notes for episode 5: Bill Lumbergh" href="/5">Show notes</a>
+           
+            <% if local_assigns[:expanded] %>
+              <%= link_to user_podcasts_path(@user.username), data: {turbo_frame: "_top"}, class: "flex items-center text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900" do %>
+                <%= t("back")%>
+              <% end %>
+            <% else %>
+              <%= link_to user_podcast_path(@user.username, track), data: {turbo_frame: "_top"}, class: "flex items-center text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900" do %>
+                <%= t("podcast.show_notes")%>
+              <% end %>
+            <% end %>
           </div>
 
         </div>

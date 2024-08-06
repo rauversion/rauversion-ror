@@ -1,0 +1,97 @@
+<header class="bg-default lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
+  <div class="hidden lg:sticky lg:top-0 lg:flex lg:w-16 lg:flex-none lg:items-center lg:whitespace-nowrap lg:py-12 lg:text-sm lg:leading-7 lg:[writing-mode:vertical-rl]">
+    <span class="font-mono text-muted"><%= t("podcasts.hosted_by") %></span>
+    <span class="mt-6 flex gap-6 font-bold text-default">
+      <%= link_to @user.username , user_path(@user.username) %> 
+      <span aria-hidden="true" class="text-slate-400">/</span>
+      </span>
+  </div>
+  <div class="relative z-10 mx-auto px-4 pb-12 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-subtle lg:px-8 lg:py-20 xl:px-20">
+    <a class="relative mx-auto block w-48 overflow-hidden rounded-lg bg-muted shadow-xl shadow-muted sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl" aria-label="Homepage" href="/">
+      <% if @user.podcaster_info.avatar.present? %>
+        <%= image_tag @user.podcaster_info.avatar, class: "w-full", style: "color:transparent" %>
+      <% elsif @user.avatar.present? %>
+        <%= image_tag @user.avatar_url(:medium), class: "w-full", style: "color:transparent" %>
+      <% end %>
+
+      <!--<img alt="" fetchpriority="high" width="960" height="960" decoding="async" data-nimg="1" class="w-full" style="color:transparent" sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem" 
+      srcset="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=16&amp;q=75 16w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=32&amp;q=75 32w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=48&amp;q=75 48w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=64&amp;q=75 64w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=96&amp;q=75 96w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=128&amp;q=75 128w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=256&amp;q=75 256w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=384&amp;q=75 384w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=640&amp;q=75 640w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=750&amp;q=75 750w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=828&amp;q=75 828w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=3840&amp;q=75 3840w" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fposter.11292dc0.png&amp;w=3840&amp;q=75">
+      -->
+      <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 sm:rounded-xl lg:rounded-2xl"></div>
+    </a>
+    <div class="mt-10 text-center lg:mt-12 lg:text-left">
+      <p class="text-xl font-bold text-default">
+        <%= link_to @user.podcaster_info.title, user_podcasts_path %>
+      </p>
+      <p class="mt-3 text-lg font-medium leading-8 text-subtle">
+        <%= @user.podcaster_info.description  %>
+      </p>
+    </div>
+    <section class="mt-12 hidden lg:block">
+      <h2 class="flex items-center font-mono text-sm font-medium leading-7 text-default">
+        <svg aria-hidden="true" viewBox="0 0 10 10" class="h-2.5 w-2.5">
+          <path d="M0 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5Z" class="fill-violet-300"></path>
+          <path d="M6 1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V1Z" class="fill-pink-300"></path>
+        </svg>
+        <span class="ml-2.5">
+          <%= t("podcast.about") %>
+        </span>
+      </h2>
+      <p class="mt-2 text-base leading-7 text-subtle lg:line-clamp-4">
+        <%= @user.podcaster_info.about  %>
+      </p>
+      <%= link_to about_user_podcasts_path, class: "mt-2 hidden text-sm font-bold leading-6 text-pink-500 hover:text-pink-700 active:text-pink-900 lg:inline-block" do %>
+        <%= t("podcast.show_more") %>
+      <% end %>
+    </section>
+    <section class="mt-10 lg:mt-12">
+      <h2 class="sr-only flex items-center font-mono text-sm font-medium leading-7 text-default lg:not-sr-only">
+        <svg aria-hidden="true" viewBox="0 0 10 10" class="h-2.5 w-2.5">
+          <path d="M0 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5Z" class="fill-indigo-300"></path>
+          <path d="M6 1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V1Z" class="fill-blue-300"></path>
+        </svg>
+        <span class="ml-2.5">
+          <%= t("podcast.listen") %>
+        </span>
+      </h2>
+      <div class="h-px bg-gradient-to-r from-subtle/0 via-subtle to-subtle/0 lg:hidden"></div>
+      <ul role="list" class="mt-4 flex justify-center gap-10 text-base font-medium leading-7 text-subtle sm:gap-8 lg:flex-col lg:gap-4">
+
+
+        <% if @user.podcaster_info %>
+          <% podcast_links = {
+            spotify: @user.podcaster_info.spotify_url,
+            apple_podcasts: @user.podcaster_info.apple_podcasts_url,
+            overcast: @user.podcaster_info.overcast_url,
+            google_podcasts: @user.podcaster_info.google_podcasts_url,
+            stitcher: @user.podcaster_info.stitcher_url,
+            pocket_casts: @user.podcaster_info.pocket_casts_url
+          } %>
+
+          <% podcast_links.compact.each do |platform, url| %>
+            <% if url.present? %>
+              <li class="flex">
+                <a class="group flex items-center" aria-label="<%= platform.to_s.titleize %>" href="<%= url %>">
+                  <%= render partial: "podcast_icons", locals: { platform: platform } %>
+                  <span class="hidden sm:ml-3 sm:block"><%= platform.to_s.titleize %></span>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+
+        <li class="flex">
+          <%= link_to user_rss_podcast_path, class: "group flex items-center", "aria-label": "RSS Feed" do %>
+            <svg aria-hidden="true" viewBox="0 0 32 32" class="h-8 w-8 fill-slate-400 group-hover:fill-slate-600">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 4h15A4.5 4.5 0 0 1 28 8.5v15a4.5 4.5 0 0 1-4.5 4.5h-15A4.5 4.5 0 0 1 4 23.5v-15A4.5 4.5 0 0 1 8.5 4ZM13 22a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-6-6a9 9 0 0 1 9 9h3A12 12 0 0 0 7 13v3Zm5.74-4.858A15 15 0 0 0 7 10V7a18 18 0 0 1 18 18h-3a15 15 0 0 0-9.26-13.858Z"></path>
+            </svg>
+            <span class="hidden sm:ml-3 sm:block">
+               <%= t("podcast.rss_feed") %>
+            </span>
+          <% end %>
+        </li>
+      </ul>
+    </section>
+  </div>
+</header>

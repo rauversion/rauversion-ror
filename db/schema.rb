@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_053122) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_030744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -316,6 +316,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_053122) do
     t.datetime "updated_at", null: false
     t.jsonb "settings"
     t.boolean "highlight"
+    t.jsonb "data"
     t.index ["user_id"], name: "index_podcaster_infos_on_user_id"
   end
 
@@ -610,6 +611,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_053122) do
     t.string "genre"
     t.string "tags", default: [], array: true
     t.integer "label_id"
+    t.boolean "podcast"
     t.index ["label_id"], name: "index_tracks_on_label_id"
     t.index ["slug"], name: "index_tracks_on_slug"
     t.index ["tags"], name: "index_tracks_on_tags", using: :gin
