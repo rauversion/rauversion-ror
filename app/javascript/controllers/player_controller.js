@@ -126,10 +126,9 @@ export default class extends Controller {
     this.peaks = this.peaksValue
     this.url = this.urlValue
 
-    console.log("OELLELE", this.playerTarget)
     this._wave = WaveSurfer.create({
       container: this.playerTarget,
-      autoplay: true,
+      autoplay: false,
       waveColor: 'grey',
       //progressColor: 'tomato',
       progressColor: '#ddd',
