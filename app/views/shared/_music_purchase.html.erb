@@ -1,16 +1,26 @@
 <div id="xx-5">
   <div class="text-xl font-bold space-x-2">
-    <%= link_to new_track_track_purchase_path(@track), 
-      "data-turbo-frame": "modal", 
-      class: "hover:underline dark:border-white border-black rounded-lg border-2 p-2 bg-green-500 hover:bg-green-500/90" do %> 
-      <%= t("tracks.buy_digital_music")%>
+    <% if resource.is_a?(Track) %>
+      <%= link_to new_track_track_purchase_path(resource), 
+        "data-turbo-frame": "modal", 
+        class: "hover:underline dark:border-white border-black rounded-lg border-2 p-2 bg-green-500 hover:bg-green-500/90" do %> 
+        <%= t("tracks.buy_digital_music")%>
+      <% end %>
+    <% end %>
+    <% if resource.is_a?(Playlist) %>
+      <%= link_to new_playlist_playlist_purchase_path(resource), 
+        "data-turbo-frame": "modal", 
+        class: "hover:underline dark:border-white border-black rounded-lg border-2 p-2 bg-green-500 hover:bg-green-500/90" do %> 
+        <%= t("tracks.buy_digital_music")%>
+      <% end %>
     <% end %>
     <span> <%= number_to_currency(resource.price) %> <span class="text-gray-700 dark:text-gray-300"> USD </span>
     </span>
 
-    <% if resource.name_your_price? %>
+    <% if resource.name_your_price.present? %>
       <span class="text-gray-700 dark:text-gray-300"> (<%= t("tracks.or_more") %>) </span>
     <% end %>
+    
   </div>
 </div>
 

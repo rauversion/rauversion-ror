@@ -1,60 +1,54 @@
-class TrackPurchasesController < ApplicationController
+class PlaylistPurchasesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @track = Track.friendly.find(params[:track_id])
+    @playlist = Playlist.friendly.find(params[:playlist_id])
     @payment = Payment.new
-    @payment.assign_attributes(initial_price: @track.price)
+    @payment.assign_attributes(initial_price: @playlist.price)
     @purchase = current_user.purchases.new
   end
 
   def create
-    @track = Track.friendly.find(params[:track_id])
+    @playlist = Playlist.friendly.find(params[:playlist_id])
     @payment = Payment.new
     @payment.assign_attributes(build_params)
 
-    # When a customer purchases a ticket for an event:
     customer = current_user
 
-    price = @track.price
+    price = @playlist.price
     price_param = build_params[:price].to_f
-    if @track.name_your_price? && price_param && price_param > @track.price
+    if @playlist.name_your_price? && price_param && price_param > @playlist.price.to_f
       price = price_param
     end
 
-    @purchase = current_user.purchases.new(purchasable: @track, price: price)
+    @purchase = current_user.purchases.new(purchasable: @playlist, price: price)
 
     @purchase.virtual_purchased = [
-      VirtualPurchasedItem.new({resource: @track, quantity: 1})
+      VirtualPurchasedItem.new({resource: @playlist, quantity: 1})
     ]
 
     handle_stripe_session
   end
 
   def handle_stripe_session
-    # @purchase.errors.add(:base, "hahahaha")
-    account = @track.user.oauth_credentials.find_by(provider: "stripe_connect")
+    account = @playlist.user.oauth_credentials.find_by(provider: "stripe_connect")
     Stripe.stripe_account = account.uid unless account.blank?
 
     ActiveRecord::Base.transaction do
       @purchase.store_items
       @purchase.save
 
-      line_items = @purchase.purchased_items.group(:purchased_item_id).count.map do |k, v|
-        {
-          "quantity" => 1,
-          "price_data" => {
-            "unit_amount" => ((@purchase.price * v) * 100).to_i,
-            "currency" => "USD",
-            "product_data" => {
-              "name" => @track.title,
-              "description" => "#{@track.title} from #{@track.user.username}"
-            }
+      line_items = [{
+        "quantity" => 1,
+        "price_data" => {
+          "unit_amount" => (@purchase.price * 100).to_i,
+          "currency" => "USD",
+          "product_data" => {
+            "name" => @playlist.title,
+            "description" => "#{@playlist.title} from #{@playlist.user.username}"
           }
         }
-      end
-
-      puts line_items
+      }]
 
       fee_amount = ENV.fetch('PLATFORM_EVENTS_FEE', 3).to_i
 
@@ -63,9 +57,6 @@ class TrackPurchasesController < ApplicationController
       if account
         payment_intent_data = {
           application_fee_amount: fee_amount
-          # "transfer_data"=> %{
-          #  "destination"=> c.uid
-          # }
         }
       end
 
@@ -75,8 +66,8 @@ class TrackPurchasesController < ApplicationController
         payment_intent_data: payment_intent_data,
         customer_email: current_user.email,
         mode: "payment",
-        success_url: success_track_track_purchase_url(@track, @purchase), # Replace with your success URL
-        cancel_url: failure_track_track_purchase_url(@track, @purchase)   # Replace with your cancel URL
+        success_url: success_playlist_playlist_purchase_url(@playlist, @purchase),
+        cancel_url: failure_playlist_playlist_purchase_url(@playlist, @purchase)
       )
 
       @purchase.update(
@@ -89,22 +80,24 @@ class TrackPurchasesController < ApplicationController
   end
 
   def success
-    @track = Track.friendly.find(params[:track_id])
+    @playlist = Playlist.friendly.find(params[:playlist_id])
     @purchase = current_user.purchases.find(params[:id])
 
     if params[:enc].present?
       decoded_purchase = Purchase.find_signed(CGI.unescape(params[:enc]))
-      @purchase.complete_purchase! if decoded_purchase.id = @purchase.id
+      @purchase.complete_purchase! if decoded_purchase.id == @purchase.id
     end
 
     render "show"
   end
 
   def failure
-    @track = Track.friendly.find(params[:track_id])
+    @playlist = Playlist.friendly.find(params[:playlist_id])
     @purchase = current_user.purchases.find(params[:id])
     render "show"
   end
+
+  private
 
   def build_params
     params.require(:payment).permit(

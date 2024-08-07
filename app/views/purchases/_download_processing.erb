@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "purchase_#{purchase.id}_download" do %>
+  <p>Your download is being prepared...</p>
+  <%= turbo_frame_tag "purchase_#{purchase.id}_download_status", src: check_zip_status_purchase_path(purchase), refresh: { interval: 5000 } %>
+<% end %>

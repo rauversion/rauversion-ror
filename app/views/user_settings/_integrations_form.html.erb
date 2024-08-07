@@ -10,7 +10,7 @@
           <% @user.oauth_credentials.each do |integration| %>
             <li class="col-span-1 flex shadow-sm rounded-md">
               <div class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
-                <%= integration.provider %>
+                <span class="p-2"><%= integration.provider.humanize %></span>
               </div>
               <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 rounded-r-md truncate">
                 <div class="flex-1 px-4 py-2 text-sm truncate" data-turbo="true">
@@ -36,7 +36,7 @@
             <% unless @user.oauth_credentials.map(&:provider).include?(provider.to_s) %>
               <li class="col-span-1 flex shadow-sm rounded-md">
                 <div class="flex-shrink-0 flex items-center justify-center w-16 bg-gray-600 text-white text-sm font-medium rounded-l-md">
-                  <%= provider.to_s.titleize %>
+                  <span class="p-2"><%= provider.to_s.humanize %></span>
                 </div>
                 <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 rounded-r-md truncate">
                   <div class="flex-1 px-4 py-2 text-sm truncate">

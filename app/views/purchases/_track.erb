@@ -1,8 +1,5 @@
     <div class="">
      
-     <%= purchase.id %>
-     <%= purchase.state %>
-
       <div class="flex justify-between items-center">
         <% purchase.purchased_items.each do |item|%>
 
@@ -12,21 +9,26 @@
             ) %>
 
             <div>
-              <%= link_to track_path(item.purchased_item.slug) do %>
+              <%= link_to item.purchased_item do %>
                 <h3 class="text-2xl"><%= item.purchased_item.title %></h3>
-                <span><%= gettext("Created at:") %> <%= purchase.created_at %></span>
+                <span><%= gettext("Created at:") %> <%= l purchase.created_at, format: :short %></span>
               <% end %>
             </div>
           </div>
         <% end %>
 
 
+        <% case purchase.state %>
+        <% when "paid" %>
+          <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Paid</span>
+        <% when "pending" %>
+          <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Pending</span>
+        <% end %>
+
         <% if purchase.is_downloadable?  %>
-          <p class="truncate text-sm font-medium text-brand-600">
-            <%= link_to purchase_url(purchase.signed_id), class: "group block", target: "_blank" do %>
-              <%= gettext("Download link") %>
-            <% end %>
-          </p>
+          <%= turbo_frame_tag "purchase_#{purchase.id}_download" do %>
+            <%= button_to "Prepare Download", download_purchase_path(purchase), method: :get, class: "truncate text-sm font-medium text-brand-600" %>
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "purchase_#{purchase.id}_download" do %>
+  <%= link_to "Download ZIP", purchase.purchasable.zip.url(expires_in: 5.minute, disposition: "attachment"), class: "btn btn-primary" %>
+  (This links lasts 5 minutes)
+<% end %>

@@ -151,7 +151,6 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-    # Conditionally build the label if options[:label] is not false
     info = ""
     unless options[:label] == false
       info = @template.label_tag(
@@ -160,14 +159,22 @@ class TailwindFormBuilder < ActionView::Helpers::FormBuilder
       ) + field_details(method, object, options)
     end
 
-    # Merge in default class unless a specific class has been provided in options
     options.merge!(class: "self-center mt-1-- mr-2 form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out") unless options.key?(:class)
 
-    # Create the checkbox and, conditionally, its label
+    hint = ""
+    if options[:hint].present?
+      hint_text = options[:hint].is_a?(Proc) ? @template.capture(&options[:hint]) : options[:hint]
+      hint = @template.content_tag(:p, hint_text.html_safe, class: "mt-1 text-sm text-gray-500")
+    end
+
     @template.tag.div(class: "flex items-center space-x-2") do
-      @template.check_box(
+      checkbox = @template.check_box(
         @object_name, method, objectify_options(options), checked_value, unchecked_value
-      ) + (info.present? ? @template.tag.div(class: "flex-col items-center") { info } : "".html_safe)
+      )
+      label_and_hint = @template.tag.div(class: "flex-col items-center") do
+        (info + hint).html_safe
+      end
+      checkbox + label_and_hint
     end
   end
 

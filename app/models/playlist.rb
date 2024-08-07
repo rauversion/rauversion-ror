@@ -57,6 +57,10 @@ class Playlist < ApplicationRecord
   store_accessor :metadata, :price, :decimal
   store_accessor :metadata, :name_your_price, :boolean
 
+  def name_your_price?
+    name_your_price.present?
+  end
+
   def cover_url(size = nil)
     url = case size
     when :medium

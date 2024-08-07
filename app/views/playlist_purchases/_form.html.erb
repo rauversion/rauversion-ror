@@ -1,6 +1,6 @@
 <% if @purchase.new_record? %>
   <div id="purchase-form">
-    <%= form_for @payment, url: track_track_purchases_path(@track) do |form| %>
+    <%= form_for @payment, url: playlist_playlist_purchases_path(@playlist) do |form| %>
       
       <span class="text-xl py-4">
         <%= t("payments.buy_digital_track") %>
@@ -14,7 +14,7 @@
           <%= gettext("Price") %>
         </label>
 
-        <% if @track.name_your_price %>
+        <% if @playlist.name_your_price %>
           <div class="mt-1 flex rounded-md shadow-sm">
             <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-900 dark:border-gray-800 bg-gray-50 px-3 text-sm text-gray-500 dark:text-white">
               $
@@ -22,12 +22,12 @@
             <%= form.text_field( :price,
               label: false,
               class: "block w-64 flex-1- rounded-none rounded-r-md border-gray-300 dark:border-gray-800 dark:bg-gray-800 focus:border-brand-500 focus:ring-brand-500 sm:text-sm",
-              placeholder: t("payments.name_your_price", num: number_to_currency(@track.price, precision: 2) )
+              placeholder: t("payments.name_your_price", num: number_to_currency(@playlist.price, precision: 2) )
             ) %>
           </div>
         <% else %>
           <div class="text-xl">
-            <%= number_to_currency(@track.price, precision: 2) %>
+            <%= number_to_currency(@playlist.price, precision: 2) %>
           </div>
         <% end %>
       </div>

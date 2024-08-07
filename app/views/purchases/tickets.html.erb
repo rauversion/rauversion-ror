@@ -118,7 +118,7 @@
                       <div class="hidden md:block">
                         <div>
                           <p class="text-sm text-gray-900 dark:text-gray-100">
-                            purchased on: <%= "Cldr.DateTime.to_string!(ticket.inserted_at)" %>
+                            purchased on: <%= l(purchase.created_at, format: :short) %>
                           </p>
 
                           <% if false #ticket.checked_in_at %>

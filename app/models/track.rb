@@ -113,6 +113,10 @@ class Track < ApplicationRecord
     end
   end
 
+  def presicion_for_currency
+    0
+  end
+
   def cover_url(size = nil)
     url = case size
     when :medium

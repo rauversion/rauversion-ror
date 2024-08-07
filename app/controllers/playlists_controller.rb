@@ -70,6 +70,7 @@ class PlaylistsController < ApplicationController
       :record_label, :buy_link, :buy_link_title,
       :enable_label,
       :copyright,
+      :name_your_price,
       :attribution, :noncommercial, :non_derivative_works, :copies,
       track_playlists_attributes: [
         :id,

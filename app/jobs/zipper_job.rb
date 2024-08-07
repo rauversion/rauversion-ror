@@ -3,8 +3,16 @@ require "zip"
 class ZipperJob < ApplicationJob
   queue_as :default
 
-  def perform(track_id: nil, playlist_id: nil)
-    if track_id
+  def perform(track_id: nil, playlist_id: nil, purchase_id: nil)
+    if purchase_id
+      purchase = Purchase.find(purchase_id)
+      resource = purchase.purchasable
+      if resource.is_a?(Track) 
+        track_zip(resource)
+      elsif resource.is_a?(Playlist)
+        playlist_zip(resource)
+      end 
+    elsif track_id
       track = Track.find_by(id: track_id)
       return unless track
       track_zip(track)
@@ -52,32 +60,62 @@ class ZipperJob < ApplicationJob
     Rails.logger.error "Error zipping track #{record.id}: #{e.message}"
   end
 
+
   def playlist_zip(playlist)
-    zipfile_path = Rails.root.join("tmp", "#{playlist.slug}-#{playlist.id}.zip")
-
-    Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-      playlist.tracks.each do |track|
-        next unless track.audio.attached?
-
-        audio_path = Rails.root.join("tmp", track.slug)
-        track.audio.download do |chunk|
-          File.open(audio_path, "ab") { |file| file.write(chunk) }
+    zip_file = Tempfile.new(["#{playlist.slug}-#{playlist.id}", '.zip'])
+  
+    begin
+      Zip::File.open(zip_file.path, Zip::File::CREATE) do |zipfile|
+        playlist.tracks.each do |track|
+          next unless track.audio.attached?
+  
+          begin
+            track.audio.open do |file|
+              # Use the original filename from the blob
+              filename = track.audio.filename.to_s
+              # Add the file directly to the zip without creating a separate temp file
+              zipfile.get_output_stream(filename) do |os|
+                IO.copy_stream(file, os)
+              end
+            end
+          rescue StandardError => e
+            Rails.logger.error("Error processing track #{track.id}: #{e.message}")
+          end
         end
-
-        zipfile.add(track.audio.filename.to_s, audio_path)
-        File.delete(audio_path) # Clean up the downloaded audio file
       end
+  
+      # Attach the zipped file to the playlist
+      playlist.zip.attach(
+        io: File.open(zip_file.path),
+        filename: "#{playlist.slug}.zip",
+        content_type: 'application/zip'
+      )
+  
+      # # Broadcast the update (commented out as requested)
+      # Turbo::StreamsChannel.broadcast_replace_to(
+      #   "playlist_#{playlist.id}",
+      #   target: "playlist_#{playlist.id}_download",
+      #   partial: 'playlists/download_ready',
+      #   locals: { playlist: playlist }
+      # )
+  
+      true # Return true if successful
+    rescue StandardError => e
+      Rails.logger.error("Failed to create zip for playlist #{playlist.id}: #{e.message}")
+      
+      # # Broadcast error message (commented out as requested)
+      # Turbo::StreamsChannel.broadcast_replace_to(
+      #   "playlist_#{playlist.id}",
+      #   target: "playlist_#{playlist.id}_download",
+      #   partial: 'playlists/download_error',
+      #   locals: { playlist: playlist, error: e.message }
+      # )
+  
+      false # Return false if failed
+    ensure
+      zip_file.close
+      zip_file.unlink
     end
-
-    # Here you can attach the zipped file to the playlist or whatever you want
-    # e.g.
-    playlist.zip.attach(
-      io: File.open(zipfile_path),
-      filename: "#{playlist.slug}.zip"
-    )
-    # or store it somewhere else or let the user download it directly.
-
-    # Clean up the generated zip file if you're not attaching it
-    File.delete(zipfile_path)
   end
+
 end

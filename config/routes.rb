@@ -90,6 +90,11 @@ Rails.application.routes.draw do
       get :tickets
       get :music
     end
+
+    member do
+      get :download
+      get :check_zip_status
+    end
   end
 
   devise_for :users, controllers: {
@@ -160,6 +165,14 @@ Rails.application.routes.draw do
     member do
       post :sort
     end
+
+    resources :playlist_purchases, only: [:new, :create] do
+      member do
+        get :success
+        get :failure
+      end
+    end
+
   end
 
   resources :track_playlists

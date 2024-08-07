@@ -291,6 +291,12 @@
         <%= auto_link sanitize(@playlist.description, auto_link: true) %>
       </div>
 
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <% if @playlist.price %>
+          <%= render "shared/music_purchase", resource: @playlist %>
+        <% end %>
+      </div>
+
     </div>
 
 

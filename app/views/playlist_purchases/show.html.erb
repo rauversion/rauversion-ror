@@ -43,12 +43,12 @@
 
                 <div class="mt-6 sm:ml-6 sm:mt-0">
                   <h3 class="text-base font-medium text-default">
-                    <%= link_to item.purchased_item.title, track_path(@track) %>
+                    <%= link_to item.purchased_item.title, playlist_path(@playlist) %>
                   </h3>
                   <p class="mt-2 text-sm font-medium text-default"><%= number_to_currency item.purchased_item.price %></p>
                   <p class="mt-3 text-sm text-default0">
                     <%= item.purchased_item.zip.url %> ooo
-                    <%= link_to "Downloads", item.purchased_item.zip.url %>
+                    <% # link_to "Downloads", item.purchased_item.zip.url %>
                   </p>
                 </div>
               </div>

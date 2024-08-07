@@ -15,12 +15,27 @@ class PurchasedItem < ApplicationRecord
 
   def qr
     url = Rails.application.routes.url_helpers.event_event_ticket_url(purchase.purchasable, signed_id)
-    encoded_url = ERB::Util.url_encode(url)
-    size = 120
-    data_param = "chl=#{encoded_url}"
-    google_charts_url = "https://chart.googleapis.com/chart?cht=qr&chs=#{size}x#{size}&#{data_param}"
+    qrcode = RQRCode::QRCode.new(url)
+    
+    # Generate PNG data
+    png = qrcode.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: 'black',
+      file: nil,
+      fill: 'white',
+      module_px_size: 6,
+      resize_exactly_to: false,
+      resize_gte_to: false,
+      size: 250
+    )
+  
+    # Convert to base64 for embedding in HTML
+    base64_image = Base64.strict_encode64(png.to_s)
+    "data:image/png;base64,#{base64_image}"
   end
-
+  
   def toggle_check_in!
     if checked_in?
       update({checked_in: false, checked_in_at: nil})

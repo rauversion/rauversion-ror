@@ -213,7 +213,7 @@
 
   .select,
   select {
-    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-default ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-md border-0 px-3 pl-3 pr-10 text-default ring-1 ring-inset ring-subtle focus:ring-2 focus:ring-brand-600 sm:text-sm sm:leading-6;
   }
 
   label {
@@ -261,11 +261,11 @@
       oijoijoij
   } */
   .my-react-select-container .my-react-select__control {
-    @apply bg-white dark:bg-neutral-700 border-2 border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500;
+    @apply bg-default border-2 border-subtle hover:border-muted;
   }
 
   .my-react-select-container .my-react-select__control--is-focused {
-    @apply border-neutral-500 hover:border-neutral-500 dark:border-neutral-400 dark:hover:border-neutral-400 shadow-none;
+    @apply border-subtle hover:border-subtle shadow-none;
   }
 
   .my-react-select-container .my-react-select__menu {
