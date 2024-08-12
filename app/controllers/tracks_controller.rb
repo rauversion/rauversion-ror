@@ -136,7 +136,7 @@ class TracksController < ApplicationController
       :enable_label,
       :step,
       audio: [], tracks_attributes: [
-        :audio, :cover, :title, :tags, :description
+        :audio, :cover, :title, :description, :private, tags: []
       ]
     )
   end

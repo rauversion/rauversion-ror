@@ -26,6 +26,36 @@
           </dd>
         </div>
 
+        <% if @product_item.shipping_address.present? %>
+          <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-muted">Shipping Address</dt>
+            <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
+              <ul class="border border-subtle rounded-md divide-y divide-subtle">
+                
+                <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                  <div class="w-0 flex-1 flex items-center">
+                    <span class="ml-2 flex-1 w-0 truncate">
+                      Name: <%= @product_item.shipping_name %>
+                    </span>
+                  </div>
+                </li>
+
+                <% @product_item.shipping_address.each do |key, value| %>
+                  <% if value.present? %>
+                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                      <div class="w-0 flex-1 flex items-center">
+                        <span class="ml-2 flex-1 w-0 truncate">
+                          <%= key.titleize %>: <%= value %>
+                        </span>
+                      </div>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </dd>
+          </div>
+        <% end %>
+
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-muted">Payment Status</dt>
           <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
