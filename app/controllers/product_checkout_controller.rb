@@ -75,16 +75,16 @@ class ProductCheckoutController < ApplicationController
       stripe_session = Stripe::Checkout::Session.retrieve(@purchase.stripe_session_id)
       
       if stripe_session.payment_status == 'paid'
-        shipping_cost = stripe_session.shipping_cost.amount_total / 100.0
+        shipping_cost = stripe_session.shipping_cost.amount_total / 100.0 rescue 0
         total_amount = stripe_session.amount_total / 100.0
   
         payment_intent = Stripe::PaymentIntent.retrieve(stripe_session.payment_intent)
 
         @purchase.update(
           status: :completed,
-          shipping_address: stripe_session.shipping_details.address.to_h,
-          shipping_name: stripe_session.shipping_details.name,
-          phone: stripe_session.customer_details.phone,
+          shipping_address: stripe_session&.shipping_details&.address&.to_h,
+          shipping_name: stripe_session&.shipping_details&.name,
+          phone: stripe_session&.customer_details&.phone,
           shipping_cost: shipping_cost,
           total_amount: total_amount,
           payment_intent_id: payment_intent["id"]
@@ -94,11 +94,14 @@ class ProductCheckoutController < ApplicationController
         
         @purchase.product_purchase_items.create(cart.product_cart_items.map { |item|
           product = item.product
-          shipping = product.product_shippings.find_by(country: stripe_session.shipping_details.address.country) ||
-                     product.product_shippings.find_by(country: 'Rest of World')
-          
-          additional_shipping_cost = shipping ? (item.quantity - 1) * shipping.additional_cost : 0
-  
+          shipping = nil
+          additional_shipping_cost = 0
+          if stripe_session.shipping_details.present?
+            shipping = product.product_shippings.find_by(country: stripe_session.shipping_details.address.country) ||
+                      product.product_shippings.find_by(country: 'Rest of World')
+            
+            additional_shipping_cost = shipping ? (item.quantity - 1) * shipping.additional_cost : 0
+          end
           {
             product: product,
             quantity: item.quantity,

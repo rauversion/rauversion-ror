@@ -53,6 +53,9 @@
                     <p class="mt-2 text-sm font-medium text-default">
                       Shipping cost: <%= number_to_currency(item.shipping_cost) %>
                     </p>
+                    <p class="mt-2 text-sm font-medium text-default">
+                      Quantity: <%= item.quantity %>
+                    </p>
                   </div>
 
                 <% end %>
@@ -67,7 +70,7 @@
 
                       <span class="block"><%= purchase.line1 %></span>
                       <span class="block"><%= purchase.line2 %> <%= purchase.postal_code %></span>
-                      <span class="block"><%= purchase.city %>, <%= purchase.state %>, <%= purchase.country %></span>
+                      <span class="block"><%= [purchase.city, purchase.state, purchase.country].compact.to_sentence %></span>
                     </dd>
                   </div>
 

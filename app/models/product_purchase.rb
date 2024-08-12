@@ -36,4 +36,8 @@ class ProductPurchase < ApplicationRecord
     completed? || shipped? || delivered?
   end
 
+  def total_quantity
+    product_purchase_items.sum(&:quantity)
+  end
+
 end

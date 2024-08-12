@@ -248,11 +248,11 @@
                     class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
                     <%= t("menu.my_products_merch") %>
                   <% end %>
-                <% end %>
-
-                <%= link_to "/sales",
-                  class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"  do %>
-                  <%= t("menu.my_sales") %>
+                
+                  <%= link_to "/sales",
+                    class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"  do %>
+                    <%= t("menu.my_sales") %>
+                  <% end %>
                 <% end %>
 
                 <%= link_to user_settings_path(current_user.username),
@@ -386,6 +386,18 @@
 
           <%= link_to "/purchases/tickets", class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
             <%= t("menu.my_purchases") %>
+          <% end %>
+
+          <% if current_user&.can_sell_products? %>
+            <%= link_to user_products_path(current_user.username),
+              class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>
+              <%= t("menu.my_products_merch") %>
+            <% end %>
+          
+            <%= link_to "/sales",
+              class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"  do %>
+              <%= t("menu.my_sales") %>
+            <% end %>
           <% end %>
           
           <%= link_to user_settings_path(current_user.username), class: "block px-4 py-2 text-sm text-gray-700 dark:text-gray-300" do %>

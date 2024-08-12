@@ -15,7 +15,9 @@
       <dl class="sm:divide-y sm:divide-emphasis">
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-muted">Quantity</dt>
-          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2"><%= @product_item.product_purchase_items.size %></dd>
+          <dd class="mt-1 text-sm text-default sm:mt-0 sm:col-span-2">
+            <%= @product_item.total_quantity %>
+          </dd>
         </div>
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-muted">Price</dt>
