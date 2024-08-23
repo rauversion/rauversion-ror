@@ -241,16 +241,24 @@
         </div>
       </div>
 
-      <% if @playlist.buy_link.present? %>
         <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
-          <div class="flex justify-end">
-            <%= link_to @playlist.buy_link_title || "Payment Link", 
-              @playlist.buy_link, 
-              target: :blank, 
-              class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+          <div class="flex justify-end items-center space-x-2">
+            <% if @playlist.buy_link.present? %>
+              <%= link_to @playlist.buy_link_title || "Payment Link", 
+                @playlist.buy_link, 
+                target: :blank, 
+                class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
+              
+            <% end %>
+
+            <% if @playlist.price %>
+              <%= render "shared/music_purchase", resource: @playlist %>
+            <% end %>
           </div>
         </div>
-      <% end %>
+      
+
+
 
       <!--
       <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">

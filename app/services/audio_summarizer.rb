@@ -19,6 +19,7 @@ class AudioSummarizer
       transcribe_chunk(chunk_path) 
     }
     text = transcriptions.join("\n")
+    puts text
     sumarize_transcription(text)
   ensure
     cleanup_temp_files(chunk_paths)

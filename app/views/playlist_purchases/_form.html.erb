@@ -14,7 +14,8 @@
           <%= gettext("Price") %>
         </label>
 
-        <% if @playlist.name_your_price %>
+
+        <% if @playlist.name_your_price && @playlist.name_your_price != "0" %>
           <div class="mt-1 flex rounded-md shadow-sm">
             <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-900 dark:border-gray-800 bg-gray-50 px-3 text-sm text-gray-500 dark:text-white">
               $
@@ -52,7 +53,7 @@
           <label class="hover:underline space-x-2 flex items-center">
             <%= form.check_box(:include_message) %>
             <span>
-              <%= t("payments.include_message", name: "foo") %>
+              <%= t("payments.include_message", name: @playlist.user.username) %>
             </span>
           </label>
         </p>
