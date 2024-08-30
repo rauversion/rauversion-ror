@@ -24,7 +24,11 @@ class TracksController < ApplicationController
       # @track = current_user.tracks.new(track_params)
       @track_form.user = current_user
       @track_form.private = track_bulk_params[:private]
-      @track_form.tracks_attributes = audios.map { |o| {audio: o} }
+      @track_form.tracks_attributes = audios.map { |o| 
+        {
+          audio: o
+        } 
+      }
       @track_form.step = "info"
     else
       @track_form.tracks_attributes_objects = track_bulk_params[:tracks_attributes]
@@ -135,7 +139,8 @@ class TracksController < ApplicationController
       :private,
       :enable_label,
       :step,
-      audio: [], tracks_attributes: [
+      audio: [], 
+      tracks_attributes: [
         :audio, :cover, :title, :description, :private, tags: []
       ]
     )

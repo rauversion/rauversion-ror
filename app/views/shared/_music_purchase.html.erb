@@ -1,16 +1,32 @@
-<div id="xx-5">
-  <div class="text-xl space-x-2">
+<%
+  classes = local_assigns[:variant] == :mini ?
+  {
+    border: "border",
+    text: "text-sm",
+    pad: "px-2 py-2",
+    m: "my-4"
+  } 
+  : 
+  {
+    border: "border-4",
+    text: "text-xl",
+    pad: "px-3 py-3"
+  } 
+%>
+
+<div id="xx-5" class="<%= classes[:m]%>">
+  <div class="<%= classes[:text] %> space-x-2">
     <% if resource.is_a?(Track) %>
       <%= link_to new_track_track_purchase_path(resource), 
         "data-turbo-frame": "modal", 
-        class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" do %> 
+        class: "#{classes[:pad]} underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4" do %> 
         <%= t("tracks.buy_digital_music")%>
       <% end %>
     <% end %>
     <% if resource.is_a?(Playlist) %>
       <%= link_to new_playlist_playlist_purchase_path(resource), 
         "data-turbo-frame": "modal", 
-        class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" do %> 
+        class: "#{classes[:pad]} #{classes[:border]} underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm" do %> 
         <%= t("tracks.buy_digital_music")%>
         <span> <%= number_to_currency(resource.price) %> <span class="text-gray-700 dark:text-gray-300"> USD </span> </span>
       <% end %>
@@ -23,7 +39,7 @@
   </div>
 </div>
 
-<% if @supporters.any? %>
+<% if @supporters && @supporters.any? %>
   <div class="sm:text-xl text-sm container mx-auto my-4 flex flex-col space-y-4">
     <h3 class="font-bold font-medium"><%= t("tracks.supporters") %></h3>
     <div class="-space-x-4">

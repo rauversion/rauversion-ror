@@ -149,33 +149,9 @@
             </div>
 
             <% if playlist.price %>
-              <!--<.live_component
-                module={RauversionWeb.PlaylistLive.BuyModalComponent}
-                id={"buy-modal-#{@playlist.id}"}
-                playlist={@playlist}
-                current_user={@current_user}
-              >-->
-                <button
-                  class="my-2 underline text-sm dark:bg-green-700 dark:border-green-500 dark:hover:bg-green-800 border-black rounded-sm border px-3 mt-2"
-                >
-                  <%= t("payments.buy_digital_album") %>
-                </button>
-
-                <span>
-                  <span class="font-bold">
-                  <%= number_to_currency(playlist.price, precision: 2) %>
-                  </span>
-                  <span class="text-gray-700 dark:text-gray-300">
-                    USD
-                  </span>
-                </span>
-
-                <% if playlist.name_your_price %>
-                  <span class="text-gray-700 dark:text-gray-300">
-                    <%= gettext("or more") %>
-                  </span>
-                <% end %>
-              <!--</.live_component>-->
+              <%= render "shared/music_purchase", 
+                resource: playlist,
+                variant: :mini %>
             <% end %>
           </div>
         </div>
