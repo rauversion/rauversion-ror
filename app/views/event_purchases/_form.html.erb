@@ -1,7 +1,7 @@
 <% if purchase.new_record? %>
     <%= form_for [@event, purchase], url: event_event_purchases_path(@event) do |form|%>
-      
-      
+
+
       <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
         <thead class="bg-gray-50-- dark:bg-gray-900--">
           <tr class="hidden sm:table-row">
@@ -27,27 +27,27 @@
                     <div class="font-medium text-gray-900 dark:text-gray-100">
                       <%= ticket.title %>
                     </div>
-                    <div class="text-gray-500 dark:text-gray-400">
+                    <div class="border-subtle">
                       <%= ticket.short_description %>
                     </div>
                   </div>
                 </div>
               </td>
 
-              <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+              <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm border-subtle">
                 <div class="text-gray-900 dark:text-gray-100 text-2xl">
                   <%= number_to_currency(ticket.price, unit: "$#{ticket.event.ticket_currency} " ) %>
                 </div>
               </td>
 
-              <td class="whitespace-nowrap-- px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+              <td class="whitespace-nowrap-- px-3 py-4 text-sm border-subtle">
                 <div class="flex flex-col space-y-2 sm:space-y-0">
                   <div class="flex items-center sm:hidden">
                     <div class="">
                       <div class="font-medium text-gray-900 dark:text-gray-100">
                         <%= ticket.title %>
                       </div>
-                      <div class="text-gray-500 dark:text-gray-400 break-all">
+                      <div class="border-subtle break-all">
                         <span class="overflow-wrap">
                           <%= ticket.short_description %>
                         </span>
@@ -55,7 +55,7 @@
                     </div>
                   </div>
                   <div class="flex sm:justify-center items-center space-x-3">
-                    
+
                     <% if ticket.free? %>
                       <div class="flex items-center space-x-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-600">
@@ -70,10 +70,10 @@
                     <%= form.fields_for :virtual_purchased, purchase.virtual_purchased do |ff| %>
                       <%= ff.hidden_field :ticket_id, value: ticket.id %>
                       <%= ff.number_field :quantity,
-                       min: 0, 
-                       maddx: ticket.qty, 
-                       step: 1, 
-                       label: false 
+                       min: 0,
+                       maddx: ticket.qty,
+                       step: 1,
+                       label: false
                       %>
                     <% end %>
                   </div>
@@ -82,11 +82,11 @@
 
             </tr>
           <% end %>
-        
+
         </tbody>
       </table>
 
-      
+
       <div class="flex justify-items-end">
         <%= form.submit "Place Order" %>
       </div>

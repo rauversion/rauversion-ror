@@ -46,7 +46,7 @@
       <% @supporters.each do |supporter| %>
         <%= link_to user_path(supporter.username) do %>
           <%= image_tag supporter.cover_url(:small), class: "relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" %>
-          <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> 
+          <h3 class="hidden mt-6 text-default  text-sm font-medium"> 
             <%= supporter.username %> 
           </h3>
         <% end %>

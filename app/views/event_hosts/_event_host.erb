@@ -1,5 +1,5 @@
-<li id="<%= "event-hosts-item-#{event_host.id}" %>" 
-  class="col-span-1 divide-y divide-gray-200 dark:divide-gray-800 rounded-lg bg-white dark:bg-gray-900 shadow">
+<li id="<%= "event-hosts-item-#{event_host.id}" %>"
+  class="col-span-1 divide-y divide-gray-200 dark:divide-gray-800 rounded-lg bg-default shadow">
   <div class="flex w-full items-center justify-between space-x-6 p-6">
     <div class="flex-1 truncate">
       <div class="flex flex-col items-start space-x-3 justify-center">
@@ -15,7 +15,7 @@
                 <li><%= event_host.user.username %></li>
               </ul>
             <% end %>
-          
+
           <div class="flex space-x-2">
             <div class="flex space-x-2">
               <% if event_host.listed_on_page %>
@@ -34,15 +34,15 @@
         </div>
 
         <div class="sm:col-span-6">
-          <%= link_to edit_event_event_host_path(event_host.event, event_host), 
-            class: "mt-2 inline-flex justify-center items-center text-white-600 block text-xs", 
+          <%= link_to edit_event_event_host_path(event_host.event, event_host),
+            class: "mt-2 inline-flex justify-center items-center text-white-600 block text-xs",
             data: { turbo_frame: 'modal' } do %>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"></path>
             </svg>
           <% end %>
 
-          <%= link_to event_event_host_path(event_host.event, event_host), 
+          <%= link_to event_event_host_path(event_host.event, event_host),
             class: "mt-2 inline-flex justify-center items-center text-white-600 block text-xs",
             data: {confirm: "??", turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -52,12 +52,12 @@
         </div>
       </div>
 
-      <p class="mt-1 truncate text-sm text-gray-500 dark:text-gray-400">
+      <p class="mt-1 truncate text-sm border-subtle">
         <%= event_host.description %>
       </p>
     </div>
 
     <%= image_tag event_host.user.avatar_url(:small), class: "h-10 w-10 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700" %>
-  
+
   </div>
 </li>

@@ -1,7 +1,7 @@
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mb-6 my-4">
     <div class="">
-      <div class="border-b--- border-gray-200 dark:border-gray-700">
+      <div class="border-b--- border-subtle dark:border-gray-700">
         <nav class="-mb-px flex space-x-8 text-2xl " aria-label="Tabs">
           <%= link_to t("events.my_events"), mine_events_path(tab: "all"), class: tab_class(@tab == "all") %>
           <%= link_to t("events.drafts"), mine_events_path(tab: "drafts"), class: tab_class(@tab == "drafts") %>
@@ -14,7 +14,7 @@
 
   <div class="sm:flex sm:items-center">
     <div class="sm:flex-auto">
-      <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <h1 class="text-xl font-semibold text-default ">
         <%= @tab.capitalize %> Events
       </h1>
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
@@ -29,30 +29,30 @@
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-300 dark:text-gray-700">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-muted">
+            <thead class="bg-muted">
               <tr>
                 <th
                   scope="col"
-                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-200 dark:bg-gray-900"
+                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-muted  "
                 >
                   Title
                 </th>
                 <th
                   scope="col"
-                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-200 dark:bg-gray-900"
+                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-muted  "
                 >
                   Author
                 </th>
                 <th
                   scope="col"
-                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-200 dark:bg-gray-900"
+                  class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-muted  "
                 >
                   Status
                 </th>
                 <th
                   scope="col"
-                  class="relative py-3 pl-3 pr-4 sm:pr-6 dark:text-gray-200 dark:bg-gray-900 "
+                  class="relative py-3 pl-3 pr-4 sm:pr-6   "
                 >
                   <span class="sr-only"><%= gettext("Edit") %></span>
                 </th>
@@ -61,17 +61,17 @@
             <tbody class="divide-y divide-gray-200 dark:divide-gray-800 bg-default">
               <% @events.each do |event| %>
                 <tr>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 dark:bg-gray-900 sm:pl-6">
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-default   sm:pl-6">
                     <%= event.title || "-- untitled --Access" %>
                   </td>
 
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 dark:bg-gray-900">
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-muted  ">
                     <%= event.user.username %>
                   </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-200 dark:bg-gray-900">
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-muted  ">
                     <%= event.state %>
                   </td>
-                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 dark:text-gray-200 dark:bg-gray-900">
+                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6  ">
                     <%= link_to t("edit"), edit_event_path(event), class: "link" %>
                   </td>
                 </tr>

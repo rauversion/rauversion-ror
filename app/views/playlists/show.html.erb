@@ -2,7 +2,7 @@
   <nav class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
     <%= link_to user_path(@playlist.user.username),
       "data-turbo-frame": "_top",
-      class: "inline-flex items-center space-x-3 text-sm font-medium text-gray-900 dark:text-gray-100" do %>
+      class: "inline-flex items-center space-x-3 text-sm font-medium text-default " do %>
       <svg
         class="-ml-2 h-5 w-5 text-gray-400 dark:text-gray-600"
         x-description="Heroicon name: solid/chevron-left"
@@ -26,12 +26,12 @@
   <article>
     <!-- Profile header -->
     <div>
- 
+
       <div class="flex flex-col sm:flex-row mb-6">
-        
+
         <!--
         <% if @track.present? %>
-          <div 
+          <div
             data-audio-id="<%= @track.id %>"
             data-audio-target="player"
             data-audio-height-value="250"
@@ -84,7 +84,7 @@
                   type="button"
                   data-action="audio#pause"
                   data-audio-target="pause"
-                  class="hidden -ml-px relative inline-flex-- items-center px-2 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-default text-sm font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  class="hidden -ml-px relative inline-flex-- items-center px-2 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-default text-sm font-medium text-muted hover:bg-muted dark:hover:bg-gray-900 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                 >
                   <span class="sr-only"><%= gettext("Next") %></span>
 
@@ -104,7 +104,7 @@
               <div class="ml-2 pl-6 pt-6">
                 <h4 class="text-lg font-bold flex items-center space-x-2">
                   <%= link_to @playlist.title, playlist_path(@playlist.slug) %>
-                  
+
                   <% if @playlist.album? && @playlist.release_date.present? %>
                     <span class="text-xs dark:text-gray-400 font-thin">
                       <%= t("Album") %> <%= l(@playlist.release_date, format: :short) %>
@@ -122,9 +122,9 @@
           </div>
         <% end %>
         -->
-      
+
         <div class="w-1/4 hidden sm:block">
-        
+
           <div class=" m-4 rounded-lg group relative aspect-w-1 aspect-h-1 rounded-md- bg-gray-100 overflow-hidden">
             <%= image_tag( @playlist.cover_url(:large),
               class: "object-center object-cover group-hover:opacity-75")
@@ -132,7 +132,7 @@
 
             <div class="hidden flex- flex-col justify-end">
               <div class="p-4 bg-default bg-opacity-60 text-sm">
-                <a href="#" class="font-medium text-gray-900">
+                <a href="#" class="font-medium text-default">
                   <span class="absolute inset-0" aria-hidden="true"></span>
                   <%= t("Upload image") %>
                 </a>
@@ -149,7 +149,7 @@
           <div class="ml-2 pl-6 pt-6">
             <h4 class="text-lg font-bold flex items-center space-x-2">
               <%= link_to @playlist.title, playlist_path(@playlist.slug) %>
-              
+
               <% if @playlist.album? && @playlist.release_date.present? %>
                 <span class="text-xs dark:text-gray-400 font-thin">
                   <%= t("Album") %> <%= l(@playlist.release_date, format: :short) %>
@@ -163,20 +163,20 @@
               </h5>
             <% end %>
           </div>
-          
-          <div class="mt-4 my-2 border dark:border-gray-800 shadow-xs mx-3 dark:bg-gray-900 rounded-md">
-          
+
+          <div class="mt-4 my-2 border border-subtle shadow-xs mx-3 rounded-md">
+
             <div class="flex space-x-3">
               <div class="flex-grow">
                 <div class="flex flex-col">
                   <div class="space-y-2">
                     <ul role="list" class="divide-y divide-subtle">
-                      
+
                       <% @playlist.ordered_tracks.each do |track| %>
                         <li>
-                          <a 
+                          <a
                             href="<%= player_path(id: track, t: true) %>"
-                            data-track-id="<%= track.id %>" 
+                            data-track-id="<%= track.id %>"
                             data-track-detector-target="track"
                             class="block p-2 bg-muted hover:bg-default w-full text-left text-default">
                             <div class="flex items-center space-x-4">
@@ -212,7 +212,7 @@
 
           <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-              <h1 class="text-2xl font-bold text-gray-900  dark:text-gray-100 truncate">
+              <h1 class="text-2xl font-bold text-default   truncate">
 
                 <%= link_to user_path(@playlist.user.username) do %>
                   <%= @playlist.user.username %>
@@ -221,7 +221,7 @@
               </h1>
             </div>
             <div class="mt-6 flex items-center justify-stretch sm:flex-row space-y-0 sm:space-x-4">
-      
+
               <%= render "sharer/share_button", resource: @playlist %>
 
               <%= render "likes/like_button", resource: @playlist, button_class: liked?(@playlist) ? "button-active" : "button" %>
@@ -234,11 +234,11 @@
                   </svg>
                   <span><%= t("playlists.edit") %></span>
                 <% end %>
-              
+
                 <div data-turbo="true">
                   <%= turbo_frame_tag "playlist-#{@playlist.id}-delete" do %>
-                    <%= button_to playlist_path(@playlist), 
-                      method: :delete, 
+                    <%= button_to playlist_path(@playlist),
+                      method: :delete,
                       data: {confirm: t("delete.confirm"), turbo_method: :delete, turbo_confirm: t("delete.confirm")},
                       class: "button" do %>
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -268,11 +268,11 @@
         <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
           <div class="flex justify-end items-center space-x-2">
             <% if @playlist.buy_link.present? %>
-              <%= link_to @playlist.buy_link_title || "Payment Link", 
-                @playlist.buy_link, 
-                target: :blank, 
+              <%= link_to @playlist.buy_link_title || "Payment Link",
+                @playlist.buy_link,
+                target: :blank,
                 class: "underline dark:border-white hover:bg-white hover:text-black border-black rounded-sm border-4 px-3 py-3" %>
-              
+
             <% end %>
 
             <% if @playlist.price %>
@@ -280,13 +280,13 @@
             <% end %>
           </div>
         </div>
-      
+
 
 
 
       <!--
       <div class="sm:text-xl text-sm container mx-auto px-4 my-4 flex flex-col space-y-4">
-        
+
         <div id="xx-5">
           <div class="text-2xl font-bold">
             <button class="underline dark:border-white border-black rounded-sm border-4 px-3" target="blank" phx-click="open-modal" phx-target="2"> Comprar álbum digital </button>
@@ -301,11 +301,11 @@
           <div class="-space-x-4">
             <a href="/xxxx" data-phx-link="redirect" data-phx-link-state="push">
               <img class="relative z-30 inline object-cover w-10 h-10 border-2 border-white rounded-full" src="/active_storage/representations/redirect/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoiNTgxIiwicHVycG9zZSI6bnVsbH0.lSA7cpcMmQhKxah4FF8lgkeoOUcKYIRR8IwJs7Dbxhc/SFMyNTY.eyJleHBpcmVzX2luIjpudWxsLCJtZXNzYWdlIjoie1wiZm9ybWF0XCI6XCJqcGdcIixcInJlc2l6ZV90b19maWxsXCI6XCIyMDB4MjAwXCJ9IiwicHVycG9zZSI6bnVsbH0.6eK0-2F79Tbc3XOJhTLe4owI_7qgf-ay0_FT3Jn-tg0/Foto-Mika-Martini-destacada[1].jpg">
-              <h3 class="hidden mt-6 text-gray-900 dark:text-gray-100 text-sm font-medium"> xxxx </h3>
+              <h3 class="hidden mt-6 text-default  text-sm font-medium"> xxxx </h3>
             </a>
           </div>
         </div>
-        
+
         <div class="flex flex-col space-y-2">
           <span>
             <span class="font-bold">Fecha de lanzamiento del álbum:</span> 15 de marzo de 2023 </span>
@@ -317,7 +317,7 @@
       <div class="mx-auto w-3/4">
         <%= render "products" %>
       </div>
-      
+
       <div class="whitespace-pre-line sm:text-xl text-sm container mx-auto px-4 my-4 prose dark:prose-invert prose-lg ">
         <!--<.tag_list_for playlist={@playlist} />-->
         <%= auto_link sanitize(@playlist.description, auto_link: true) %>
@@ -340,7 +340,7 @@
             <div class="divide-y divide-gray-200 dark:divide-gray-800">
 
               <div class="pb-4">
-                <h2 id="activity-title" class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                <h2 id="activity-title" class="text-lg font-medium text-default ">
                   <%= t("profile.comments") %>
                 </h2>
               </div>

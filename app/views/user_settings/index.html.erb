@@ -61,17 +61,17 @@
   <!-- Secondary sidebar -->
   <nav aria-label="Sections" 
     class="h-[calc(100vh-132px)] overflow-auto hidden- w-20 flex-shrink-0 xl:w-96 border-r-gray-500 border-blue-gray-600 xl:flex xl:flex-col">
-    <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-gray-200 dark:border-gray-800 flex items-center">
-      <p class="text-lg font-medium text-gray-900 dark:text-gray-100">Settings</p>
+    <div class="hidden xl:flex flex-shrink-0 h-16 px-6 border-b- border-subtle  flex items-center">
+      <p class="text-lg font-medium text-default ">Settings</p>
     </div>
     <div class="flex-1 min-h-0 overflow-y-auto">
       <% menu_items.each do |item| %>
         <%= link_to "/#{current_user.username}/#{item[:to]}", 
-          class: "#{item[:namespace].to_s == @section ? 'dark:bg-black' : 'dark:bg-gray-900'} dark:text-gray-100 bg-gray-50 bg-opacity-50 flex p-6 border-b border-gray-gray-200 dark:border-gray-800" do %>
+          class: "#{item[:namespace].to_s == @section ? 'dark:bg-black' : ''}  bg-muted bg-opacity-50 flex p-6 border-b border-muted " do %>
             <%= icon_for(item[:namespace]).html_safe %>
             <div class="ml-3 text-sm hidden xl:block">
-              <p class="font-medium text-gray-900 dark:text-gray-100"><%= item[:title] %></p>
-              <p class="mt-1 text-gray-500 dark:text-gray-300"><%= item[:sub] %></p>
+              <p class="font-medium text-default "><%= item[:title] %></p>
+              <p class="mt-1 text-muted"><%= item[:sub] %></p>
             </div>
         <% end %>
       <% end %>

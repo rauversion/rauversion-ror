@@ -1,5 +1,5 @@
     <div
-      class="my-2 p-2 border-- rounded-md shadow-xs mx-3 dark:bg-gray-900"
+      class="my-2 p-2 border-- rounded-md shadow-xs mx-3 "
     >
 
 
@@ -15,7 +15,7 @@
             <div class="space-y-2 flex flex-col">
 
               <div class="flex justify-between">
-                <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
+                <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 ">
                   <%= link_to playlist.title, playlist_path(playlist), "data-turbo-frame": "_top" %>
 
                   <% if playlist.album? && playlist.release_date.present? %>
@@ -66,10 +66,10 @@
                         ) %>
                       </div>
                       <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                        <p class="text-sm font-medium text-default  truncate">
                           <%= tp.track.title %>
                         </p>
-                        <p class="text-sm text-gray-500 dark:text-gray-300 truncate">
+                        <p class="text-sm text-muted truncate">
                           <%= tp.track.user.username %>
                         </p>
                       </div>
@@ -77,7 +77,7 @@
                         <div>
                           <a href="#" phx-click="remove-track"
                             target-nono={@myself}
-                            class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50">
+                            class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-muted">
                             remove
                           </a>
                         </div>

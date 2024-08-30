@@ -1,4 +1,4 @@
-<div class="nested-fields border-2 rounded-md p-4 my-4 col-span-6"
+<div class="nested-fields border border-subtle bg-default rounded-md p-4 my-4 col-span-6"
 	data-new-record="<%= form.object.new_record? %>">
 
   <%= form.hidden_field :_destroy %>
@@ -7,7 +7,7 @@
   <div class="flex space-x-3">
     <div class=" flex items-center space-x-3">
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-        
+
         <div class="sm:col-span-3">
           <%= form.text_field :title,
             hint: gettext("Ticket Type. For Example: General Admission, VIP Admission ...")
@@ -52,21 +52,21 @@
               )
           %>
         </div>
-  
-        <%= form.check_box :show_sell_until, 
-          hint: gettext("Show the Sell Until date on the event page.") 
+
+        <%= form.check_box :show_sell_until,
+          hint: gettext("Show the Sell Until date on the event page.")
         %>
 
-        <%= form.check_box :show_after_sold_out, 
+        <%= form.check_box :show_after_sold_out,
           hint: gettext("Display with a \"Sold out\" message after ticket quantity runs out.")
         %>
 
         <div class="sm:col-span-3">
-          <%= form.check_box :hidden, 
+          <%= form.check_box :hidden,
           label: "Hide Ticket?",
             hint: gettext(
                 "Check to hide this ticket on your Event page and make it available via a direct link only."
-              ) 
+              )
           %>
         </div>
 
@@ -105,7 +105,7 @@
 
         <div class="sm:col-span-6">
           <button type="button"
-            data-action="click->nested-form#remove_association" 
+            data-action="click->nested-form#remove_association"
             class="mt-2 inline-flex justify-center items-center border-2 border-red-600 rounded-lg py-2 px-2 dark:bg-black text-red-600 block text-sm">
             <%= gettext("Delete Ticket") %>
           </button>

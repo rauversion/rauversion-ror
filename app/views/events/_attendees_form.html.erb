@@ -1,7 +1,7 @@
     <div class="px-4 sm:px-6 lg:px-8 w-full">
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-          <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          <h1 class="text-xl font-semibold text-default ">
             <%= gettext("Users") %>
           </h1>
           <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
@@ -21,41 +21,41 @@
       </div>
       <div class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
         <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-800">
+          <thead class="bg-muted dark:bg-gray-800">
             <tr>
               <th
                 scope="col"
-                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 sm:pl-6"
+                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-default  sm:pl-6"
               >
                 Name
               </th>
               <th
                 scope="col"
-                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 lg:table-cell"
+                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-default  lg:table-cell"
               >
                 Price
               </th>
               <th
                 scope="col"
-                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 sm:table-cell"
+                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-default  sm:table-cell"
               >
                 Email
               </th>
               <th
                 scope="col"
-                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 lg:table-cell"
+                class="hidden px-3 py-3.5 text-left text-sm font-semibold text-default  lg:table-cell"
               >
                 Ticket
               </th>
               <th
                 scope="col"
-                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100"
+                class="px-3 py-3.5 text-left text-sm font-semibold text-default "
               >
                 Status
               </th>
               <th
                 scope="col"
-                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100"
+                class="px-3 py-3.5 text-left text-sm font-semibold text-default "
               >
                 Checked in
               </th>
@@ -64,11 +64,11 @@
               </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-gray-800 bg-white dark:bg-gray-900">
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-800 bg-white ">
             <% @event.paid_purchased_items.each do |pi| %>
               <% ticket = pi.purchase %>
               <tr>
-                <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100 sm:w-auto sm:max-w-none sm:pl-6">
+                <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-default  sm:w-auto sm:max-w-none sm:pl-6">
                   <%= ticket.user.username %>
                   <dl class="font-normal lg:hidden">
                     <dt class="sr-only">Status</dt>
@@ -76,23 +76,23 @@
                       <%= ticket.state %>
                     </dd>
                     <dt class="sr-only sm:hidden">Email</dt>
-                    <dd class="mt-1 truncate text-gray-500 sm:hidden"><%= ticket.user.email %></dd>
+                    <dd class="mt-1 truncate text-muted sm:hidden"><%= ticket.user.email %></dd>
                   </dl>
                 </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-300 lg:table-cell">
+                <td class="hidden px-3 py-4 text-sm text-muted lg:table-cell">
                   <%= Number.Currency.number_to_currency(ticket.event_ticket.price) %>
                   <% # = ticket.event_ticket.currency %>
                 </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-300 sm:table-cell">
+                <td class="hidden px-3 py-4 text-sm text-muted sm:table-cell">
                   <%= ticket.user.email %>
                 </td>
-                <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                <td class="px-3 py-4 text-sm text-muted">
                   <%= ticket.event_ticket.title %>
                 </td>
-                <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                <td class="px-3 py-4 text-sm text-muted">
                   <%= ticket.state %>
                 </td>
-                <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                <td class="px-3 py-4 text-sm text-muted">
                   <%= ticket.checked_in_at %>
                 </td>
                 <td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
