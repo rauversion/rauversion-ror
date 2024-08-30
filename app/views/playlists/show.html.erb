@@ -124,9 +124,10 @@
         -->
       
         <div class="w-1/4 hidden sm:block">
+        
           <div class=" m-4 rounded-lg group relative aspect-w-1 aspect-h-1 rounded-md- bg-gray-100 overflow-hidden">
-            <%= image_tag @playlist.cover_url(:large),
-              class: "object-center object-cover group-hover:opacity-75"
+            <%= image_tag( @playlist.cover_url(:large),
+              class: "object-center object-cover group-hover:opacity-75")
             %>
 
             <div class="hidden flex- flex-col justify-end">
@@ -144,7 +145,27 @@
         </div>
 
         <div class="flex-grow">
+
+          <div class="ml-2 pl-6 pt-6">
+            <h4 class="text-lg font-bold flex items-center space-x-2">
+              <%= link_to @playlist.title, playlist_path(@playlist.slug) %>
+              
+              <% if @playlist.album? && @playlist.release_date.present? %>
+                <span class="text-xs dark:text-gray-400 font-thin">
+                  <%= t("Album") %> <%= l(@playlist.release_date, format: :short) %>
+                </span>
+              <% end %>
+            </h4>
+
+            <% if @playlist.user.present? %>
+              <h5 class="text-sm font- text-brand-default">
+                <%= link_to @playlist.user.username, user_path(@playlist.user.username) %>
+              </h5>
+            <% end %>
+          </div>
+          
           <div class="mt-4 my-2 border dark:border-gray-800 shadow-xs mx-3 dark:bg-gray-900 rounded-md">
+          
             <div class="flex space-x-3">
               <div class="flex-grow">
                 <div class="flex flex-col">
