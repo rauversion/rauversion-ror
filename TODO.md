@@ -1,5 +1,8 @@
 TODO:
 
+  + links in article internal to playlists
+  + player do disable play at page load!
+  + 
   + player
     + sidebar show selected
 

@@ -2,6 +2,7 @@
   <div id="main-player"
     data-controller="audio-player"
     phx-hook="PlayerInitiator"
+    data-audio-player-id-value="<%= track.id %>"
     class="z-50 fixed bottom-0 w-full h-[6rem]-- py-2 bg-default border-t border-muted">
 
 <%
@@ -50,7 +51,7 @@
     <div class="text-white">
       <div class="font-semibold text-sm w-[129px] truncate" 
         data-controller="marquee">
-        <span><%= @track.title %></span>
+        <span data-marquee-target="marquee"><%= @track.title %></span>
       </div>
       <div class="text-xs text-gray-400 truncate w-48">
         <%= link_to @track.user.username, user_path(@track.user.username) %>
@@ -102,14 +103,14 @@
       </svg>
     </button>
 
-    <%= link_to player_url(id: Track.where("id < ?", @track.id).order(id: :desc).first&.id ),  class: "text-white" do %>
+    <button class="text-white" data-action="click->audio-player#nextSong">
       <!-- next -->
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
         viewBox="0 0 24 24" fill="none" stroke="currentColor" 
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
         class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/>
       </svg>
-    <% end %>
+    </button>
 
     <button class="text-white">
       <!-- loop -->
@@ -168,7 +169,8 @@
 </div>
 
 <!-- Audio Element -->
-<audio data-audio-player-target="audio" 
+<audio data-audio-player-target="audio"
+  <%= params[:t] ? "data-ap=true" : "" %>
   src="<%= track.mp3_audio.url %>" 
   data-track-id="<%= track.slug %>" 
   id="audioElement">

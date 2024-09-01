@@ -4,13 +4,20 @@ export default class extends Controller {
   static targets = ["marquee"];
 
   connect() {
+    
+  }
+
+  marqueeTargetConected(element){
+
+    debugger
     this.checkOverflow();
   }
 
   checkOverflow() {
     const marqueeElement = this.element
     const spanElement = marqueeElement.querySelector("span");
-    if (true) { //(spanElement.scrollWidth > marqueeElement.clientWidth) {
+    debugger
+    if (spanElement.scrollWidth > marqueeElement.clientWidth) {
       // The text overflows, apply marquee animation
       const overflowDistance = spanElement.scrollWidth - marqueeElement.clientWidth;
       const animationDuration = overflowDistance / 100; // Adjust speed by modifying the divisor (e.g., 100)
@@ -20,7 +27,8 @@ export default class extends Controller {
     } else {
       // The text doesn't overflow, disable marquee
       marqueeElement.classList.remove("marquee-active");
-      spanElement.style.animation = "none"; // Disable animation if not overflowing
+      // spanElement.style.animation = "none"; // Disable animation if not overflowing
     }
   }
+
 }

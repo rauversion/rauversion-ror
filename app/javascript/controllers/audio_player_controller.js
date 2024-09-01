@@ -16,6 +16,13 @@ export default class extends Controller {
     "sidebar"
   ];
 
+  static values = {
+    id: Number,
+    url: String,
+    peaks: String,
+    height: Number,
+  }
+
   connect() {
     this.audio = this.audioTarget;
     this.playButton = this.playButtonTarget;
@@ -25,7 +32,6 @@ export default class extends Controller {
     this.volumeSlider = this.volumeSliderTarget;
     this.volumeOnIcon = this.volumeOnIconTarget;
     this.volumeOffIcon = this.volumeOffIconTarget;
-
     this.audio.addEventListener("timeupdate", this.updateProgress.bind(this));
     this.audio.addEventListener("loadedmetadata", this.updateDuration.bind(this));
 
@@ -40,6 +46,12 @@ export default class extends Controller {
   }
 
   autoPlay() {
+
+    // check if at attribute is provided, if not, do not do autoplay
+    if(!this.audio.dataset.ap){ 
+      console.log("Skip AutoPlay")
+      return 
+    }
     // Show loading animation (optional)
     const playPromise = this.audio.play();
 
@@ -131,7 +143,6 @@ export default class extends Controller {
     .then(data => console.log("Event tracked:", data))
     .catch(error => console.error("Error tracking event:", error));
   }
-
 
   updateDuration() {
     this.duration.textContent = this.formatTime(this.audio.duration);
