@@ -7,20 +7,24 @@ export default class extends Controller {
     
   }
 
-  marqueeTargetConected(element){
-
-    debugger
-    this.checkOverflow();
+  marqueeTargetConnected(element){
+    setTimeout(()=>{
+      this.checkOverflow()
+    }, 1000)
   }
 
   checkOverflow() {
     const marqueeElement = this.element
     const spanElement = marqueeElement.querySelector("span");
-    debugger
+
+    console.log("Span content:", spanElement.textContent);  // Check if content is present
+    console.log("Span scrollWidth:", spanElement.scrollWidth);  // Check scrollWidth
+    console.log("Span clientWidth:", marqueeElement.clientWidth);  // Check clientWidth
+    
     if (spanElement.scrollWidth > marqueeElement.clientWidth) {
       // The text overflows, apply marquee animation
       const overflowDistance = spanElement.scrollWidth - marqueeElement.clientWidth;
-      const animationDuration = overflowDistance / 100; // Adjust speed by modifying the divisor (e.g., 100)
+      const animationDuration = 3 //overflowDistance / 100; // Adjust speed by modifying the divisor (e.g., 100)
 
       spanElement.style.animationDuration = `${animationDuration}s`;
       marqueeElement.classList.add("marquee-active");

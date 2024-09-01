@@ -58,16 +58,14 @@ export default class extends Controller {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
+          this.toggleIcons()
           // Automatic playback started!
-          this.playIconTarget.classList.toggle("hidden")
-          this.pauseIconTarget.classList.toggle("hidden")
         })
         .catch((error) => {
           // Auto-play was prevented
           console.error("Playback failed:", error);
           //this.playButton.textContent = "Play";
-          this.playIconTarget.classList.toggle("hidden")
-          this.pauseIconTarget.classList.toggle("hidden")
+          this.toggleIcons()
         });
     }
   }
@@ -76,13 +74,11 @@ export default class extends Controller {
     if (this.audio.paused) {
       this.audio.play();
       //this.playButton.textContent = "Pause";
-      this.playIconTarget.classList.toggle("hidden")
-      this.pauseIconTarget.classList.toggle("hidden")
+      this.toggleIcons()
     } else {
       this.audio.pause();
+      this.toggleIcons()
       //this.playButton.textContent = "Play";
-      this.playIconTarget.classList.toggle("hidden")
-      this.pauseIconTarget.classList.toggle("hidden")
     }
   }
 
@@ -157,6 +153,11 @@ export default class extends Controller {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  }
+
+  toggleIcons() {
+    this.playIconTargets.forEach((e)=> e.classList.toggle("hidden") )
+    this.pauseIconTargets.forEach((e)=> e.classList.toggle("hidden") )
   }
 
   closeSidebar(){
