@@ -42,7 +42,7 @@ export default class extends Controller {
     document.removeEventListener(`audio-process-${this.idValue}`, this.audioProcessListeners)
     document.removeEventListener(`audio-process-${this.idValue}-play`, this.audioProcessPlayListeners)
     document.removeEventListener(`audio-process-${this.idValue}-pause`, this.audioProcessPauseListeners)
-    
+    document.removeEventListener(`audio-process-mouseup-${trackId}`, this.audioProcessPauseListeners)
     this.destroyWave()
   }
 
@@ -99,7 +99,7 @@ export default class extends Controller {
   }
 
   audioProcessListeners(e) {
-    //console.log(e.detail)
+    console.log(e.detail)
     this._wave.seekTo(e.detail.percent)
   }
 
@@ -120,13 +120,14 @@ export default class extends Controller {
   drawerListener(e) {
     setTimeout(() => {
       const trackId = this.idValue
-      const ev = new CustomEvent(`audio-process-mouseup`, {
+      const ev = new CustomEvent(`audio-process-mouseup-${trackId}`, {
         detail: {
           trackId: trackId,
           position: this._wave.getCurrentTime(),
           percent: this._wave.getCurrentTime() / this._wave.getDuration()
         }
       })
+      console.log("EV", ev)
       document.dispatchEvent(ev)
     }, 20)
   }

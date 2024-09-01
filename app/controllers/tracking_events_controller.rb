@@ -8,7 +8,7 @@ class TrackingEventsController < ApplicationController
     city = location_data&.city || nil
     country = location_data&.country || nil
 
-    track = Track.find(params[:track_id])
+    track = Track.friendly.find(params[:track_id])
     ua = request.user_agent
 
     browser = Browser.new(ua)

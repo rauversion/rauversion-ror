@@ -46,6 +46,9 @@ export default class extends Controller {
 
     // Listen for the 'ended' event to play the next song
     this.audio.addEventListener("ended", this.nextSong.bind(this));
+
+    // Listen for the 'audio-process-mouseup' event
+    document.addEventListener(`audio-process-mouseup-${this.idValue}`, this.updateSeek.bind(this));
   }
 
   autoPlay() {
@@ -120,6 +123,9 @@ export default class extends Controller {
     this.currentTime.textContent = this.formatTime(this.audio.currentTime);
     // Check for halfway event trigger
     this.checkHalfwayEvent(percent);
+
+    // Dispatch the custom event
+    this.dispatchAudioProgressEvent(this.audio.currentTime, percent);
   }
 
   checkHalfwayEvent(percent) {
@@ -143,6 +149,18 @@ export default class extends Controller {
     .catch(error => console.error("Error tracking event:", error));
   }
 
+  dispatchAudioProgressEvent(currentTime, percent) {
+    const ev = new CustomEvent(`audio-process-${this.idValue}`, {
+      detail: {
+        position: currentTime,
+        percent: parseFloat(percent.toFixed(2))/100
+      }
+    });
+
+    // console.log(ev)
+    document.dispatchEvent(ev);
+  }
+
   updateDuration() {
     this.duration.textContent = this.formatTime(this.audio.duration);
   }
@@ -150,6 +168,14 @@ export default class extends Controller {
   seek(event) {
     const percent = event.offsetX / event.currentTarget.offsetWidth;
     this.audio.currentTime = percent * this.audio.duration;
+  }
+
+  updateSeek(event) {
+    const { position } = event.detail;
+    if (position !== undefined && !isNaN(position)) {
+      this.audio.currentTime = position;
+      this.updateProgress();  // Update the progress bar and related UI
+    }
   }
 
   formatTime(seconds) {
