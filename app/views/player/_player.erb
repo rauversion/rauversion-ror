@@ -32,21 +32,11 @@
 
     <!-- Control Buttons -->
     <div class="flex items-center space-x-2">
-      <!--<button class="text-default" data-action="click->audio-player#externalDevice">
-        -- External Device Button Placeholder -
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-device">
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-          <path d="M7 2h10v4H7z"></path>
-        </svg>
-      </button>-->
-      <!--<button class="text-default" data-action="click->audio-player#addToPlaylist">
-        -- Add Button Placeholder --
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-      </button>-->
+      <button class="text-default" data-action="click->audio-player#prevSong">
+        <!-- Previous -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+        
       <button class="text-default" data-action="click->audio-player#playPause" data-audio-player-target="playButton">
         <!-- Play/Pause Button -->
         <svg data-audio-player-target="playIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play">
@@ -55,6 +45,15 @@
         <svg data-audio-player-target="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause hidden">
           <rect x="14" y="4" width="4" height="16" rx="1"/>
           <rect x="6" y="4" width="4" height="16" rx="1"/>
+        </svg>
+      </button>
+
+      <button class="text-default" data-action="click->audio-player#nextSong">
+        <!-- next -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+          class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/>
         </svg>
       </button>
     </div>
