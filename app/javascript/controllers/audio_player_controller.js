@@ -43,6 +43,9 @@ export default class extends Controller {
 
     // Initialize halfway tracking
     this.hasHalfwayEventFired = false;
+
+    // Listen for the 'ended' event to play the next song
+    this.audio.addEventListener("ended", this.nextSong.bind(this));
   }
 
   autoPlay() {
