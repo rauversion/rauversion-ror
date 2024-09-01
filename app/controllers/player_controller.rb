@@ -16,11 +16,18 @@ class PlayerController < ApplicationController
     if params[:t]
       render turbo_stream: [
 
+
         turbo_stream.update(
-          "track-info-wrapper",
-          partial: "track_info",
+          "player-frame",
+          partial: "player",
           locals: {track: @track}
         )
+
+        #turbo_stream.update(
+        #  "track-info-wrapper",
+        #  partial: "track_info",
+        #  locals: {track: @track}
+        #)
       ]
     end
   end

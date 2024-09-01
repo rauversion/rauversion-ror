@@ -94,6 +94,32 @@
     --rau-brand-text: white;
   }
 
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .marquee span {
+    display: inline-block;
+    position: absolute;
+    animation: marquee 5s linear infinite;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-active span {
+    animation: marquee linear infinite;
+  }
+
   .flash-error-bg,
   .flash-alert-bg {
     @apply bg-red-600;

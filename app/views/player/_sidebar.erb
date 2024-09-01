@@ -1,6 +1,6 @@
 <!-- SIDEBAR PLAYLIST -->
 <div
-  data-player-target="sidebar"
+  data-audio-player-target="sidebar"
   data-controller="player-sidebar"
   style="height: calc(100% - 64px);"
   class="hidden pointer-events-none fixed inset-y-0 right-0 flex max-w-full bg-default"
@@ -26,7 +26,7 @@
           <div class="ml-3 flex h-7 items-center">
             <button
               type="button"
-              data-action="click->player#closeSidebar"
+              data-action="click->audio-player#closeSidebar"
               class="rounded-md bg-default text-default hover:text-emphasis focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <span class="sr-only"><%= gettext("Close panel") %></span>

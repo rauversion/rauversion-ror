@@ -43,6 +43,9 @@ import dark_mode_controller from "./dark_mode_controller.js"
 import simple_editor_controller from "./simple_editor_controller.jsx"
 import filter_manager_controller from "./filter_manager_controller.js"
 import accordeon_controller from "./accordeon_controller.js"
+import audio_player_controller from "./audio_player_controller.js"
+import marquee_controller from "./marquee_controller.js"
+
 //import GeoChart from './geo_chart_controller'
 
 // Configure Stimulus development experience
@@ -88,3 +91,5 @@ application.register("hw-combobox", HwComboboxController)
 application.register("input-listener", input_listener_controller)
 application.register("dark-mode", dark_mode_controller)
 application.register("accordeon", accordeon_controller)
+application.register("audio-player", audio_player_controller)
+application.register("marquee", marquee_controller)
