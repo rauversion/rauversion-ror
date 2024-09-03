@@ -3,41 +3,59 @@
     data-controller="audio-player"
     phx-hook="PlayerInitiator"
     data-audio-player-id-value="<%= track.id %>"
-    class="z-50 fixed bottom-0 w-full h-[6rem]-- py-2 bg-default border-t border-muted">
+    class="z-50 fixed bottom-0 w-full h-[6rem]-- py-2 bg-transparent md:bg-default border-t- border-muted-">
 
   <!-- mobile -->
-  <div class="flex sm:hidden items-center bg-muted rounded-lg p-2 shadow-lg w-full max-w-md mx-auto">
+  <div class="flex sm:hidden items-center bg-subtle px-2 rounded-lg p-2 shadow-lg w-full- max-w-md- mx-auto- mx-2">
     <!-- Album Art -->
     <div class="flex-shrink-0">
       <% if @track.cover_url.present? %>
-        <%= image_tag @track.cover_url, alt: "#{@track.title} Cover Art", class: "w-12 h-12 rounded-md" %>
+        <%= link_to @track.title, data: {turbo_frame: "_top"} do %>
+          <%= image_tag( @track.cover_url, alt: "#{@track.title} Cover Art", class: "w-12 h-12 rounded-md") %>
+        <% end %>
       <% end %>  
     </div>
 
     <!-- Track Information -->
     <div class="ml-3 flex-grow">
 
-      <div class="font-semibold text-sm w-[230px] truncate" 
+      <div class="font-semibold text-sm w-[212px] truncate" 
         data-controller="marquee">
         <span data-marquee-target="marquee" 
-          class="inline-block">
-          <%= @track.title %>
+          class="inline-block w-full">
+          <%= link_to @track.title, track_path(@track), data: {turbo_frame: "_top"} %>
+        </span>
+
+        <span class="inline-block ml-0 w-[190px]">
+          <%= link_to @track.title, track_path(@track), data: {turbo_frame: "_top"} %>
         </span>
       </div>
 
       <div class="text-gray-400 text-xs truncate" data-audio-player-target="trackArtist">
-        <%= @track.user.username %>
+        <%= link_to @track.user.username, user_path(@track.user.username), data: {turbo_frame: "_top"} %>
       </div>
     </div>
 
     <!-- Control Buttons -->
     <div class="flex items-center space-x-2">
-      <button class="text-default" data-action="click->audio-player#prevSong">
+      <button class="text-default" 
+        data-action="click->audio-player#prevSong">
         <!-- Previous -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+          width="24" height="24" 
+          viewBox="0 0 24 24" fill="none" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          class="lucide lucide-chevron-left">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
       </button>
         
-      <button class="text-default" data-action="click->audio-player#playPause" data-audio-player-target="playButton">
+      <button class="text-default" 
+        data-action="click->audio-player#playPause" 
+        data-audio-player-target="playButton">
         <!-- Play/Pause Button -->
         <svg data-audio-player-target="playIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play">
           <polygon points="6 3 20 12 6 21 6 3"/>
@@ -62,23 +80,25 @@
 
   <div class="hidden sm:block">
     <div
-      class="flex items-center justify-between bg-default pt-2 px-2 rounded-lg shadow-lg">
+      class="flex items-center justify-between pt-2 px-2">
       <!-- Album Art -->
       <div class="flex items-center space-x-2 w-[168px] md:w-auto">
         <% if @track.cover_url.present? %>
-          <%= image_tag @track.cover_url, alt: "#{@track.title} Cover Art", class: "w-12 h-12 rounded-md" %>
+          <%= link_to track_path(@track), data: {turbo_frame: "_top"} do %>
+            <%= image_tag( @track.cover_url, alt: "#{@track.title} Cover Art", class: "w-12 h-12 rounded-md") %>
+          <% end %>
         <% end %> 
         
         <div class="text-default">
           <div class="font-semibold text-sm w-[129px] truncate" 
             data-controller="marquee">
             <span data-marquee-target="marquee" 
-              class="inline-block">
-              <%= @track.title %>
+              class="inline-block w-full">
+              <%= link_to @track.title, track_path(@track), data: {turbo_frame: "_top"} %>
             </span>
           </div>
           <div class="text-xs text-gray-400 truncate w-48">
-            <%= link_to @track.user.username, user_path(@track.user.username) %>
+            <%= link_to @track.user.username, user_path(@track.user.username), data: {turbo_frame: "_top"} %>
           </div>
         </div>
 

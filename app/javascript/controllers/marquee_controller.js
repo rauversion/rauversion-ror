@@ -21,6 +21,9 @@ export default class extends Controller {
     console.log("Span scrollWidth:", spanElement.scrollWidth);  // Check scrollWidth
     console.log("Span clientWidth:", marqueeElement.clientWidth);  // Check clientWidth
     
+    const contentWidth = spanElement.scrollWidth;
+    const containerWidth = marqueeElement.clientWidth;
+
     if (spanElement.scrollWidth > marqueeElement.clientWidth) {
       // The text overflows, apply marquee animation
       const overflowDistance = spanElement.scrollWidth - marqueeElement.clientWidth;
@@ -28,6 +31,7 @@ export default class extends Controller {
 
       spanElement.style.animationDuration = `${animationDuration}s`;
       marqueeElement.classList.add("marquee-active");
+
     } else {
       // The text doesn't overflow, disable marquee
       marqueeElement.classList.remove("marquee-active");

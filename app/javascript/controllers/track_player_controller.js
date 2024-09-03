@@ -42,7 +42,7 @@ export default class extends Controller {
     document.removeEventListener(`audio-process-${this.idValue}`, this.audioProcessListeners)
     document.removeEventListener(`audio-process-${this.idValue}-play`, this.audioProcessPlayListeners)
     document.removeEventListener(`audio-process-${this.idValue}-pause`, this.audioProcessPauseListeners)
-    document.removeEventListener(`audio-process-mouseup-${trackId}`, this.audioProcessPauseListeners)
+    document.removeEventListener(`audio-process-mouseup-${this.idValue}`, this.audioProcessPauseListeners)
     this.destroyWave()
   }
 
