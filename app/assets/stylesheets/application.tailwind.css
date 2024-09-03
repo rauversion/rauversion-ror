@@ -389,4 +389,9 @@
   .hw-combobox__listbox .hw-combobox__option {
     @apply p-2 border-b border-muted hover:bg-emphasis;
   }
+
+  .markup--anchor.markup--mixtapeEmbed-anchor {
+    color: var(--rau-text);
+    text-decoration: none;
+  }
 }
