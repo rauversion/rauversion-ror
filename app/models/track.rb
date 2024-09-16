@@ -342,6 +342,10 @@ class Track < ApplicationRecord
     includes(:user).where("? = ANY (tags)", tag)
   end
 
+  def duration
+    "xx;xx"
+  end
+
   def podcast_summarizer
     file_path = ActiveStorage::Blob.service.path_for(mp3_audio.key)
     summarizer = AudioSummarizer.new(file_path)

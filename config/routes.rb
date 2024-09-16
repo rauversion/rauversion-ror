@@ -196,6 +196,7 @@ Rails.application.routes.draw do
   end
 
   resources :labels
+  resources :albums
 
   constraints(Constraints::UsernameRouteConstrainer.new) do
     # Same route as before, only within the constraints block

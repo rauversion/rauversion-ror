@@ -258,5 +258,18 @@ export default class extends Controller {
       ? playlist[playlist.length - 1]
       : playlist[currentTrackIndex - 1];
   }
+
+  removeSong(e) {
+    e.preventDefault()
+    const trackIdToRemove = e.currentTarget.dataset.value
+    const { playlist } = store.getState();
+
+    document.querySelector(`#sidebar-track-${trackIdToRemove}`).remove()
+  
+    // Filter out the track ID to remove
+    const newPlaylist = playlist.filter(trackId => trackId !== trackIdToRemove);
+  
+    store.setState({ playlist: newPlaylist });
+  }
 }
 
