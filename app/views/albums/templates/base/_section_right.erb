@@ -1,0 +1,60 @@
+<section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Left: Text -->
+    <div class="flex flex-col space-y-4">
+      <h2 class="text-5xl font-bold uppercase"><%= section.title %></h2>
+      <div class="text-lg text-subtle">
+        <%= raw section.body %>
+      </div>
+    </div>
+    <!-- Right: Image and Numbers -->
+    <div class="flex justify-end flex-col">
+      <p class="text-9xl font-bold text-subtle text-right">
+        <%= section.subtitle %>
+      </p>
+    
+      <div class="grid- grid-cols-2- gap-2-">
+
+        <% if section.release_section_images.any? %>
+          <%= render "albums/templates/base/slide", items: section.release_section_images do |item| %>
+            <% if item.image.present? %>
+              <%= image_tag item.image, class: "rounded-lg w-full" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <h3 class="text-3xl font-bold uppercase mb-6">Acerca de Herman Klang & Gustavo Pena</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="md:col-span-2">
+        <p class="text-subtle text-sm">
+
+          Las bases se grabaron en “El cuarto Tavella”, por Bruno Gianarelli en enero de 2018.
+          El microfoneo en ese estudio lo hicieron Santiago Montoro y Martín Tavella.
+          Roberto Rodino fue el “drum doctor”
+          El resto lo grabó Santiago Montoro en “Aceituna Brava” y Herman Klang en “El Club del Klang”, entre marzo y agosto de 2018.
+          Las voces y la guitarra del Príncipe, así como el piano de “qué” y unos cuantos teclados sobrevivientes, se grabaron en diversas casas de Herman entre 1994 y 2003.
+          Mezclaron Santiago Montoro y Herman Klang
+          Produjo Santiago Montoro.
+          Masterizó Esteban Demelas.
+          El arte de tapa lo hizo Macachín.
+          Agradecimientos efusivos e a Eli-U Pena, Martín Buscaglia, César Martínez, Carlos Quintana, Cina Klang y Alejandra Calvete.
+          Edición original en CD y plataformas digitales: Los Años Luz.
+          La grabación y la mezcla de este álbum fueron posibles gracias al apoyo del FONAM (Fondo Nacional de Música, Uruguay)
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-2">
+        <img src="https://imagenes.montevideo.com.uy/imgnoticias/201811/_W933_80/675767.jpg" alt="Character Image 1" class="rounded-lg w-full">
+        <img src="https://imagenes.montevideo.com.uy/imgnoticias/201811/_W933_80/675767.jpg" alt="Character Image 2" class="rounded-lg w-full">
+      </div>
+    </div>
+  </section>
+-->

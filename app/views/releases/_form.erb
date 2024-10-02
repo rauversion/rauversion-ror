@@ -1,0 +1,42 @@
+<%= form_for [@playlist, @release], html: { data: { turbo_frame: "_top" }} do |f| %>
+  
+  <div class="py-4">
+    <%= f.text_field :title %>
+    <%= f.text_field :subtitle %>
+    <%= f.text_field :cover_color %>
+    <%= f.text_field :sleeve_color %>
+    <%= f.text_field :record_color %>
+
+    <%= f.file_field :cover %>
+    <%= f.file_field :sleeve %>
+
+    <%= f.text_field :spotify %>
+    <%= f.text_field :bandcamp %>
+    <%= f.text_field :soundcloud %>
+  </div>
+
+  <div data-controller="nested-form" class="py-6">
+    <template data-nested-form-target="template">
+      <%= f.fields_for :release_sections, ReleaseSection.new, child_index: 'NEW_RECORD' do |ff| %>
+        <%= render 'release_section_fields', form: ff %>
+      <% end %>
+    </template>
+
+    <div class="" data-nested-form-target="wrap">
+      <%= f.fields_for :release_sections do |ff| %>
+        <%= render 'release_section_fields', form: ff %>
+      <% end %>
+    </div>
+
+    <div class="my-3" data-nested-form-target="links">
+      <%= link_to "Add", "#", 
+        class: "button-large-outline", 
+        data: { 
+          action: "click->nested-form#add_association" 
+        } 
+      %>
+    </div>
+  </div>
+
+  <%= f.submit %>
+<% end %>

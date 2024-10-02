@@ -1,0 +1,335 @@
+<style>
+
+
+        :root {
+            --record-color: pink;
+            --sleeve-color: transparent;
+            --cover-color: pink;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .bodyPlane {
+            /*display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;*/
+        }
+        .mockup {
+            /*width: 600px;
+            height: 600px;*/
+            position: relative;
+            overflow: hidden;
+        }
+        .sleeve {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 10px;
+            background-color: var(--sleeve-color);
+        }
+        .record {
+            width: 100%;
+            height: 100%;
+            background-color: var(--record-color);
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border-radius: 50%;
+            overflow: hidden;
+            animation: spin 5s linear infinite;
+        }
+        .grooves {
+            width: 100%;
+            height: 100%;
+            background: repeating-radial-gradient(
+                circle at center,
+                transparent 0,
+                transparent 10px,
+                rgba(0,0,0,0.1) 10px,
+                rgba(0,0,0,0.1) 11px
+            );
+        }
+        .label {
+            width: 30%;
+            height: 30%;
+            background-color: white;
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--cover-color);
+            background: url('https://cartelera.montevideo.com.uy/imagenes_espectaculos/musicdetail13/25370.jpg')
+        }
+        .cover {
+            width: 100%;
+            height: 100%;
+            color: var(--cover-color);
+            position: absolute;
+            left: 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            font-weight: bold;
+            transform: translateX(-25%);
+            transition: transform 0.3s ease;
+            background: url('https://cartelera.montevideo.com.uy/imagenes_espectaculos/musicdetail13/25370.jpg')
+        }
+        .mockup:hover .cover {
+            transform: translateX(-75%) rotate(5deg);
+        }
+    </style>
+
+
+<main class="min-h-screen">
+  <!-- Navbar -->
+  <header class="w-full py-4 bg-default border-4 border-b border-subtle">
+    <div class="sm:container sm:mx-auto flex sm:flex-row-reverse justify-between items-center px-8 flex-col">
+      <!-- Left Menu -->
+      <nav class="flex space-x-4 text-xs uppercase">
+        <a href="#" class="text-muted">Home</a>
+        <a href="#" class="text-muted">About</a>
+        <a href="#" class="text-muted">Reseñas</a>
+        <a href="#" class="text-muted">Gallería</a>
+        <a href="#" class="text-muted">News</a>
+        <a href="#" class="text-muted">Info</a>
+      </nav>
+      <!-- Logo -->
+      <h1 class="sm:text-6xl text-lg font-bold uppercase tracking-wider">
+        Fuselaje Púrpura
+      </h1>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="container- mx-auto- px-8- mt-12- border-t-4 border-gray-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8-">
+      <!-- Left: Image -->
+      <div class="relative border-r-4 border-gray-300">
+      
+        <div class="bodyPlane p-4">
+          <div class="mockup sm:w-[600px] sm:h-[600px] w-[200px] h-[200px]">
+            <div class="sleeve"></div>
+            <div class="record">
+                <div class="grooves"></div>
+                <div class="label">Go!</div>
+            </div>
+            <div class="cover">Go!</div>
+          </div>
+        </div>
+    
+      </div>
+
+
+       <!-- Right: Text and Squares Layout -->
+      <div class="grid grid-rows-2 gap-4">
+        <!-- Top Right: Main Text -->
+        <div class="flex flex-col justify-center p-4">
+          <h2 class="text-4xl font-bold uppercase">Fuselaje púrpura</h2>
+          <p class="mt-2 text-muted text-lg">Gustavo Pena y Herman Klang</p>
+          <div class="flex items-center space-x-4 mt-4 text-lg text-muted">
+            <span class="inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v5.25m0 0l3 3m-3-3l-3 3"></path>
+              </svg>
+              Montevideo, Uruguay
+            </span>
+          </div>
+        </div>
+        
+        <!-- Bottom Right: Additional Info Squares -->
+        <div class="grid grid-cols-2 gap-4-">
+          <div class="border border-t-4 border-gray-300 p-4">
+            <p class="text-sm text-muted">
+              Las bases se grabaron en “El cuarto Tavella”, por Bruno Gianarelli en enero de 2018.
+              El microfoneo en ese estudio lo hicieron Santiago Montoro y Martín Tavella.
+              Roberto Rodino fue el “drum doctor”
+              El resto lo grabó Santiago Montoro en “Aceituna Brava” y Herman Klang en “El Club del Klang”, entre marzo y agosto de 2018.
+              Las voces y la guitarra del Príncipe, así como el piano de “qué” y unos cuantos teclados sobrevivientes, se grabaron en diversas casas de Herman entre 1994 y 2003.
+              Mezclaron Santiago Montoro y Herman Klang
+              Produjo Santiago Montoro.
+              Masterizó Esteban Demelas.
+            </p>
+          </div>
+          <div class="border border-t-4 border-gray-300 p-4 flex flex-col justify-center items-center">
+            <p class="text-sm text-muted uppercase mb-2">
+              El arte de tapa lo hizo Macachín.
+              Agradecimientos efusivos e a Eli-U Pena, Martín Buscaglia, César Martínez, Carlos Quintana, Cina Klang y Alejandra Calvete.
+              Edición original en CD y plataformas digitales: Los Años Luz.
+              La grabación y la mezcla de este álbum fueron posibles gracias al apoyo del FONAM (Fondo Nacional de Música, Uruguay)
+            </p>
+            <button class="flex items-center space-x-1 text-sm font-semibold text-black hover:text-muted">
+              <span>Learn More</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 01: The Marvel Era Begins -->
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left: Text -->
+      <div class="flex flex-col space-y-4">
+        <h2 class="text-5xl font-bold uppercase">Creo que empezó así</h2>
+        <p class="text-lg text-muted">
+          El Gookie (Alejandro Székely), me había llamado para integrar la banda de un tipo, un uruguayo que había recién llegado de Brasil. Ni idea de cómo llegaron a mí. Yo hacía bastante poco que había empezado a tocar. Pero le habían dicho al Gookie que yo escuchaba a Chick Corea. Creo que fue así. Año 1991, o 92… Fueron a mi casa.
+         <br>
+         Un tiempo después yo dejé la Sin Fónica. Seguimos componiendo, pero años más tarde, por motivos que recién hoy empiezo a comprender, nos distanciamos.
+        </p>
+      </div>
+      <!-- Right: Image and Numbers -->
+      <div class="flex justify-end">
+        <p class="text-9xl font-bold text-gray-300">01</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 02: Mutant and Proud -->
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left: Image and Number -->
+      <div class="flex flex-col justify-between">
+        <div class="flex justify-start">
+          <p class="text-9xl font-bold text-gray-300">02</p>
+        </div>
+        <p class="text-xl font-bold uppercase tracking-tight">
+          Nos despedimos con un gran abrazo
+        </p>
+      </div>
+      <!-- Right: Additional Information -->
+      <div class="flex flex-col space-y-4">
+        <p class="text-lg tracking-widest- text-muted"> 
+           De a poco nos fuimos volviendo a acercar. Hicimos algunas cosas más. Hasta que recobramos nuestra amistad, con creces. 
+           Unos pocos días antes de morir cayó por casa. Le hice una sopa de verduras; cenamos. Hablamos mucho, de cosas que nunca nos habíamos dicho. Nos despedimos con un gran abrazo, el más sincero y sentido que jamás hayamos tenido.
+        </p>
+      </div>
+    </div>
+  </section>
+
+ 
+  <!-- Section 02: Mutant and Proud -->
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Right: Additional Information -->
+      <div class="flex flex-col space-y-4">
+        <p class="text-lg uppercase- tracking-widest- text-muted"> 
+           Hace unos años (¿2014?, ¿2013?), se me apareció en un sueño. Estaba sentado, sonriente, cruzado de piernas como era su costumbre, con el cigarro en la mano, mirando hacia adelante. Yo estaba a un costado, a unos tres o cuatro metros. De pronto gira, me mira, y me dice, gesticulando con su cigarro: “Loco… ¡tenés que hacer el disco nuestro” (como diciendo “¿no ves que estás gilieando?”), “Es más… ponele ‘Fuselaje Púrpura’…” Y recobró su mirada hacia el frente, sin perder la sonrisa.
+        </p>
+        <p class="text-xs uppercase tracking-widest text-muted">Lia Tessier as Jean Grey</p>
+      </div>
+      <!-- Left: Image and Number -->
+      <div class="flex flex-col justify-between">
+        <div class="flex justify-end">
+          <p class="text-9xl font-bold text-gray-300">03</p>
+        </div>
+        <p class="text-xl font-bold uppercase tracking-tight text-right">
+          Desensueño
+        </p>
+      </div>
+   
+    </div>
+  </section>
+
+
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left: Image and Number -->
+      <div class="flex flex-col justify-between">
+        <div class="flex justify-start">
+          <p class="text-9xl font-bold text-gray-300">04</p>
+        </div>
+        <p class="text-xl font-bold uppercase tracking-tight">
+          Así hice. Este es el resultado.
+        </p>
+      </div>
+      <!-- Right: Additional Information -->
+      <div class="flex flex-col space-y-4">
+        <p class="text-lg uppercase- tracking-widest- text-muted"> 
+          Yo tenía las cuatro pistas de aquel portaestudio en el que grabábamos en el 94 y 95, respaldadas en la computadora. Y también respaldadas, por otro lado, todas las pistas de las secuencias que yo hacía en el teclado. O sea que, sincronizando las dos cosas, se podía, manteniendo las dos pistas (tres, en algún caso) de las voces del Príncipe, grabar de nuevo un montón de cosas, incluso reemplazar los bajos y baterías que yo programaba en mi teclado del año 1995 (un Yamaha SY99), por bajo y batería reales. Y agregar o reemplazar sintetizadores, pianos, guitarras, o lo que fuese, siempre que resultara pertinente, siempre que se mantuviera el espíritu del disco que debimos haber sacado en aquel entonces.
+        </p>
+        <p class="text-xs uppercase tracking-widest text-muted">
+          Así hice. Este es el resultado.
+        </p>
+      </div>
+    </div>
+  </section>
+ 
+ 
+
+
+  <!-- About My Character Section -->
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <h3 class="text-3xl font-bold uppercase mb-6">Acerca de Herman Klang & Gustavo Pena</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Left: Description -->
+      <div class="md:col-span-2">
+        <p class="text-muted text-sm">
+
+          Las bases se grabaron en “El cuarto Tavella”, por Bruno Gianarelli en enero de 2018.
+          El microfoneo en ese estudio lo hicieron Santiago Montoro y Martín Tavella.
+          Roberto Rodino fue el “drum doctor”
+          El resto lo grabó Santiago Montoro en “Aceituna Brava” y Herman Klang en “El Club del Klang”, entre marzo y agosto de 2018.
+          Las voces y la guitarra del Príncipe, así como el piano de “qué” y unos cuantos teclados sobrevivientes, se grabaron en diversas casas de Herman entre 1994 y 2003.
+          Mezclaron Santiago Montoro y Herman Klang
+          Produjo Santiago Montoro.
+          Masterizó Esteban Demelas.
+          El arte de tapa lo hizo Macachín.
+          Agradecimientos efusivos e a Eli-U Pena, Martín Buscaglia, César Martínez, Carlos Quintana, Cina Klang y Alejandra Calvete.
+          Edición original en CD y plataformas digitales: Los Años Luz.
+          La grabación y la mezcla de este álbum fueron posibles gracias al apoyo del FONAM (Fondo Nacional de Música, Uruguay)
+        </p>
+      </div>
+      <!-- Right: Images -->
+      <div class="grid grid-cols-2 gap-2">
+        <img src="https://imagenes.montevideo.com.uy/imgnoticias/201811/_W933_80/675767.jpg" alt="Character Image 1" class="rounded-lg w-full">
+        <img src="https://imagenes.montevideo.com.uy/imgnoticias/201811/_W933_80/675767.jpg" alt="Character Image 2" class="rounded-lg w-full">
+      </div>
+    </div>
+  </section>
+
+  <!-- Jean Grey Playlist Section -->
+  <section class="container- mx-auto- px-8 py-12 border-t border-gray-300">
+    <h3 class="text-3xl font-bold uppercase mb-6">Fúselaje Púrpura</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Left: Playlist -->
+      <div>
+        
+
+        
+
+      </div>
+      <!-- Right: Listen on Spotify Button -->
+      <div class="flex justify-end items-center">
+        <a href="#" class="flex items-center space-x-2 bg-black text-white py-2 px-4 rounded-full">
+          <span>Listen on Spotify</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+            <path d="M12 1.5C6.21 1.5 1.5 6.21 1.5 12S6.21 22.5 12 22.5 22.5 17.79 22.5 12 17.79 1.5 12 1.5zm4.89 16.53a.749.749 0 01-1.04.16c-2.92-1.79-6.61-2.18-10.88-1.12a.75.75 0 01-.36-1.45c4.57-1.14 8.67-.7 11.98 1.29.34.2.44.66.16.96zM17.36 13.7a.751.751 0 01-1.04.24c-3.33-2.03-8.41-2.63-12.01-1.33a.75.75 0 11-.45-1.42c4.07-1.29 9.59-.62 13.33 1.53.35.21.45.67.24 1.02zM15.6 10.1a.748.748 0 01-.92.44c-2.92-1.09-7.39-1.12-10.07-.56a.75.75 0 01-.32-1.47c3.09-.67 7.95-.63 11.25.67.39.14.6.56.46.92z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with Navigation -->
+  <footer class="container- mx-auto- px-8 py-6 flex justify-between items-center text-sm">
+    <a href="#" class="text-muted">Last Page</a>
+    <a href="#" class="text-muted">Next Page</a>
+  </footer>
+</main>

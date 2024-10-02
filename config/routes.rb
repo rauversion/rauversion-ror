@@ -162,6 +162,8 @@ Rails.application.routes.draw do
     resource :likes
     resource :reposts
     resource :sharer, controller: "sharer"
+
+    resources :releases
     member do
       post :sort
     end

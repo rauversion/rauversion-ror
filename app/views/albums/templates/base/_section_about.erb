@@ -1,0 +1,26 @@
+<!-- About My Character Section -->
+  <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
+    <h3 class="text-3xl font-bold uppercase mb-6">
+      <%= section.title %>
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Left: Description -->
+      <div class="md:col-span-2">
+        <div class="text-subtle text-md">
+          <%= raw section.body %>
+        </div>
+      </div>
+      <!-- Right: Images -->
+      <div class="grid grid-cols-2 gap-2">
+     
+        <% if section.release_section_images.any? %>
+          <%= render "albums/templates/base/slide", items: section.release_section_images do |item| %>
+            <% if item.image.present? %>
+              <%= image_tag item.image, class: "rounded-lg w-full" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </section>

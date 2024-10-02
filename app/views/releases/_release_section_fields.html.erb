@@ -1,0 +1,52 @@
+
+<div class="nested-fields sm:col-span-6 mt-6 p-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-subtle rounded-md border-2 border-subtle"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.hidden_field :_destroy %>
+
+  <div class="sm:col-span-6">
+    <%= form.hidden_field(:id) %>
+    <%= form.text_field(:title) %>
+    <%= form.text_field(:subtitle) %>
+    <%= form.text_field(:tag) %>
+  </div>
+
+  <div class="sm:col-span-6">
+    <% # form.text_area( :body, wrapper_class: "sm:col-span-6") %>
+    <%= render "shared/simple_editor", form: form, field: :body, height: "h-20" %>
+  </div>
+
+  <div class="col-span-6">
+    <div data-controller="nested-form" class="py-6">
+      <template data-nested-form-target="template">
+        <%= form.fields_for :release_section_images, ReleaseSectionImage.new, child_index: 'NEW_RECORD' do |ff| %>
+          <%= render 'release_section_image_fields', form: ff %>
+        <% end %>
+      </template>
+
+      <div class="gap-y-6 gap-x-4 grid grid-cols-4 bg-subtle rounded-md border-2 border-subtle" 
+        data-nested-form-target="wrap">
+        <%= form.fields_for :release_section_images do |ff| %>
+          <%= render 'release_section_image_fields', form: ff %>
+        <% end %>
+      </div>
+
+      <div class="my-3" data-nested-form-target="links">
+        <%= link_to "Add Image", "#", 
+          class: "button-sm-outline", 
+          data: { 
+            action: "click->nested-form#add_association" 
+          } 
+        %>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="inline-flex justify-center items-center dark:border-2 dark:border-red-600 rounded-lg py-2 px-2 bg-black text-red-600 block text-sm"
+    data-action="click->nested-form#remove_association"
+  >
+    Delete section
+  </button>
+</div>

@@ -4,7 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3.2"
+# gem "rails", "~> 7.1.3.2"
+gem "rails", "~> 7.2.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -82,7 +83,7 @@ gem "kaminari"
 gem "store_attribute", "~> 1.0"
 gem "rqrcode", "~> 2.0"
 gem "devise"
-gem "devise_invitable", "~> 2.0"
+gem "devise_invitable"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth", "~> 2.0"
 # gem 'omniauth-zoom'
