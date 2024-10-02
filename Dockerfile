@@ -87,7 +87,7 @@ RUN NODE_OPTIONS="--max-old-space-size=2048" \
   AWS_S3_BUCKET=aaa \
   AWS_ACCESS_KEY_ID=aaaa \
   AWS_SECRET_ACCESS_KEY=aaa \
-  AWS_S3_REGION= aaa \
+  AWS_S3_REGION=aaa \
   SECRET_KEY_BASE=`bin/rails secret` \
   bundle exec rails assets:precompile --trace \
   && echo "done!"
