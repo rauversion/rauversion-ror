@@ -1,5 +1,4 @@
 class ReleasesController < ApplicationController
-
   before_action :find_playlist
 
   def index
@@ -24,8 +23,9 @@ class ReleasesController < ApplicationController
   def update
     @release = @playlist.releases.friendly.find(params[:id])
     permitted_params = params.require(:release).permit!
-    flash[:notice] = "us"
+    flash.now[:notice] = "us"
     @release.update(permitted_params)
+    render "edit"
   end
 
   def destroy
@@ -37,7 +37,11 @@ class ReleasesController < ApplicationController
   private
 
   def find_playlist
-   @playlist = Playlist.friendly.find(params[:playlist_id])
+    @playlist = Playlist
+      .where(user_id: current_user.id).or(Playlist.where(label_id: current_user.id))
+      .friendly.find(params[:playlist_id])
+
+    render status: :not_found and return if @playlist.blank?
   end
 
 end
