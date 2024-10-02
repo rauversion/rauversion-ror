@@ -45,8 +45,6 @@
       </div>
 
       <div class="mt-6 flex items-center justify-stretch sm:flex-row space-y-0 sm:space-x-4">
-
-
         <% if user_signed_in? && @playlist.user_id == current_user.id %>
           <%= link_to edit_playlist_path(@playlist), class: "button",
             "data-turbo-frame": "modal" do %>
@@ -73,34 +71,15 @@
         <% end %>
       </div>
 
-      <div data-id="24">
-        <h2 class="text-xl font-semibold mb-4" data-id="25">Tracks</h2>
-        <div class="space-y-2" data-id="26">
-          <% @playlist.ordered_tracks.each do |track| %>
-            <a
-              href="<%= player_path(id: track, t: true) %>"
-              data-track-id="<%= track.id %>"
-              data-track-detector-target="track"
-              class="flex items-center space-x-4 p-2 hover:bg-muted rounded-md transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="lucide lucide-music2 w-4 h-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="8" cy="18" r="4"></circle>
-                <path d="M12 18V2l7 4"></path>
-              </svg>
-              <div class="flex-grow" data-id="29">
-                <p class="font-medium" data-id="30"><%= track.title %></p>
-                <p class="text-sm text-muted" data-id="31"><%= track.user.username %></p>
-              </div>
-              <p class="text-sm text-muted" data-id="32">
-                <%= track.duration %>
-              </p>
-            </a>
-          <% end %>
-        </div>
-      </div>
 
+      <%= render "tracklist", playlist: @playlist %>
+      
       <% if @playlist.buy_link.present? %>
         <div class="flex justify-end items-center space-x-2">
-          <%= link_to @playlist.buy_link_title || "Buy Album", @playlist.buy_link, target: "_blank", class: "underline border rounded-sm px-3 py-3" %>
+          <%= link_to @playlist.buy_link_title || "Buy Album", @playlist.buy_link, 
+          target: "_blank",
+          class: "underline border rounded-sm px-3 py-3" 
+          %>
         </div>
       <% end %>
 

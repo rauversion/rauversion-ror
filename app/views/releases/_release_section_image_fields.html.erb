@@ -1,0 +1,23 @@
+
+<div class="nested-fields col-span-1"
+	data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.hidden_field :_destroy %>
+
+  <div class="w-1/2">
+    <%= form.hidden_field(:id) %>
+    <% if form.object.image.present?  %>
+      <%= image_tag form.object.image , width: "100" %>
+    <% end %>
+    <%= form.file_field(:image) %>
+    <%= form.text_field :caption %>
+  </div>
+
+  <button
+    type="button"
+    class="inline-flex justify-center items-center dark:border-2 dark:border-red-600 rounded-lg py-2 px-2 bg-black text-red-600 block text-sm"
+    data-action="click->nested-form#remove_association"
+  >
+    Delete photo
+  </button>
+</div>

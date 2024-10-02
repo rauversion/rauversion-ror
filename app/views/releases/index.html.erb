@@ -1,0 +1,10 @@
+<% @playlist.releases.each do |release| %>
+  <%= link_to release.title, [:edit, @playlist, release] %>
+  <%= link_to "destroy", [@playlist, release],
+    method: :delete,
+    data: {confirm: t("delete.confirm"), 
+    turbo_method: :delete, 
+    turbo_confirm: t("delete.confirm")}  
+  %>
+  <br>
+<% end %>

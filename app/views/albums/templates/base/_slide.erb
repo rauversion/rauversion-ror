@@ -1,0 +1,43 @@
+<div class="theme-zinc w-full" style="--radius: 0.5rem;">
+  <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+    <div class="relative w-full max-w-xs-" role="region" aria-roledescription="carousel"
+         data-controller="slide"
+         data-slide-auto-play-value="true"
+         data-slide-interval-value="5000">
+      <div class="overflow-hidden">
+        <div class="flex -ml-4 transition-transform duration-300 ease-in-out" style="transform: translate3d(0px, 0px, 0px);">
+          <% items.each do |item| %>
+            <div role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full pl-4"
+                 data-slide-target="slide">
+              <div class="p-1">
+                <div class="rounded-lg border border-subtle bg-card text-card-foreground shadow-sm">
+                  <div class="flex aspect-square items-center justify-center">
+                    <%= raw yield item %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-subtle border-input bg-background hover:bg-accent hover:text-accent-foreground absolute h-8 w-8 rounded-full -left-12 top-1/2 -translate-y-1/2"
+              data-slide-target="previousButton"
+              data-action="click->slide#previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left h-4 w-4">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        <span class="sr-only">Previous slide</span>
+      </button>
+      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-subtle border-input bg-background hover:bg-accent hover:text-accent-foreground absolute h-8 w-8 rounded-full -right-12 top-1/2 -translate-y-1/2"
+              data-slide-target="nextButton"
+              data-action="click->slide#next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+        <span class="sr-only">Next slide</span>
+      </button>
+    </div>
+  </div>
+</div>

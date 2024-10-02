@@ -1,0 +1,229 @@
+<style>
+    :root {
+      --record-color: <%= @release.record_color %>;
+      --sleeve-color: <%= @release.sleeve_color %>;
+      --cover-color: <%= @release.cover_color %>;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .bodyPlane {
+        /*display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;*/
+    }
+    .mockup {
+        /*width: 600px;
+        height: 600px;*/
+        position: relative;
+        overflow: hidden;
+    }
+    .sleeve {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 10px;
+        background-color: var(--sleeve-color);
+    }
+    .record {
+        width: 100%;
+        height: 100%;
+        background-color: var(--record-color);
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        border-radius: 50%;
+        overflow: hidden;
+        animation: spin 5s linear infinite;
+    }
+    .grooves {
+        width: 100%;
+        height: 100%;
+        background: repeating-radial-gradient(
+            circle at center,
+            transparent 0,
+            transparent 10px,
+            rgba(0,0,0,0.1) 10px,
+            rgba(0,0,0,0.1) 11px
+        );
+    }
+    .label {
+        width: 30%;
+        height: 30%;
+        background-color: white;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: var(--cover-color);
+        background: url('<%= @release.sleeve.variant(resize_to_limit: [300, 300])&.processed&.url %>')
+    }
+    .cover {
+        width: 100%;
+        height: 100%;
+        color: var(--cover-color);
+        position: absolute;
+        /*left: 0;*/
+        left: 130px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        color: white;
+        font-weight: bold;
+        transform: translateX(-25%);
+        transition: transform 0.3s ease;
+        background: url('<%= @release.cover.variant(resize_to_limit: [600, 600])&.processed&.url %>')
+    }
+    .mockup:hover .cover {
+        transform: translateX(-75%) rotate(5deg);
+    }
+</style>
+
+
+<main class="min-h-screen">
+  <!-- Navbar -->
+  <!--
+  <header class="w-full py-4 bg-default border-4 border-b border-subtle">
+    <div class="sm:container sm:mx-auto flex sm:flex-row-reverse justify-between items-center px-8 flex-col">
+     
+      <nav class="flex space-x-4 text-xs uppercase">
+        <a href="#" class="text-muted">Home</a>
+        <a href="#" class="text-muted">About</a>
+        <a href="#" class="text-muted">Reseñas</a>
+        <a href="#" class="text-muted">Gallería</a>
+        <a href="#" class="text-muted">News</a>
+        <a href="#" class="text-muted">Info</a>
+      </nav>
+      
+      <h1 class="sm:text-6xl text-lg font-bold uppercase tracking-wider">
+        Fuselaje Púrpura
+      </h1>
+    </div>
+  </header>
+  -->
+
+  <!-- Hero Section -->
+  <section class="bg-pink-600 container- mx-auto- px-8- mt-12- border-t-4 border-gray-300 ">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8-">
+      <!-- Left: Image -->
+      <div class="relative border-r-4 border-gray-300">
+      
+        <div class="bodyPlane p-4">
+          <div class="mockup sm:w-[600px] sm:h-[600px]">
+            <div class="sleeve"></div>
+            <div class="record">
+              <div class="grooves"></div>
+              <div class="label">
+                <%= image_tag @release.sleeve.variant(resize_to_limit: [300, 300])&.processed&.url %>
+              </div>
+            </div>
+            <div class="cover">
+              <!-- no -->
+            </div>
+          </div>
+        </div>
+    
+      </div>
+
+
+      <!-- Right: Text and Squares Layout -->
+      <div class="grid grid-rows-2 gap-4">
+        <!-- Top Right: Main Text -->
+        <div class="flex flex-col justify-center p-4">
+          <h2 class="text-4xl font-bold uppercase">
+            <%= link_to @release.title, playlist_path(@release.playlist) %>
+          </h2>
+          <p class="mt-2 text-default text-lg">
+            <%= @release.subtitle %>
+          </p>
+          <!--<div class="flex items-center space-x-4 mt-4 text-lg text-default">
+            <span class="inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v5.25m0 0l3 3m-3-3l-3 3"></path>
+              </svg>
+              Montevideo, Uruguay
+            </span>
+          </div>-->
+        </div>
+
+        <div class="p-2 overflow-auto bg-default m-4 rounded-md">
+          <%= render "playlists/tracklist", playlist: @release.playlist %>
+        </div>
+
+        <!-- Bottom Right: Additional Info Squares -->
+        <div class="grid grid-cols-2 gap-4- invisible">
+          <!--<div class="border border-t-4 border-gray-300 p-4">
+            <p class="text-sm text-default">
+              Las bases se grabaron en “El cuarto Tavella”, por Bruno Gianarelli en enero de 2018.
+              El microfoneo en ese estudio lo hicieron Santiago Montoro y Martín Tavella.
+              Roberto Rodino fue el “drum doctor”
+              El resto lo grabó Santiago Montoro en “Aceituna Brava” y Herman Klang en “El Club del Klang”, entre marzo y agosto de 2018.
+              Las voces y la guitarra del Príncipe, así como el piano de “qué” y unos cuantos teclados sobrevivientes, se grabaron en diversas casas de Herman entre 1994 y 2003.
+              Mezclaron Santiago Montoro y Herman Klang
+              Produjo Santiago Montoro.
+              Masterizó Esteban Demelas.
+            </p>
+          </div>
+          <div class="border border-t-4 border-gray-300 p-4 flex flex-col justify-center items-center">
+            <p class="text-sm text-default uppercase mb-2">
+              El arte de tapa lo hizo Macachín.
+              Agradecimientos efusivos e a Eli-U Pena, Martín Buscaglia, César Martínez, Carlos Quintana, Cina Klang y Alejandra Calvete.
+              Edición original en CD y plataformas digitales: Los Años Luz.
+              La grabación y la mezcla de este álbum fueron posibles gracias al apoyo del FONAM (Fondo Nacional de Música, Uruguay)
+            </p>
+            <button class="flex items-center space-x-1 text-sm font-semibold text-black hover:text-muted">
+              <span>Learn More</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Section 01: The Marvel Era Begins -->
+  <% @release.release_sections.each do |section| %>
+    <%= render "albums/templates/base/section_#{section.tag || 'left'}", section: section %>
+  <% end %>
+
+  <!-- Jean Grey Playlist Section -->
+  <section class="container- mx-auto- px-8 py-12 border-t border-gray-300">
+    <h3 class="text-3xl font-bold uppercase mb-6">
+      <%= @release.title %>
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Left: Playlist -->
+      <div>
+        
+      </div>
+      <!-- Right: Listen on Spotify Button -->
+      <div class="flex justify-end items-center">
+        <%= render "albums/templates/base/platform_link", platform: "Spotify", url: @release.spotify %>
+        <%= render "albums/templates/base/platform_link", platform: "Bandcamp", url: @release.bandcamp %>
+        <%= render "albums/templates/base/platform_link", platform: "Soundcloud", url: @release.soundcloud %>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with Navigation -->
+  <!--<footer class="container- mx-auto- px-8 py-6 flex justify-between items-center text-sm">
+    <a href="#" class="text-muted">Last Page</a>
+    <a href="#" class="text-muted">Next Page</a>
+  </footer>-->
+</main>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_030744) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_051346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -510,6 +510,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_030744) do
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
+  create_table "release_section_images", force: :cascade do |t|
+    t.string "caption"
+    t.integer "order"
+    t.bigint "release_section_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["release_section_id"], name: "index_release_section_images_on_release_section_id"
+  end
+
+  create_table "release_sections", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.jsonb "data"
+    t.bigint "release_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["release_id"], name: "index_release_sections_on_release_id"
+  end
+
+  create_table "releases", force: :cascade do |t|
+    t.bigint "playlist_id", null: false
+    t.string "slug"
+    t.string "title"
+    t.jsonb "config"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_id"], name: "index_releases_on_playlist_id"
+  end
+
   create_table "reposts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "track_id", null: false
@@ -704,6 +733,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_030744) do
   add_foreign_key "products_images", "products"
   add_foreign_key "purchased_items", "purchases"
   add_foreign_key "purchases", "users"
+  add_foreign_key "release_section_images", "release_sections"
+  add_foreign_key "release_sections", "releases"
+  add_foreign_key "releases", "playlists"
   add_foreign_key "reposts", "tracks"
   add_foreign_key "reposts", "users"
   add_foreign_key "schedule_schedulings", "event_schedules"
