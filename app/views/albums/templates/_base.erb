@@ -86,7 +86,7 @@
         font-weight: bold;
         transform: translateX(-25%);
         transition: transform 0.3s ease;
-        background: url('<%= @release.cover.variant(resize_to_limit: [600, 600])&.processed&.url %>')
+        background: url("<%= rails_blob_url(@release.cover.variant(resize_to_limit: [600, 600])&.processed&.url) %>")
     }
     .mockup:hover .cover {
         transform: translateX(-75%) rotate(5deg);
