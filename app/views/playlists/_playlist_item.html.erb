@@ -15,7 +15,7 @@
             <div class="space-y-2 flex flex-col">
 
               <div class="flex justify-between">
-                <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-slate-900 ">
+                <h3 class="flex items-center space-x-2 mt-3- text-xl font-extrabold tracking-tight text-default">
                   <%= link_to playlist.title, playlist_path(playlist), "data-turbo-frame": "_top" %>
 
                   <% if playlist.album? && playlist.release_date.present? %>

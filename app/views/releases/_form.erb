@@ -23,7 +23,7 @@
     </template>
 
     <div class="" data-nested-form-target="wrap">
-      <%= f.fields_for :release_sections do |ff| %>
+      <%= f.fields_for :release_sections, f.object.release_sections.order(:position) do |ff| %>
         <%= render 'release_section_fields', form: ff %>
       <% end %>
     </div>

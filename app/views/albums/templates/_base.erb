@@ -40,6 +40,10 @@
         overflow: hidden;
         animation: spin 5s linear infinite;
     }
+
+    .main-color {
+       background-color: var(--record-color);
+    }
     .grooves {
         width: 100%;
         height: 100%;
@@ -113,7 +117,7 @@
   -->
 
   <!-- Hero Section -->
-  <section class="bg-pink-600 container- mx-auto- px-8- mt-12- border-t-4 border-gray-300 ">
+  <section class="container- mx-auto- px-8- mt-12- border-t-4 border-gray-300 ">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8-">
       <!-- Left: Image -->
       <div class="relative border-r-4 border-gray-300">
@@ -123,9 +127,12 @@
             <div class="sleeve"></div>
             <div class="record">
               <div class="grooves"></div>
-              <div class="label">
-                <%= image_tag @release.sleeve.variant(resize_to_limit: [300, 300])&.processed&.url %>
-              </div>
+              
+              <% if @release.sleeve.present? %>
+                <div class="label">
+                  <%= image_tag @release.sleeve.variant(resize_to_limit: [300, 300])&.processed&.url %>
+                </div>
+              <% end %>
             </div>
             <div class="cover">
               <!-- no -->
@@ -196,8 +203,8 @@
 
 
   <!-- Section 01: The Marvel Era Begins -->
-  <% @release.release_sections.each do |section| %>
-    <%= render "albums/templates/base/section_#{section.tag || 'left'}", section: section %>
+  <% @release.release_sections.order(:position).each do |section| %>
+    <%= render "albums/templates/base/section_#{section.tag.present? ? section.tag : 'left'}", section: section %>
   <% end %>
 
   <!-- Jean Grey Playlist Section -->

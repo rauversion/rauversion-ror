@@ -25,7 +25,7 @@ class ReleasesController < ApplicationController
     permitted_params = params.require(:release).permit!
     flash.now[:notice] = "us"
     @release.update(permitted_params)
-    render "edit"
+    render "edit", status: 422
   end
 
   def destroy

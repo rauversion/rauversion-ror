@@ -9,15 +9,17 @@
     <%= form.text_field(:title) %>
     <%= form.text_field(:subtitle) %>
     <%= form.text_field(:tag) %>
+    <%= form.number_field(:position) %>
   </div>
 
   <div class="sm:col-span-6">
+
     <% # form.text_area( :body, wrapper_class: "sm:col-span-6") %>
-    <%= render "shared/simple_editor", form: form, field: :body, height: "h-20" %>
+    <%= render "shared/simple_editor", form: form, field: :body, height: "min-h-20 max-h-96" %>
   </div>
 
   <div class="col-span-6">
-    <div data-controller="nested-form" class="py-6">
+    <div data-controller="nested-form">
       <template data-nested-form-target="template">
         <%= form.fields_for :release_section_images, ReleaseSectionImage.new, child_index: 'NEW_RECORD' do |ff| %>
           <%= render 'release_section_image_fields', form: ff %>

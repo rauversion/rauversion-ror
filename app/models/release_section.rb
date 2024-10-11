@@ -7,4 +7,7 @@ class ReleaseSection < ApplicationRecord
   store_attribute :data, :subtitle, :string
   store_attribute :data, :tag, :string
   store_attribute :data, :template, :string, default: :default
+
+  acts_as_list scope: [:release_id]
+
 end
