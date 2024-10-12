@@ -1,4 +1,4 @@
-<%= form_for [@playlist, @release], html: { data: { turbo_frame: "_top" }} do |f| %>
+<%= form_for @release, url: [@playlist, @release], html: { data: { turbo_frame: "_top" }} do |f| %>
   
   <div class="py-4">
     <%= f.text_field :title %>
@@ -13,6 +13,15 @@
     <%= f.text_field :spotify %>
     <%= f.text_field :bandcamp %>
     <%= f.text_field :soundcloud %>
+
+    <%= f.label :product %>
+    <%= f.select :product, current_user.products.map{|o| [o.title, o.id]}, 
+      {
+        include_blank: 'None Specified',
+        multiple: false
+      },
+      label: "Product" 
+    %>
   </div>
 
   <div data-controller="nested-form" class="py-6">

@@ -2,6 +2,7 @@ class Release < ApplicationRecord
   include FriendlyId
   belongs_to :playlist
   has_many :release_sections, dependent: :destroy
+  belongs_to :product
   friendly_id :title, use: :slugged
 
   has_one_attached :cover
