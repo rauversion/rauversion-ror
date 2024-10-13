@@ -15,7 +15,7 @@
     <%= f.text_field :soundcloud %>
 
     <%= f.label :product %>
-    <%= f.select :product, current_user.products.map{|o| [o.title, o.id]}, 
+    <%= f.select :product_id, current_user.products.map{|o| [o.title, o.id]}, 
       {
         include_blank: 'None Specified',
         multiple: false

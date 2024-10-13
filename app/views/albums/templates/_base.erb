@@ -153,6 +153,13 @@
           <p class="mt-2 text-default text-lg">
             <%= @release.subtitle %>
           </p>
+
+          <% if @release.product %>
+            <div class="mt-4">
+              <%= render "products/horizontal_product", product: @release.product %>
+            </div>
+          <% end %>
+
           <!--<div class="flex items-center space-x-4 mt-4 text-lg text-default">
             <span class="inline-flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-1">
@@ -202,12 +209,12 @@
   </section>
 
 
-  <!-- Section 01: The Marvel Era Begins -->
+  <!-- Section 01: -->
   <% @release.release_sections.order(:position).each do |section| %>
     <%= render "albums/templates/base/section_#{section.tag.present? ? section.tag : 'left'}", section: section %>
   <% end %>
 
-  <!-- Jean Grey Playlist Section -->
+  <!-- Playlist Section -->
   <section class="container- mx-auto- px-8 py-12 border-t border-gray-300">
     <h3 class="text-3xl font-bold uppercase mb-6">
       <%= @release.title %>

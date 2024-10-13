@@ -1,0 +1,45 @@
+<div class="rounded-lg border border-subtle bg-card text-card-foreground shadow-sm w-full max-w-3xl">
+  <div class="p-0">
+    <div class="flex">
+      <div class="w-1/3 bg-default p-4">
+        <% if product.product_images.any? %>
+          <%= image_tag product.main_image.image, class: "w-full h-full object-cover" %>
+        <% else %>
+          <div class="w-full h-full bg-muted flex items-center justify-center">
+            <span class="text-muted">No image available</span>
+          </div>
+        <% end %>
+      </div>
+      <div class="w-2/3 p-6 flex flex-col justify-between">
+        <div >
+          <p class="text-sm text-muted-foreground">
+            <%= link_to product.category, user_products_path(product.user.username), 
+              class: "bg-muted text-sm inline-flex hover:cursor-pointer items-center rounded-full hover:bg-emphasis px-3 py-1 font-medium" 
+            %>
+          </p>
+          <h3 class="text-2xl font-bold text-brand mt-1">
+            <%= link_to product.title, user_product_path(product.user.username, product), class: "text-link" %>
+          </h3>
+          <p class="text-sm text-muted-foreground mt-2">
+            <%= truncate(strip_tags(product.description), length: 180) %>
+          </p>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-2xl font-bold">
+            <%= number_to_currency(product.price) %>
+            <% if product.name_your_price %>
+              <span class="text-sm font-normal text-muted">(or more)</span>
+            <% end %>
+          </span>
+          <% if product.stock_quantity.to_i > 0 %>
+            <%= button_to "Add to Cart", product_cart_add_path(product_id: product.id), method: :post, 
+              class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-1/2" 
+            %>
+          <% else %>
+            <button class="w-full bg-gray-300 text-emphasis font-bold py-2 px-4 rounded cursor-not-allowed" disabled>Sold Out</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
