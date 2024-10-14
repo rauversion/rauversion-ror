@@ -33,7 +33,7 @@
           </span>
           <% if product.stock_quantity.to_i > 0 %>
             <%= button_to "Add to Cart", product_cart_add_path(product_id: product.id), method: :post, 
-              class: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-1/2" 
+              class: "button-large-outline" 
             %>
           <% else %>
             <button class="w-full bg-gray-300 text-emphasis font-bold py-2 px-4 rounded cursor-not-allowed" disabled>Sold Out</button>
