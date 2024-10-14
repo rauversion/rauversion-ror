@@ -36,3 +36,9 @@
 /node_modules
 
 /config/credentials/development.key
+
+/public/sitemap.*
+
+public/.DS_Store
+
+.DS_Store

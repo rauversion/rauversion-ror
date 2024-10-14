@@ -25,6 +25,8 @@ gem "hotwire_combobox", github: "josefarias/hotwire_combobox", branch: "main"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails", github: "hotwired/turbo-rails", branch: "main"
 
+gem 'sitemap_generator'
+
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
