@@ -41,8 +41,8 @@ class Product < ApplicationRecord
   attribute :shipping_worldwide_price, :decimal
   attribute :quantity, :integer
 
-  enum status: { active: 'active', inactive: 'inactive', sold_out: 'sold_out' }
-  enum category: { merch: 'merch', vinyl: 'vinyl', cassette: 'cassette', cd: 'cd', other: 'other' }
+  enum :status, { active: 'active', inactive: 'inactive', sold_out: 'sold_out' }
+  enum :category, { merch: 'merch', vinyl: 'vinyl', cassette: 'cassette', cd: 'cd', other: 'other' }
 
   scope :active, -> { where(status: 'active') }
   scope :by_category, ->(category) { where(category: category) }

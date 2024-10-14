@@ -1,35 +1,48 @@
-<div>
-  <div class="group relative">
-    <%= link_to user_path(artist.username), data: {turbo_frame: "_top"} do %>
-      <div class="
-      h-56- lg:h-72-- xl:h-80-- 
-      w-full 
-      rounded-full
-       overflow-hidden
-       bg-gray-200 group-hover:opacity-75">
-        <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
-      </div>
-
-      <h3 class="my-2 text-md text-default">
-        <span class="absolute- inset-0"></span> <%= artist.full_name.present? ? artist.full_name : artist.username %>
-      </h3>
-    <% end %>
+<div class="col-span-full mb-2">
 
 
-    <% if @admin %>
-      <div class="relative justify-end space-x-2 mb-2 hidden group-hover:flex">
+  <div class="rounded-lg border border-subtle text-card-foreground shadow-sm bg-default transition-colors duration-300">
+    
+    <div class="p-4">
+      <div class="flex items-center space-x-4">
 
-        <div class="flex absolute space-x-2 top-[-66px] left-[4.5em] p-2 bg-emphasis rounded-lg">
-          <%= link_to impersonate_account_connections_path(username: artist.username), data: {turbo_frame: "_top"} do %>
-            <span class="absolute- inset-0"></span> Impersonate
-          <% end %>
-
-          <%= link_to account_connection_path(artist.id), data: {turbo_method: :destroy, turbo_confirm: "sure?"} do %>
-            <span class="absolute- inset-0"></span> Disconnect
-          <% end %>
+        <div class="
+          h-16 w-16
+          rounded-full
+          overflow-hidden
+          bg-muted group-hover:opacity-75">
+            <%= link_to user_path(artist.username), data: {turbo_frame: "_top"} do %>
+              <%= image_tag(artist.avatar_url, class: "h-full w-full object-cover object-center") %>
+            <% end %>
         </div>
+        
+        <div class="flex-grow">
+          <h2 class="text-lg font-semibold text-white">
+            <%= link_to (artist.full_name.present? ? artist.full_name : artist.username), user_path(artist.username), data: {turbo_frame: "_top"} %>
+          </h2>
+          <!--<p class="text-sm text-gray-400">Indie Pop</p>-->
+        </div>
+        
+        
+        <% if @admin %>
+      
+          <div class="relative justify-end space-x-2 mb-2 group-hover:flex">
+
+            <div class="flex space-x-2 top-[-66px] left-[4.5em] p-2 bg-emphasis rounded-lg">
+              <%= link_to impersonate_account_connections_path(username: artist.username), data: {turbo_frame: "_top"} do %>
+                <span class="inset-0"></span> Impersonate
+              <% end %>
+
+              <%= link_to account_connection_path(artist.id), data: {turbo_method: :destroy, turbo_confirm: "sure?"} do %>
+                <span class="inset-0"></span> Disconnect
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
       </div>
-    <% end %>
+    </div>
+   
   </div>
 
 </div>

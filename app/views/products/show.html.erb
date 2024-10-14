@@ -24,9 +24,9 @@
         </li>
 
         <li class="text-sm">
-          <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-muted">
-            <%= @product.title %>
-          </a>
+          <%= link_to @product.title, user_product_path(@product.user.username, @product), 
+            class: "font-medium text-gray-500 hover:text-muted" 
+          %>
         </li>
       </ol>
     </nav>

@@ -18,7 +18,7 @@ class ProductPurchase < ApplicationRecord
     total_amount + shipping_cost
   end
 
-  enum status: {
+  enum :status, {
     pending: 'pending',
     completed: 'completed',
     order_placed: 'order_placed',
@@ -26,7 +26,7 @@ class ProductPurchase < ApplicationRecord
     failed: 'failed'
   }
 
-  enum shipping_status: {
+  enum :shipping_status, {
     processing: 'processing',
     shipped: 'shipped',
     delivered: 'delivered'

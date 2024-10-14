@@ -8,7 +8,7 @@ class Coupon < ApplicationRecord
   validates :discount_amount, presence: true, numericality: { greater_than: 0 }
   validates :expires_at, presence: true
 
-  enum discount_type: { percentage: 'percentage', fixed_amount: 'fixed_amount' }
+  enum :discount_type, { percentage: 'percentage', fixed_amount: 'fixed_amount' }
 
   scope :active, -> { where('expires_at > ?', Time.current) }
 
