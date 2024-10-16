@@ -4,7 +4,9 @@ class UsersController < ApplicationController
 
   def index
     @title = "Tracks"
-    @artists = User.where(role: "artist").where.not(username: nil)
+    @artists = User.where(role: "artist")
+      .where.not(username: nil)
+      .order("id desc")
     q = params[:q]
     if q.present?
       @artists = @artists.where("username ILIKE :q OR email ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: "%#{q}%")

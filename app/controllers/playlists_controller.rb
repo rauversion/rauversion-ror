@@ -87,7 +87,9 @@ class PlaylistsController < ApplicationController
     position = params.dig("section", "position")
 
     collection = @playlist.track_playlists.find(id)
-    collection.insert_at(position)
+    new_position = position-1
+    new_position = new_position <= 0 ? 1 : new_position
+    collection.insert_at(new_position)
 
     flash.now[:notice] = "successfully updated"
 

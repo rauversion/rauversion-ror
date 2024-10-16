@@ -44,17 +44,7 @@
 
                     <%= render "shared/upload_field", form: form, attribute: :cover %>
 
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                      <%= form.label :privacy%>
-                      <div class="flex-col space-y-3">
-                        <div class="flex space-x-2 items-center">
-                          <%= form.radio_button :private, false, label: "Public" %> 
-                        </div>
-                        <div class="flex space-x-2 items-center">
-                          <%= form.radio_button :private, true, label: "Private" %>
-                        </div>
-                      </div>
-                    </div>
+                    <%= render "privacy_fields", form: form %>
                   </div>
                 </div>
               </div>

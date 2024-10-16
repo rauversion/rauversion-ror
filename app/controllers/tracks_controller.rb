@@ -13,6 +13,7 @@ class TracksController < ApplicationController
     # @track.step = "upload"
     @track_form = TrackBulkCreator.new
     @track_form.step = "upload"
+    @track_form.private = true
   end
 
   def create
@@ -23,9 +24,10 @@ class TracksController < ApplicationController
       audios = track_bulk_params["audio"].select { |o| o.is_a?(String) }.reject(&:empty?)
       # @track = current_user.tracks.new(track_params)
       @track_form.user = current_user
-      @track_form.private = track_bulk_params[:private]
+
       @track_form.tracks_attributes = audios.map { |o| 
         {
+          private: ActiveRecord::Type::Boolean.new.cast(track_bulk_params[:private]),
           audio: o
         } 
       }

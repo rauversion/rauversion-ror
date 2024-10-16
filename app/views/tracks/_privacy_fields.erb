@@ -1,0 +1,11 @@
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
+  <%= form.label :privacy%>
+  <div class="flex-col space-y-3">
+    <div class="flex space-x-2 items-center">
+      <%= form.radio_button :private, true, label: "Private" %>
+    </div>
+    <div class="flex space-x-2 items-center">
+      <%= form.radio_button :private, false, label: "Public" %> 
+    </div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 TODO:
 
+  + Current.label_user not set on impersonate new track
+  
   + links in article internal to playlists
   + player do disable play at page load!
   + 

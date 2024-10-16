@@ -14,7 +14,7 @@ class TrackBulkCreator
 
   # Initialize the tracks_attributes with an empty array
   def initialize(attributes = {})
-    self.private = attributes[:private]
+    self.private = ActiveRecord::Type::Boolean.new.cast(attributes[:private])
     self.tracks_attributes ||= []
   end
 
@@ -42,7 +42,7 @@ class TrackBulkCreator
       t = Track.new(attributes)
       t.title = File.basename(blob.filename.to_s, File.extname(blob.filename.to_s)) unless t.title.present?
       t.user = user
-      t.private = private
+      t.private = ActiveRecord::Type::Boolean.new.cast(attributes[:private])
       t
     end
   end

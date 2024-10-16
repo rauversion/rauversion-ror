@@ -9,80 +9,70 @@
         <p class="mt-1 max-w-2xl text-sm text-gray-500">Provide FLAC, WAV, ALAC, or AIFF for highest audio quality.</p>
       </div>
         
-        <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-          <div class="flex-col">
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <%= form_with model: @track_form, url: tracks_path, class: 'direct-upload' do |form| %>
+      <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
+        <div class="flex-col">
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form_with model: @track_form, url: tracks_path, class: 'direct-upload' do |form| %>
 
-                <div 
-                  data-controller="audio-upload" 
-                  data-action="dragover->audio-upload#preventDefaults drop->audio-upload#handleDrop"
-                  class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md">
+              <div 
+                data-controller="audio-upload" 
+                data-action="dragover->audio-upload#preventDefaults drop->audio-upload#handleDrop"
+                class="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md">
 
-                    <%= form.hidden_field :step %>
-                    
-                  
-                    <div class="space-y-1 text-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-                      </svg>
-                      <div class="flex flex-col space-y-2 text-sm text-gray-600 py-3">
-                        <div class="flex flex-col justify-center">
+                <%= form.hidden_field :step %>
+                
+              
+                <div class="space-y-1 text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                  </svg>
+                  <div class="flex flex-col space-y-2 text-sm text-gray-600 py-3">
+                    <div class="flex flex-col justify-center">
 
-                          <template data-audio-upload-target="template">
-                            <div class="p-1 text-white">
-                              <div>FILE</div>
-                              <div id="NEW_RECORD" 
-                                class="bg-green-500 h-4 mt-3 rounded-md"
-                                style="width: 0%;"></div>
-                            </div>
-                          </template>
-
-                          <%= form.label :audio, "Upload a Audio file", class: "relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500" %>
-
-                          <p class="pl-1">or drag and drop</p>
-                          <%= form.file_field :audio, direct_upload: true,
-                            multiple: true,
-                            accept: 'audio/*',
-                            class: "hidden",
-                            data: { "audio-upload-target": "input",
-                                    action:        "change->audio-upload#uploadFile",
-                                    "direct-upload-url": audio_direct_uploads_path
-                                  } %>
-                          <div data-audio-upload-target="progress"></div>
-                          <div data-audio-upload-target="progressContainer" 
-                            class="flex flex-col space-y-2">
-                          </div>
-                        
-                          <%= form.submit("next" , "data-audio-upload-target": "submit", class: "hidden") %>
+                      <template data-audio-upload-target="template">
+                        <div class="p-1 text-white">
+                          <div>FILE</div>
+                          <div id="NEW_RECORD" 
+                            class="bg-green-500 h-4 mt-3 rounded-md"
+                            style="width: 0%;"></div>
                         </div>
-                      </div>
+                      </template>
 
-                      <div>
+                      <%= form.label :audio, "Upload a Audio file", class: "relative cursor-pointer rounded-md font-medium text-brand-600 hover:text-brand-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-brand-500" %>
+
+                      <p class="pl-1">or drag and drop</p>
+                      <%= form.file_field :audio, direct_upload: true,
+                        multiple: true,
+                        accept: 'audio/*',
+                        class: "hidden",
+                        data: { "audio-upload-target": "input",
+                                action:        "change->audio-upload#uploadFile",
+                                "direct-upload-url": audio_direct_uploads_path
+                              } %>
+                      <div data-audio-upload-target="progress"></div>
+                      <div data-audio-upload-target="progressContainer" 
+                        class="flex flex-col space-y-2">
                       </div>
-                      <p class="text-xs text-gray-500"> Audio, up to 200MB </p>
+                    
+                      <%= form.submit("next" , "data-audio-upload-target": "submit", class: "hidden") %>
                     </div>
+                  </div>
 
+                  <div>
+                  </div>
+                  <p class="text-xs text-gray-500"> Audio, up to 200MB </p>
                 </div>
 
-                <div class="my-5">
-                  <% #= form.check_box :make_playlist , label: "Make a playlist when multiple files are selected" %>
+              </div>
 
-                  <%= form.label :privacy%>
+              <% #= form.check_box :make_playlist , label: "Make a playlist when multiple files are selected" %>
 
-                  <div class="flex-col space-y-3">
-                    <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, true, label: t("tracks.private_label"), hint: t("tracks.private_hint") %> 
-                    </div>
-                    <div class="flex space-x-2 items-center">
-                      <%= form.radio_button :private, false, label: t("tracks.public_label"), hint: t("tracks.public_hint") %>
-                    </div>
-                </div>
+              <%= render "privacy_fields", form: form %>
 
-              <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
+      </div>
      
     </div>
   </div>
