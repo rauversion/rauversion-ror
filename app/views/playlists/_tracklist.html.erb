@@ -1,6 +1,6 @@
-<div data-id="24">
+<div>
   <h2 class="text-xl font-semibold mb-4" data-id="25">Tracks</h2>
-  <div class="space-y-2" data-id="26">
+  <div class="<%= local_assigns[:class] || "space-y-2" %>">
     <% playlist.ordered_tracks.each do |track| %>
       <a
         href="<%= player_path(id: track, t: true) %>"
