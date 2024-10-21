@@ -6,24 +6,13 @@
       <div class="text-lg text-subtle">
         <%= raw section.body %>
       </div>
+      
     </div>
     <!-- Right: Image and Numbers -->
     <div class="flex justify-end flex-col">
       <p class="sm:text-9xl text-3xl font-bold text-subtle text-right">
         <%= section.subtitle %>
       </p>
-    
-      <div class="grid- grid-cols-2- gap-2-">
-
-        <% if section.release_section_images.any? %>
-          <%= render "albums/templates/base/slide", items: section.release_section_images do |item| %>
-            <% if item.image.present? %>
-              <%= image_tag item.image, class: "rounded-lg w-full" %>
-            <% end %>
-          <% end %>
-        <% end %>
-
-      </div>
     </div>
   </div>
 </section>

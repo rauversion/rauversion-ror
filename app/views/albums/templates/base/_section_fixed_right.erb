@@ -1,0 +1,28 @@
+
+<div class="w-full relative" data-id="2">
+  <div class="w-full aspect-[4/3] md:aspect-[16/9] relative" data-id="3">
+    <% section.release_section_images.each do |item| %>
+      <% if item.image.present? %>
+        <%= image_tag item.image, class: "grayscale hover:grayscale-0", 
+          width: "1600", 
+          height: "900",
+          style: "aspect-ratio: 1600 / 900; object-fit: cover;" 
+        %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="sm:absolute top-0 left-0 bottom-0 w-full md:w-1/2 lg:w-2/5 flex items-center justify-center">
+    <div class="bg-default opacity-75 p-6 md:p-8 w-full h-full flex flex-col justify-center">
+      <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+        <%= section.subtitle %>
+      </h1>
+
+      <p class="text-xl font-bold uppercase tracking-tight text-right">
+        <%= section.title %>
+      </p>
+      <p class="mt-4 text-sm text-default">
+        <%= raw section.body %>
+      </p>
+    </div>
+  </div>
+</div>

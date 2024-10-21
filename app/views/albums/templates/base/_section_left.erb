@@ -1,12 +1,19 @@
 <section class="container- mx-auto- px-8 py-12 border-t-4 border-gray-300">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Right: Additional Information -->
-    <div class="flex flex-col space-y-4">
+    <div class="flex flex-col sm:flex-row space-y-4 items-center space-x-4">
+     
+      <% section.release_section_images.each do |item| %>
+        <% if item.image.present? %>
+          <%= image_tag item.image, class: "rounded-lg w-48" %>
+        <% end %>
+      <% end %>
+    
       <div class="text-lg uppercase- tracking-widest- text-subtle"> 
         <%= raw section.body %>
       </div>
       <!--<p class="text-xs uppercase tracking-widest text-subtle">
-        Lia Tessier as Jean Grey
+        
       </p>-->
     </div>
     <!-- Left: Image and Number -->
@@ -16,9 +23,11 @@
           <%= section.subtitle %>
         </p>
       </div>
+
       <p class="text-xl font-bold uppercase tracking-tight text-right">
         <%= section.title %>
       </p>
+    
     </div>
   
   </div>
