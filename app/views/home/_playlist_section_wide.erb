@@ -15,11 +15,13 @@
             <div class="container mx-auto p-4-">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 
-                <% Playlist.published.where(playlist_type: playlist_type)
+                <% Playlist.published
+                  .includes(:releases)
+                  .where(playlist_type: playlist_type)
                   .order("editor_choice_position asc, release_date, id desc").limit(limit).each_with_index do |playlist, index| %>
                  
                   <div class=" <%= index == 0 ? "col-span-1 sm:col-span-2 sm:row-span-2 bg-brand-600" : "bg-default" %> ">
-                    <%= link_to playlist_path(playlist) do %>
+                    <%= link_to playlist.releases.any? ? album_path(playlist.releases.first) : playlist_path(playlist) do %>
                       <div class="relative">
                         <div class="relative w-full h-80 bg-default overflow-hidden sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
                           <%= image_tag(playlist.cover_url(:large),
