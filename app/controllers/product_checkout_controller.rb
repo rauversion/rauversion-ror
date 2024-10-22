@@ -100,7 +100,7 @@ class ProductCheckoutController < ApplicationController
             shipping = product.product_shippings.find_by(country: stripe_session.shipping_details.address.country) ||
                       product.product_shippings.find_by(country: 'Rest of World')
             
-            additional_shipping_cost = shipping ? (item.quantity - 1) * shipping.additional_cost : 0
+            additional_shipping_cost = shipping ? (item.quantity - 1) * shipping.additional_cost.to_i : 0
           end
           {
             product: product,
