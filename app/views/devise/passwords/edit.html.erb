@@ -20,6 +20,8 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
 
+      <%= f.hidden_field :reset_password_token %>
+
       <div class="actions">
         <%= f.submit "Change my password" %>
       </div>
