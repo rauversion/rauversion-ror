@@ -214,7 +214,7 @@
 
     <!-- Audio Element -->
     <audio data-audio-player-target="audio"
-     data-ap="true"
+     <%= params[:t] ? "data-ap=true" : "" %>
       src="<%= track.mp3_audio.url %>" 
       data-track-id="<%= track.slug %>" 
       id="audioElement">
