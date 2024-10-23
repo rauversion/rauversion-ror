@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "player-frame" do %>
+
   <div id="main-player"
     data-controller="audio-player"
     phx-hook="PlayerInitiator"
@@ -214,7 +214,7 @@
 
     <!-- Audio Element -->
     <audio data-audio-player-target="audio"
-      <%= params[:t] ? "data-ap=true" : "" %>
+     data-ap="true"
       src="<%= track.mp3_audio.url %>" 
       data-track-id="<%= track.slug %>" 
       id="audioElement">
@@ -222,4 +222,4 @@
   <div>
 
 </div>
-<% end %>
+
