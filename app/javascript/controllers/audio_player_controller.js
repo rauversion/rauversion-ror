@@ -197,44 +197,65 @@ export default class extends Controller {
     this.sidebarTarget.classList.toggle("hidden")
   }
 
-  async nextSong() {
-    this.hasHalfwayEventFired = false;
-    const c = this.getNextTrackIndex();
-    let aa = document.querySelector(`#sidebar-track-${c}`);
-
-    if (!aa) {
-      const otherController = this.application.getControllerForElementAndIdentifier(
-        document.getElementById("track-detector"),
-        "track-detector"
-      );
-      otherController.detect();
-    }
-
-    if (aa) {
-      const response = await get(aa.dataset.url, {
-        responseKind: "turbo-stream",
-      });
-      console.log("RESPONSE", response);
-      console.log("Playing next song", c, aa);
-    } else {
-      console.log("No more songs to play", c, aa);
+  stopAudio() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.currentTime = 0; // Reset to the beginning
     }
   }
 
-  async prevSong() {
-    this.hasHalfwayEventFired = false;
-    const c = this.getPreviousTrackIndex();
-    let aa = document.querySelector(`#sidebar-track-${c}`);
-
-    if (aa) {
-      const response = await get(aa.dataset.url, {
-        responseKind: "turbo-stream",
-      });
-      console.log("RESPONSE", response);
-      console.log("Playing previous song", c, aa);
-    } else {
-      console.log("No more songs to play", c, aa);
+  debounce(func, delay) {
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
     }
+    this.debounceTimeout = setTimeout(func, delay);
+  }
+
+  async nextSong() {
+    this.debounce(async () => {
+      this.stopAudio()
+      this.hasHalfwayEventFired = false;
+      const c = this.getNextTrackIndex();
+      let aa = document.querySelector(`#sidebar-track-${c}`);
+
+      if (!aa) {
+        const otherController = this.application.getControllerForElementAndIdentifier(
+          document.getElementById("track-detector"),
+          "track-detector"
+        );
+        otherController.detect();
+      }
+
+      if (aa) {
+        const response = await get(aa.dataset.url, {
+          responseKind: "turbo-stream",
+        });
+        console.log("RESPONSE", response);
+        console.log("Playing next song", c, aa);
+      } else {
+        console.log("No more songs to play", c, aa);
+      }
+
+    }, 200)
+  }
+
+  async prevSong() {
+    this.debounce(async () => {
+      this.stopAudio()
+      this.hasHalfwayEventFired = false;
+      const c = this.getPreviousTrackIndex();
+      let aa = document.querySelector(`#sidebar-track-${c}`);
+
+      if (aa) {
+        const response = await get(aa.dataset.url, {
+          responseKind: "turbo-stream",
+        });
+        console.log("RESPONSE", response);
+        console.log("Playing previous song", c, aa);
+      } else {
+        console.log("No more songs to play", c, aa);
+      }
+    }, 200)
   }
 
   getNextTrackIndex() {

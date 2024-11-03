@@ -232,7 +232,6 @@ export default class extends Controller {
     this.hasHalfwayEventFired = false;
     const c = this.getNextTrackIndex()
     let aa = document.querySelector(`#sidebar-track-${ c }`)
-
     if (!aa) {
      
       const otherController = this.application.getControllerForElementAndIdentifier(
