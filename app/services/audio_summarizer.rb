@@ -9,6 +9,7 @@ class AudioSummarizer
 
   def initialize(file_path)
     @file_path = file_path
+    binding.pry
     @client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"], log_errors: true)
   end
 
