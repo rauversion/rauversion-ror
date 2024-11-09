@@ -120,7 +120,7 @@
   <section class="container- mx-auto- px-8- mt-12- border-t-4 border-gray-300 ">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8-">
       <!-- Left: Image -->
-      <div class="relative border-r-4 border-gray-300">
+      <!-- <div class="relative border-r-4 border-gray-300">
       
         <div class="bodyPlane p-4">
           <div class="mockup sm:w-[600px] sm:h-[600px]">
@@ -135,12 +135,19 @@
               <% end %>
             </div>
             <div class="cover">
-              <!-- no -->
+              
             </div>
           </div>
         </div>
     
       </div>
+      -->
+
+      <% @release.release_sections.filter{|o| o.tag == "header" }.each do |section| %>
+        <%= render "albums/templates/base/slide", items: section.release_section_images do |section_image| %>
+          <%= image_tag section_image.image %>
+        <% end %>
+      <% end %>
 
 
       <!-- Right: Text and Squares Layout -->
@@ -211,7 +218,7 @@
 
 
   <!-- Section 01: -->
-  <% @release.release_sections.order(:position).each do |section| %>
+  <% @release.release_sections.order(:position).filter{|o| o.tag != "header" }.each do |section| %>
     <%= render "albums/templates/base/section_#{section.tag.present? ? section.tag : 'left'}", section: section %>
   <% end %>
 
