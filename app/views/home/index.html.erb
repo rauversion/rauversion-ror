@@ -70,9 +70,11 @@
         <%= image_tag(post.cover_url(:large), class: "absolute inset-0 w-full h-full object-cover opacity-50 hover:opacity-100 rounded-lg transition ease-in-out delay-150") %>
         <div class="relative- z-10 flex flex-col md:flex-row items-center md:items-start absolute bottom-0">
           <%= link_to article_path(post) do %>
-            <div class="w-full md:w-2/3 p-4">
-              <h1 class="text-4xl font-bold mb-4 bg-default p-1 text-default"><%= post.title %></h1>
-              <p class="text-lg mb-4">
+            <div class="w-full md:w-2/3 p-4 text-4xl space-y-2 font-bold mb-4 bg-default text-default m-2">
+              <h1 class="">
+                <%= post.title %>
+              </h1>
+              <p class="text-lg mb-4 font-thin">
                 <%= t("articles.by") %> <%= link_to post.user.username, user_path(post.user.username), class: "link" %> · <%= l post.created_at, format: :long_with_day %>.
               </p>
               <!--<a href="#" class="bg-white text-purple-600 font-semibold py-2 px-4 rounded-lg">
@@ -99,11 +101,11 @@
             class: "w-full h-48 object-cover grayscale filter"
           ) %>
     
-          <div class="p-4 absolute bottom-0">
-            <h2 class="text-xl font-bold mb-2 bg-default p-1">
+          <div class="p-4 absolute bottom-0 bg-default m-2">
+            <h2 class="text-xl font-bold mb-1 p-1">
              <%= link_to post.title, article_path(post) %>
             </h2>
-            <p class="text-muted font-bold">
+            <p class="text-muted font-thin text-sm">
               <%= t("articles.by") %> <%= link_to post.user.username, user_path(post.user.username), class: "link" %> · <%= l post.created_at, format: :long_with_day %>.
             </p>
           </div>
