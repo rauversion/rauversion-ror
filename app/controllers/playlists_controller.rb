@@ -7,7 +7,10 @@ class PlaylistsController < ApplicationController
   def show
     if current_user
       begin
-        @playlist = current_user.playlists.friendly.find(params[:id])
+        @playlist = Playlist.where(user_id: current_user.id)
+        .or(Playlist.where(label_id: current_user.id))
+        .where(playlist_type: ["album", "ep"])
+        .friendly.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         nil
       end
