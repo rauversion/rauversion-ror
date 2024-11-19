@@ -31,10 +31,16 @@
             } 
           %>
 
+
           <% if ['vinyl', 'cassette'].include?(product.category) %>
-            <%= form.select :playlist_id, current_user.playlists.where(playlist_type: ['album', 'ep']).map{|o| 
-              [o.title, o.id]
-            }, label: "Album" %>
+            <%= form.select :playlist_id, 
+              Playlist.where(user_id: current_user.id)
+              .or(Playlist.where(label_id: current_user.id))
+              .where(playlist_type: ["album", "ep"])
+              .map{|o| 
+                [o.title, o.id]
+              }, label: "Album" 
+              %>
           <% end %>
         </div>
 

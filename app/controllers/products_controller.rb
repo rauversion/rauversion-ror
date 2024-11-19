@@ -70,7 +70,6 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to user_product_path(current_user.username, @product), notice: 'Product was successfully updated.'
     else
-      Rails.logger.error("AAA #{@product.errors.full_messages}")
       # render :edit, status: 422
       render "update"
     end
