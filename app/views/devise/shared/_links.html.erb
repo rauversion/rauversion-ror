@@ -14,14 +14,15 @@
   <div class="mt-6 grid grid-cols-5 gap-3">
 
     <%- if devise_mapping.omniauthable? %>
-      <%- resource_class.omniauth_providers.each do |provider| %>
+      <%- (resource_class.omniauth_providers && [:google_oauth2, :discord]).each do |provider| %>
 
 
-        <div>
+        <div class="col-span-5">
           <%= button_to omniauth_authorize_path(resource_name, provider), data: { turbo: false },
             class: "w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-800 rounded-md shadow-sm bg-default text-sm font-medium border-subtle hover:bg-gray-50 dark:hover:bg-gray-900" do %>
             <span class="sr-only"><%= gettext("Sign in with #{OmniAuth::Utils.camelize(provider)}") %></span>
             <%= raw icon_for(provider) %>
+            <span class="ml-2">Sign in with <%= provider.to_s.gsub("_oauth2", "").humanize %></span>
           <% end %>
         </div>
 

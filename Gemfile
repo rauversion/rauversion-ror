@@ -87,6 +87,8 @@ gem "rqrcode", "~> 2.0"
 gem "devise"
 gem "devise_invitable"
 gem "omniauth-rails_csrf_protection"
+gem "nondisposable"
+gem "invisible_captcha"
 gem "omniauth", "~> 2.0"
 # gem 'omniauth-zoom'
 # gem "omniauth-github"

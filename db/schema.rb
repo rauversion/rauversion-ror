@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_12_161732) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_30_003102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -245,6 +245,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_12_161732) do
     t.datetime "created_at"
     t.index ["mentionable_id", "mentionable_type"], name: "fk_mentionables"
     t.index ["mentioner_id", "mentioner_type"], name: "fk_mentions"
+  end
+
+  create_table "nondisposable_disposable_domains", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_nondisposable_disposable_domains_on_name", unique: true
   end
 
   create_table "oauth_credentials", force: :cascade do |t|

@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   enum :role, { user: 'user', admin: 'admin', artist: 'artist' }
   
+  validates :email, nondisposable: true
+  
   devise :invitable, :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable, :confirmable,
     :invitable, :omniauthable, :trackable, :lockable

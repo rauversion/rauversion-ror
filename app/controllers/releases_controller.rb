@@ -38,7 +38,8 @@ class ReleasesController < ApplicationController
 
   def find_playlist
     @playlist = Playlist
-      .where(user_id: current_user.id).or(Playlist.where(label_id: current_user.id))
+      .where(user_id: current_user.id)
+      .or(Playlist.where(label_id: current_user.id))
       .friendly.find(params[:playlist_id])
 
     render status: :not_found and return if @playlist.blank?
