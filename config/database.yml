@@ -21,22 +21,6 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
-production:
-  primary: &primary_production
-    <<: *default
-    database: <%= ENV.fetch('POSTGRES_DATABASE', 'rauversion_ror_development_as_local') %>
-    username: <%= ENV.fetch('POSTGRES_USERNAME', 'postgres') %>
-    password: <%= ENV.fetch('POSTGRES_PASSWORD', '') %>
-  queue:
-    <<: *primary_production
-    database: <%= ENV.fetch('POSTGRES_DATABASE_QUEUE', 'rauversion_ror_production_queue') %>
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: <%= ENV.fetch('POSTGRES_DATABASE_CABLE', 'rauversion_ror_production_cable') %>
-    migrations_paths: db/cable_migrate
-
 development:
   primary: &primary_development
     <<: *default
@@ -53,7 +37,7 @@ development:
       ### If you change this setting you will need to
       ###   - restart sidekiq if you change this setting
       ###   - rebake all to posts using: `RAILS_ENV=production bundle exec rake posts:rebake`
-      - 'localhost'
+      - "localhost"
   queue:
     <<: *primary_development
     database: <%= ENV.fetch('POSTGRES_DATABASE_QUEUE', 'rauversion_ror_development_queue') %>
@@ -80,8 +64,7 @@ test:
     ### If you change this setting you will need to
     ###   - restart sidekiq if you change this setting
     ###   - rebake all to posts using: `RAILS_ENV=production bundle exec rake posts:rebake`
-    - 'localhost'
-
+    - "localhost"
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -130,8 +113,21 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+#production:
+#  <<: *default
+#  database: rauversion_ror_production
+#  username: rauversion_ror
+#  password: <%= ENV["RAUVERSION_ROR_DATABASE_PASSWORD"] %>
+
 production:
-  <<: *default
-  database: rauversion_ror_production
-  username: rauversion_ror
-  password: <%= ENV["RAUVERSION_ROR_DATABASE_PASSWORD"] %>
+  primary: &primary_production
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+  queue:
+    <<: *primary_production
+    url: <%= ENV['DATABASE_QUEUE_URL'] %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    url: <%= ENV['DATABASE_CABLE_URL'] %>
+    migrations_paths: db/cable_migrate
