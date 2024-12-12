@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     @articles = Post.published.order("id desc")
       .with_attached_cover
       .includes(user: {avatar_attachment: :blob})
-      .page(1).per(7)
+      .page(params[:page]).per(12)
 
     @latest_articles = Post.published.order("id desc")
       .with_attached_cover
