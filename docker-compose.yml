@@ -79,9 +79,9 @@ services:
       - '3000:3000'
       - '3001:3001'
 
-  sidekiq:
-    <<: *backend
-    command: bundle exec sidekiq -C config/sidekiq.yml
+  #sidekiq:
+  #  <<: *backend
+  #  command: bundle exec sidekiq -C config/sidekiq.yml
 
   postgres:
     image: postgres:14-alpine

@@ -1,5 +1,4 @@
 require_relative "../lib/constraints/username_route_contrainer"
-require "sidekiq/web"
 
 Rails.application.routes.draw do
   # devise_for :users
@@ -179,9 +178,7 @@ Rails.application.routes.draw do
 
   resources :track_playlists
 
-  authenticate :user, lambda { |u| u.is_admin? } do
-    mount Sidekiq::Web => "/sidekiq"
-  end
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 
   get "/onbehalf/parent/:username", to: "label_auth#back"
   get "/onbehalf/:username", to: "label_auth#add"

@@ -16,6 +16,9 @@ module RauversionRor
     config.hosts << "chaskiq.sa.ngrok.io"
     config.hosts << ENV["HOST"]
 
+    config.mission_control.jobs.http_basic_auth_enabled = false
+    config.mission_control.jobs.base_controller_class = "Backstage::JobsController"
+
     config.hosts << "www.example.com" if Rails.env.test?
 
     config.active_storage.track_variants = true
