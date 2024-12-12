@@ -37,8 +37,6 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-require "sidekiq/testing"
-
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
 
 RSpec.configure do |config|

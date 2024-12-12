@@ -111,7 +111,7 @@ gem "qdrant-ruby", "~> 0.9.2"
 
 gem "sentry-ruby"
 gem "sentry-rails"
-gem "sentry-sidekiq"
+# gem "sentry-sidekiq"
 
 group :development, :test do
   gem "pry"
@@ -166,9 +166,13 @@ gem "http", "~> 5.1"
 
 gem "ruby-oembed", github: "basecamp/ruby-oembed", branch: "fix-spotify-redirects" #"~> 0.16.1"
 
-gem 'sidekiq', '~> 7.2.2'
-gem "sidekiq-grouping"
-gem "sidekiq-limit_fetch"
+# gem 'sidekiq', '~> 7.2.2'
+# gem "sidekiq-grouping"
+# gem "sidekiq-limit_fetch"
+
+gem "solid_queue"
+gem "solid_cable"
+gem "mission_control-jobs"
 
 gem "rubyzip", "~> 2.3"
 
